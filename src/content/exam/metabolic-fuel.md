@@ -11,7 +11,7 @@ The human body is essentially a hybrid engine. It has two main fuel tanks: carbo
 To understand clinical nutrition, we have to look past simple calories. The central mechanism determining what fuel your body burns is an endocrine hormone called **Insulin**.
 
 <div class="callout">
-  <p>"Insulin is the master dial. It dictates whether you are actively burning fat, or actively burning sugar. You cannot do both at full power."</p>
+<p>"Insulin is the master dial. It dictates whether you are actively burning fat, or actively burning sugar. You cannot do both at full power."</p>
 </div>
 
 ## 1. *The Master Switch:* How Insulin Works
@@ -24,30 +24,30 @@ Conversely, when insulin levels are **LOW**, your body burns FAT. With no sugar 
 Not all calories trigger the same hormonal response. Understanding the relative spike created by macronutrients is the most important component of dietary program design.
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0;">
-  <div style="background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
-    <h4 style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">Carbohydrates 🌾</h4>
-    <ul style="margin:0; padding-left:16px;">
-      <li><strong>Spike Rate:</strong> Massive (~10x baseline)</li>
-      <li><strong>Examples:</strong> Bread, rice, cereal, sugar.</li>
-      <li><strong>Effect:</strong> Insulin shoots up aggressively and stays elevated for up to 4 hours. Fat burning is halted.</li>
-    </ul>
-  </div>
-  <div style="background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
-    <h4 style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">Protein 🥩</h4>
-    <ul style="margin:0; padding-left:16px;">
-      <li><strong>Spike Rate:</strong> Modest (~3x baseline)</li>
-      <li><strong>Examples:</strong> Meat, eggs, fish.</li>
-      <li><strong>Effect:</strong> Moderate response. Protein acts primarily as a builder and repairer, not a primary fuel.</li>
-    </ul>
-  </div>
-  <div style="background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 4px; grid-column: 1 / -1;">
-    <h4 style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">Dietary Fat 🥑</h4>
-    <ul style="margin:0; padding-left:16px;">
-      <li><strong>Spike Rate:</strong> Negligible (Near zero)</li>
-      <li><strong>Examples:</strong> Olive oil, butter, avocado, nuts.</li>
-      <li><strong>Effect:</strong> Consuming fat creates almost no insulin response at all. You remain predominantly in fat-burning mode.</li>
-    </ul>
-  </div>
+<div style="background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
+<h4 style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">Carbohydrates 🌾</h4>
+<ul style="margin:0; padding-left:16px;">
+<li><strong>Spike Rate:</strong> Massive (~10x baseline)</li>
+<li><strong>Examples:</strong> Bread, rice, cereal, sugar.</li>
+<li><strong>Effect:</strong> Insulin shoots up aggressively and stays elevated for up to 4 hours. Fat burning is halted.</li>
+</ul>
+</div>
+<div style="background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 4px;">
+<h4 style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">Protein 🥩</h4>
+<ul style="margin:0; padding-left:16px;">
+<li><strong>Spike Rate:</strong> Modest (~3x baseline)</li>
+<li><strong>Examples:</strong> Meat, eggs, fish.</li>
+<li><strong>Effect:</strong> Moderate response. Protein acts primarily as a builder and repairer, not a primary fuel.</li>
+</ul>
+</div>
+<div style="background: var(--surface); border: 1px solid var(--border); padding: 24px; border-radius: 4px; grid-column: 1 / -1;">
+<h4 style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">Dietary Fat 🥑</h4>
+<ul style="margin:0; padding-left:16px;">
+<li><strong>Spike Rate:</strong> Negligible (Near zero)</li>
+<li><strong>Examples:</strong> Olive oil, butter, avocado, nuts.</li>
+<li><strong>Effect:</strong> Consuming fat creates almost no insulin response at all. You remain predominantly in fat-burning mode.</li>
+</ul>
+</div>
 </div>
 
 ## 3. The Goal: *Metabolic Flexibility*
@@ -59,8 +59,8 @@ In a metabolically flexible body, insulin rises functionally after a meal, drops
 A **Metabolically Inflexible** body is stuck in sugar-burning mode. Because insulin is chronically elevated, it physically cannot access body fat. This causes severe energy crashes between meals, leading to intense sugar cravings, fat accumulation, and eventually insulin resistance.
 
 <div class="takeaway">
-  <span class="takeaway-label">Ketones — The Bonus Fuel</span>
-  <p>When fat-burning is high and sustained (because insulin is kept low for an extended period), your liver produces <strong>Ketones</strong>. These are small fat fragments that serve as a hyper-efficient alternative fuel. Ketones improve cognitive clarity, lower systemic inflammation, and are heavily utilized by cardiac muscle.</p>
+<span class="takeaway-label">Ketones — The Bonus Fuel</span>
+<p>When fat-burning is high and sustained (because insulin is kept low for an extended period), your liver produces <strong>Ketones</strong>. These are small fat fragments that serve as a hyper-efficient alternative fuel. Ketones improve cognitive clarity, lower systemic inflammation, and are heavily utilized by cardiac muscle.</p>
 </div>
 
 ## 4. The 3 Daily Principles & The *Decision* Card
@@ -81,7 +81,7 @@ If you want to apply this clinically, you build programs around these three pill
 **Dinner:** This is where carbohydrates are fine. Consume fiber (vegetables) *before* the starch to blunt the insulin spike by slowing digestion.
 
 <div class="article-cta">
-  <p>Apply this science to your body.</p>
-  <span>Work with a coach who designs programs around your actual physiology, not just calorie calculators.</span>
-  <a href="/#apply" class="btn-gold">Apply for Coaching →</a>
+<p>Apply this science to your body.</p>
+<span>Work with a coach who designs programs around your actual physiology, not just calorie calculators.</span>
+<a href="/#apply" class="btn-gold">Apply for Coaching →</a>
 </div>
