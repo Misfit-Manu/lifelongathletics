@@ -1,0 +1,208 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allBlogs = await getCollection('blog');
+allBlogs.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title="Education — Lifelong Athletics" description="Evidence-based articles on exercise science, behaviour change, mobility, and building a body that performs for decades.">
+  
+  <!-- HERO -->
+  <div class="blog-hero">
+    <p class="eyebrow">The Lifelong Athletics Journal</p>
+    <h1>Movement.<br/>Science.<br/><em>For life.</em></h1>
+    <p>Evidence-based articles on exercise science, behaviour change, mobility, and building a body that performs for decades — not just seasons.</p>
+  </div>
+
+  <!-- POST GRID -->
+  <div class="posts-section">
+    <p class="posts-label">All Articles</p>
+    <div class="posts-grid" id="postsGrid">
+      
+      {allBlogs.map(post => (
+        <a href={`/blog/${post.id}`} class="post-card" data-category={post.data.category.toLowerCase().replace(' ', '-')}>
+          <div class="card-img">
+            <!-- Dynamic placeholder generation or image loading could go here -->
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+              <rect x="10" y="50" width="8" height="20" fill="#c9a84c" rx="1"/>
+              <rect x="22" y="38" width="8" height="32" fill="#c9a84c" rx="1"/>
+              <rect x="34" y="28" width="8" height="42" fill="#c9a84c" rx="1"/>
+              <rect x="46" y="18" width="8" height="52" fill="#c9a84c" rx="1"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <p class="card-category">{post.data.category}</p>
+            <h3 class="card-title">{post.data.title}</h3>
+            <p class="card-excerpt">{post.data.description}</p>
+            <div class="card-footer">
+              <span class="card-date">{post.data.pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} · 5 min</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+
+      <!-- COMING SOON SLOTS -->
+      <div class="coming-soon" data-category="placeholder">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="13" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <line x1="16" y1="10" x2="16" y2="16" stroke="rgba(201,168,76,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="16" cy="20" r="1.5" fill="rgba(201,168,76,0.4)"/>
+        </svg>
+        <span>More coming soon</span>
+      </div>
+
+    </div>
+  </div>
+
+<style>
+  /* Local specific styles for the blog engine, omitting globals */
+  .blog-hero {
+    padding: 160px 60px 80px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .blog-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.3s forwards;
+  }
+  .blog-hero h1 em { font-style: italic; color: var(--gold); }
+  .blog-hero p {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+
+  /* POST GRID */
+  .posts-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 60px 120px;
+  }
+  .posts-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .post-card {
+    background: var(--surface);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s;
+    opacity: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .post-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: left;
+  }
+  .post-card:hover::before { transform: scaleX(1); }
+  .post-card:hover { background: var(--surface2); }
+  .card-img {
+    height: 180px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .card-img svg { opacity: 0.12; }
+  .card-body { padding: 32px 28px; flex: 1; display: flex; flex-direction: column; }
+  .card-category {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .card-excerpt {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .card-date { font-size: 0.72rem; color: var(--muted); }
+  .card-arrow {
+    font-size: 0.8rem;
+    color: var(--gold);
+    transition: transform 0.2s;
+  }
+  .post-card:hover .card-arrow { transform: translateX(4px); }
+
+  .coming-soon {
+    background: var(--surface);
+    border: 1px dashed rgba(201,168,76,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 28px;
+    text-align: center;
+    gap: 12px;
+  }
+  .coming-soon span {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    .blog-hero { padding: 120px 24px 60px; }
+    .posts-section { padding: 40px 24px 80px; }
+    .posts-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</Layout>

@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch all the raw markdown exams the user creates
+const allExams = await getCollection('exam');
+
+// Organize the categories
+const topics = [
+  { id: 'anatomy', title: 'Anatomy <em>&</em> Physiology', desc: 'Foundation of everything' },
+  { id: 'biomechanics', title: 'Biomechanics <em>&</em> Movement', desc: 'How forces act on the body' },
+  { id: 'programming', title: 'Program <em>Design</em>', desc: 'Turning science into results' },
+  { id: 'behaviour', title: 'Behaviour <em>Change</em>', desc: 'The psychology of consistency' },
+  { id: 'assessment', title: 'Client <em>Assessment</em>', desc: 'Starting every program right' },
+  { id: 'nutrition', title: 'Nutrition <em>Basics</em>', desc: 'Within scope of practice' },
+  { id: 'special', title: 'Special <em>Populations</em>', desc: 'Training beyond the average client' }
+];
+---
+
+<Layout title="Exam Prep — Lifelong Athletics" description="Concept-first breakdowns of the exercise science topics that matter most.">
+  
+  <div class="page-hero">
+    <p class="eyebrow">Fitness Certification Study Hub</p>
+    <h1>Learn the science.<br/><em>Pass the exam.</em></h1>
+    <p>Concept-first breakdowns of the exercise science topics that matter most — written the way they should have been taught. No fluff, no memorisation tricks. Just understanding.</p>
+  </div>
+
+  <div class="exam-strip">
+    <span class="exam-strip-label">Concepts relevant to</span>
+    <span class="exam-badge">ACE-CPT</span>
+    <span class="exam-badge">NASM-CPT</span>
+    <span class="exam-badge">NASM-CES</span>
+    <span class="exam-badge">CSCS</span>
+    <span class="exam-badge">ERPS</span>
+    <span class="exam-note">Not exam-specific — universal exercise science.</span>
+  </div>
+
+  <div class="filter-wrap">
+    <button class="filter-btn active" onclick="filterCards('all', this)">All Topics</button>
+    {topics.map(t => (
+      <button class="filter-btn" onclick={`filterCards('${t.id}', this)`}>{t.title.replace(/<[^>]*>?/gm, '')}</button>
+    ))}
+  </div>
+
+  <div class="topics-wrap">
+    {topics.map(topicGroup => {
+      // Find the markdown markdown posts that belong to this category
+      const activeExams = allExams.filter(exam => exam.data.topic.toLowerCase() === topicGroup.id);
+      
+      return (
+        <div class="topic-section" data-section={topicGroup.id}>
+          <div class="topic-section-header">
+            <h2 class="topic-section-title" set:html={topicGroup.title}></h2>
+            <span class="topic-count">{topicGroup.desc}</span>
+          </div>
+          <div class="cards-grid">
+            
+            {/* The Dynamically rendered content */}
+            {activeExams.map(post => (
+              <a href={`/exam-prep/${post.id}`} class="article-card" data-topic={topicGroup.id}>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag tag-topic" style="text-transform: capitalize;">{topicGroup.id}</span>
+                    <span class="tag tag-exam">{post.data.exams}</span>
+                  </div>
+                  <h3 class="card-title">{post.data.title}</h3>
+                  <p class="card-desc">{post.data.description}</p>
+                  <div class="card-footer">
+                    <span class="card-read">{post.data.duration}</span>
+                    <span class="card-arrow">→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+
+            {/* The Fallback Placeholders */}
+            <div class="article-card coming" data-topic={topicGroup.id}>
+              <div class="card-body">
+                <div class="card-tags"><span class="tag tag-soon">Coming soon</span></div>
+                <h3 class="card-title" style="color:var(--muted)">More {topicGroup.id} modules</h3>
+                <p class="card-desc" style="opacity:0.5">High-yield study guides are currently in development.</p>
+                <div class="card-footer"><span class="card-soon-label">Not published yet</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+<style>
+  .page-hero {
+    padding: 160px 60px 80px; border-bottom: 1px solid var(--border); max-width: 1100px; margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .page-hero h1 {
+    font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; line-height: 1; margin-bottom: 24px; opacity: 0; animation: fadeUp 0.9s ease 0.3s forwards;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--gold); }
+  .page-hero p {
+    font-size: 1rem; color: var(--muted); max-width: 560px; line-height: 1.8; opacity: 0; animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+
+  .exam-strip {
+    max-width: 1100px; margin: 0 auto; padding: 40px 60px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--border); opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .exam-strip-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-right: 8px; }
+  .exam-badge { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 6px 16px; border-radius: 2px; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); background: rgba(201,168,76,0.05); }
+  .exam-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; font-style: italic; }
+
+  .filter-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 60px 0; display: flex; gap: 8px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease 0.55s forwards; }
+  .filter-btn { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: transparent; border: 1px solid var(--border); padding: 8px 20px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+  .filter-btn.active { color: var(--gold); border-color: var(--gold); }
+
+  .topics-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 60px 120px; }
+  .topic-section { margin-bottom: 72px; }
+  .topic-section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .topic-section-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--white); }
+  .topic-section-title :global(em) { font-style: italic; color: var(--gold); }
+  .topic-count { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .article-card { background: var(--surface); text-decoration: none; display: flex; flex-direction: column; transition: background 0.3s; position: relative; overflow: hidden; opacity: 1; }
+  .article-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left; }
+  .article-card:hover::before { transform: scaleX(1); }
+  .article-card:hover { background: var(--surface2); }
+  
+  .article-card.coming { cursor: default; }
+  .article-card.coming:hover { background: var(--surface); }
+  .article-card.coming::before { display: none; }
+
+  .card-body { padding: 32px 28px; flex: 1; display: flex; flex-direction: column; }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; }
+  .tag-topic { background: rgba(201,168,76,0.08); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
+  .tag-exam  { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+  .tag-soon  { background: transparent; color: var(--muted); border: 1px dashed var(--border); }
+
+  .card-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; line-height: 1.25; color: var(--white); margin-bottom: 10px; flex: 1; }
+  .card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); }
+  .card-read { font-size: 0.7rem; color: var(--muted); }
+  .card-arrow { font-size: 0.85rem; color: var(--gold); transition: transform 0.2s; }
+  .article-card:hover .card-arrow { transform: translateX(4px); }
+  .card-soon-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 120px 24px 60px; }
+    .exam-strip { padding: 32px 24px; }
+    .filter-wrap { padding: 32px 24px 0; }
+    .topics-wrap { padding: 40px 24px 80px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .topic-section-header { flex-direction: column; gap: 4px; }
+  }
+</style>
+
+<script is:inline>
+  function filterCards(topic, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.topic-section').forEach(section => {
+      const sectionTopic = section.getAttribute('data-section');
+      if (topic === 'all' || topic === sectionTopic) {
+        section.style.display = '';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  }
+</script>
+</Layout>

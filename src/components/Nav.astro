@@ -1,0 +1,27 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.replace(/\/$/, '').split('/').pop();
+---
+
+<nav id="navbar">
+  <a href="/" class="nav-logo">Lifelong <span>Athletics</span></a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#longevity">Longevity</a></li>
+    <li><a href="/#who">Who It's For</a></li>
+    <li><a class={currentPath === "blog" ? "active" : ""} href="/blog">Education</a></li>
+    <li><a class={currentPath === "exam-prep" ? "active" : ""} href="/exam-prep">Exam Prep</a></li>
+    <li><a class={currentPath === "adventure-trips" ? "active" : ""} href="/adventure-trips">Adventure Trips</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#apply" class="nav-cta">Apply Now</a></li>
+  </ul>
+</nav>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  }
+</script>
