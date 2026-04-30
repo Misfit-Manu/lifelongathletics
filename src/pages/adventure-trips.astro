@@ -289,41 +289,6 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 
-  /* :root */ {
-    --black: #080808;
-    --surface: #111111;
-    --surface2: #181818;
-    --border: rgba(255,255,255,0.08);
-    --gold: #c9a84c;
-    --white: #f5f0e8;
-    --muted: rgba(245,240,232,0.45);
-    --forest: #2a3d2e;
-    --river: #1a2e38;
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'DM Sans', sans-serif;
-  }
-
-  /* *, *::before */, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  /* html { */ scroll-behavior: smooth; }
-  /* body { */
-    background: var(--black);
-    color: var(--white);
-    font-family: var(--font-body);
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* grain */
-  /* body::before */ {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.5;
-  }
 
   /* NAV */
   nav {
