@@ -1,0 +1,210 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import AceQuiz from '../../components/AceQuiz.astro';
+
+export async function getStaticPaths() {
+  const chapters = await getCollection('ace');
+  return chapters.map(chapter => ({
+    params: { id: chapter.id },
+    props: { chapter },
+  }));
+}
+
+const { chapter } = Astro.props;
+const { Content } = await render(chapter);
+---
+
+<Layout title={`Chapter ${chapter.data.chapter}: ${chapter.data.title} | Lifelong Athletics`} description={chapter.data.description}>
+  <article class="chapter-dashboard">
+    <div class="dashboard-header">
+      <a href="/ace-prep" class="back-link">← Back to Chapters</a>
+      <span class="chapter-num">Chapter {chapter.data.chapter}</span>
+      <h1>{chapter.data.title}</h1>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-btn active" data-target="theory">Theory</button>
+      <button class="tab-btn" data-target="notes">Notes & Mindmaps</button>
+      <button class="tab-btn" data-target="quiz">Interactive Quiz</button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-content active" id="tab-theory">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-notes">
+      <div class="notes-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <h3>No Mindmaps Uploaded Yet</h3>
+        <p>Edit the <code>src/pages/ace-prep/[id].astro</code> file to embed your PDFs or images here for Chapter {chapter.data.chapter}.</p>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-quiz">
+      <AceQuiz chapterId={chapter.id} />
+    </div>
+
+  </article>
+</Layout>
+
+<script>
+  // Simple Tab Logic
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active classes
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+      
+      // Add active class to clicked button
+      btn.classList.add('active');
+      
+      // Show corresponding content
+      const target = btn.getAttribute('data-target');
+      document.getElementById(`tab-${target}`).classList.add('active');
+    });
+  });
+</script>
+
+<style>
+  .chapter-dashboard {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 140px 24px 100px;
+  }
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .back-link {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--gold); }
+  .chapter-num {
+    display: block;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .dashboard-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 16px 24px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .tab-btn:hover { color: var(--white); }
+  .tab-btn.active {
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .tab-content.active {
+    display: block;
+  }
+
+  /* PROSE (Markdown styling) */
+  .prose {
+    color: var(--white);
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+  .prose h2, .prose h3 {
+    font-family: var(--font-display);
+    color: var(--gold);
+    margin-top: 40px;
+    margin-bottom: 16px;
+  }
+  .prose h2 { font-size: 2.2rem; }
+  .prose h3 { font-size: 1.6rem; color: var(--white); }
+  .prose p { margin-bottom: 24px; color: var(--muted); }
+  .prose ul, .prose ol { margin-bottom: 24px; padding-left: 24px; color: var(--muted); }
+  .prose li { margin-bottom: 8px; }
+  .prose strong { color: var(--white); }
+
+  /* NOTES PLACEHOLDER */
+  .notes-placeholder {
+    text-align: center;
+    padding: 80px 24px;
+    background: var(--surface);
+    border: 1px dashed rgba(201,168,76,0.3);
+    border-radius: 4px;
+  }
+  .notes-placeholder svg {
+    width: 48px;
+    height: 48px;
+    stroke: var(--gold);
+    margin-bottom: 20px;
+  }
+  .notes-placeholder h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  .notes-placeholder p {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

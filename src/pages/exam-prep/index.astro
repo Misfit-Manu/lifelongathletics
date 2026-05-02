@@ -35,6 +35,17 @@ const topics = [
     <span class="exam-note">Not exam-specific — universal exercise science.</span>
   </div>
 
+  <div class="ace-banner-wrap">
+    <a href="/ace-prep" class="ace-banner">
+      <div class="ace-banner-content">
+        <span class="ace-tag">New Structured Hub</span>
+        <h2>Chapterwise ACE Preparation</h2>
+        <p>17 chapters of theory, mindmaps, and interactive quizzes mapped directly to the latest ACE Personal Trainer exam.</p>
+      </div>
+      <div class="ace-banner-arrow">Enter Hub →</div>
+    </a>
+  </div>
+
   <div class="filter-wrap">
     <button class="filter-btn active" onclick="filterCards('all', this)">All Topics</button>
     {topics.map(t => (
@@ -111,7 +122,15 @@ const topics = [
   .exam-badge { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 6px 16px; border-radius: 2px; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); background: rgba(201,168,76,0.05); }
   .exam-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; font-style: italic; }
 
-  .filter-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 60px 0; display: flex; gap: 8px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease 0.55s forwards; }
+  .ace-banner-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 60px 0; opacity: 0; animation: fadeUp 0.8s ease 0.55s forwards; }
+  .ace-banner { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.02)); border: 1px solid rgba(201,168,76,0.3); border-radius: 4px; padding: 40px; text-decoration: none; transition: transform 0.3s, border-color 0.3s; }
+  .ace-banner:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .ace-tag { display: inline-block; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; background: rgba(201,168,76,0.1); padding: 4px 8px; border-radius: 2px; }
+  .ace-banner h2 { font-family: var(--font-display); font-size: 2.2rem; color: var(--white); margin-bottom: 8px; line-height: 1.1; }
+  .ace-banner p { font-size: 0.9rem; color: var(--muted); max-width: 600px; line-height: 1.6; margin: 0; }
+  .ace-banner-arrow { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+
+  .filter-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 60px 0; display: flex; gap: 8px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards; }
   .filter-btn { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: transparent; border: 1px solid var(--border); padding: 8px 20px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
   .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
   .filter-btn.active { color: var(--gold); border-color: var(--gold); }

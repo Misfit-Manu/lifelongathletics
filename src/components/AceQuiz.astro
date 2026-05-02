@@ -1,0 +1,208 @@
+---
+import quizzes from '../data/ace-quizzes.json';
+
+interface Props {
+  chapterId: string;
+}
+
+const { chapterId } = Astro.props;
+// @ts-ignore
+const chapterQuizzes = quizzes[chapterId] || [];
+const hasQuiz = chapterQuizzes.length > 0;
+---
+
+{hasQuiz ? (
+  <div class="quiz-container" id={`quiz-${chapterId}`}>
+    <div class="quiz-intro">
+      <h3>Chapter Quiz</h3>
+      <p>Test your knowledge before moving on. There are {chapterQuizzes.length} questions.</p>
+      <button class="btn-gold start-btn">Start Quiz</button>
+    </div>
+
+    <div class="quiz-body" style="display: none;">
+      <!-- Questions will be injected here by JS -->
+    </div>
+
+    <div class="quiz-results" style="display: none;">
+      <h3 class="score-display">You scored <span class="score">0</span> / {chapterQuizzes.length}</h3>
+      <p class="motivational-message"></p>
+      <button class="btn-ghost restart-btn" style="margin-bottom: 32px;">Try Again</button>
+      <h4 style="margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">Detailed Review</h4>
+      <div class="results-breakdown"></div>
+    </div>
+  </div>
+
+  <script define:vars={{ chapterQuizzes, chapterId }}>
+    const container = document.getElementById(`quiz-${chapterId}`);
+    if (container) {
+      const startBtn = container.querySelector('.start-btn');
+      const introDiv = container.querySelector('.quiz-intro');
+      const bodyDiv = container.querySelector('.quiz-body');
+      const resultsDiv = container.querySelector('.quiz-results');
+      
+      startBtn.addEventListener('click', () => {
+        introDiv.style.display = 'none';
+        bodyDiv.style.display = 'block';
+        renderQuestions();
+      });
+
+      function renderQuestions() {
+        let html = '';
+        chapterQuizzes.forEach((q, qIndex) => {
+          html += `
+            <div class="question-block" id="q-${qIndex}">
+              <p class="question-text"><strong>Q${qIndex + 1}:</strong> ${q.question}</p>
+              <div class="options">
+                ${q.options.map((opt, oIndex) => `
+                  <label class="option-label">
+                    <input type="radio" name="question-${qIndex}" value="${oIndex}">
+                    <span>${opt}</span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        });
+        html += `<button class="btn-gold submit-btn" style="margin-top: 24px; width: 100%; text-align: center; justify-content: center;">Submit Answers</button>`;
+        bodyDiv.innerHTML = html;
+
+        bodyDiv.querySelector('.submit-btn').addEventListener('click', calculateResults);
+      }
+
+      function calculateResults() {
+        let score = 0;
+        let breakdownHtml = '';
+
+        chapterQuizzes.forEach((q, qIndex) => {
+          const selected = container.querySelector(`input[name="question-${qIndex}"]:checked`);
+          const selectedVal = selected ? parseInt(selected.value) : -1;
+          const isCorrect = selectedVal === q.answerIndex;
+
+          if (isCorrect) score++;
+
+          breakdownHtml += `
+            <div class="breakdown-item ${isCorrect ? 'correct' : 'incorrect'}">
+              <p style="margin-bottom: 8px;"><strong>Q${qIndex + 1}:</strong> ${q.question}</p>
+              <p class="your-answer">Your answer: ${selectedVal === -1 ? 'None' : q.options[selectedVal]}</p>
+              ${!isCorrect ? `<p class="correct-answer">Correct answer: ${q.options[q.answerIndex]}</p>` : ''}
+              <div class="explanation"><strong>Why:</strong> ${q.explanation}</div>
+            </div>
+          `;
+        });
+
+        // Calculate motivation message based on ranges
+        const total = chapterQuizzes.length;
+        // Scale the score to a 10-point basis to match the user's requested tiers
+        const scaledScore = (score / total) * 10;
+        
+        let message = '';
+        if (scaledScore <= 4) {
+          message = "Rough start, but that's what studying is for. Review the theory and try again!";
+        } else if (scaledScore <= 6) {
+          message = "You're getting there! A little more review and you'll have this locked down.";
+        } else if (scaledScore <= 8) {
+          message = "Great job! You have a solid grasp of this chapter. Keep it up!";
+        } else {
+          message = "Outstanding! You've mastered this chapter. You are ready for the exam.";
+        }
+
+        bodyDiv.style.display = 'none';
+        resultsDiv.style.display = 'block';
+        
+        resultsDiv.querySelector('.score').innerText = score;
+        resultsDiv.querySelector('.motivational-message').innerText = message;
+        resultsDiv.querySelector('.results-breakdown').innerHTML = breakdownHtml;
+      }
+
+      resultsDiv.querySelector('.restart-btn').addEventListener('click', () => {
+        resultsDiv.style.display = 'none';
+        bodyDiv.style.display = 'block';
+        // uncheck all
+        const inputs = bodyDiv.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.checked = false);
+      });
+    }
+  </script>
+
+  <style>
+    .quiz-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px;
+      margin-top: 40px;
+    }
+    .quiz-intro h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .quiz-intro p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .question-block {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .question-text {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--white);
+      line-height: 1.5;
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .option-label:hover {
+      border-color: rgba(201,168,76,0.4);
+      background: rgba(255,255,255,0.02);
+    }
+    .option-label input {
+      margin-right: 16px;
+      accent-color: var(--gold);
+      transform: scale(1.2);
+    }
+    .score-display {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .score-display .score {
+      color: var(--gold);
+    }
+    .motivational-message {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .breakdown-item {
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 16px;
+      background: var(--surface2);
+      border-left: 4px solid var(--border);
+    }
+    .breakdown-item.correct { border-left-color: #25D366; }
+    .breakdown-item.incorrect { border-left-color: #ff4444; }
+    .your-answer { color: var(--muted); font-size: 0.95rem; }
+    .correct-answer { color: var(--gold); font-size: 0.95rem; font-weight: bold; margin-top: 8px; }
+    .explanation { margin-top: 16px; font-size: 0.9rem; color: var(--white); background: rgba(255,255,255,0.03); padding: 16px; border-radius: 4px; line-height: 1.6; }
+  </style>
+) : (
+  <div class="quiz-container">
+    <p style="color: var(--muted); text-align: center;">Quiz for this chapter is coming soon! Check back later.</p>
+  </div>
+)}

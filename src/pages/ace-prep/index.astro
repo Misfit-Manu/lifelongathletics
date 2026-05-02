@@ -1,0 +1,134 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allChapters = await getCollection('ace');
+const sortedChapters = allChapters.sort((a, b) => a.data.chapter - b.data.chapter);
+---
+
+<Layout title="ACE Chapterwise Preparation | Lifelong Athletics" description="Master the ACE Personal Trainer exam chapter by chapter with interactive theory, mindmaps, and quizzes.">
+  <div class="header-section">
+    <p class="section-eyebrow">Exam Prep Hub</p>
+    <h1>ACE Chapterwise <em>Preparation.</em></h1>
+    <p class="hero-sub">17 Chapters. Theory, notes, and interactive quizzes for every single topic to guarantee you pass the ACE Personal Trainer Certification.</p>
+  </div>
+
+  <section class="chapters-section">
+    <div class="chapters-grid">
+      {sortedChapters.map((ch) => (
+        <a href={`/ace-prep/${ch.id}`} class="chapter-card">
+          <div class="chapter-num">Chapter {ch.data.chapter}</div>
+          <h2 class="chapter-title">{ch.data.title}</h2>
+          <p class="chapter-desc">{ch.data.description}</p>
+          <div class="card-footer">
+            <span class="view-link">Start Study →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .header-section {
+    padding: 160px 60px 80px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .chapters-section {
+    padding: 40px 60px 120px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .chapter-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+    text-decoration: none;
+    color: var(--white);
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .chapter-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(201,168,76,0.4);
+    background: var(--surface2);
+  }
+  .chapter-num {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .chapter-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .chapter-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+  .card-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .view-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    transition: opacity 0.2s;
+  }
+  .chapter-card:hover .view-link {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .header-section { padding: 120px 24px 60px; }
+    .chapters-section { padding: 0 24px 80px; }
+    .chapters-grid { grid-template-columns: 1fr; }
+  }
+</style>

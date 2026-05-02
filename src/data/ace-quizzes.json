@@ -1,0 +1,26 @@
+{
+  "chapter-1": [
+    {
+      "question": "What is the primary purpose of the ACE Personal Trainer Certification?",
+      "options": [
+        "To diagnose medical conditions",
+        "To prescribe meal plans",
+        "To protect the public from harm",
+        "To guarantee client weight loss"
+      ],
+      "answerIndex": 2,
+      "explanation": "Certifications in the healthcare and fitness industries are designed primarily to protect the public from harm by assessing the competence of practitioners."
+    },
+    {
+      "question": "Which of the following is OUTSIDE the scope of practice for a Personal Trainer?",
+      "options": [
+        "Designing an exercise program",
+        "Providing general nutrition guidelines",
+        "Rehabilitating a knee injury",
+        "Conducting fitness assessments"
+      ],
+      "answerIndex": 2,
+      "explanation": "Rehabilitating injuries is the job of a physical therapist. Personal trainers only work with apparently healthy individuals or those cleared for exercise by a physician."
+    }
+  ]
+}
