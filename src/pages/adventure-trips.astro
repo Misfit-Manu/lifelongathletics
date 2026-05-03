@@ -285,49 +285,6 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 60px;
-    background: rgba(8,8,8,0.97);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--white);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
-  .nav-links a {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--white); }
-  .nav-links a.active { color: var(--gold); }
-  .nav-cta {
-    color: var(--gold) !important;
-    border: 1px solid var(--gold);
-    padding: 10px 24px;
-    border-radius: 2px;
-    transition: background 0.2s, color 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
-
   /* HERO */
   .hero {
     min-height: 100vh;
@@ -813,37 +770,7 @@ import Layout from '../layouts/Layout.astro';
   }
   .btn-ghost:hover { color: var(--white); }
 
-  /* FOOTER */
-  footer {
-    padding: 40px 60px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer-logo {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--white);
-  }
-  .footer-logo span { color: var(--gold); }
-  .footer-copy { font-size: 0.75rem; color: var(--muted); }
-  .footer-links { display: flex; gap: 28px; }
-  .footer-links a { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--white); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
   @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
-    .nav-links { display: none; }
     .hero { padding: 120px 24px 80px; }
     .postcards-section, .video-section, .guide-section { padding-left: 24px; padding-right: 24px; }
     .postcards { grid-template-columns: 1fr; }
@@ -852,7 +779,6 @@ import Layout from '../layouts/Layout.astro';
     .guide-wrap { grid-template-columns: 1fr; gap: 48px; }
     .stat-strip { grid-template-columns: 1fr; }
     .cta-buttons { flex-direction: column; }
-    footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
   }
 
 </style>
