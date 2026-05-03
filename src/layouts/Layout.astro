@@ -588,28 +588,6 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Gold shimmer sweep on "Lifelong" */
-  .shimmer {
-    display: inline-block;
-    background: linear-gradient(
-      90deg,
-      var(--gold) 0%,
-      #f5e6a3 40%,
-      #fff8dc 50%,
-      #f5e6a3 60%,
-      var(--gold) 100%
-    );
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmerSweep 4s ease-in-out 2s infinite;
-  }
-  @keyframes shimmerSweep {
-    0%, 100% { background-position: 100% 0; }
-    50% { background-position: -100% 0; }
-  }
-
   /* ─── MOBILE ─── */
   @media (max-width: 768px) {
     nav { padding: 20px 24px; }
