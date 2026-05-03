@@ -5,23 +5,132 @@ const currentPath = pathname.replace(/\/$/, '').split('/').pop();
 
 <nav id="navbar">
   <a href="/" class="nav-logo">Lifelong <span>Athletics</span></a>
-  <ul class="nav-links">
+  
+  <!-- Desktop Links -->
+  <ul class="nav-links desktop-only">
     <li><a href="/#services">Services</a></li>
     <li><a href="/#longevity">Longevity</a></li>
-    <li><a href="/#who">Who It's For</a></li>
     <li><a class={currentPath === "blog" ? "active" : ""} href="/blog">Education</a></li>
     <li><a class={currentPath === "exam-prep" ? "active" : ""} href="/exam-prep">Exam Prep</a></li>
     <li><a class={currentPath === "adventure-trips" ? "active" : ""} href="/adventure-trips">Adventure Trips</a></li>
-    <li><a href="/#about">About</a></li>
     <li><a href="/#apply" class="nav-cta">Apply Now</a></li>
   </ul>
+
+  <!-- Hamburger Button -->
+  <button class="hamburger" id="hamburger-btn" aria-label="Toggle Menu">
+    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="close-menu" id="close-menu-btn" aria-label="Close Menu">
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+  <ul class="mobile-nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#longevity">Longevity</a></li>
+    <li><a href="/blog">Education</a></li>
+    <li><a href="/exam-prep">Exam Prep</a></li>
+    <li><a href="/adventure-trips">Adventure Trips</a></li>
+    <li><a href="/#apply" style="color: var(--gold);">Apply Now</a></li>
+  </ul>
+</div>
+
+<style>
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    padding: 8px;
+  }
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .mobile-menu.open {
+    transform: translateY(0);
+  }
+  .close-menu {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+  }
+  .mobile-nav-links {
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .mobile-nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 300;
+  }
+  
+  @media (max-width: 980px) {
+    .desktop-only { display: none !important; }
+    .hamburger { display: block; }
+  }
+</style>
 
 <script>
   const navbar = document.getElementById('navbar');
   if (navbar) {
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  }
+
+  // Hamburger Logic
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const closeMenuBtn = document.getElementById('close-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+  if (hamburgerBtn && closeMenuBtn && mobileMenu) {
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    });
+
+    const closeMenu = () => {
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    closeMenuBtn.addEventListener('click', closeMenu);
+    
+    // Close menu when a link is clicked
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
     });
   }
 </script>
