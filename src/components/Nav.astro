@@ -25,15 +25,15 @@ const currentPath = pathname.replace(/\/$/, '').split('/').pop();
   </a>
   <a href="/blog" class={`tab-item ${currentPath === "blog" ? "active" : ""}`}>
     <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-    <span>Education</span>
+    <span>Exercises</span>
   </a>
   <a href="/exam-prep" class={`tab-item ${currentPath === "exam-prep" ? "active" : ""}`}>
     <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-    <span>Exams</span>
+    <span>CPT Exam</span>
   </a>
   <a href="/adventure-trips" class={`tab-item ${currentPath === "adventure-trips" ? "active" : ""}`}>
     <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="8 3 2 15 14 15"></polygon><polygon points="17 8 12 15 22 15"></polygon></svg>
-    <span>Trips</span>
+    <span>Adventure</span>
   </a>
 </div>
 
