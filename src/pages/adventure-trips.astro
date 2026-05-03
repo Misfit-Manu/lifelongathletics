@@ -5,12 +5,8 @@ import Layout from '../layouts/Layout.astro';
 
 <section class="hero">
   <div class="hero-bg"></div>
-
-  <!-- Mountain silhouette SVG -->
-  <svg class="hero-mountains" viewBox="0 0 1440 280" fill="none" preserveAspectRatio="none">
-    <path d="M0 280 L180 120 L320 200 L480 60 L640 180 L760 80 L900 160 L1060 40 L1200 140 L1360 90 L1440 160 L1440 280 Z" fill="rgba(42,61,46,0.6)"/>
-    <path d="M0 280 L240 160 L400 220 L560 100 L720 200 L860 120 L1000 190 L1160 70 L1300 160 L1440 110 L1440 280 Z" fill="rgba(20,35,22,0.8)"/>
-  </svg>
+  <img src="/images/get-outdoors-hero.png" alt="Get Outdoors — Epic Adventure and Wellness Experiences" class="hero-image"/>
+  <div class="hero-overlay"></div>
 
   <p class="initiative-tag">An initiative by Lifelong Athletics</p>
   <p class="brand-name">Get Outdoors</p>
@@ -345,18 +341,36 @@ import Layout from '../layouts/Layout.astro';
     overflow: hidden;
   }
   .hero-bg {
+    display: none;
+  }
+  .hero-image {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(42,61,46,0.4) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 40% at 30% 60%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
   }
-  /* Mountain silhouette */
-  .hero-mountains {
+  .hero-overlay {
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 280px;
-    opacity: 0.12;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(8,8,8,0.55) 0%,
+      rgba(8,8,8,0.4) 40%,
+      rgba(8,8,8,0.6) 100%
+    );
+    z-index: 1;
+  }
+  .initiative-tag,
+  .brand-name,
+  .hero h1,
+  .hero-sub,
+  .hero-cta,
+  .scroll-hint {
+    position: relative;
+    z-index: 2;
   }
   .initiative-tag {
     font-size: 0.65rem;
