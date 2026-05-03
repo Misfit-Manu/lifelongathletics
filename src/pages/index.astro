@@ -6,8 +6,8 @@ import Layout from '../layouts/Layout.astro';
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <h1>Become a<br/><em>Lifelong</em><br/>Athlete.</h1>
-  <p class="hero-sub">Rebuild Habits for Life. Not for a season.</p>
+  <h1>Become a<br/><em>Life<span id="typed-long"></span><span class="cursor">|</span></em><br/>Athlete.</h1>
+  <p class="hero-sub">Rebuilding for Life.</p>
   <div class="hero-actions" style="justify-content:center;flex-direction:column;align-items:center;gap:12px">
     <a href="#apply" class="btn-primary" style="padding:18px 48px">Get a Free Assessment</a>
     <span style="font-size:0.75rem;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase">(Know Your Starting Point)</span>
@@ -363,6 +363,41 @@ import Layout from '../layouts/Layout.astro';
   document.querySelectorAll('.stat-item, .persona-card, .pillar, .diff-item, .service-card').forEach(el => {
     observer.observe(el);
   });
+
+  // Typing animation for "long"
+  (function() {
+    const text = 'long';
+    const el = document.getElementById('typed-long');
+    const cursor = document.querySelector('.cursor');
+    if (!el) return;
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        el.textContent += text[i];
+        i++;
+        setTimeout(type, 220);
+      } else {
+        // Hide cursor after typing is done
+        setTimeout(() => { if(cursor) cursor.style.opacity = '0'; }, 1200);
+      }
+    }
+    // Start typing after the fadeUp animation finishes (1.4s)
+    setTimeout(type, 1400);
+  })();
 </script>
+
+<style>
+  .cursor {
+    display: inline-block;
+    color: var(--gold);
+    font-weight: 300;
+    animation: blink 0.7s step-end infinite;
+    transition: opacity 0.4s;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
 
 </Layout>
