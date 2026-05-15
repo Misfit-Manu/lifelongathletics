@@ -1,0 +1,446 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Chapter 11: Integrated Exercise Programming — ACE-CPT Theory Guide | Lifelong Athletics">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;--text:#ededec;--muted:#888;--accent:#c5f135;--accent2:rgba(197,241,53,.12);--blue:#60a5fa;--purple:#a78bfa;--warn:#fbbf24;--correct:#4ade80;--red:#f87171;--font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--r:12px;--r2:8px;--r3:4px;--max:860px;--trans:0.2s ease}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.hero{max-width:var(--max);margin:0 auto;padding:72px 28px 48px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.tag{display:inline-flex;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px}
+.tag-chapter{background:var(--accent2);color:var(--accent);border:1px solid rgba(197,241,53,.25)}
+.tag-read{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
+.hero h1{font-family:var(--font-head);font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:17px;color:var(--muted);max-width:640px;line-height:1.65;margin-bottom:32px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#000;padding:13px 28px;border-radius:30px;font-weight:700;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:#b8e030;transform:translateY(-1px)}
+.btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);padding:12px 24px;border-radius:30px;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.page-wrap{max-width:1200px;margin:0 auto;padding:0 28px 80px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.sidebar{position:sticky;top:90px}
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:20px}
+.toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc-list a{display:block;font-size:13px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:var(--r3);transition:var(--trans)}
+.toc-list a:hover{background:var(--bg3);color:var(--text)}.toc-list a.active{background:var(--accent2);color:var(--accent)}
+.sidebar-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px}
+.sidebar-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px}
+.yt-thumb{background:var(--bg3);border-radius:var(--r2);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--border);transition:var(--trans);text-decoration:none}
+.yt-thumb:hover{border-color:var(--red)}
+.yt-play{width:44px;height:44px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.yt-label{font-size:12px;color:var(--muted)}
+.section{margin-bottom:56px;scroll-margin-top:100px}
+.section-number{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.section h2{font-family:var(--font-head);font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px}
+.section h2 em{font-style:italic;color:var(--accent)}
+.section h3{font-family:var(--font-head);font-size:19px;font-weight:600;margin:28px 0 12px;letter-spacing:-.3px}
+.section p{color:var(--text);margin-bottom:16px;font-size:15.5px}
+.lead{font-size:17px;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.divider{height:1px;background:var(--border);margin:40px 0}
+.callout{border-radius:var(--r2);padding:18px 20px;margin:24px 0}
+.callout-exam{background:rgba(197,241,53,.06);border:1px solid rgba(197,241,53,.2);border-left:3px solid var(--accent)}
+.callout-key{background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-left:3px solid var(--blue)}
+.callout-warn{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-left:3px solid var(--warn)}
+.callout-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.callout-exam .callout-label{color:var(--accent)}.callout-key .callout-label{color:var(--blue)}.callout-warn .callout-label{color:var(--warn)}
+.callout p{font-size:14px;color:var(--text);margin:0}
+.term{background:var(--accent2);color:var(--accent);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.term-blue{background:rgba(96,165,250,.12);color:var(--blue);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.term-red{background:rgba(248,113,113,.12);color:var(--red);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.table-wrap{overflow-x:auto;margin:24px 0;border-radius:var(--r2);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--bg3);padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
+td{padding:11px 14px;border-top:1px solid var(--border);vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.015)}
+.img-block{margin:28px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.img-block img{width:100%;display:block;object-fit:cover;max-height:360px}
+.img-caption{background:var(--bg2);padding:10px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+
+/* PROXIMAL PROGRESSION */
+.prox-chain{display:flex;flex-direction:column;gap:0;margin:20px 0}
+.prox-step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center;padding:14px 18px;background:var(--bg2);border:1px solid var(--border);border-bottom:none}
+.prox-step:first-child{border-radius:var(--r2) var(--r2) 0 0}
+.prox-step:last-child{border-bottom:1px solid var(--border);border-radius:0 0 var(--r2) var(--r2)}
+.prox-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:15px;font-weight:700;flex-shrink:0}
+.prox-content strong{display:block;font-size:14px;margin-bottom:2px}
+.prox-content span{font-size:12px;color:var(--muted)}
+
+/* TISSUE PROPERTIES */
+.tissue-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:24px 0}
+.tissue-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
+.tissue-icon{font-size:26px;margin-bottom:8px}
+.tissue-name{font-weight:700;font-size:14px;margin-bottom:6px}
+.tissue-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* NEURO MECHANISMS */
+.neuro-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.neuro-card{background:var(--bg2);border-radius:var(--r2);padding:20px}
+.neuro-num{font-family:var(--font-head);font-size:28px;font-weight:700;line-height:1;margin-bottom:8px}
+.neuro-name{font-weight:700;font-size:15px;margin-bottom:8px}
+.neuro-steps{list-style:none;display:flex;flex-direction:column;gap:6px}
+.neuro-steps li{font-size:13px;color:var(--muted);padding-left:16px;position:relative}
+.neuro-steps li::before{content:"→";position:absolute;left:0;color:var(--accent)}
+
+/* STRETCHING TECHNIQUE CARDS */
+.stretch-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.stretch-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
+.stretch-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.stretch-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;padding:3px 8px;border-radius:10px}
+.stretch-name{font-weight:700;font-size:15px}
+.stretch-detail{font-size:12px;color:var(--muted);line-height:1.6}
+.stretch-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;margin-top:8px;font-weight:600}
+
+/* FITT TABLE HIGHLIGHT */
+.fitt-key{font-weight:700;color:var(--accent)}
+
+/* PNF SEQUENCE */
+.pnf-seq{display:flex;gap:0;margin:20px 0;flex-wrap:wrap}
+.pnf-step{flex:1;min-width:120px;background:var(--bg2);border:1px solid var(--border);border-right:none;padding:16px;text-align:center}
+.pnf-step:first-child{border-radius:var(--r2) 0 0 var(--r2)}
+.pnf-step:last-child{border-right:1px solid var(--border);border-radius:0 var(--r2) var(--r2) 0}
+.pnf-arrow{font-size:18px;color:var(--accent);margin-bottom:6px}
+.pnf-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.pnf-detail{font-size:12px}
+.pnf-mech{font-size:11px;color:var(--blue);margin-top:4px}
+
+.quiz-cta{background:linear-gradient(135deg,rgba(197,241,53,.08),rgba(197,241,53,.03));border:1px solid rgba(197,241,53,.2);border-radius:var(--r);padding:32px;text-align:center;margin-top:56px}
+.quiz-cta h3{font-family:var(--font-head);font-size:24px;margin-bottom:8px}
+.quiz-cta h3 em{font-style:italic;color:var(--accent)}
+.quiz-cta p{color:var(--muted);font-size:14px;margin-bottom:22px}
+.quiz-stats{display:flex;gap:20px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
+.qs{background:var(--bg3);padding:8px 18px;border-radius:20px;font-size:13px}
+.qs strong{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:36px;text-align:center;font-size:12px;color:var(--muted)}
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr}.sidebar{position:relative;top:0}.tissue-grid,.neuro-grid,.stretch-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.hero{padding:48px 20px 32px}.page-wrap{padding:0 20px 60px}.pnf-seq{flex-direction:column}.pnf-step{border-right:1px solid var(--border);border-bottom:none}.pnf-step:last-child{border-bottom:1px solid var(--border)}.pnf-step:first-child{border-radius:var(--r2) var(--r2) 0 0}.pnf-step:last-child{border-radius:0 0 var(--r2) var(--r2)}}
+</style>
+<div class="hero">
+  <div class="hero-meta">
+    <span class="tag tag-chapter">ACE-CPT · Chapter 11</span>
+    <span class="tag tag-read">📖 14 min read</span>
+    <span class="tag tag-read">🎬 Watch on YouTube</span>
+  </div>
+  <h1>Integrated Exercise <em>Programming</em></h1>
+  <p class="hero-desc">Functional training, tissue properties, neurological mechanisms, and evidence-based flexibility guidelines — from theory to practice.</p>
+  <div class="hero-actions">
+    <a href="/ace-prep/chapter-11" class="btn-primary">📝 Take the Quiz →</a>
+    <a href="#section-1" class="btn-secondary">Start Reading ↓</a>
+  </div>
+</div>
+
+<div class="page-wrap">
+<article class="content">
+
+<!-- S1 FUNCTIONAL TRAINING -->
+<div class="section" id="section-1">
+  <div class="section-number">Section 1</div>
+  <h2>Functional <em>Training</em></h2>
+  <p class="lead">Functional training establishes or re-establishes postural stability and kinetic chain mobility through programs that improve joint function — targeting neuromotor and flexibility outcomes.</p>
+
+  <div class="img-block">
+    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&q=80" alt="Personal trainer working with client on functional movement patterns" loading="lazy"/>
+    <div class="img-caption">Functional training starts with the foundation — core stability — before progressing to extremity mobility. The order matters.</div>
+  </div>
+
+  <p>Exercise selection focuses on <span class="term">core and balance exercises</span> that strengthen the muscles responsible for stabilizing the spine. Program design uses body weight and body segment resistance — building movement quality before adding load.</p>
+
+  <h3>Proximal-to-Distal Progression</h3>
+  <p>This is the most important programming principle in the chapter. Before you can safely mobilize distal joints, you must establish stability in the joints proximal to them.</p>
+
+  <div class="prox-chain">
+    <div class="prox-step">
+      <div class="prox-num" style="background:rgba(197,241,53,.15);color:var(--accent);border:1px solid rgba(197,241,53,.3)">1</div>
+      <div class="prox-content"><strong>Lumbar Region / Core</strong><span>Foundation of all movement. Establish spinal stability before anything else.</span></div>
+    </div>
+    <div class="prox-step">
+      <div class="prox-num" style="background:rgba(96,165,250,.12);color:var(--blue);border:1px solid rgba(96,165,250,.25)">2</div>
+      <div class="prox-content"><strong>Hips + Thoracic Spine</strong><span>Both primarily mobile joints. Restore mobility once core is stable.</span></div>
+    </div>
+    <div class="prox-step">
+      <div class="prox-num" style="background:rgba(167,139,250,.12);color:var(--purple);border:1px solid rgba(167,139,250,.25)">3</div>
+      <div class="prox-content"><strong>Scapulothoracic Region</strong><span>Shoulder complex stability. Foundation for all upper-extremity loading.</span></div>
+    </div>
+    <div class="prox-step">
+      <div class="prox-num" style="background:rgba(251,191,36,.1);color:var(--warn);border:1px solid rgba(251,191,36,.25)">4</div>
+      <div class="prox-content"><strong>Lumbopelvic + Shoulder Integration</strong><span>Integrated stability across both complexes.</span></div>
+    </div>
+    <div class="prox-step">
+      <div class="prox-num" style="background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.25)">5</div>
+      <div class="prox-content"><strong>Distal Extremities</strong><span>Hands and feet — mobility with proximal stability established.</span></div>
+    </div>
+  </div>
+
+  <div class="callout callout-exam">
+    <div class="callout-label">⚡ Exam Point</div>
+    <p>Attempting to improve distal mobility WITHOUT proximal stability <strong>compromises the entire kinetic chain</strong>. A mobile hip with an unstable lumbar spine = injury risk, not functional improvement. Always establish the foundation first.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S2 TISSUE PROPERTIES -->
+<div class="section" id="section-2">
+  <div class="section-number">Section 2</div>
+  <h2>Tissue <em>Properties</em></h2>
+  <p class="lead">Before stretching can make sense, you need to understand how tissue behaves under force. Three mechanical properties govern all musculoskeletal tissue.</p>
+
+  <div class="tissue-grid">
+    <div class="tissue-card" style="border-color:rgba(74,222,128,.3)">
+      <div class="tissue-icon">🟢</div>
+      <div class="tissue-name" style="color:var(--correct)">Elasticity</div>
+      <div class="tissue-desc">Tissue returns to original shape when force is removed. Temporary deformation. Like a rubber band.</div>
+    </div>
+    <div class="tissue-card" style="border-color:rgba(251,191,36,.3)">
+      <div class="tissue-icon">🟡</div>
+      <div class="tissue-name" style="color:var(--warn)">Plasticity</div>
+      <div class="tissue-desc">Permanent deformation remains after force is removed. New resting length established. Called "permanent set."</div>
+    </div>
+    <div class="tissue-card" style="border-color:rgba(197,241,53,.3)">
+      <div class="tissue-icon">🔀</div>
+      <div class="tissue-name" style="color:var(--accent)">Viscoelasticity</div>
+      <div class="tissue-desc">Combines both. Elastic under low loads, plastic under sustained or high loads. All biological tissue.</div>
+    </div>
+  </div>
+
+  <h3>Three Critical Terms</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Term</th><th>Definition</th><th>Stretching Relevance</th></tr>
+      <tr><td><span class="term">Elastic Limit</span></td><td>Point beyond which tissue cannot return to original length</td><td>Exceeded during plastic deformation — new resting length begins</td></tr>
+      <tr><td><span class="term">Yield Point</span></td><td>Transition from elastic to plastic behavior</td><td>Occurs when sustained stretch exceeds elastic range</td></tr>
+      <tr><td><span class="term">Creep</span></td><td>Lengthening under sustained load — collagen remodels as fibers pull apart</td><td>Occurs after ~10 seconds of sustained stretch. Basis of lasting ROM changes.</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S3 NEUROLOGICAL MECHANISMS -->
+<div class="section" id="section-3">
+  <div class="section-number">Section 3</div>
+  <h2>Neurological <em>Mechanisms</em></h2>
+  <p class="lead">Two neurological mechanisms explain why stretching works — and why different techniques work differently. Mastering these lets you explain the science to any client.</p>
+
+  <div class="neuro-grid">
+    <div class="neuro-card" style="border:1px solid rgba(197,241,53,.25)">
+      <div class="neuro-num" style="color:var(--accent)">01</div>
+      <div class="neuro-name">Autogenic Inhibition</div>
+      <ul class="neuro-steps">
+        <li>Low-force stretch applied to muscle</li>
+        <li>After 7–10 seconds, GTO activates</li>
+        <li>GTO sends inhibitory signal to same muscle</li>
+        <li>Muscle tension decreases → deeper stretch possible</li>
+        <li>Creep response begins</li>
+      </ul>
+      <div style="font-size:11px;color:var(--accent);margin-top:10px;font-weight:600">Used in: Static stretching</div>
+    </div>
+    <div class="neuro-card" style="border:1px solid rgba(96,165,250,.25)">
+      <div class="neuro-num" style="color:var(--blue)">02</div>
+      <div class="neuro-name">Reciprocal Inhibition</div>
+      <ul class="neuro-steps">
+        <li>Agonist muscle contracts (&lt;50% max force)</li>
+        <li>Held 6–15 seconds</li>
+        <li>CNS inhibits the antagonist simultaneously</li>
+        <li>Antagonist relaxes → can be stretched further</li>
+      </ul>
+      <div style="font-size:11px;color:var(--blue);margin-top:10px;font-weight:600">Used in: PNF stretching, dynamic stretching</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <div class="callout-label">⚠️ The Stretch Reflex — Avoid This</div>
+    <p>Rapid lengthening triggers muscle spindles → reflexive muscle <strong>contraction</strong>. This is the <span class="term-red">stretch reflex</span>. Ballistic (bouncing) stretching activates it. Static stretching avoids it. The stretch reflex works AGAINST flexibility gains — and increases injury risk.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S4 STRETCHING TECHNIQUES -->
+<div class="section" id="section-4">
+  <div class="section-number">Section 4</div>
+  <h2>Four Stretching <em>Techniques</em></h2>
+  <p class="lead">Each technique has a different mechanism, a different timing in the session, and different evidence for its effectiveness.</p>
+
+  <div class="stretch-grid">
+    <div class="stretch-card">
+      <div class="stretch-header">
+        <span class="stretch-type" style="background:rgba(74,222,128,.15);color:var(--correct)">Static</span>
+      </div>
+      <div class="stretch-name">Static Stretching</div>
+      <div class="stretch-detail">Hold end-range position 10–30 sec. Uses autogenic inhibition (GTO). Does NOT trigger stretch reflex. Safest technique.</div>
+      <span class="stretch-tag" style="background:rgba(248,113,113,.1);color:var(--red)">⚠ AFTER training only — harms performance if used before</span>
+    </div>
+    <div class="stretch-card">
+      <div class="stretch-header">
+        <span class="stretch-type" style="background:rgba(96,165,250,.15);color:var(--blue)">Dynamic</span>
+      </div>
+      <div class="stretch-name">Dynamic Stretching</div>
+      <div class="stretch-detail">Active, controlled movements mimicking upcoming activity. Uses reciprocal inhibition. No performance decrement.</div>
+      <span class="stretch-tag" style="background:rgba(74,222,128,.1);color:var(--correct)">✓ Recommended for warm-up</span>
+    </div>
+    <div class="stretch-card">
+      <div class="stretch-header">
+        <span class="stretch-type" style="background:rgba(167,139,250,.15);color:var(--purple)">PNF</span>
+      </div>
+      <div class="stretch-name">PNF Stretching</div>
+      <div class="stretch-detail">3–6 sec contraction (20–75% max force) → 10–30 sec assisted stretch. Uses BOTH mechanisms in sequence = greatest ROM gains.</div>
+      <span class="stretch-tag" style="background:rgba(197,241,53,.1);color:var(--accent)">★ Most effective technique</span>
+    </div>
+    <div class="stretch-card">
+      <div class="stretch-header">
+        <span class="stretch-type" style="background:rgba(248,113,113,.15);color:var(--red)">Ballistic</span>
+      </div>
+      <div class="stretch-name">Ballistic Stretching</div>
+      <div class="stretch-detail">Bouncing movements. Triggers stretch reflex — muscle contracts against the stretch. Higher injury risk. Not recommended for general populations.</div>
+      <span class="stretch-tag" style="background:rgba(248,113,113,.1);color:var(--red)">⚠ Limited use — specific athletes only</span>
+    </div>
+  </div>
+
+  <h3>PNF Sequence in Detail</h3>
+  <div class="pnf-seq">
+    <div class="pnf-step">
+      <div class="pnf-arrow">1</div>
+      <div class="pnf-label">Contract</div>
+      <div class="pnf-detail">3–6 seconds at 20–75% max force</div>
+      <div class="pnf-mech">Reciprocal inhibition</div>
+    </div>
+    <div class="pnf-step">
+      <div class="pnf-arrow">→</div>
+      <div class="pnf-label">Release</div>
+      <div class="pnf-detail">Muscle relaxes</div>
+      <div class="pnf-mech"> </div>
+    </div>
+    <div class="pnf-step">
+      <div class="pnf-arrow">2</div>
+      <div class="pnf-label">Stretch</div>
+      <div class="pnf-detail">10–30 second assisted stretch</div>
+      <div class="pnf-mech">Autogenic inhibition</div>
+    </div>
+    <div class="pnf-step">
+      <div class="pnf-arrow">✓</div>
+      <div class="pnf-label">Result</div>
+      <div class="pnf-detail">Maximum ROM gain</div>
+      <div class="pnf-mech">Both mechanisms used</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S5 FITT-VP -->
+<div class="section" id="section-5">
+  <div class="section-number">Section 5</div>
+  <h2>Evidence-Based FITT-VP <em>Guidelines</em></h2>
+  <p class="lead">The ACSM/ACE evidence-based recommendations for flexibility training — every component tested on the exam.</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Component</th><th>Recommendation</th><th>Notes</th></tr>
+      <tr><td><span class="fitt-key">Frequency</span></td><td>≥2–3 days/week; daily most effective</td><td>Consistency over any single session</td></tr>
+      <tr><td><span class="fitt-key">Intensity</span></td><td>Stretch to tightness or slight discomfort — NOT pain</td><td>Pain = gone too far; reduce immediately</td></tr>
+      <tr><td><span class="fitt-key">Time</span></td><td>10–30 sec static (adults); 30–60 sec older adults; PNF: 3–6 sec + 10–30 sec</td><td>60 sec total per exercise; 2–4 reps</td></tr>
+      <tr><td><span class="fitt-key">Type</span></td><td>Static, dynamic, PNF, ballistic — all effective</td><td>Selection based on client goals and phase</td></tr>
+      <tr><td><span class="fitt-key">Volume</span></td><td>60 seconds total per exercise × 2–4 repetitions</td><td>Can be split across multiple shorter holds</td></tr>
+      <tr><td><span class="fitt-key">Pattern</span></td><td>AFTER cardiorespiratory and muscular training — never before</td><td>Static before = decreased strength and power</td></tr>
+    </table>
+  </div>
+
+  <h3>Target Areas</h3>
+  <p>Flexibility programming should address all major tendon units: <strong>ankles, anterior and posterior legs, chest, hips, lower back, neck, shoulder girdle, and trunk.</strong></p>
+
+  <div class="callout callout-key">
+    <div class="callout-label">🔑 Warm Muscle Advantage</div>
+    <p>Stretching with <span class="term">warm muscles</span> — immediately after aerobic exercise or after application of heat — produces significantly greater ROM gains than stretching cold tissue. Warm tissue is more extensible because viscoelastic properties change with temperature.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S6 SMR -->
+<div class="section" id="section-6">
+  <div class="section-number">Section 6</div>
+  <h2>Self-Myofascial <em>Release</em></h2>
+
+  <div class="img-block">
+    <img src="https://images.unsplash.com/photo-1573461160327-1a8e7e4ee63e?w=900&q=80" alt="Person using foam roller for self-myofascial release" loading="lazy"/>
+    <div class="img-caption">SMR uses sustained pressure to trigger autogenic inhibition — reducing soft tissue restriction before stretching into the new range.</div>
+  </div>
+
+  <p>Self-myofascial release (typically foam rolling) uses sustained low-force pressure on trigger points to activate the GTO response — the same mechanism as autogenic inhibition. The tension in the restricted area decreases, improving tissue extensibility.</p>
+
+  <div class="callout callout-key">
+    <div class="callout-label">🔑 Sequence: SMR Before Stretching</div>
+    <p>Use SMR <strong>before</strong> static stretching. Roll slowly, find a tender point, hold 20–30 seconds until discomfort reduces. Then stretch into the newly released range. SMR reduces the restriction; stretching takes the tissue into its new length. Together = greater total ROM improvement than either alone.</p>
+  </div>
+
+  <p>Do not roll directly over joints, bony prominences, or areas of acute inflammation. SMR is NOT appropriate for clients with deep vein thrombosis, peripheral neuropathy, or open wounds in the target area.</p>
+</div>
+
+<div class="quiz-cta">
+  <h3>Ready to <em>Test Yourself?</em></h3>
+  <p>55 questions including 5 ACE case studies with real client scenarios and full model answers.</p>
+  <div class="quiz-stats">
+    <span class="qs"><strong>25</strong> MCQ</span>
+    <span class="qs"><strong>15</strong> Fill-in</span>
+    <span class="qs"><strong>10</strong> True/False</span>
+    <span class="qs"><strong>5</strong> Case Studies</span>
+  </div>
+  <a href="/ace-prep/chapter-11" class="btn-primary" style="display:inline-flex">📝 Start Chapter 11 Quiz →</a>
+</div>
+
+</article>
+
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-title">In This Chapter</div>
+    <ul class="toc-list">
+      <li><a href="#section-1">1. Functional Training</a></li>
+      <li><a href="#section-2">2. Tissue Properties</a></li>
+      <li><a href="#section-3">3. Neurological Mechanisms</a></li>
+      <li><a href="#section-4">4. Stretching Techniques</a></li>
+      <li><a href="#section-5">5. FITT-VP Guidelines</a></li>
+      <li><a href="#section-6">6. Self-Myofascial Release</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">🎬 Watch on YouTube</div>
+    <a href="#" class="yt-thumb">
+      <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="yt-label">Chapter 11 — Full Teaching Video</div>
+    </a>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">Key Terms</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+      <div><span class="term">Autogenic Inhibition</span> — GTO → muscle relaxes</div>
+      <div><span class="term">Reciprocal Inhibition</span> — agonist → antagonist relaxes</div>
+      <div><span class="term">Creep</span> — plastic deformation from sustained load</div>
+      <div><span class="term-blue">PNF</span> — most effective technique</div>
+      <div><span class="term-red">Stretch Reflex</span> — avoid with ballistic moves</div>
+    </div>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">Chapter Navigation</div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+      <a href="/ace-prep/chapter-10-guide" style="color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border)">← Ch 10: MT Assessments</a>
+      <a href="/ace-prep/chapter-8-guide" style="color:var(--muted);text-decoration:none;padding:6px 0">← Ch 8: Cardiorespiratory</a>
+    </div>
+  </div>
+</aside>
+</div>
+
+
+
+<script>
+const sections=document.querySelectorAll('.section[id]');
+const tocLinks=document.querySelectorAll('.toc-list a');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.toc-list a[href="#${e.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+</Layout>

@@ -1,0 +1,479 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Chapter 9: Muscular Training — ACE-CPT Theory Guide | Lifelong Athletics">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080808;--bg2:#111;--bg3:#181818;--bg4:#1e1e1e;--border:#222;--border2:#2e2e2e;--text:#ededec;--muted:#888;--muted2:#555;--accent:#c5f135;--accent2:rgba(197,241,53,.12);--accent3:rgba(197,241,53,.06);--blue:#60a5fa;--purple:#a78bfa;--warn:#fbbf24;--correct:#4ade80;--red:#f87171;--font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--r:12px;--r2:8px;--r3:4px;--max:860px;--trans:0.2s ease}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.hero{max-width:var(--max);margin:0 auto;padding:72px 28px 48px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px}
+.tag-chapter{background:var(--accent2);color:var(--accent);border:1px solid rgba(197,241,53,.25)}
+.tag-read{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
+.hero h1{font-family:var(--font-head);font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:17px;color:var(--muted);max-width:640px;line-height:1.65;margin-bottom:32px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#000;padding:13px 28px;border-radius:30px;font-weight:700;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:#b8e030;transform:translateY(-1px)}
+.btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);padding:12px 24px;border-radius:30px;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.page-wrap{max-width:1200px;margin:0 auto;padding:0 28px 80px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.sidebar{position:sticky;top:90px}
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:20px}
+.toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc-list a{display:block;font-size:13px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:var(--r3);transition:var(--trans)}
+.toc-list a:hover{background:var(--bg3);color:var(--text)}
+.toc-list a.active{background:var(--accent2);color:var(--accent)}
+.sidebar-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px}
+.sidebar-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px}
+.yt-thumb{background:var(--bg3);border-radius:var(--r2);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:1px solid var(--border);transition:var(--trans);text-decoration:none}
+.yt-thumb:hover{border-color:var(--red)}
+.yt-play{width:44px;height:44px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.yt-label{font-size:12px;color:var(--muted)}
+.section{margin-bottom:56px;scroll-margin-top:100px}
+.section-number{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.section h2{font-family:var(--font-head);font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px}
+.section h2 em{font-style:italic;color:var(--accent)}
+.section h3{font-family:var(--font-head);font-size:19px;font-weight:600;margin:28px 0 12px;letter-spacing:-.3px}
+.section p{color:var(--text);margin-bottom:16px;font-size:15.5px}
+.lead{font-size:17px;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.divider{height:1px;background:var(--border);margin:40px 0}
+.callout{border-radius:var(--r2);padding:18px 20px;margin:24px 0}
+.callout-exam{background:rgba(197,241,53,.06);border:1px solid rgba(197,241,53,.2);border-left:3px solid var(--accent)}
+.callout-key{background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-left:3px solid var(--blue)}
+.callout-warn{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-left:3px solid var(--warn)}
+.callout-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.callout-exam .callout-label{color:var(--accent)}
+.callout-key .callout-label{color:var(--blue)}
+.callout-warn .callout-label{color:var(--warn)}
+.callout p{font-size:14px;color:var(--text);margin:0}
+.term{background:var(--accent2);color:var(--accent);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.term-blue{background:rgba(96,165,250,.12);color:var(--blue);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.term-red{background:rgba(248,113,113,.12);color:var(--red);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.table-wrap{overflow-x:auto;margin:24px 0;border-radius:var(--r2);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--bg3);padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
+td{padding:11px 14px;border-top:1px solid var(--border);vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.015)}
+.img-block{margin:28px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.img-block img{width:100%;display:block;object-fit:cover;max-height:380px}
+.img-caption{background:var(--bg2);padding:10px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+/* FIBER TYPE CARDS */
+.fiber-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:24px 0}
+.fiber-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.fiber-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.fiber-name{font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:10px}
+.fiber-traits{list-style:none;font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.fiber-traits li::before{content:"→ "}
+/* SARCOMERE DIAGRAM */
+.sarcomere{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin:24px 0}
+.sarcomere-title{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:20px}
+.sarcomere-visual{position:relative;height:60px;background:var(--bg3);border-radius:8px;overflow:hidden;margin-bottom:16px;display:flex;align-items:center}
+.z-line{position:absolute;width:3px;background:#c5f135;top:0;bottom:0}
+.z-line-left{left:8%}
+.z-line-right{right:8%}
+.m-line{position:absolute;width:2px;background:var(--blue);top:0;bottom:0;left:50%;transform:translateX(-50%)}
+.actin-left{position:absolute;left:11%;width:28%;height:8px;background:rgba(248,113,113,.6);top:50%;transform:translateY(-50%);border-radius:4px}
+.actin-right{position:absolute;right:11%;width:28%;height:8px;background:rgba(248,113,113,.6);top:50%;transform:translateY(-50%);border-radius:4px}
+.myosin{position:absolute;left:50%;width:40%;height:14px;background:rgba(96,165,250,.5);top:50%;transform:translate(-50%,-50%);border-radius:4px}
+.h-zone{position:absolute;left:50%;width:16%;height:100%;background:rgba(255,255,255,.04);transform:translateX(-50%);border-left:1px dashed var(--border2);border-right:1px dashed var(--border2)}
+.sarcomere-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+/* HYPERTROPHY COMPARE */
+.hyp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.hyp-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.hyp-card h4{font-family:var(--font-head);font-size:15px;margin-bottom:10px}
+/* REST TABLE */
+.rest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0}
+.rest-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px;text-align:center}
+.rest-goal{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.rest-time{font-family:var(--font-head);font-size:18px;font-weight:700}
+.rest-reps{font-size:11px;color:var(--muted);margin-top:4px}
+/* PROGRESSION */
+.prog-steps{display:flex;flex-direction:column;gap:0;margin:20px 0}
+.prog-step{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-bottom:none}
+.prog-step:first-child{border-radius:var(--r2) var(--r2) 0 0}
+.prog-step:last-child{border-bottom:1px solid var(--border);border-radius:0 0 var(--r2) var(--r2)}
+.prog-num{width:36px;height:36px;border-radius:50%;background:var(--accent2);border:1px solid rgba(197,241,53,.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0}
+.prog-content strong{display:block;font-size:14px;margin-bottom:4px}
+.prog-content p{font-size:13px;color:var(--muted);margin:0}
+.quiz-cta{background:linear-gradient(135deg,rgba(197,241,53,.08),rgba(197,241,53,.03));border:1px solid rgba(197,241,53,.2);border-radius:var(--r);padding:32px;text-align:center;margin-top:56px}
+.quiz-cta h3{font-family:var(--font-head);font-size:24px;margin-bottom:8px}
+.quiz-cta h3 em{font-style:italic;color:var(--accent)}
+.quiz-cta p{color:var(--muted);font-size:14px;margin-bottom:22px}
+.quiz-stats{display:flex;gap:20px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
+.qs{background:var(--bg3);padding:8px 18px;border-radius:20px;font-size:13px}
+.qs strong{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:36px;text-align:center;font-size:12px;color:var(--muted)}
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr}.sidebar{position:relative;top:0}.fiber-grid,.hyp-grid,.rest-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.hero{padding:48px 20px 32px}.page-wrap{padding:0 20px 60px}.fiber-grid,.rest-grid{grid-template-columns:1fr}}
+</style>
+<div class="hero">
+  <div class="hero-meta">
+    <span class="tag tag-chapter">ACE-CPT · Chapter 9</span>
+    <span class="tag tag-read">📖 15 min read</span>
+    <span class="tag tag-read">🎬 Watch on YouTube</span>
+  </div>
+  <h1>Muscular <em>Training</em></h1>
+  <p class="hero-desc">From sarcomere anatomy to double-progression protocol — the complete physiology and program design guide for muscular training.</p>
+  <div class="hero-actions">
+    <a href="/ace-prep/chapter-9" class="btn-primary">📝 Take the Quiz →</a>
+    <a href="#section-1" class="btn-secondary">Start Reading ↓</a>
+  </div>
+</div>
+
+<div class="page-wrap">
+<article class="content">
+
+<!-- S1 SARCOMERE -->
+<div class="section" id="section-1">
+  <div class="section-number">Section 1</div>
+  <h2>The <em>Sarcomere</em></h2>
+  <p class="lead">The sarcomere is the functional contracting unit of skeletal muscle. Every movement your client makes traces back to thousands of sarcomeres shortening simultaneously.</p>
+
+  <div class="sarcomere">
+    <div class="sarcomere-title">Sarcomere Structure — Sliding Filament Model</div>
+    <div class="sarcomere-visual">
+      <div class="h-zone"></div>
+      <div class="myosin"></div>
+      <div class="actin-left"></div>
+      <div class="actin-right"></div>
+      <div class="z-line z-line-left"></div>
+      <div class="z-line z-line-right"></div>
+      <div class="m-line"></div>
+    </div>
+    <div class="sarcomere-labels">
+      <span style="color:#c5f135">◀ Z-line</span>
+      <span>← Actin (thin) →</span>
+      <span style="color:var(--blue)">M-line</span>
+      <span>← Actin (thin) →</span>
+      <span style="color:#c5f135">Z-line ▶</span>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;font-size:12px">
+      <span style="color:var(--correct)">■ Z-lines: pulled closer together during contraction</span>
+      <span style="color:var(--blue)">■ Myosin (thick filaments)</span>
+      <span style="color:var(--red)">■ Actin (thin filaments)</span>
+      <span style="color:var(--muted)">■ H-zone: myosin only — no actin</span>
+    </div>
+  </div>
+
+  <p>When a nerve signal arrives: calcium is released → myosin heads bind to actin → actin is pulled inward → <strong>Z-lines move closer together</strong> → the sarcomere shortens. This is the <span class="term">sliding filament model</span>.</p>
+
+  <div class="callout callout-exam">
+    <div class="callout-label">⚡ Exam Point</div>
+    <p>The <span class="term">H zone</span> contains ONLY myosin — no actin extends into this region. It appears lighter under a microscope and is a key landmark question on the exam.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S2 FIBER TYPES -->
+<div class="section" id="section-2">
+  <div class="section-number">Section 2</div>
+  <h2>Muscle Fiber <em>Types</em></h2>
+  <p class="lead">The three fiber types determine how a muscle responds to training, how quickly it fatigues, and how much force it can produce. Knowing them is essential for program design.</p>
+
+  <div class="fiber-grid">
+    <div class="fiber-card" style="border-color:rgba(74,222,128,.3)">
+      <div class="fiber-label" style="color:var(--correct)">Type I</div>
+      <div class="fiber-name">Slow-Oxidative</div>
+      <ul class="fiber-traits">
+        <li>High mitochondria</li>
+        <li>Fatigue-resistant</li>
+        <li>Low force output</li>
+        <li>Endurance activities</li>
+        <li>Postural muscles</li>
+      </ul>
+    </div>
+    <div class="fiber-card" style="border-color:rgba(251,191,36,.3)">
+      <div class="fiber-label" style="color:var(--warn)">Type IIa</div>
+      <div class="fiber-name">Intermediate</div>
+      <ul class="fiber-traits">
+        <li>Moderate mitochondria</li>
+        <li>Speed + endurance</li>
+        <li>Moderate-high force</li>
+        <li>Up to 3 min sustained</li>
+        <li>Strength & power work</li>
+      </ul>
+    </div>
+    <div class="fiber-card" style="border-color:rgba(248,113,113,.3)">
+      <div class="fiber-label" style="color:var(--red)">Type IIx</div>
+      <div class="fiber-name">Fast-Glycolytic</div>
+      <ul class="fiber-traits">
+        <li>Few mitochondria</li>
+        <li>Fatigues in seconds</li>
+        <li>Highest force output</li>
+        <li>Largest fibers</li>
+        <li>Maximal power/sprint</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-key">
+    <div class="callout-label">🔑 Key Concept</div>
+    <p>Training can shift some <span class="term-red">Type IIx</span> fibers toward <span class="term">Type IIa</span> characteristics — but you cannot change someone's fundamental fiber type ratio. Genetics determines the baseline distribution.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S3 MUSCLE ACTIONS -->
+<div class="section" id="section-3">
+  <div class="section-number">Section 3</div>
+  <h2>Types of Muscle <em>Action</em></h2>
+  <p class="lead">Every resistance exercise involves one or more of three muscle action types. Understanding them determines how you program for strength, hypertrophy, and injury prevention.</p>
+
+  <div class="img-block">
+    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=900&q=80" alt="Person performing a bicep curl showing concentric and eccentric phases" loading="lazy"/>
+    <div class="img-caption">A single bicep curl involves concentric action (lifting) and eccentric action (lowering) — the eccentric phase is where most muscle microtrauma occurs.</div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Action Type</th><th>What Happens</th><th>Example</th><th>Key Note</th></tr>
+      <tr><td><span class="term">Concentric</span></td><td>Muscle shortens, overcomes resistance</td><td>Lifting phase of bicep curl</td><td>Primary strength-building action</td></tr>
+      <tr><td><span class="term-red">Eccentric</span></td><td>Muscle lengthens under load</td><td>Lowering phase of bicep curl</td><td>Primary trigger for DOMS; greatest microtrauma</td></tr>
+      <tr><td><span class="term-blue">Isometric</span></td><td>No visible movement; tension = resistance</td><td>Plank hold; bottom of squat pause</td><td>Used in PNF stretching; stabilization training</td></tr>
+    </table>
+  </div>
+
+  <h3>DOMS — Delayed Onset Muscle Soreness</h3>
+  <p>DOMS peaks at <strong>24–72 hours</strong> post-exercise. Common myth: it's caused by lactic acid. Reality: it's caused by <span class="term">eccentric microtrauma</span> — microscopic tears in muscle fibers from the lengthening phase of exercise.</p>
+  <p>The repeated-bout effect: the same workout causes progressively less DOMS as the muscle adapts. First session = most soreness. By session 3–4, soreness is dramatically reduced for the same stimulus.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- S4 HYPERTROPHY -->
+<div class="section" id="section-4">
+  <div class="section-number">Section 4</div>
+  <h2>Two Types of <em>Hypertrophy</em></h2>
+  <p class="lead">Not all muscle growth is the same. The type of hypertrophy your program produces depends on training variables — and it directly determines whether your client gets stronger or just bigger.</p>
+
+  <div class="hyp-grid">
+    <div class="hyp-card" style="border-color:rgba(197,241,53,.25)">
+      <h4 style="color:var(--accent)">Myofibrillar Hypertrophy</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:10px">Growth of actual contractile proteins (actin + myosin).</p>
+      <p style="font-size:13px"><strong>Result:</strong> Increased size AND increased force production.</p>
+      <p style="font-size:13px;margin-top:8px;color:var(--muted)">Heavy loads, lower reps, longer rest → targets this type.</p>
+    </div>
+    <div class="hyp-card" style="border-color:rgba(96,165,250,.25)">
+      <h4 style="color:var(--blue)">Sarcoplasmic Hypertrophy</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:10px">Increase in non-contractile fluid and elements within the fiber.</p>
+      <p style="font-size:13px"><strong>Result:</strong> Increased size WITHOUT proportional force increase.</p>
+      <p style="font-size:13px;margin-top:8px;color:var(--muted)">High volume, shorter rest → targets this type ("muscle pump").</p>
+    </div>
+  </div>
+
+  <h3>Neural Adaptations — Early Strength Gains</h3>
+  <p>When an untrained person starts lifting, they get noticeably stronger within the first 4–6 weeks — often <strong>without visible muscle growth</strong>. The explanation:</p>
+  <p><span class="term">Neural adaptations</span> precede hypertrophy. The nervous system becomes more efficient: more motor units recruited simultaneously, better synchronization, reduced antagonist inhibition, improved inter-muscular coordination. Only after the neural pattern is established does significant hypertrophy begin contributing to strength gains.</p>
+
+  <div class="callout callout-exam">
+    <div class="callout-label">⚡ Exam Point — Heavily Tested</div>
+    <p>Early strength gains = <span class="term">neural adaptations</span>, NOT hypertrophy. A client who gets noticeably stronger in weeks 1–4 without visible muscle size change is experiencing normal neural learning. Hypertrophy becomes the primary driver of strength gains after this initial period.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S5 FACTORS -->
+<div class="section" id="section-5">
+  <div class="section-number">Section 5</div>
+  <h2>Factors Affecting <em>Hypertrophy</em></h2>
+  <p class="lead">Hypertrophy potential is not equal across all individuals. Six key factors determine how much muscle someone can build — and understanding them prevents common client misconceptions.</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Factor</th><th>How It Affects Hypertrophy</th><th>Practical Implication</th></tr>
+      <tr><td><strong>Hormone Levels</strong></td><td>Testosterone is the primary anabolic driver. Higher testosterone = greater hypertrophy ceiling.</td><td>Males have 10–20× more testosterone than females — explains major differences in mass potential.</td></tr>
+      <tr><td><strong>Sex</strong></td><td>Directly linked to hormonal profile.</td><td>Females can gain significant functional strength but have a lower ceiling for muscle mass.</td></tr>
+      <tr><td><strong>Age</strong></td><td>Anabolic hormone production and satellite cell activity decline with age.</td><td>Hypertrophy response slows with age; recovery takes longer.</td></tr>
+      <tr><td><strong>Fiber Type</strong></td><td>Type II fibers are larger and have greater hypertrophy potential than Type I.</td><td>Genetically higher Type II % = greater size potential.</td></tr>
+      <tr><td><strong>Muscle/Tendon</strong></td><td>Longer muscle bellies = more potential volume. Tendon insertion = mechanical advantage.</td><td>Anatomy directly limits visible hypertrophy in some muscle groups.</td></tr>
+      <tr><td><strong>Limb Length</strong></td><td>Shorter limbs = mechanical leverage advantage for moving resistance.</td><td>Limb length affects STRENGTH performance — NOT hypertrophy potential. Tested distinction.</td></tr>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <div class="callout-label">🔑 Client Communication</div>
+    <p>When a female client fears "bulking up": <strong>four factors work against it</strong> simultaneously — lower testosterone, sex-specific hormonal environment, typically higher Type I fiber proportion, and (if 40+) declining anabolic hormones. Accidental bodybuilder-level hypertrophy is physiologically extremely unlikely without years of specialized training.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S6 PRINCIPLES -->
+<div class="section" id="section-6">
+  <div class="section-number">Section 6</div>
+  <h2>Training <em>Principles</em></h2>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Principle</th><th>Definition</th><th>Programming Application</th></tr>
+      <tr><td><span class="term">Overload</span></td><td>System must be stressed beyond current capacity to drive adaptation</td><td>Progressive resistance, volume, or complexity increases over time</td></tr>
+      <tr><td><span class="term">Specificity</span></td><td>Adaptations match the exact demands placed on the body (SAID)</td><td>Strength goals → heavy compound training; endurance goals → high-rep, shorter rest</td></tr>
+      <tr><td><span class="term">Reversibility</span></td><td>"Use it or lose it" — gains decline when training stops</td><td>Neural patterns persist longer than hypertrophy; returning trainees improve faster than beginners</td></tr>
+      <tr><td><span class="term">Diminishing Returns</span></td><td>Harder to gain strength as fitness increases; smaller returns per unit of effort</td><td>Change exercises to break plateau; periodize program design for advanced clients</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S7 PROGRAM DESIGN -->
+<div class="section" id="section-7">
+  <div class="section-number">Section 7</div>
+  <h2>Program Design <em>Variables</em></h2>
+  <p class="lead">Six variables govern every muscular training program. The combination you select determines whether you're training for endurance, hypertrophy, strength, or power.</p>
+
+  <div class="img-block">
+    <img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=900&q=80" alt="Strength training with barbell in gym" loading="lazy"/>
+    <div class="img-caption">Load, volume, rest, and exercise order must all be aligned with the client's specific goal — there is no universal "correct" program.</div>
+  </div>
+
+  <h3>Rest Intervals by Goal</h3>
+  <div class="rest-grid">
+    <div class="rest-card">
+      <div class="rest-goal">Endurance</div>
+      <div class="rest-time" style="color:var(--correct)">≤60s</div>
+      <div class="rest-reps">15–25+ reps</div>
+    </div>
+    <div class="rest-card">
+      <div class="rest-goal">Hypertrophy</div>
+      <div class="rest-time" style="color:var(--warn)">60–90s</div>
+      <div class="rest-reps">6–15 reps</div>
+    </div>
+    <div class="rest-card">
+      <div class="rest-goal">Strength</div>
+      <div class="rest-time" style="color:var(--red)">2–5 min</div>
+      <div class="rest-reps">1–6 reps</div>
+    </div>
+    <div class="rest-card">
+      <div class="rest-goal">Power</div>
+      <div class="rest-time" style="color:var(--red)">2–5 min</div>
+      <div class="rest-reps">1–5 reps</div>
+    </div>
+  </div>
+
+  <div class="callout callout-key">
+    <div class="callout-label">🔑 Exercise Order</div>
+    <p>Always perform <span class="term">large muscle group, compound movements first</span> when neuromuscular energy is highest. Isolation exercises and small muscle groups follow. Performing isolation first pre-fatigues primary movers and reduces force production quality on compound movements.</p>
+  </div>
+
+  <div class="callout callout-exam">
+    <div class="callout-label">⚡ Exam Point — Frequency</div>
+    <p>New exercisers: <span class="term">2–3 days/week</span> produces significantly greater lean mass gains than 1 day/week. Advanced exercisers performing high-volume sessions need approximately <strong>72 hours</strong> before training the same muscle group again at high intensity.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S8 DOUBLE PROGRESSION -->
+<div class="section" id="section-8">
+  <div class="section-number">Section 8</div>
+  <h2>Double-Progression <em>Protocol</em></h2>
+  <p class="lead">The most systematic, client-friendly method for applying progressive overload. No guesswork — progress only when earned.</p>
+
+  <div class="prog-steps">
+    <div class="prog-step">
+      <div class="prog-num">1</div>
+      <div class="prog-content">
+        <strong>Set a Rep Range</strong>
+        <p>Example: 8–12 reps. Client starts at the bottom of the range with a challenging but manageable load.</p>
+      </div>
+    </div>
+    <div class="prog-step">
+      <div class="prog-num">2</div>
+      <div class="prog-content">
+        <strong>Add Reps First</strong>
+        <p>Stay at the same weight. Each session, attempt one more rep. Work from 8 → 9 → 10 → 11 → 12 over multiple sessions.</p>
+      </div>
+    </div>
+    <div class="prog-step">
+      <div class="prog-num">3</div>
+      <div class="prog-content">
+        <strong>Add Weight When Top is Reached</strong>
+        <p>Once 12 clean reps are achieved with good form → increase resistance by ~5%. Now reset to 8 reps at the new weight.</p>
+      </div>
+    </div>
+    <div class="prog-step">
+      <div class="prog-num">↻</div>
+      <div class="prog-content">
+        <strong>Repeat Indefinitely</strong>
+        <p>No arbitrary timeline. Weight increases only when the client earns it through performance. Plateau → change the exercise, not just the load.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-cta">
+  <h3>Ready to <em>Test Yourself?</em></h3>
+  <p>55 questions including 5 real ACE-style case studies — Devon, Amara, Grace, Roland, and Jordan.</p>
+  <div class="quiz-stats">
+    <span class="qs"><strong>25</strong> MCQ</span>
+    <span class="qs"><strong>15</strong> Fill-in</span>
+    <span class="qs"><strong>10</strong> True/False</span>
+    <span class="qs"><strong>5</strong> Case Studies</span>
+  </div>
+  <a href="/ace-prep/chapter-9" class="btn-primary" style="display:inline-flex">📝 Start Chapter 9 Quiz →</a>
+</div>
+
+</article>
+
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-title">In This Chapter</div>
+    <ul class="toc-list">
+      <li><a href="#section-1">1. The Sarcomere</a></li>
+      <li><a href="#section-2">2. Fiber Types</a></li>
+      <li><a href="#section-3">3. Muscle Actions + DOMS</a></li>
+      <li><a href="#section-4">4. Two Types of Hypertrophy</a></li>
+      <li><a href="#section-5">5. Hypertrophy Factors</a></li>
+      <li><a href="#section-6">6. Training Principles</a></li>
+      <li><a href="#section-7">7. Program Design Variables</a></li>
+      <li><a href="#section-8">8. Double-Progression</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">🎬 Watch on YouTube</div>
+    <a href="#" class="yt-thumb">
+      <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="yt-label">Chapter 9 — Full Teaching Video</div>
+    </a>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">Key Terms</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+      <div><span class="term">Sarcomere</span> — functional contracting unit</div>
+      <div><span class="term">DOMS</span> — delayed onset muscle soreness</div>
+      <div><span class="term">Myofibrillar</span> — size + force</div>
+      <div><span class="term-blue">Sarcoplasmic</span> — size only</div>
+      <div><span class="term">SAID</span> — specificity principle</div>
+    </div>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">Chapter Navigation</div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+      <a href="/ace-prep/chapter-8-guide" style="color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border)">← Ch 8: Cardiorespiratory</a>
+      <a href="/ace-prep/chapter-10-guide" style="color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border)">Ch 10: MT Assessments →</a>
+      <a href="/ace-prep/chapter-11-guide" style="color:var(--muted);text-decoration:none;padding:6px 0">Ch 11: Integrated Programming →</a>
+    </div>
+  </div>
+</aside>
+</div>
+
+
+
+<script>
+const sections=document.querySelectorAll('.section[id]');
+const tocLinks=document.querySelectorAll('.toc-list a');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.toc-list a[href="#${e.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+</Layout>

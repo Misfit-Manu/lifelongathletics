@@ -1,0 +1,424 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Chapter 10: Muscular Training Assessments — ACE-CPT Theory Guide | Lifelong Athletics">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;--text:#ededec;--muted:#888;--muted2:#555;--accent:#c5f135;--accent2:rgba(197,241,53,.12);--blue:#60a5fa;--purple:#a78bfa;--warn:#fbbf24;--correct:#4ade80;--red:#f87171;--font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--r:12px;--r2:8px;--r3:4px;--max:860px;--trans:0.2s ease}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.hero{max-width:var(--max);margin:0 auto;padding:72px 28px 48px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px}
+.tag-chapter{background:var(--accent2);color:var(--accent);border:1px solid rgba(197,241,53,.25)}
+.tag-read{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
+.hero h1{font-family:var(--font-head);font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:17px;color:var(--muted);max-width:640px;line-height:1.65;margin-bottom:32px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#000;padding:13px 28px;border-radius:30px;font-weight:700;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:#b8e030;transform:translateY(-1px)}
+.btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);padding:12px 24px;border-radius:30px;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.page-wrap{max-width:1200px;margin:0 auto;padding:0 28px 80px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
+.sidebar{position:sticky;top:90px}
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:20px}
+.toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc-list a{display:block;font-size:13px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:var(--r3);transition:var(--trans)}
+.toc-list a:hover{background:var(--bg3);color:var(--text)}.toc-list a.active{background:var(--accent2);color:var(--accent)}
+.sidebar-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px}
+.sidebar-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px}
+.yt-thumb{background:var(--bg3);border-radius:var(--r2);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:1px solid var(--border);transition:var(--trans);text-decoration:none}
+.yt-thumb:hover{border-color:var(--red)}
+.yt-play{width:44px;height:44px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.yt-label{font-size:12px;color:var(--muted)}
+.section{margin-bottom:56px;scroll-margin-top:100px}
+.section-number{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.section h2{font-family:var(--font-head);font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px}
+.section h2 em{font-style:italic;color:var(--accent)}
+.section h3{font-family:var(--font-head);font-size:19px;font-weight:600;margin:28px 0 12px;letter-spacing:-.3px}
+.section p{color:var(--text);margin-bottom:16px;font-size:15.5px}
+.lead{font-size:17px;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.divider{height:1px;background:var(--border);margin:40px 0}
+.callout{border-radius:var(--r2);padding:18px 20px;margin:24px 0}
+.callout-exam{background:rgba(197,241,53,.06);border:1px solid rgba(197,241,53,.2);border-left:3px solid var(--accent)}
+.callout-key{background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-left:3px solid var(--blue)}
+.callout-warn{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-left:3px solid var(--warn)}
+.callout-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.callout-exam .callout-label{color:var(--accent)}.callout-key .callout-label{color:var(--blue)}.callout-warn .callout-label{color:var(--warn)}
+.callout p{font-size:14px;color:var(--text);margin:0}
+.term{background:var(--accent2);color:var(--accent);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.term-blue{background:rgba(96,165,250,.12);color:var(--blue);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.term-red{background:rgba(248,113,113,.12);color:var(--red);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+.table-wrap{overflow-x:auto;margin:24px 0;border-radius:var(--r2);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--bg3);padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
+td{padding:11px 14px;border-top:1px solid var(--border);vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.015)}
+.img-block{margin:28px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.img-block img{width:100%;display:block;object-fit:cover;max-height:360px}
+.img-caption{background:var(--bg2);padding:10px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+
+/* PLUMB LINE VISUAL */
+.plumb-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin:24px 0;display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:center}
+.plumb-figure{position:relative;height:240px;display:flex;justify-content:center}
+.plumb-line{position:absolute;left:50%;width:2px;height:100%;background:rgba(197,241,53,.4);transform:translateX(-50%);top:0}
+.plumb-dot{position:absolute;left:50%;width:10px;height:10px;border-radius:50%;transform:translateX(-50%);border:2px solid}
+.plumb-label-right{position:absolute;left:calc(50% + 12px);font-size:11px;color:var(--muted);white-space:nowrap}
+.plumb-landmarks{display:flex;flex-direction:column;gap:10px;font-size:13px}
+.plumb-item{display:flex;align-items:center;gap:10px}
+.plumb-num{width:22px;height:22px;border-radius:50%;background:var(--accent2);border:1px solid rgba(197,241,53,.3);color:var(--accent);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* KINETIC CHAIN */
+.kc-chain{display:flex;flex-direction:column;gap:0;margin:20px 0}
+.kc-step{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-bottom:none}
+.kc-step:first-child{border-radius:var(--r2) var(--r2) 0 0}
+.kc-step:last-child{border-bottom:1px solid var(--border);border-radius:0 0 var(--r2) var(--r2)}
+.kc-num{width:28px;height:28px;border-radius:50%;background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:var(--red);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.kc-text{font-size:13.5px}
+
+/* SLS 5-REP GRID */
+.rep-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:24px 0}
+.rep-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 12px;text-align:center}
+.rep-num{font-family:var(--font-head);font-size:22px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.rep-focus{font-size:12px;font-weight:600;margin-bottom:6px}
+.rep-comp{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* POSTURE DEVIATIONS */
+.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.dev-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px}
+.dev-name{font-weight:700;font-size:14px;margin-bottom:8px}
+.dev-row{display:flex;gap:8px;margin-bottom:4px;font-size:12px}
+.dev-tight{color:var(--red)}.dev-weak{color:var(--blue)}
+.dev-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;width:50px;flex-shrink:0;padding-top:1px}
+
+/* CORE TESTS */
+.core-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:24px 0}
+.core-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
+.core-icon{font-size:24px;margin-bottom:8px}
+.core-name{font-weight:700;font-size:14px;margin-bottom:6px}
+.core-muscles{font-size:12px;color:var(--accent);margin-bottom:8px}
+.core-contra{font-size:11px;color:var(--red)}
+
+.quiz-cta{background:linear-gradient(135deg,rgba(197,241,53,.08),rgba(197,241,53,.03));border:1px solid rgba(197,241,53,.2);border-radius:var(--r);padding:32px;text-align:center;margin-top:56px}
+.quiz-cta h3{font-family:var(--font-head);font-size:24px;margin-bottom:8px}
+.quiz-cta h3 em{font-style:italic;color:var(--accent)}
+.quiz-cta p{color:var(--muted);font-size:14px;margin-bottom:22px}
+.quiz-stats{display:flex;gap:20px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
+.qs{background:var(--bg3);padding:8px 18px;border-radius:20px;font-size:13px}
+.qs strong{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:36px;text-align:center;font-size:12px;color:var(--muted)}
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr}.sidebar{position:relative;top:0}.rep-grid{grid-template-columns:repeat(3,1fr)}.dev-grid,.core-grid{grid-template-columns:1fr}.plumb-wrap{grid-template-columns:1fr}}
+@media(max-width:600px){.hero{padding:48px 20px 32px}.page-wrap{padding:0 20px 60px}.rep-grid{grid-template-columns:1fr 1fr}}
+</style>
+<div class="hero">
+  <div class="hero-meta">
+    <span class="tag tag-chapter">ACE-CPT · Chapter 10</span>
+    <span class="tag tag-read">📖 15 min read</span>
+    <span class="tag tag-read">🎬 Watch on YouTube</span>
+  </div>
+  <h1>Muscular Training <em>Assessments</em></h1>
+  <p class="hero-desc">Static posture, kinetic chain compensations, movement screens, and core endurance testing — the complete assessment toolkit for every client.</p>
+  <div class="hero-actions">
+    <a href="/ace-prep/chapter-10" class="btn-primary">📝 Take the Quiz →</a>
+    <a href="#section-1" class="btn-secondary">Start Reading ↓</a>
+  </div>
+</div>
+
+<div class="page-wrap">
+<article class="content">
+
+<!-- S1 PLUMB LINE -->
+<div class="section" id="section-1">
+  <div class="section-number">Section 1</div>
+  <h2>Static Postural Assessment & <em>The Plumb Line</em></h2>
+  <p class="lead">The right-angle rule defines good posture: all body parts symmetrically positioned relative to the body's line of gravity. The plumb line makes this visible and measurable.</p>
+
+  <div class="callout callout-key">
+    <div class="callout-label">🔑 Critical Principle</div>
+    <p>The body is <strong>never perfectly symmetrical</strong>. Focus only on <span class="term">obvious, gross imbalances</span> — not every minor asymmetry. Clinically insignificant deviations are normal and universal.</p>
+  </div>
+
+  <div class="plumb-wrap">
+    <div class="plumb-figure">
+      <div class="plumb-line"></div>
+      <div class="plumb-dot" style="top:5%;border-color:var(--accent)"><span class="plumb-label-right" style="top:-4px">5. Mastoid process</span></div>
+      <div class="plumb-dot" style="top:22%;border-color:var(--blue)"><span class="plumb-label-right" style="top:-4px">4. AC joint</span></div>
+      <div class="plumb-dot" style="top:48%;border-color:var(--warn)"><span class="plumb-label-right" style="top:-4px">3. Greater trochanter</span></div>
+      <div class="plumb-dot" style="top:68%;border-color:var(--correct)"><span class="plumb-label-right" style="top:-4px">2. Anterior ⅓ knee</span></div>
+      <div class="plumb-dot" style="top:88%;border-color:var(--correct)"><span class="plumb-label-right" style="top:-4px">1. Ant. lateral malleolus</span></div>
+    </div>
+    <div class="plumb-landmarks">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Lateral View Landmarks</div>
+      <div class="plumb-item"><div class="plumb-num">1</div><span>Slightly anterior to lateral malleolus</span></div>
+      <div class="plumb-item"><div class="plumb-num">2</div><span>Anterior third of the knee</span></div>
+      <div class="plumb-item"><div class="plumb-num">3</div><span>Greater trochanter of femur</span></div>
+      <div class="plumb-item"><div class="plumb-num">4</div><span>Acromioclavicular (AC) joint</span></div>
+      <div class="plumb-item"><div class="plumb-num">5</div><span>Slightly anterior to mastoid process</span></div>
+    </div>
+  </div>
+
+  <p>In the <strong>anterior view</strong>: palms face lateral thighs with thumbs visible, patellae point straight ahead, feet forward or slightly outward.</p>
+  <p>In the <strong>posterior view</strong>: observe scapular symmetry, shoulder height, spinal alignment, and iliac crest level.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- S2 DEVIATIONS -->
+<div class="section" id="section-2">
+  <div class="section-number">Section 2</div>
+  <h2>Postural <em>Deviations</em></h2>
+  <p class="lead">Each postural deviation has a predictable pattern of overactive (tight) and underactive (lengthened/weak) muscles. Identifying these patterns guides your exercise selection.</p>
+
+  <div class="dev-grid">
+    <div class="dev-card">
+      <div class="dev-name">Anterior Pelvic Tilt</div>
+      <div class="dev-row"><span class="dev-label dev-tight">Tight</span><span style="font-size:12px">Hip flexors, erector spinae</span></div>
+      <div class="dev-row"><span class="dev-label dev-weak">Weak</span><span style="font-size:12px">Hamstrings, rectus abdominis</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">Increases lumbar lordosis. Common in desk workers.</div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-name">Posterior Pelvic Tilt</div>
+      <div class="dev-row"><span class="dev-label dev-tight">Tight</span><span style="font-size:12px">Hamstrings, rectus abdominis</span></div>
+      <div class="dev-row"><span class="dev-label dev-weak">Weak</span><span style="font-size:12px">Hip flexors, erector spinae</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">Flattens lumbar curve. Reduces spinal mobility.</div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-name">Forward Head Posture</div>
+      <div class="dev-row"><span class="dev-label dev-tight">Tight</span><span style="font-size:12px">Cervical extensors, upper trap, levator scapulae</span></div>
+      <div class="dev-row"><span class="dev-label dev-weak">Weak</span><span style="font-size:12px">Deep cervical flexors (longus colli)</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">Head anterior to plumb line. Often accompanies rounded shoulders.</div>
+    </div>
+    <div class="dev-card">
+      <div class="dev-name">Rounded Shoulders</div>
+      <div class="dev-row"><span class="dev-label dev-tight">Tight</span><span style="font-size:12px">Pectoralis major/minor, anterior deltoid</span></div>
+      <div class="dev-row"><span class="dev-label dev-weak">Weak</span><span style="font-size:12px">Rhomboids, mid/lower trapezius, serratus anterior</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px">Scapulae abducted from spine. Internal shoulder rotation.</div>
+    </div>
+  </div>
+
+  <h3>Scapular Deviations — The Tested Distinction</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Deviation</th><th>What Protrudes</th><th>Primary Cause</th></tr>
+      <tr><td><span class="term">Scapular Winging</span></td><td>Vertebral (medial) border protrudes outward</td><td>Weak serratus anterior, rhomboids</td></tr>
+      <tr><td><span class="term-blue">Scapular Tipping</span></td><td>Inferior angle protrudes</td><td>Tight pectoralis minor pulls coracoid forward/down</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S3 KINETIC CHAIN -->
+<div class="section" id="section-3">
+  <div class="section-number">Section 3</div>
+  <h2>Kinetic Chain <em>Compensations</em></h2>
+  <p class="lead">The body is an interconnected system. A dysfunction at the foot does not stay at the foot — it travels up the chain, affecting the knee, hip, pelvis, and spine.</p>
+
+  <div class="img-block">
+    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=900&q=80" alt="Biomechanics assessment of lower limb during exercise" loading="lazy"/>
+    <div class="img-caption">Understanding kinetic chain relationships allows trainers to identify the root cause of a compensation — not just the symptom.</div>
+  </div>
+
+  <h3>The Foot Pronation Chain</h3>
+  <div class="kc-chain">
+    <div class="kc-step"><div class="kc-num">1</div><div class="kc-text"><strong>Tight gastrocnemius/soleus</strong> → limits ankle dorsiflexion range of motion</div></div>
+    <div class="kc-step"><div class="kc-num">2</div><div class="kc-text"><strong>Calcaneal eversion</strong> → subtalar joint pronates to compensate for limited dorsiflexion</div></div>
+    <div class="kc-step"><div class="kc-num">3</div><div class="kc-text"><strong>Internal tibial + femoral rotation</strong> → closed-chain subtalar pronation rotates the entire lower limb inward</div></div>
+    <div class="kc-step"><div class="kc-num">4</div><div class="kc-text"><strong>Knee valgus</strong> → internal femoral rotation causes the knee to collapse medially</div></div>
+    <div class="kc-step"><div class="kc-num">5</div><div class="kc-text"><strong>Anterior pelvic tilt + increased lordosis</strong> → femoral rotation adjusts the pelvis anteriorly up the chain</div></div>
+  </div>
+
+  <div class="callout callout-exam">
+    <div class="callout-label">⚡ Exam Point</div>
+    <p>Don't treat the knee valgus — <strong>treat the ankle</strong>. The root of this chain is tight gastrocnemius/soleus. Fix the dorsiflexion restriction and the valgus often resolves. This is tested in case-study format on the ACE exam.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S4 MOVEMENT SCREENS -->
+<div class="section" id="section-4">
+  <div class="section-number">Section 4</div>
+  <h2>Movement <em>Screens</em></h2>
+  <p class="lead">Dynamic movement screens reveal compensations that static posture cannot capture. The single-leg squat is the most powerful tool in this chapter.</p>
+
+  <h3>Single-Leg Squat — 5-Rep Protocol</h3>
+  <p>Five repetitions. Each rep observes one body region systematically. The sequence is designed to trace a compensation from its root cause upward through the kinetic chain.</p>
+
+  <div class="rep-grid">
+    <div class="rep-card">
+      <div class="rep-num">1</div>
+      <div class="rep-focus">Foot</div>
+      <div class="rep-comp">Pronation or supination? Arch collapse?</div>
+    </div>
+    <div class="rep-card">
+      <div class="rep-num">2</div>
+      <div class="rep-focus">Knee</div>
+      <div class="rep-comp">Valgus &gt;2 inches? Varus bow?</div>
+    </div>
+    <div class="rep-card">
+      <div class="rep-num">3</div>
+      <div class="rep-focus">Hip</div>
+      <div class="rep-comp">Contralateral pelvis drops? Trendelenburg?</div>
+    </div>
+    <div class="rep-card">
+      <div class="rep-num">4</div>
+      <div class="rep-focus">Torso</div>
+      <div class="rep-comp">Trunk lean toward stance leg?</div>
+    </div>
+    <div class="rep-card">
+      <div class="rep-num">5</div>
+      <div class="rep-focus">Ankle</div>
+      <div class="rep-comp">Restricted dorsiflexion?</div>
+    </div>
+  </div>
+
+  <div class="callout callout-key">
+    <div class="callout-label">🔑 Read the Chain</div>
+    <p>Rep 1 foot pronation → causes Rep 2 knee valgus. Rep 3 hip drop (weak glute med) → causes Rep 4 trunk lean (compensation). Each compensation explains the next. Finding the root = more effective programming.</p>
+  </div>
+
+  <h3>Overhead Squat — Key Compensations</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>What You See</th><th>Root Cause</th></tr>
+      <tr><td>Excessive forward lean</td><td>Tight hip flexors + tight ankles (limited dorsiflexion)</td></tr>
+      <tr><td>Heel rise</td><td>Tight gastrocnemius/soleus</td></tr>
+      <tr><td>Low back arch</td><td>Tight hip flexors + latissimus dorsi; weak glutes + abdominals</td></tr>
+      <tr><td>Arms fall forward</td><td>Tight latissimus dorsi, tight pectoralis minor</td></tr>
+    </table>
+  </div>
+
+  <h3>Thomas Test — Hip Flexor Length</h3>
+  <p>Assesses the length of the primary hip flexors: psoas, iliacus, and rectus femoris. Client lies supine on a stable table, one leg hanging off the edge while the other is drawn to the chest.</p>
+  <div class="callout callout-warn">
+    <div class="callout-label">⚠️ Contraindication</div>
+    <p>Do NOT perform the Thomas test on any client with <strong>low-back pain</strong> unless they have explicit physician clearance. Lumbar stress is involved in the test position.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S5 CORE TESTS -->
+<div class="section" id="section-5">
+  <div class="section-number">Section 5</div>
+  <h2>Core Endurance <em>Tests</em></h2>
+  <p class="lead">Three timed isometric tests. Each targets a different plane of the core. Ratios between tests are as important as individual scores.</p>
+
+  <div class="core-grid">
+    <div class="core-card">
+      <div class="core-icon">🧘</div>
+      <div class="core-name">Trunk Flexor</div>
+      <div class="core-muscles">Rectus abdominis, obliques, TA</div>
+      <p style="font-size:12px;color:var(--muted)">Seated at 60°. Hold until misalignment. Timed.</p>
+      <div class="core-contra">Contraindicated: acute LBP</div>
+    </div>
+    <div class="core-card">
+      <div class="core-icon">↔️</div>
+      <div class="core-name">Side-Bridge</div>
+      <div class="core-muscles">TA, obliques, QL, erector spinae</div>
+      <p style="font-size:12px;color:var(--muted)">Each side. Right:left ratio should be ~1.0.</p>
+      <div class="core-contra">Contraindicated: shoulder pain, acute LBP</div>
+    </div>
+    <div class="core-card">
+      <div class="core-icon">🔝</div>
+      <div class="core-name">Trunk Extensor</div>
+      <div class="core-muscles">Erector spinae, multifidi</div>
+      <p style="font-size:12px;color:var(--muted)">Prone overhang position. Timed.</p>
+      <div class="core-contra">Contraindicated: recent back surgery, acute LBP</div>
+    </div>
+  </div>
+
+  <div class="callout callout-exam">
+    <div class="callout-label">⚡ Exam Point — Ratios Matter</div>
+    <p>Side-bridge <strong>right:left ratio</strong> should be close to <span class="term">1.0</span>. An asymmetry &gt;15% is clinically significant and requires targeted unilateral correction — not just more planks. A 1.55 right-to-left ratio means the weak side needs 2:1 volume priority until symmetry is restored.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- S6 MUSCULAR FITNESS & POWER -->
+<div class="section" id="section-6">
+  <div class="section-number">Section 6</div>
+  <h2>Muscular Fitness & <em>Power Tests</em></h2>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Test</th><th>What It Measures</th><th>Who It's For</th><th>Limitation</th></tr>
+      <tr><td><strong>Push-Up</strong></td><td>Upper-body endurance (pecs, triceps, ant. deltoids)</td><td>Most clients</td><td>Men: standard; Women: modified protocol</td></tr>
+      <tr><td><strong>Squat-to-Stand</strong></td><td>Lower extremity endurance</td><td>Active, capable clients</td><td>NOT for deconditioned or frail clients</td></tr>
+      <tr><td><strong>Power Assessments</strong></td><td>Explosive capacity</td><td>Load/Speed Training phase ONLY</td><td>Normative data from college/professional athletes — not general population</td></tr>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <div class="callout-label">⚠️ Assessment Selection Philosophy</div>
+    <p>The ACE Mover Method: assessments are administered <strong>if any</strong> — based on client health history, goals, and <em>willingness</em>. A session should NOT consist exclusively of assessments. Conduct them WITH the client, not TO them. For Base Training clients, postural observation is sufficient — formal fitness testing is unnecessary and potentially discouraging.</p>
+  </div>
+</div>
+
+<div class="quiz-cta">
+  <h3>Ready to <em>Test Yourself?</em></h3>
+  <p>55 questions including 5 ACE case studies — Maria, Trevor, Linda, Alex, and Coach Mike.</p>
+  <div class="quiz-stats">
+    <span class="qs"><strong>25</strong> MCQ</span>
+    <span class="qs"><strong>15</strong> Fill-in</span>
+    <span class="qs"><strong>10</strong> True/False</span>
+    <span class="qs"><strong>5</strong> Case Studies</span>
+  </div>
+  <a href="/ace-prep/chapter-10" class="btn-primary" style="display:inline-flex">📝 Start Chapter 10 Quiz →</a>
+</div>
+
+</article>
+
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-title">In This Chapter</div>
+    <ul class="toc-list">
+      <li><a href="#section-1">1. Plumb Line & Right-Angle Rule</a></li>
+      <li><a href="#section-2">2. Postural Deviations</a></li>
+      <li><a href="#section-3">3. Kinetic Chain</a></li>
+      <li><a href="#section-4">4. Movement Screens</a></li>
+      <li><a href="#section-5">5. Core Endurance Tests</a></li>
+      <li><a href="#section-6">6. Muscular Fitness & Power</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">🎬 Watch on YouTube</div>
+    <a href="#" class="yt-thumb">
+      <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="yt-label">Chapter 10 — Full Teaching Video</div>
+    </a>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">Key Tests</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+      <div><span class="term">Thomas Test</span> — hip flexor length</div>
+      <div><span class="term">Side-Bridge</span> — lateral core endurance</div>
+      <div><span class="term">SLS 5-Rep</span> — full kinetic chain screen</div>
+      <div><span class="term-blue">Plumb Line</span> — static posture</div>
+    </div>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-card-title">Chapter Navigation</div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+      <a href="/ace-prep/chapter-9-guide" style="color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border)">← Ch 9: Muscular Training</a>
+      <a href="/ace-prep/chapter-11-guide" style="color:var(--muted);text-decoration:none;padding:6px 0">Ch 11: Integrated Programming →</a>
+    </div>
+  </div>
+</aside>
+</div>
+
+
+
+<script>
+const sections=document.querySelectorAll('.section[id]');
+const tocLinks=document.querySelectorAll('.toc-list a');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.toc-list a[href="#${e.target.id}"]`);if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+</Layout>

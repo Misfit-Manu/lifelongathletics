@@ -5,10 +5,14 @@ import AceQuiz from '../../components/AceQuiz.astro';
 
 export async function getStaticPaths() {
   const chapters = await getCollection('ace');
-  return chapters.map(chapter => ({
-    params: { id: chapter.id },
-    props: { chapter },
-  }));
+  // These chapter IDs have dedicated static pages (chapter-N.astro) that take precedence.
+  const STATIC_OVERRIDES = new Set(['chapter-8', 'chapter-9', 'chapter-10', 'chapter-11']);
+  return chapters
+    .filter(ch => !STATIC_OVERRIDES.has(ch.id))
+    .map(chapter => ({
+      params: { id: chapter.id },
+      props: { chapter },
+    }));
 }
 
 const { chapter } = Astro.props;

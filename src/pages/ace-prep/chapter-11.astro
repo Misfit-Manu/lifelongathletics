@@ -1,0 +1,669 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 11 — Integrated Exercise Programming | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;
+  --bg2:#111;
+  --bg3:#181818;
+  --border:#222;
+  --border2:#2e2e2e;
+  --text:#ededec;
+  --muted:#777;
+  --accent:#c5f135;
+  --accent-dim:#9bbf28;
+  --correct:#4ade80;
+  --incorrect:#f87171;
+  --warn:#fbbf24;
+  --blue:#60a5fa;
+  --font-head:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --r:10px;
+  --r2:6px;
+  --trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* ── HERO ── */
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:720px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:560px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px;font-size:13px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-0.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── TABS ── */
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px 0;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+.tab-icon{font-size:15px}
+
+/* ── CONTENT ── */
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── MINDMAP ── */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-0.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform 0.25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* ── QUIZ ── */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width 0.5s ease;width:0%}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;padding:12px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:500;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;resize:none;transition:var(--trans);outline:none}
+.q-input:focus{border-color:var(--border2)}
+.q-input::placeholder{color:var(--muted)}
+textarea.q-input{min-height:110px}
+.explanation{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:12px 14px;margin-top:12px;display:none}
+.explanation.show{display:block}
+.explanation-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:5px}
+.explanation-text{font-size:13px;color:var(--muted);line-height:1.6}
+.answer-reveal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:11px 14px;margin-top:10px;display:none}
+.answer-reveal.show{display:block}
+.answer-reveal-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--correct);margin-bottom:4px}
+.answer-reveal-text{font-size:13px;color:var(--text)}
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* ── RESULTS ── */
+#results{display:none;margin-top:36px}
+.result-hero{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:36px;text-align:center;margin-bottom:28px}
+.result-score{font-family:var(--font-head);font-size:clamp(52px,8vw,80px);font-weight:700;color:var(--accent);letter-spacing:-2px;line-height:1}
+.result-label{color:var(--muted);font-size:14px;margin-top:8px}
+.result-grade{display:inline-block;padding:6px 18px;border-radius:20px;font-size:13px;font-weight:600;margin-top:14px}
+.grade-a{background:rgba(74,222,128,.15);color:var(--correct);border:1px solid rgba(74,222,128,.3)}
+.grade-b{background:rgba(251,191,36,.15);color:var(--warn);border:1px solid rgba(251,191,36,.3)}
+.grade-c{background:rgba(248,113,113,.15);color:var(--incorrect);border:1px solid rgba(248,113,113,.3)}
+.result-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:28px}
+.rb-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center}
+.rb-score{font-family:var(--font-head);font-size:26px;font-weight:700}
+.rb-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.result-review-title{font-family:var(--font-head);font-size:20px;margin-bottom:20px}
+.result-review-title em{font-style:italic;color:var(--accent)}
+
+/* ── REFERENCE ── */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.ref-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+.badge-elastic{background:rgba(96,165,250,.15);color:var(--blue)}
+.badge-plastic{background:rgba(251,191,36,.15);color:var(--warn)}
+.badge-visco{background:rgba(197,241,53,.15);color:var(--accent)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+
+@media(max-width:640px){
+  .mm-subs{grid-template-columns:1fr}
+  .hero{padding:36px 20px 24px}
+  .content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}
+  .tab-btn{padding:12px 14px;font-size:12px}
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a>
+    <span>›</span>
+    <a href="/ace-prep">ACE Hub</a>
+    <span>›</span>
+    <span>Chapter 11</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 11</div>
+  <h1>Integrated <em>Exercise</em> Programming</h1>
+  <p>From Evidence to Practice — Functional Training, Flexibility, Tissue Properties & Neurological Mechanisms.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>25</strong><span>MCQ</span></div>
+    <div class="stat-chip"><strong>15</strong><span>Fill-in</span></div>
+    <div class="stat-chip"><strong>10</strong><span>True / False</span></div>
+    <div class="stat-chip"><strong>5</strong><span>Subjective</span></div>
+    <div class="stat-chip"><strong>55</strong><span>Total Questions</span></div>
+  </div>
+  <a href="/ace-prep/chapter-11-guide" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--accent);padding:9px 20px;border-radius:30px;transition:background 0.2s">📖 Read the Full Theory Guide →</a>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)"><span class="tab-icon">🧠</span> Mind Map</button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)"><span class="tab-icon">📝</span> Quiz</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)"><span class="tab-icon">📋</span> Quick Reference</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All key concepts mapped from Chapter 11.</p>
+  <div class="mm-center">
+    <div class="mm-center-node">Chapter 11: Functional Training & Flexibility</div>
+    <div class="mm-center-sub">ACE Personal Trainer Certification</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="tab-panel" id="tab-quiz">
+  <div class="quiz-header">
+    <h2>Chapter 11 <em>Quiz</em></h2>
+    <button class="reset-btn" onclick="resetQuiz()">↺ Reset Quiz</button>
+  </div>
+  <div class="progress-label">
+    <span id="progress-text">0 of 55 answered</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">25 Questions · 1 pt each</div>
+  </div>
+  <div id="mcq-container"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">15 Questions · 1 pt each</div>
+  </div>
+  <div id="fillin-container"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">10 Questions · 1 pt each</div>
+  </div>
+  <div id="tf-container"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part D — Subjective / Essay</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · Model answers revealed on submit</div>
+  </div>
+  <div id="subj-container"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations.</div>
+    <button class="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+  </div>
+
+  <div id="results">
+    <div class="result-hero">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Your Score</div>
+      <div class="result-score" id="score-display">—</div>
+      <div class="result-label" id="score-label"></div>
+      <div class="result-grade" id="score-grade"></div>
+    </div>
+    <div class="result-breakdown">
+      <div class="rb-card"><div class="rb-score" id="rb-mcq" style="color:var(--blue)">—</div><div class="rb-label">MCQ</div></div>
+      <div class="rb-card"><div class="rb-score" id="rb-fi" style="color:var(--warn)">—</div><div class="rb-label">Fill-in</div></div>
+      <div class="rb-card"><div class="rb-score" id="rb-tf" style="color:var(--correct)">—</div><div class="rb-label">True / False</div></div>
+      <div class="rb-card"><div class="rb-score" id="rb-subj" style="color:var(--accent)">Self-Check</div><div class="rb-label">Subjective</div></div>
+    </div>
+    <div class="result-review-title">Detailed <em>Review</em></div>
+    <div id="review-container"></div>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Flexibility FITT-VP <em>Guidelines</em></h3>
+      <table class="ref-table">
+        <tr><th>Component</th><th>Recommendation</th></tr>
+        <tr><td><strong>Frequency</strong></td><td>≥2–3 days/week · Daily most effective</td></tr>
+        <tr><td><strong>Intensity</strong></td><td>Stretch to tightness or slight discomfort — not pain</td></tr>
+        <tr><td><strong>Time</strong></td><td>10–30 sec static (30–60 sec older adults) · PNF: 3–6 sec contraction + 10–30 sec assisted</td></tr>
+        <tr><td><strong>Type</strong></td><td>Static (active/passive), Dynamic, Ballistic, PNF — all effective</td></tr>
+        <tr><td><strong>Volume</strong></td><td>60 sec total per exercise · 2–4 reps per exercise</td></tr>
+        <tr><td><strong>Pattern</strong></td><td>AFTER cardio/strength training — not before</td></tr>
+        <tr><td><strong>Progression</strong></td><td>Warm muscle first · Heat packs beneficial</td></tr>
+      </table>
+    </div>
+    <div class="ref-card">
+      <h3>Tissue <em>Properties</em></h3>
+      <table class="ref-table">
+        <tr><th>Property</th><th>Behavior</th><th>Stretching Link</th></tr>
+        <tr><td><span class="ref-badge badge-elastic">Elastic</span></td><td>Returns to original shape</td><td>Dynamic, Ballistic</td></tr>
+        <tr><td><span class="ref-badge badge-plastic">Plastic</span></td><td>Permanent deformation</td><td>Static (sustained)</td></tr>
+        <tr><td><span class="ref-badge badge-visco">Viscoelastic</span></td><td>Both elastic + plastic</td><td>All tissues</td></tr>
+      </table>
+    </div>
+    <div class="ref-card">
+      <h3>Neurological <em>Mechanisms</em></h3>
+      <div class="key-term"><strong>Autogenic Inhibition</strong><span>GTO activation → inhibits muscle spindle. Occurs after 7–10 sec of low-force stretch. Enables deeper stretching.</span></div>
+      <div class="key-term"><strong>Reciprocal Inhibition</strong><span>Agonist contraction (&lt;50% max) for 6–15 sec → inhibits antagonist. Allows antagonist to be stretched.</span></div>
+      <div class="key-term"><strong>Stretch Reflex</strong><span>Rapid stretch → reflexive contraction. Triggered by ballistic moves. AVOIDED in static stretching.</span></div>
+      <div class="key-term"><strong>Stress Relaxation</strong><span>Progressive decrease in muscle response as stretch duration increases → allows creep.</span></div>
+    </div>
+    <div class="ref-card">
+      <h3>Stretching <em>Techniques</em></h3>
+      <table class="ref-table">
+        <tr><th>Type</th><th>Duration</th><th>Best For</th><th>Risk</th></tr>
+        <tr><td><strong>Static</strong></td><td>10–30 sec</td><td>ROM improvement</td><td>Low</td></tr>
+        <tr><td><strong>Dynamic</strong></td><td>Continuous</td><td>Warm-up</td><td>Low</td></tr>
+        <tr><td><strong>PNF</strong></td><td>3–6 + 10–30 sec</td><td>Max flexibility</td><td>Low–Med</td></tr>
+        <tr><td><strong>Ballistic</strong></td><td>Variable</td><td>Athletes only</td><td>Higher</td></tr>
+      </table>
+    </div>
+    <div class="ref-card">
+      <h3>Functional Training <em>Progression</em></h3>
+      <table class="ref-table">
+        <tr><th>Step</th><th>Region</th><th>Focus</th></tr>
+        <tr><td>1</td><td>Lumbar / Core</td><td>Proximal stability — foundation</td></tr>
+        <tr><td>2</td><td>Hips + Thoracic Spine</td><td>Adjacent mobility restoration</td></tr>
+        <tr><td>3</td><td>Scapulothoracic</td><td>Stability of shoulder complex</td></tr>
+        <tr><td>4</td><td>Lumbopelvic / Shoulder</td><td>Integrated stability</td></tr>
+        <tr><td>5</td><td>Distal Extremities</td><td>Mobility with proximal base</td></tr>
+      </table>
+    </div>
+    <div class="ref-card">
+      <h3>Key <em>Terms</em></h3>
+      <div class="key-term"><strong>Elastic Limit</strong><span>Point beyond which tissue cannot return to normal length.</span></div>
+      <div class="key-term"><strong>Yield Point</strong><span>Transition from elastic to plastic behavior.</span></div>
+      <div class="key-term"><strong>Permanent Set</strong><span>New resting length after plastic deformation.</span></div>
+      <div class="key-term"><strong>Creep</strong><span>Lengthening under sustained load — collagen remodeling.</span></div>
+      <div class="key-term"><strong>Kinetic Chain</strong><span>Interconnected joints — proximal stability enables distal mobility.</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+const MINDMAP = {
+  branches: [
+    { id:1, name:"FUNCTIONAL TRAINING", color:"#FF6B6B",
+      subs:[
+        { name:"Definition & Purpose", points:["Establish postural stability","Kinetic chain mobility","Improve joint function","Neuromotor & flexibility outcomes"] },
+        { name:"Training Focus", points:["Core stability exercises","Balance exercises","Stabilize spine muscles","Include in ALL training phases"] },
+        { name:"Program Design", points:["Body weight/segment resistance","Progress proximal → distal","Lumbar region first","Address posture/flexibility deviations"] },
+        { name:"Key Principles", points:["Proximal stability before distal","Warm-up or cool-down placement","Increase resistance/balance challenge","Never skip this phase"] }
+      ]
+    },
+    { id:2, name:"TISSUE PROPERTIES", color:"#4ECDC4",
+      subs:[
+        { name:"Elasticity", points:["Temporary deformation","Returns to original shape","Spring model analogy","Dynamic & ballistic stretching"] },
+        { name:"Plasticity", points:["Permanent deformation","New resting length","Beyond elastic limit","Hydraulic cylinder model"] },
+        { name:"Viscoelasticity", points:["Combines elastic + plastic","Elastic under low loads","Plastic under high loads","ALL body tissues"] },
+        { name:"Critical Points", points:["Elastic limit","Yield point","Permanent set / strain","Gradual tissue failure beyond"] }
+      ]
+    },
+    { id:3, name:"STRETCHING TECHNIQUES", color:"#95E1D3",
+      subs:[
+        { name:"Static", points:["Hold 10–30 seconds","End-range position","NO stretch reflex","Active or Passive","Safest technique"] },
+        { name:"Dynamic", points:["Mimics movement patterns","Sport-specific prep","Recommended for warm-up","Enhances neuromuscular patterns"] },
+        { name:"PNF", points:["3–6 sec contraction (20–75% max)","10–30 sec assisted stretch","Uses BOTH inhibition types","Originally from rehab"] },
+        { name:"Ballistic", points:["Bouncing movements","Triggers stretch reflex","Increased injury risk","Limited to specific athletes"] }
+      ]
+    },
+    { id:4, name:"NEUROLOGICAL MECHANISMS", color:"#F38181",
+      subs:[
+        { name:"Autogenic Inhibition", points:["GTO activation → inhibits spindle","Occurs at 7–10 seconds","Allows deeper stretch","Stress-relaxation response"] },
+        { name:"Reciprocal Inhibition", points:["Agonist fires → antagonist inhibited","<50% maximal force","Duration: 6–15 seconds","Basis of PNF technique"] },
+        { name:"Stretch Reflex", points:["Rapid stretch triggers reflex","Reflexive muscle contraction","Ballistic activates this","Static AVOIDS this"] },
+        { name:"Spindle Recovery", points:["~70% recovery in 5 seconds","Repeat stretches increase ROM","Gradual extensibility gains","Finite repetitions protocol"] }
+      ]
+    },
+    { id:5, name:"EVIDENCE-BASED GUIDELINES", color:"#AA96DA",
+      subs:[
+        { name:"Frequency & Intensity", points:["2–3 days/week minimum","Daily = most effective","Stretch to tightness","NOT to pain"] },
+        { name:"Time & Volume", points:["10–30 sec static","30–60 sec for older adults","60 sec total per exercise","2–4 reps per exercise"] },
+        { name:"Timing (Critical!)", points:["AFTER cardio/strength training","Static BEFORE = harms performance","Dynamic OK for warm-up","Warm muscles first"] },
+        { name:"Target Areas", points:["Ankles, legs (ant. & post.)","Chest, hips, lower back","Neck, shoulder girdle, trunk","All major tendon units"] }
+      ]
+    },
+    { id:6, name:"KEY CONCEPTS", color:"#FCBAD3",
+      subs:[
+        { name:"Creep & Deformation", points:["Sustained load → tissue lengthens","Collagen fibers remodel","Occurs beyond 10 seconds","Plastic deformation result"] },
+        { name:"Static vs Dynamic Warm-up", points:["Static: NO ergogenic benefit","Static: Decreases strength/power","Dynamic: Improves sport readiness","Research: Dynamic preferred"] },
+        { name:"ROM Adaptations", points:["Acute improvements (session)","Chronic adaptations (weeks)","Repeated stretches increase ROM","Gradual extensibility"] },
+        { name:"Proximal-Distal Rule", points:["Distal mobility WITHOUT proximal = compromise","Stabilize before mobilizing","Core before extremities","Scapulothoracic before glenohumeral"] }
+      ]
+    }
+  ]
+};
+
+const MCQ = [
+  { q:"What is the primary focus of Functional Training?", opts:["Building maximum muscular strength","Establishing or reestablishing postural stability and kinetic chain mobility","Improving cardiovascular endurance","Developing athletic speed"], c:1, exp:"Functional Training focuses on establishing or reestablishing postural stability and kinetic chain mobility (neuromotor and flexibility outcomes) through exercise programs that improve joint function." },
+  { q:"Which muscle group is the primary focus for functional training exercise selection?", opts:["Large power-generating muscles","Core and balance muscles responsible for stabilizing the spine","Muscles of the extremities only","Cardiovascular system"], c:1, exp:"Exercise selection for Functional Training focuses on core and balance exercises that improve strength and function of muscles responsible for stabilizing the spine." },
+  { q:"In functional training program design, which region should be stabilized first?", opts:["The shoulder complex","The knee joint","The lumbar region","The ankle"], c:2, exp:"Programming should begin by promoting stability of the lumbar region through the action and function of the core before progressing to more distal segments." },
+  { q:"What tissue property allows tissue to return to its original shape when an applied force is removed?", opts:["Plasticity","Viscoelasticity","Elasticity","Brittleness"], c:2, exp:"Elasticity is the mechanical property that allows tissue to return to its original shape or size when an applied force is removed — often defined as 'temporary deformation'." },
+  { q:"The critical point where tissue stretched beyond which it cannot return to normal length is called the:", opts:["Yield point","Breaking point","Plastic limit","Stress point"], c:0, exp:"When tissue is stretched beyond the elastic limit, the yield point is reached. Beyond this point, permanent deformation or 'plastic stretch' occurs." },
+  { q:"Which stretching technique does NOT elicit the stretch reflex?", opts:["Ballistic stretching","Static stretching","Bouncing movements","Rapid stretching"], c:1, exp:"Static stretching does not elicit the stretch reflex, reducing the likelihood of injury — one of its key advantages." },
+  { q:"What is autogenic inhibition in the context of stretching?", opts:["Reciprocal muscle contraction","Activation of GTO inhibits muscle spindle response","Reduction in blood flow","Prevention of muscle soreness"], c:1, exp:"Autogenic inhibition states that activation of a Golgi tendon organ (GTO) inhibits muscle spindle response, allowing further muscle stretching." },
+  { q:"How long should a low-force static stretch be held before GTO activation occurs?", opts:["3–5 seconds","7–10 seconds","15–20 seconds","30+ seconds"], c:1, exp:"After 7–10 seconds of a low-force stretch, the increase in muscle tension activates a GTO response and autogenic inhibition begins." },
+  { q:"What is reciprocal inhibition?", opts:["Two muscles contracting simultaneously","Activation of agonist coincides with neural inhibition of antagonist","Prevention of muscle fatigue","Reduction of pain signals"], c:1, exp:"Reciprocal inhibition states that activation of a muscle on one side of a joint (agonist) coincides with neural inhibition of the opposing muscle (antagonist)." },
+  { q:"Which stretching technique mimics movement patterns used in upcoming workouts?", opts:["Static stretching","PNF stretching","Dynamic stretching","Ballistic stretching"], c:2, exp:"Dynamic stretching mimics movement patterns to be used in the upcoming workout or sporting event and helps prepare athletes for competition." },
+  { q:"What is the recommended frequency for flexibility training per week?", opts:["1 day per week","2–3 days per week with daily being most effective","Only before competition","Once monthly"], c:1, exp:"Evidence-based recommendations suggest 2–3 days per week with daily being most effective for flexibility training." },
+  { q:"How long should a static stretch be held for most adults?", opts:["1–5 seconds","10–30 seconds","40–50 seconds","60+ seconds"], c:1, exp:"Holding a static stretch for 10–30 seconds is recommended for most adults. Older individuals may benefit from 30–60 seconds." },
+  { q:"What is the primary concern with ballistic stretching in warm-up routines?", opts:["It is too effective","Bouncing movements trigger stretch reflex and may increase injury risk","It is too time-consuming","It only works for elite athletes"], c:1, exp:"Ballistic stretching incorporates bouncing-type movements that usually trigger the stretch reflex and may be associated with increased risk of injury." },
+  { q:"Research shows that static stretching in warm-up routines results in:", opts:["Increased muscular strength","No ergogenic benefits and potentially detrimental effects on performance","Improved balance","Faster reaction time"], c:1, exp:"Present research findings suggest no ergogenic benefits and potentially detrimental effects including decreased strength, impaired balance, and diminished reaction time from pre-workout static stretching." },
+  { q:"What percentage of maximal force is suggested for the contraction in reciprocal inhibition?", opts:["10–20%","30–50%","Less than 50% of maximal force","75–100%"], c:2, exp:"When a contraction in an agonist is performed at less than 50% of maximal force for more than 6 seconds, the antagonist becomes inhibited." },
+  { q:"In an active stretch, who provides the added force?", opts:["A personal trainer","An assistive device","The individual performing the stretch","Gravity only"], c:2, exp:"In an active stretch, the individual applies added force to increase stretch intensity — they are 'actively' involved in the exercise." },
+  { q:"What tissue property combines both elastic and plastic behaviors?", opts:["Only elasticity","Only plasticity","Viscoelasticity","Brittleness"], c:2, exp:"Viscoelasticity allows tissues to exhibit both plastic and elastic behaviors — elastic under low loads and plastic under higher loads." },
+  { q:"What term describes permanent elongation of stretched tissue?", opts:["Elastic stretch","Plastic stretch or permanent set","Temporary deformation","Stress relaxation"], c:1, exp:"The new state of permanent elongation after stretching tissue beyond its elastic limit is called plastic stretch, permanent set, or permanent deformation." },
+  { q:"Which major areas should flexibility programming target?", opts:["Only the hamstrings","Only the quadriceps","Ankles, legs, chest, hips, lower back, neck, shoulders, and trunk","Upper extremities only"], c:2, exp:"Flexibility programming should focus on major tendon units including ankles, anterior and posterior legs, chest, hips, lower back, neck, shoulder girdle, and trunk." },
+  { q:"What is 'creep' in the context of stretching?", opts:["Stress relaxation response","Lengthening that occurs when stretch force is applied — collagen remodeling","Elastic deformation","Yield point transition"], c:1, exp:"Creep is the lengthening that occurs when stretch force is applied beyond 10 seconds, with collagen fibers remodeling as they pull apart (plastic deformation)." },
+  { q:"How quickly does the muscle spindle reestablish its stretch threshold after stretching ends?", opts:["Immediately","~70% recovery within the first 5 seconds","After 30 seconds","After several minutes"], c:1, exp:"After terminating the stretch, the muscle spindle quickly reestablishes its stretch threshold — approximately 70% recovery within the first 5 seconds." },
+  { q:"For PNF stretching, what is the recommended contraction duration?", opts:["1–2 seconds","3–6 seconds","10–15 seconds","30+ seconds"], c:1, exp:"For PNF stretching, a 3–6 second light-to-moderate contraction (20–75% of maximum voluntary contraction) followed by a 10–30 second assisted stretch is desirable." },
+  { q:"What is the stress-relaxation response in stretching?", opts:["Immediate muscle tension increase","Progressive decrease in muscle response due to desensitization of muscle spindle","Permanent lengthening","Muscle contraction reflex"], c:1, exp:"Stress-relaxation is the progressive decrease in muscle response due to gradual desensitization of muscle spindle activity as the duration of stretch progresses." },
+  { q:"What happens when tissue is stretched beyond its yield point repeatedly over time?", opts:["Tissue returns to normal","Tissue becomes stronger","Chronic tissues become less stable and less efficient — microtrauma accumulates","Muscle hypertrophy occurs"], c:2, exp:"Repetitive microtrauma leads to tissues that are less stable and less efficient. An example is postural changes from prolonged sitting that create chronic tissue deformation." },
+  { q:"Where should flexibility exercises be sequenced in a training session?", opts:["Before all other training","Before strength training","After cardiorespiratory and muscular training components","During rest intervals"], c:2, exp:"Research supports sequencing the workout so that flexibility follows cardiorespiratory and muscular training components to avoid detrimental effects on performance." }
+];
+
+const FILLIN = [
+  { q:"Functional Training focuses on establishing __________ and kinetic chain mobility through exercise programs.", a:"postural stability", exp:"The chapter defines functional training as establishing or reestablishing postural stability and kinetic chain mobility." },
+  { q:"The three key tissue properties personal trainers should understand are elasticity, plasticity, and __________.", a:"viscoelasticity", exp:"These three properties determine how tissues respond to stretching and mechanical stress." },
+  { q:"__________ is the mechanical property that allows tissue to return to its original shape when force is removed.", a:"elasticity", exp:"Elasticity enables temporary deformation where tissue returns to normal upon force removal." },
+  { q:"The point where tissue can no longer return to its normal length after being stretched is called the __________.", a:"elastic limit or yield point", exp:"Beyond the elastic limit, permanent deformation or plastic stretch occurs in the tissue." },
+  { q:"__________ is defined as permanent elongation or deformation of stretched tissue.", a:"plastic stretch or permanent set", exp:"This occurs when tissue is stretched beyond its elastic limit and maintains a new resting length." },
+  { q:"A __________ is performed by moving joints to place target muscles in an end-range position and holding.", a:"static stretch", exp:"Static stretches are held for up to 30 seconds and are the most commonly practiced flexibility technique." },
+  { q:"__________ stretching mimics movement patterns to be used in upcoming workouts or sporting events.", a:"dynamic", exp:"Dynamic stretching is commonly used to prepare athletes by increasing sport-specific flexibility." },
+  { q:"In __________ stretching, a partner or assistive device provides the added force for the stretch.", a:"passive", exp:"Passive stretches contrast with active stretches, where the individual provides the force." },
+  { q:"The principle stating that activation of GTO inhibits muscle spindle response is called __________.", a:"autogenic inhibition", exp:"This neurological principle allows muscles to relax further during stretching after 7–10 seconds." },
+  { q:"__________ inhibition is the principle where contraction of an agonist muscle inhibits the opposing antagonist.", a:"reciprocal", exp:"This allows the antagonist to be stretched more effectively during active movements." },
+  { q:"The recommended frequency for flexibility training is __________ days per week, with daily being most effective.", a:"2-3", exp:"Evidence-based recommendations support 2–3 days per week minimum for flexibility training." },
+  { q:"For most adults, a static stretch should be held for __________.", a:"10-30 seconds", exp:"Older individuals may benefit from holding for 30–60 seconds for greater benefit." },
+  { q:"The lengthening that occurs when stretch force is applied beyond 10 seconds is called __________.", a:"creep", exp:"Creep results from collagen fibers remodeling as they pull apart under sustained tension." },
+  { q:"For PNF stretching, a __________ second contraction should be followed by an assisted stretch.", a:"3-6", exp:"The contraction should be at 20–75% of maximum voluntary contraction strength." },
+  { q:"__________ stretching incorporates bouncing-type movements and can trigger the stretch reflex.", a:"ballistic", exp:"Due to increased injury risk, ballistic stretching has not been widely advocated in modern training." }
+];
+
+const TF = [
+  { q:"Functional Training should be discontinued once clients progress to Movement Training and Load/Speed Training.", a:false, exp:"It is important to still include Functional Training exercises in workouts as clients progress — in warm-up, cool-down, or as progressive challenge." },
+  { q:"Elasticity describes the property that allows permanent tissue deformation.", a:false, exp:"Elasticity allows tissue to return to original shape (temporary deformation). Plasticity describes permanent deformation." },
+  { q:"Static stretching can be performed either actively or passively.", a:true, exp:"Active stretches use force applied by the individual; passive stretches use external force from a partner or device." },
+  { q:"The stretch reflex is NOT elicited during static stretching when performed correctly.", a:true, exp:"This is a major advantage of static stretching — it reduces the likelihood of injury." },
+  { q:"Autogenic inhibition begins immediately when a stretch is applied.", a:false, exp:"GTO activation and autogenic inhibition occur after 7–10 seconds of low-force stretching, not immediately." },
+  { q:"Dynamic stretching is recommended as part of warm-up before athletic competition.", a:true, exp:"Dynamic stretching mimics movement patterns and helps prepare tissues for upcoming physical exertion." },
+  { q:"Static stretching in warm-up routines has shown to improve muscular strength and power.", a:false, exp:"Research shows static stretching in warm-up produces no ergogenic benefits and potentially detrimental effects on strength and power." },
+  { q:"Most body tissues exhibit purely elastic OR purely plastic behavior, never both.", a:false, exp:"Most structures in the body exhibit viscoelasticity — combining both elastic and plastic properties." },
+  { q:"PNF stretching utilizes both reciprocal and autogenic inhibition principles.", a:true, exp:"PNF technique takes advantage of both neurological principles, making it highly effective for flexibility gains." },
+  { q:"Flexibility exercises should ideally be performed BEFORE cardiovascular and muscular training.", a:false, exp:"Research supports flexibility exercises following cardiorespiratory and muscular training — not before — to avoid performance decrements." }
+];
+
+const SUBJ = [
+  { q:"Explain the progression of functional training from the lumbar region to distal extremities. Why is this sequence critical?", a:"Functional training must begin by establishing stability of the lumbar region through core function. Once the individual demonstrates ability to stabilize this region, the program progresses distally: first to hips and thoracic spine (both primarily mobile), then to the scapulothoracic region, then to lumbopelvic/shoulder regions, and finally to distal extremities. This proximal-to-distal progression is critical because attempting to improve mobility in distal joints WITHOUT developing proximal stability compromises movement efficiency and increases injury risk. Proximal stability provides the foundation for safe, effective distal mobility." },
+  { q:"Compare and contrast static and dynamic stretching in terms of mechanism, application, and evidence-based outcomes.", a:"Static stretching holds an end-range position for 10–30 seconds. It activates GTO for autogenic inhibition after 7–10 seconds, allowing deeper stretching through plastic deformation. It doesn't elicit the stretch reflex. However, research shows detrimental effects (decreased strength, impaired balance) when used pre-workout. Dynamic stretching mimics upcoming movement patterns, activates neuromuscular patterns through reciprocal inhibition, and is recommended for warm-up. Dynamic is evidence-preferred pre-activity; static is best post-workout for chronic ROM improvements." },
+  { q:"Describe the relationship between tissue elasticity, plasticity, and viscoelasticity in the context of flexibility training.", a:"Elasticity allows tissue to return to its original shape when force is removed (temporary deformation). Plasticity describes permanent deformation that remains after force removal. Viscoelasticity combines both — tissues exhibit elastic behavior under low loads and plastic behavior under higher or prolonged loads. In flexibility training, initial stretching activates elastic properties (stress-relaxation), while sustained stretching beyond 7–10 seconds engages plastic deformation (creep and collagen remodeling). Understanding these properties allows trainers to design protocols that produce acute improvements and chronic ROM adaptations." },
+  { q:"Explain the neurophysiological mechanisms of autogenic and reciprocal inhibition and how each is applied in specific stretching techniques.", a:"Autogenic inhibition occurs when GTO activation after 7–10 seconds of low-force stretch inhibits muscle spindle activity, temporarily reducing muscle tension and allowing deeper stretching (creep). This is central to static stretching. Reciprocal inhibition works by having an agonist contract at <50% maximum force for 6–15 seconds, neurally inhibiting the opposing antagonist — allowing it to be stretched. PNF combines both: a 3–6 second contraction uses reciprocal inhibition, and the subsequent assisted stretch triggers autogenic inhibition. Dynamic stretching primarily uses reciprocal inhibition through active movement patterns." },
+  { q:"Design a complete flexibility program for an adult client using the FITT-VP principle, based on the evidence-based recommendations in this chapter.", a:"Frequency: 2–3 days/week minimum (daily for best results). Intensity: Stretch to point of tightness or slight discomfort — never pain. Time: 10–30 sec per static stretch (30–60 sec for older adults); PNF = 3–6 sec contraction + 10–30 sec assisted stretch; target 60 total seconds per exercise; 2–4 reps per exercise. Type: Combination of static, dynamic, and PNF for all major muscle-tendon units. Volume: 60 sec total per exercise with 2–4 repetitions. Pattern: AFTER cardiorespiratory and muscular training — never as a pre-workout warm-up. Warm muscles first through light aerobic activity or external heat." }
+];
+
+let mcqAnswers  = new Array(MCQ.length).fill(null);
+let fiAnswers   = new Array(FILLIN.length).fill('');
+let tfAnswers   = new Array(TF.length).fill(null);
+let subjAnswers = new Array(SUBJ.length).fill('');
+let submitted   = false;
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  grid.innerHTML = MINDMAP.branches.map((b,i) => `
+    <div class="mm-branch" id="mmb-${i}" onclick="toggleBranch(${i})">
+      <div class="mm-branch-header">
+        <div class="mm-branch-dot" style="background:${b.color}"></div>
+        <div class="mm-branch-name">${b.name}</div>
+        <div class="mm-branch-arrow">›</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${b.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">${s.points.map(p => `<li>${p}</li>`).join('')}</ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleBranch(i) {
+  document.getElementById('mmb-' + i).classList.toggle('open');
+}
+
+function buildQuiz() {
+  document.getElementById('mcq-container').innerHTML = MCQ.map((q,i) => `
+    <div class="q-card" id="mcq-${i}">
+      <div class="q-num">Question ${i+1} of 25 — MCQ</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options">
+        ${q.opts.map((o,j) => `
+          <div class="q-option" id="mcq-${i}-${j}" onclick="selectMCQ(${i},${j})">
+            <div class="opt-letter">${['A','B','C','D'][j]}</div>
+            <span>${o}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="explanation" id="mcq-exp-${i}">
+        <div class="explanation-label">Explanation</div>
+        <div class="explanation-text">${q.exp}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('fillin-container').innerHTML = FILLIN.map((q,i) => `
+    <div class="q-card" id="fi-${i}">
+      <div class="q-num">Question ${i+1} of 15 — Fill in the Blank</div>
+      <div class="q-text">${q.q}</div>
+      <input class="q-input" type="text" placeholder="Type your answer…"
+        oninput="fiAnswers[${i}]=this.value;updateProgress()" id="fi-input-${i}"/>
+      <div class="answer-reveal" id="fi-ans-${i}">
+        <div class="answer-reveal-label">✓ Correct Answer</div>
+        <div class="answer-reveal-text">${q.a}</div>
+      </div>
+      <div class="explanation" id="fi-exp-${i}">
+        <div class="explanation-label">Explanation</div>
+        <div class="explanation-text">${q.exp}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('tf-container').innerHTML = TF.map((q,i) => `
+    <div class="q-card" id="tf-${i}">
+      <div class="q-num">Question ${i+1} of 10 — True / False</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-tf">
+        <button class="q-tf-btn" id="tf-${i}-true" onclick="selectTF(${i},true)">True</button>
+        <button class="q-tf-btn" id="tf-${i}-false" onclick="selectTF(${i},false)">False</button>
+      </div>
+      <div class="explanation" id="tf-exp-${i}">
+        <div class="explanation-label">Explanation</div>
+        <div class="explanation-text">${q.exp}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('subj-container').innerHTML = SUBJ.map((q,i) => `
+    <div class="q-card" id="subj-${i}">
+      <div class="q-num">Question ${i+1} of 5 — Subjective</div>
+      <div class="q-text">${q.q}</div>
+      <textarea class="q-input" rows="5" placeholder="Write your answer. Model answer revealed on submit…"
+        oninput="subjAnswers[${i}]=this.value;updateProgress()" id="subj-input-${i}"></textarea>
+      <div class="answer-reveal" id="subj-ans-${i}">
+        <div class="answer-reveal-label">📘 Model Answer</div>
+        <div class="answer-reveal-text" style="white-space:pre-wrap">${q.a}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectMCQ(qi, oi) {
+  if (submitted) return;
+  mcqAnswers[qi] = oi;
+  document.querySelectorAll(`#mcq-${qi} .q-option`).forEach((el,j) => el.classList.toggle('selected', j===oi));
+  updateProgress();
+}
+
+function selectTF(qi, val) {
+  if (submitted) return;
+  tfAnswers[qi] = val;
+  document.getElementById(`tf-${qi}-true`).classList.toggle('selected', val===true);
+  document.getElementById(`tf-${qi}-false`).classList.toggle('selected', val===false);
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = mcqAnswers.filter(a=>a!==null).length + fiAnswers.filter(a=>a.trim()!=='').length + tfAnswers.filter(a=>a!==null).length + subjAnswers.filter(a=>a.trim()!=='').length;
+  const pct = Math.round((total/55)*100);
+  document.getElementById('progress-text').textContent = `${total} of 55 answered`;
+  document.getElementById('progress-pct').textContent = `${pct}%`;
+  document.getElementById('prog-bar').style.width = pct + '%';
+}
+
+function submitQuiz() {
+  submitted = true;
+  let mcqScore=0, fiScore=0, tfScore=0;
+
+  MCQ.forEach((q,i) => {
+    const u = mcqAnswers[i];
+    document.querySelectorAll(`#mcq-${i} .q-option`).forEach((el,j) => {
+      if (j===q.c) el.classList.add('correct-ans');
+      if (u!==null && j===u && j!==q.c) el.classList.add('wrong-ans');
+    });
+    if (u===q.c) mcqScore++;
+    document.getElementById(`mcq-exp-${i}`).classList.add('show');
+  });
+
+  FILLIN.forEach((q,i) => {
+    const u = (fiAnswers[i]||'').toLowerCase().trim();
+    const kws = q.a.toLowerCase().replace(/[()]/g,'').split(/[\s\/,]+/).filter(w=>w.length>3);
+    const ok = kws.some(kw=>u.includes(kw));
+    if (ok) fiScore++;
+    document.getElementById(`fi-ans-${i}`).classList.add('show');
+    document.getElementById(`fi-exp-${i}`).classList.add('show');
+    const inp = document.getElementById(`fi-input-${i}`);
+    inp.style.borderColor = ok ? 'var(--correct)' : 'var(--incorrect)';
+    inp.disabled = true;
+  });
+
+  TF.forEach((q,i) => {
+    const u = tfAnswers[i];
+    const tB = document.getElementById(`tf-${i}-true`);
+    const fB = document.getElementById(`tf-${i}-false`);
+    (q.a===true ? tB : fB).classList.add('correct-ans');
+    if (u!==null && u!==q.a) (u===true ? tB : fB).classList.add('wrong-ans');
+    if (u===q.a) tfScore++;
+    document.getElementById(`tf-exp-${i}`).classList.add('show');
+  });
+
+  SUBJ.forEach((_,i) => {
+    document.getElementById(`subj-ans-${i}`).classList.add('show');
+    document.getElementById(`subj-input-${i}`).disabled = true;
+  });
+
+  const auto = mcqScore + fiScore + tfScore;
+  const pct  = Math.round((auto/50)*100);
+  document.getElementById('score-display').textContent = `${auto}/50`;
+  document.getElementById('score-label').textContent = `${pct}% auto-graded · Review subjective answers manually`;
+  const g = document.getElementById('score-grade');
+  if (pct>=80){ g.textContent='🏆 Excellent — Exam Ready'; g.className='result-grade grade-a'; }
+  else if (pct>=60){ g.textContent='📚 Good — Review Weak Areas'; g.className='result-grade grade-b'; }
+  else { g.textContent='🔄 Needs Work — Re-study Chapter'; g.className='result-grade grade-c'; }
+  document.getElementById('rb-mcq').textContent = `${mcqScore}/25`;
+  document.getElementById('rb-fi').textContent  = `${fiScore}/15`;
+  document.getElementById('rb-tf').textContent  = `${tfScore}/10`;
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function resetQuiz() {
+  submitted=false;
+  mcqAnswers=new Array(MCQ.length).fill(null);
+  fiAnswers=new Array(FILLIN.length).fill('');
+  tfAnswers=new Array(TF.length).fill(null);
+  subjAnswers=new Array(SUBJ.length).fill('');
+  buildQuiz(); updateProgress();
+  document.getElementById('results').style.display='none';
+}
+
+buildMindmap(); buildQuiz(); updateProgress();
+</script>
+
+</Layout>

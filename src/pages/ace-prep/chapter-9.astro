@@ -1,0 +1,832 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 9 — Muscular Training | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;--text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;--correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;--font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--r:10px;--r2:6px;--trans:0.2s ease}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(30px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:720px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;padding:12px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:500;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;resize:vertical;transition:var(--trans);outline:none}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.explanation{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:12px 14px;margin-top:12px;display:none}
+.explanation.show{display:block}
+.explanation-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:5px}
+.explanation-text{font-size:13px;color:var(--muted);line-height:1.6}
+.answer-reveal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:11px 14px;margin-top:10px;display:none}
+.answer-reveal.show{display:block}
+.answer-reveal-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--correct);margin-bottom:4px}
+.answer-reveal-text{font-size:13px;color:var(--text)}
+.case-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:20px;overflow:hidden}
+.case-header{padding:20px 24px;border-bottom:1px solid var(--border)}
+.case-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px}
+.case-title{font-family:var(--font-head);font-size:18px;font-weight:700}
+.case-title em{font-style:italic;color:var(--accent)}
+.case-body{padding:24px}
+.case-scenario{background:var(--bg3);border-radius:var(--r2);padding:18px;margin-bottom:20px;border-left:3px solid var(--purple)}
+.case-scenario-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--purple);margin-bottom:8px}
+.case-scenario-text{font-size:13px;color:var(--muted);line-height:1.7;white-space:pre-wrap}
+.case-questions-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--warn);margin-bottom:10px}
+.case-questions-text{font-size:13px;color:var(--text);line-height:1.8;white-space:pre-wrap;margin-bottom:16px}
+.case-answer-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.case-model-answer{background:var(--bg3);border:1px solid rgba(74,222,128,.2);border-radius:var(--r2);padding:18px;margin-top:14px;display:none}
+.case-model-answer.show{display:block}
+.case-model-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--correct);margin-bottom:10px}
+.case-model-text{font-size:13px;color:var(--text);line-height:1.8;white-space:pre-wrap}
+.reveal-btn{margin-top:12px;background:none;border:1px solid var(--border2);color:var(--muted);padding:10px 20px;border-radius:20px;cursor:pointer;font-size:13px;font-family:var(--font-body);transition:var(--trans)}
+.reveal-btn:hover{border-color:var(--correct);color:var(--correct)}
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+#results{display:none;margin-top:36px}
+.result-hero{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:36px;text-align:center;margin-bottom:28px}
+.result-score{font-family:var(--font-head);font-size:clamp(52px,8vw,80px);font-weight:700;color:var(--accent);letter-spacing:-2px;line-height:1}
+.result-label{color:var(--muted);font-size:14px;margin-top:8px}
+.result-grade{display:inline-block;padding:6px 18px;border-radius:20px;font-size:13px;font-weight:600;margin-top:14px}
+.grade-a{background:rgba(74,222,128,.15);color:var(--correct);border:1px solid rgba(74,222,128,.3)}
+.grade-b{background:rgba(251,191,36,.15);color:var(--warn);border:1px solid rgba(251,191,36,.3)}
+.grade-c{background:rgba(248,113,113,.15);color:var(--incorrect);border:1px solid rgba(248,113,113,.3)}
+.result-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px}
+.rb-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center}
+.rb-score{font-family:var(--font-head);font-size:26px;font-weight:700}
+.rb-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 12px;font-size:11px}
+  .mm-subs{grid-template-columns:1fr}
+}
+</style>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span><span>Chapter 9</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 9</div>
+  <h1>Muscular <em>Training</em></h1>
+  <p>Physiology & Program Design — Fiber Types, Hypertrophy, Training Principles, and ACE Exam Case Studies.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>25</strong><span>MCQ</span></div>
+    <div class="stat-chip"><strong>15</strong><span>Fill-in</span></div>
+    <div class="stat-chip"><strong>10</strong><span>True / False</span></div>
+    <div class="stat-chip"><strong>5</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>55</strong><span>Total</span></div>
+  </div>
+  <a href="/ace-prep/chapter-9-guide" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--accent);padding:9px 20px;border-radius:30px;transition:background 0.2s">📖 Read the Full Theory Guide →</a>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">🧠 Mind Map</button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 9 concepts mapped.</p>
+  <div class="mm-center">
+    <div class="mm-center-node">Chapter 9: Muscular Training</div>
+    <div class="mm-center-sub">Physiology · Fiber Types · Hypertrophy · Program Design</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<div class="tab-panel" id="tab-quiz">
+  <div class="quiz-header">
+    <h2>Chapter 9 <em>Quiz</em></h2>
+    <button class="reset-btn" onclick="resetQuiz()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="progress-text">0 of 50 answered</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">25 Questions · 1 pt each</div>
+  </div>
+  <div id="mcq-container"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">15 Questions · 1 pt each</div>
+  </div>
+  <div id="fillin-container"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">10 Questions · 1 pt each</div>
+  </div>
+  <div id="tf-container"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + all explanations.</div>
+    <button class="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+  </div>
+
+  <div id="results">
+    <div class="result-hero">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Your Score</div>
+      <div class="result-score" id="score-display">—</div>
+      <div class="result-label" id="score-label"></div>
+      <div class="result-grade" id="score-grade"></div>
+    </div>
+    <div class="result-breakdown">
+      <div class="rb-card"><div class="rb-score" id="rb-mcq" style="color:var(--blue)">—</div><div class="rb-label">MCQ</div></div>
+      <div class="rb-card"><div class="rb-score" id="rb-fi" style="color:var(--warn)">—</div><div class="rb-label">Fill-in</div></div>
+      <div class="rb-card"><div class="rb-score" id="rb-tf" style="color:var(--correct)">—</div><div class="rb-label">True / False</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab-cases">
+  <div style="margin-bottom:28px">
+    <h2 style="font-family:var(--font-head);font-size:24px;margin-bottom:8px">ACE Exam-Style <em style="font-style:italic;color:var(--accent)">Case Studies</em></h2>
+    <p style="color:var(--muted);font-size:13px">Apply Chapter 9 knowledge to real clients. Write your answer first, then reveal the model response.</p>
+  </div>
+  <div id="cases-container"></div>
+</div>
+
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Muscle Fiber <em>Types</em></h3>
+      <table class="ref-table">
+        <tr><th>Fiber</th><th>Also Called</th><th>Mitochondria</th><th>Fatigue</th><th>Force</th><th>Used For</th></tr>
+        <tr><td><strong>Type I</strong></td><td>Slow-oxidative</td><td>High</td><td>Resistant</td><td>Low</td><td>Endurance, posture</td></tr>
+        <tr><td><strong>Type IIa</strong></td><td>Intermediate / FOG</td><td>Moderate</td><td>Moderate</td><td>Moderate-high</td><td>Strength & power, up to 3 min</td></tr>
+        <tr><td><strong>Type IIx</strong></td><td>Fast-glycolytic</td><td>Few</td><td>Very fast (seconds)</td><td>Highest</td><td>Maximal power, sprints</td></tr>
+      </table>
+    </div>
+    <div class="ref-card">
+      <h3>Hypertrophy <em>Types</em></h3>
+      <div class="key-term"><strong>Myofibrillar</strong><span>Growth of contractile proteins (actin/myosin). Increases SIZE + FORCE. Strength training target.</span></div>
+      <div class="key-term"><strong>Sarcoplasmic</strong><span>Increase in fluid + non-contractile elements. Increases SIZE only — no force gain. Bodybuilding volume training.</span></div>
+      <div class="key-term"><strong>Transient ("Pump")</strong><span>Fluid accumulation between cells post-training. Quickly diminishes. Form of sarcoplasmic hypertrophy.</span></div>
+    </div>
+    <div class="ref-card">
+      <h3>Training <em>Principles</em></h3>
+      <div class="key-term"><strong>Overload</strong><span>Stress must exceed current capacity to drive adaptation. Progressive overload = foundation of all strength gains.</span></div>
+      <div class="key-term"><strong>Specificity (SAID)</strong><span>Adaptations are specific to demands. Fiber type, speed, angle, movement pattern — all specific.</span></div>
+      <div class="key-term"><strong>Reversibility</strong><span>Gains lost when training stops. Neural patterns more durable than hypertrophy. Rarely returns to pre-training baseline.</span></div>
+      <div class="key-term"><strong>Diminishing Returns</strong><span>Advanced trainees need progressively more effort for smaller gains. Change exercise to break plateau.</span></div>
+    </div>
+    <div class="ref-card">
+      <h3>Rest Intervals by <em>Goal</em></h3>
+      <table class="ref-table">
+        <tr><th>Goal</th><th>Rest</th><th>Rep Range</th><th>Intensity</th></tr>
+        <tr><td>Endurance</td><td>≤30–60 sec</td><td>15–25+</td><td>Low</td></tr>
+        <tr><td>Hypertrophy</td><td>60–90 sec</td><td>6–15</td><td>Moderate</td></tr>
+        <tr><td>Strength</td><td>2–5 min</td><td>1–6</td><td>High</td></tr>
+        <tr><td>Power</td><td>2–5 min</td><td>1–5</td><td>Very high</td></tr>
+      </table>
+    </div>
+    <div class="ref-card">
+      <h3>Sarcomere <em>Anatomy</em></h3>
+      <div class="key-term"><strong>Z-lines</strong><span>Boundaries of each sarcomere. Pulled closer together during contraction.</span></div>
+      <div class="key-term"><strong>H Zone</strong><span>Center of sarcomere. Contains ONLY myosin — no actin extends here. Lighter in color.</span></div>
+      <div class="key-term"><strong>M Line</strong><span>Thin line crossing center of H zone.</span></div>
+      <div class="key-term"><strong>I Band</strong><span>Contains actin only — no myosin overlap. Lightens as muscle contracts.</span></div>
+    </div>
+    <div class="ref-card">
+      <h3>Double-Progression <em>Protocol</em></h3>
+      <div class="key-term"><strong>Step 1 — Add Reps</strong><span>Work within a rep range (e.g., 8–12). Add one rep per session until top of range achieved with good form.</span></div>
+      <div class="key-term"><strong>Step 2 — Add Weight</strong><span>Once top of range achieved → increase resistance by ~5%. Reset to bottom of rep range.</span></div>
+      <div class="key-term"><strong>No Time Limit</strong><span>Whether it takes 1 week or 1 month — weight increases only when earned with proper form.</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+<script>
+const MINDMAP={branches:[
+  {id:1,name:"MUSCLE ANATOMY",color:"#FF6B6B",subs:[
+    {name:"Sarcomere",points:["Functional contracting unit","Between two Z-lines","H zone = myosin only (no actin)","M line crosses center of H zone"]},
+    {name:"Sliding Filament",points:["Z-lines pulled closer together","Actin slides over myosin","All sarcomeres shorten simultaneously","Ca²⁺ release triggers contraction"]},
+    {name:"Connective Tissue",points:["Endomysium surrounds each fiber","Large elastic tissue component","Disseminates mechanical stress","Maintains tone during relaxation"]},
+    {name:"Neuromuscular Junction",points:["Motor neuron meets muscle fiber","CNS → PNS pathway","Acetylcholine released","Triggers Ca²⁺ release → contraction"]}
+  ]},
+  {id:2,name:"MUSCLE FIBER TYPES",color:"#4ECDC4",subs:[
+    {name:"Type I (Slow-Oxidative)",points:["High mitochondria","Highly fatigue-resistant","Low force production","Endurance activities"]},
+    {name:"Type IIa (Intermediate)",points:["Fast-oxidative-glycolytic","Speed + fatigue resistance + force","Up to 3 min in trained athletes","Strength & power activities"]},
+    {name:"Type IIx (Fast-Glycolytic)",points:["Few mitochondria","High glycolytic enzymes","Largest & fastest fibers","Fatigue in seconds — highest force"]},
+    {name:"Fiber Type Factors",points:["Genetics & hormones","Training shifts IIx → IIa (<10%)","Power athletes: more Type II","Endurance athletes: more Type I"]}
+  ]},
+  {id:3,name:"TYPES OF MUSCLE ACTION",color:"#95E1D3",subs:[
+    {name:"Concentric",points:["Muscle shortens","Overcomes resistive force","Biceps curl upward phase","Primary strength-building action"]},
+    {name:"Eccentric",points:["Muscle lengthens under load","Returns from shortened position","Primary trigger for DOMS","Greater microtrauma potential"]},
+    {name:"Isometric",points:["No visible movement","Tension = resistance","Used in PNF stretching","Balance & stabilization training"]},
+    {name:"DOMS",points:["Delayed Onset Muscle Soreness","Peaks 24–72 hours post-exercise","Caused by eccentric microtrauma","Diminishes with repeated bouts"]}
+  ]},
+  {id:4,name:"HYPERTROPHY & ADAPTATIONS",color:"#F38181",subs:[
+    {name:"Myofibrillar Hypertrophy",points:["Actual myofibril growth","Increased SIZE + FORCE","Strength training target","Structural protein increase"]},
+    {name:"Sarcoplasmic Hypertrophy",points:["Fluid + non-contractile elements","Increased SIZE only (no force)","'Muscle pump' = transient type","Bodybuilding volume training"]},
+    {name:"Neural Adaptations",points:["First weeks = primarily neural","Improved motor unit recruitment","Reduced antagonist inhibition","Explain early strength gains"]},
+    {name:"Hypertrophy Factors",points:["Hormones (testosterone key)","Sex, Age, Fiber type","Muscle length + tendon insertion","Limb length: strength NOT hypertrophy"]}
+  ]},
+  {id:5,name:"TRAINING PRINCIPLES",color:"#AA96DA",subs:[
+    {name:"Overload",points:["Progressive stress = adaptation","Must exceed current capacity","Basis of all strength gain","Too much = injury/overtraining"]},
+    {name:"Specificity (SAID)",points:["Adaptations match demands","Fiber type, speed, movement-specific","Transfer between exercises <100%","Sport-specific design essential"]},
+    {name:"Reversibility",points:["'Use it or lose it'","Gains lost with detraining","Rarely return to pre-training values","Neural patterns more durable"]},
+    {name:"Diminishing Returns",points:["Advanced = smaller gains per effort","Plateau requires stimulus change","Change exercise = new neuromuscular stimulus","Harder to improve as fitness increases"]}
+  ]},
+  {id:6,name:"PROGRAM DESIGN",color:"#FCBAD3",subs:[
+    {name:"Frequency & Volume",points:["New: 2–3 days/week","Advanced: 72 hr recovery same muscle","Volume: sets × reps × load","High volume = hypertrophy focus"]},
+    {name:"Intensity & Tempo",points:["Strength: heavy load, low reps","Endurance: light load, high reps","No single best tempo identified","Eccentric phase = DOMS risk"]},
+    {name:"Rest Intervals",points:["Endurance: ≤30–60 sec","Hypertrophy: 60–90 sec","Strength/Power: 2–5 min","Heavier load = longer rest needed"]},
+    {name:"Order & Progression",points:["Large/compound movements FIRST","Double-progression: reps → weight (+5%)","Needs assessment guides selection","Change exercise to break plateau"]}
+  ]}
+]};
+
+const MCQ=[
+  {q:"What is the functional contracting unit of skeletal muscle?",opts:["Myofibril","Sarcomere","Actin filament","Motor unit"],c:1,exp:"The sarcomere is the functional contracting unit — portion of a myofibril found between two Z-lines."},
+  {q:"Which muscle fiber type has the highest aerobic capacity and greatest fatigue resistance?",opts:["Type IIx","Type IIa","Type I","Type IIb"],c:2,exp:"Type I (slow-oxidative): abundant mitochondria, high oxidative capacity, highly fatigue-resistant for endurance."},
+  {q:"Type IIx fibers are characterized by:",opts:["High mitochondria, fatigue-resistant","Intermediate speed and endurance","Low mitochondria, anaerobic, fatigue easily","Equal capacity to Type I"],c:2,exp:"Type IIx (fast-glycolytic): few mitochondria, high glycolytic enzymes, greatest force output, fatigue within seconds."},
+  {q:"Which zone of the sarcomere contains ONLY myosin — no actin?",opts:["I band","A band","H zone","Z line"],c:2,exp:"H zone = lighter, less dense center of sarcomere where actin filaments do not extend — myosin only."},
+  {q:"During concentric muscle action:",opts:["Muscle lengthens under load","No visible movement occurs","Muscle shortens and overcomes resistive force","Muscle is overwhelmed by external force"],c:2,exp:"Concentric = shortening. Biceps brachii acts concentrically during the lifting phase of a biceps curl."},
+  {q:"Eccentric muscle action is MOST associated with which training effect?",opts:["Cardiovascular improvement","DOMS (delayed onset muscle soreness)","Isometric strength gains","Neural adaptations only"],c:1,exp:"Eccentric (lengthening) action causes greatest muscle microtrauma, triggering DOMS peaking 24–72 hours post-exercise."},
+  {q:"Myofibrillar hypertrophy results in:",opts:["Increased muscle size only","Greater SIZE and contraction FORCE","Transient 'muscle pump' from fluid","Increased sarcoplasmic fluid only"],c:1,exp:"Myofibrillar hypertrophy = actual growth of myofibrils → increased cross-sectional area AND contractile force."},
+  {q:"Sarcoplasmic hypertrophy is associated with:",opts:["Greater force production","Increased cross-sectional area WITHOUT force increase","Neural efficiency gains","Type I fiber recruitment only"],c:1,exp:"Sarcoplasmic hypertrophy increases muscle size (fluid/non-contractile elements) but NOT contractile force."},
+  {q:"The 'transient hypertrophy' or 'muscle pump' immediately after training is caused by:",opts:["Myofibril growth","Protein synthesis","Fluid accumulation between cells","Neural fatigue"],c:2,exp:"Transient hypertrophy = fluid accumulation in intercellular spaces due to muscle contraction. Quickly diminishes post-exercise."},
+  {q:"Early strength gains in untrained individuals primarily result from:",opts:["Significant muscle hypertrophy","Increased hormone levels","Neural adaptations and improved motor unit recruitment","Fiber type conversion"],c:2,exp:"Initial strength gains are primarily neural: more efficient motor unit recruitment, reduced inhibition, better coordination."},
+  {q:"The principle of reversibility predicts that when muscular training stops:",opts:["All gains permanently retained","Gains partially lost but rarely return to pre-training values","Gains fully lost within one week","Nothing changes for months"],c:1,exp:"Reversibility: training gains decline with detraining but typically don't return fully to pre-training values."},
+  {q:"The principle of diminishing returns means:",opts:["Beginners improve slowly","Advanced trainees need greater effort for smaller gains","All clients plateau at same level","Hypertrophy stops after 6 months"],c:1,exp:"Diminishing returns: as fitness increases, additional gains require progressively more effort and program variation."},
+  {q:"In the double-progression protocol, what happens FIRST?",opts:["Increase resistance by 5%","Add repetitions within the target range","Change to a different exercise","Reduce rest intervals"],c:1,exp:"Double-progression: Step 1 = add reps within range; Step 2 = increase resistance ~5% when top of range achieved."},
+  {q:"For most new exercisers, the recommended training frequency is:",opts:["1 day per week","2–3 days per week","5–6 days per week","Daily training required"],c:1,exp:"Research: 2–3 days/week produced significantly greater lean mass gains than 1 day/week for new exercisers."},
+  {q:"Advanced exercisers should allow approximately how long before training the same muscle group again?",opts:["24 hours","48 hours","72 hours","1 week"],c:2,exp:"Studies: 72 hours needed for muscular strength to attain or exceed baseline after high-volume, high-intensity sessions."},
+  {q:"Which is the CORRECT exercise order principle?",opts:["Isolation exercises before compound","Small muscle groups before large","Large muscle groups and compound movements first","Random order has no effect"],c:2,exp:"Large muscle group and compound movements should be performed first when energy and neural drive are highest."},
+  {q:"Which factor does NOT directly influence potential for muscle hypertrophy?",opts:["Hormone levels","Muscle fiber type","Tendon insertion point","Limb length"],c:3,exp:"Limb length does NOT influence hypertrophy — it affects strength PERFORMANCE via mechanical leverage, not muscle size."},
+  {q:"Shorter limbs provide what mechanical advantage for strength performance?",opts:["Greater hypertrophy potential","Leverage advantage for moving resistance","Higher aerobic capacity","Greater endurance"],c:1,exp:"Shorter limbs = shorter resistance arm = mechanical leverage advantage for moving heavy loads."},
+  {q:"In the sliding filament model, what structure is pulled closer together as the muscle shortens?",opts:["H zones","M lines","Z lines","A bands"],c:2,exp:"Z lines are pulled closer together as actin slides over myosin during concentric contraction = sarcomere shortening."},
+  {q:"Which training goal uses the SHORTEST rest intervals?",opts:["Maximal strength","Power","Muscular endurance","Hypertrophy"],c:2,exp:"Muscular endurance: ≤30–60 sec rest maintains metabolic stress. Strength/power needs 2–5 min for full recovery."},
+  {q:"The needs assessment in program design evaluates:",opts:["Client's age and weight only","Movement patterns, goals, injury history, physiological parameters","Preferred exercise only","Equipment availability only"],c:1,exp:"Needs assessment: movement analysis (patterns, speed, activation), physiological parameters, injury history, goal requirements."},
+  {q:"Isometric muscle action is best described as:",opts:["Muscle shortens producing movement","Muscle lengthens against resistance","No visible movement; tension matches resistance","Rapid ballistic force production"],c:2,exp:"Isometric = tension develops but NO visible movement occurs; resistance matches muscular tension."},
+  {q:"Type IIa muscle fibers are best described as:",opts:["Purely fast-glycolytic","Intermediate — combine speed, fatigue resistance, and force","Purely oxidative like Type I","Smallest and weakest fibers"],c:1,exp:"Type IIa (fast-oxidative-glycolytic) = intermediate between Type I and IIx; can sustain effort up to 3 min in trained athletes."},
+  {q:"When a client hits a strength plateau, the most effective strategy is:",opts:["Stop training and rest for weeks","Increase volume indefinitely","Change the exercise for new neuromuscular stimulus","Switch to only aerobic training"],c:2,exp:"Changing exercise provides new neuromuscular stimulus that facilitates renewed strength gains — addresses diminishing returns."},
+  {q:"Which factor most significantly limits hypertrophy potential in females compared to males?",opts:["Muscle fiber composition only","Significantly lower testosterone levels","Shorter muscle fiber length","Less access to protein"],c:1,exp:"Females produce ~10–20× less testosterone — the primary anabolic hormone driving significant muscle hypertrophy."}
+];
+
+const FILLIN=[
+  {q:"The __________ is the functional contracting unit of skeletal muscle, located between two Z-lines.",a:"sarcomere",exp:"Sarcomere = functional contracting unit; shortening of sarcomeres produces overall muscle fiber shortening."},
+  {q:"Type I muscle fibers are also called slow-__________ fibers due to high mitochondrial content.",a:"oxidative",exp:"Type I = slow-oxidative = highly aerobic, fatigue-resistant, used for endurance activities."},
+  {q:"Type IIx fibers contain high numbers of __________ enzymes, providing considerable anaerobic capacity.",a:"glycolytic",exp:"Type IIx = fast-glycolytic; high glycolytic enzyme concentration = high anaerobic power but rapid fatigue."},
+  {q:"__________ hypertrophy results in greater muscle contraction force through growth of actual myofibrils.",a:"myofibrillar",exp:"Myofibrillar hypertrophy = growth of contractile proteins → increased size AND force production."},
+  {q:"__________ hypertrophy increases muscle size without increasing force; related to the 'muscle pump.'",a:"sarcoplasmic",exp:"Sarcoplasmic hypertrophy = increase in non-contractile elements and fluid; size gain but no force increase."},
+  {q:"The principle of __________ states that training adaptations are lost when training is discontinued.",a:"reversibility",exp:"Reversibility: 'use it or lose it' — detraining results in partial or full loss of adaptations."},
+  {q:"Early muscular-training gains are primarily due to __________ adaptations before significant hypertrophy.",a:"neural or neuromuscular",exp:"First weeks: neural adaptations (improved motor unit recruitment) explain strength gains before visible hypertrophy."},
+  {q:"DOMS stands for __________ Onset Muscle Soreness, primarily triggered by __________ muscle actions.",a:"delayed; eccentric",exp:"DOMS peaks 24–72 hours post-exercise; primarily caused by eccentric actions causing microtrauma."},
+  {q:"In the double-progression protocol, resistance is increased by approximately __________ %.",a:"5",exp:"Double-progression: add reps within range first, then increase resistance ~5% when top of range achieved with good form."},
+  {q:"New exercisers should train __________ days per week for optimal lean mass gains.",a:"2-3 or two to three",exp:"Research: 2–3 days/week produces significantly greater gains than 1 day/week for untrained individuals."},
+  {q:"Advanced trainees need approximately __________ hours between sessions targeting the same muscle group.",a:"72",exp:"High-volume, high-intensity sessions require ~72 hours for muscular strength to attain or exceed baseline levels."},
+  {q:"In exercise order, __________ muscle groups and __________ movements should be performed first.",a:"large; compound",exp:"Large muscle groups and compound (multi-joint) movements performed first when energy and neural drive are highest."},
+  {q:"__________ limbs provide a leverage advantage for strength performance due to a shorter resistance arm.",a:"shorter",exp:"Shorter limbs = shorter resistance arm = mechanical leverage advantage for moving resistance."},
+  {q:"The __________ zone at the center of the sarcomere contains only myosin — no actin extends into this area.",a:"H",exp:"H zone = lighter, less dense area at center of sarcomere where actin filaments do not overlap myosin."},
+  {q:"A strength plateau is best addressed by changing the __________ to provide a new neuromuscular stimulus.",a:"exercise",exp:"Changing exercises provides new neuromuscular stimulus — key strategy for overcoming diminishing returns."}
+];
+
+const TF=[
+  {q:"Type IIx muscle fibers can sustain maximal effort for longer periods than Type I fibers.",a:false,exp:"FALSE: Type IIx fatigue within seconds; Type I (slow-oxidative) are highly fatigue-resistant for long-duration work."},
+  {q:"Myofibrillar hypertrophy increases both muscle size AND force production.",a:true,exp:"TRUE: Myofibrillar hypertrophy = growth of contractile proteins → greater cross-sectional area AND contractile force."},
+  {q:"Early strength gains in untrained individuals are primarily due to muscle hypertrophy.",a:false,exp:"FALSE: Early gains are predominantly neural (improved motor unit recruitment) — hypertrophy comes later."},
+  {q:"Eccentric muscle actions are the primary trigger for DOMS.",a:true,exp:"TRUE: Eccentric (lengthening) actions cause greatest microtrauma to muscle tissue, triggering DOMS 24–72 hours later."},
+  {q:"Shorter limb length directly increases potential for muscle hypertrophy.",a:false,exp:"FALSE: Limb length does NOT affect hypertrophy potential — it affects strength performance via mechanical leverage only."},
+  {q:"With the reversibility principle, training gains typically return all the way to pre-training values when exercise stops.",a:false,exp:"FALSE: Gains are partially lost but typically do NOT fully return to pre-training values; some retention persists."},
+  {q:"Sarcoplasmic hypertrophy increases muscle size but does NOT increase contractile force.",a:true,exp:"TRUE: Sarcoplasmic hypertrophy = fluid/non-contractile elements — increases size but zero effect on force production."},
+  {q:"For competitive strength athletes, short rest intervals (30–60 seconds) are recommended between sets.",a:false,exp:"FALSE: Strength/power athletes need 2–5 min rest for complete creatine phosphate replenishment before next maximal effort."},
+  {q:"Large compound exercises should be performed AFTER isolation exercises in a training session.",a:false,exp:"FALSE: Large muscle group compound movements FIRST when neuromuscular energy and capacity are highest."},
+  {q:"The principle of specificity means adaptations are specific to the type of demand placed on the body.",a:true,exp:"TRUE: Specificity (SAID) = body adapts specifically to the type, speed, intensity, and range of movement trained."}
+];
+
+const CASES=[
+  {title:"Case 1: Devon",subtitle:"New Client — DOMS, Frequency & Double-Progression",
+   scenario:`Devon, 30M, no structured exercise in 5 years. Goals: get stronger and build muscle. Wants to train 5 days/week immediately. Full commercial gym access.
+
+Assessment: Healthy, BMI 26. Movement screen: mild anterior pelvic tilt, limited hip mobility. No barbell experience.
+
+After Session 1 (3×8 squats, lunges, rows — moderate weight), Devon calls 2 days later: "I can barely walk — my legs are on fire. I think I'm injured."`,
+   questions:`1) Is Devon's experience normal? Explain the physiological mechanism.
+2) Should Devon train 5 days/week? Design appropriate frequency using Chapter 9 evidence.
+3) Design his initial 4-week program addressing strength/hypertrophy goals AND movement screen findings.
+4) Explain the double-progression protocol to Devon in plain language — apply it to his squat.`,
+   answer:`1) NORMAL DOMS — NOT INJURY:
+Devon has DOMS (Delayed Onset Muscle Soreness).
+• Mechanism: Eccentric actions (lowering phases of squat/lunge) cause microscopic muscle fiber microtrauma
+• Timing: Peaks 24–72 hours post-exercise = classic DOMS (Devon's call = day 2 = expected)
+• First session = most severe: untrained muscles have no protective adaptation yet
+• Tell Devon: "This is muscles adapting — a positive sign, NOT injury. Reduces significantly by session 3–4."
+• Management: Light walking, gentle movement; complete rest actually slows clearance of metabolic waste
+
+2) 5 DAYS/WEEK = INAPPROPRIATE FOR BEGINNER:
+• Research: 2–3 days/week produces significantly greater lean mass gains than 1 day/week for new exercisers
+• Advanced exercisers need ~72 hours recovery between sessions targeting same muscle group
+• Devon's status: Untrained → needs 72 hr minimum recovery; excessive frequency → excessive DOMS → dropout
+• RECOMMENDATION: 3 days/week full-body (Mon/Wed/Fri) for weeks 1–4
+• Each muscle group trained 3× per week with 48–72 hr between sessions
+• Progress to 4-day split after 6–8 weeks when base conditioning established
+
+3) 4-WEEK PROGRAM:
+Movement screen: Anterior pelvic tilt → core stability priority; Limited hip mobility → hip prep before loading
+
+Warm-up (10 min): 90/90 hip stretches, glute bridges, bird dogs, dead bugs (address pelvic tilt + hip mobility)
+
+Strength Block (3 days/week):
+• Goblet squat 3×10 (learn pattern safely; core + leg development)
+• Dumbbell RDL 3×10 (hip hinge pattern; posterior chain → reduces anterior tilt)
+• Dumbbell chest press 3×10 (upper push; controlled)
+• Dumbbell row 3×10 (upper pull; postural balance)
+• Plank 3×30 sec (core stability, spinal support)
+Exercise order: Large/compound first (squat, RDL, press, row); core isolation last.
+Volume: Conservative 3×10 — allows neural adaptation without excessive DOMS
+Weeks 1–2: Technique focus (RPE 6–7); Weeks 3–4: Apply double-progression (RPE 7–8)
+
+4) DOUBLE-PROGRESSION EXPLAINED:
+"Devon — here's how we add weight safely:
+Pick a range: 8 to 12 reps on goblet squat with 20 kg.
+Step 1 (ADD REPS): If you manage 8 reps today, next session go for 9, then 10, 11, 12. Same weight throughout.
+Step 2 (ADD WEIGHT): Once you hit 12 clean reps, increase weight ~5% (20 → 21 kg). Now start over from 8 reps.
+No time limit — it might take 1 week or 4 weeks. Weight increases ONLY when you earn it with good form. No guessing, no ego — just systematic progress."`
+  },
+  {title:"Case 2: Amara",subtitle:"Strength Plateau — Diminishing Returns + Specificity",
+   scenario:`Amara, 28F, 3 years consistent training, 4 days/week upper/lower split. Bench press stuck at 65 kg for 4 months. Eats well, sleeps enough, trains hard.
+
+Problem: Exclusively uses barbell bench press for chest pressing. Program unchanged for 6 months. Technique is good. Uses 3×5 with 3-min rest intervals.`,
+   questions:`1) Identify the principle explaining Amara's plateau. What does it predict at her level?
+2) How does the specificity principle BOTH help AND limit her bench press progress?
+3) Design a 6-week modification to break her plateau — include 3 specific changes with physiological rationale.
+4) Amara asks: "Should I just add more sets and reps?" — Explain volume vs. intensity trade-offs at her level.`,
+   answer:`1) PRINCIPLE: DIMINISHING RETURNS
+• Definition: As fitness level increases, progressively greater effort required for smaller additional gains
+• At Amara's level (3 years, 65 kg bench): neural and structural adaptations largely exhausted by current stimulus
+• Prediction: A gain that took 2 weeks as a beginner may now take months of targeted specialization
+• Contributing factor: Same stimulus for 6 months = body fully adapted = no new signal for further adaptation
+
+2) SPECIFICITY — HELPS AND LIMITS:
+HELPS: 3 years of barbell bench = highly specific neural pattern → excellent motor unit recruitment for that exact movement. Her technique is good because SAID adaptations are maximal for barbell bench mechanics.
+LIMITS: Body is maximally adapted to this specific stimulus → no new adaptation signal available. Same movement = same demand = same result. Adjacent movements (dumbbell press, incline) recruit chest muscles at slightly different angles/ranges → new neuromuscular stimulus.
+
+3) 6-WEEK PLATEAU-BREAKING MODIFICATIONS:
+A) Primary Press Rotation:
+• Weeks 1–3: Dumbbell bench press 4×6–8
+• Weeks 4–6: Incline barbell press 4×5–6
+• Rationale: Dumbbell = increased ROM + independent arm stabilization = new muscle activation demands. Incline = different angle → upper pec/anterior delt stimulus. New neuromuscular patterns = renewed adaptation.
+
+B) Eccentric Tempo Manipulation:
+• Add 3-sec eccentric on all pressing movements
+• Rationale: Eccentric overload creates different mechanical stress → new hypertrophic/neural stimulus in Type IIa/IIx fibers. Amara likely rushing the lowering phase — controlled eccentric = greater time under tension.
+
+C) Antagonist Strengthening:
+• Add cable rows + face pulls (3×12) targeting rhomboids, rear deltoids
+• Rationale: 3 years of pressing priority = potential anterior shoulder dominance. Stronger antagonists improve shoulder stability = better force transfer during pressing movements. Specificity: antagonist strength directly affects agonist performance.
+
+4) VOLUME vs. INTENSITY AT AMARA'S LEVEL:
+"More sets/reps alone won't break Amara's plateau.
+• Volume approach: Works for hypertrophy and beginners. But adding MORE volume to a stale movement = more fatigue, same stimulus, no new adaptation.
+• Intensity approach: Amara is already at max for current stimulus — she can't simply add weight (that IS the plateau).
+• REAL ANSWER: Change the STIMULUS first. Specificity = body adapts to exact demands. Different demand = new adaptation period. After 6 weeks of variation → return to barbell bench → neural pattern refreshed → likely PR.
+Advanced athletes periodize for this reason: systematically vary exercise, volume, AND intensity to always present a new adaptation signal."`
+  },
+  {title:"Case 3: Grace",subtitle:"'I Don't Want to Bulk Up' — Hypertrophy Factors",
+   scenario:`Grace, 45F, teacher, wants to "tone up" and improve strength for daily activities. Nervous about lifting: "My friend does weights and she got huge. I don't want to look like a bodybuilder."
+
+No training experience. BMI 24, healthy. Daily life: carrying groceries, climbing stairs, picking up grandchildren.`,
+   questions:`1) Address Grace's fear using ≥4 physiological factors that influence hypertrophy potential.
+2) Design her program using the needs assessment framework based on her daily life activities.
+3) Which type of hypertrophy (myofibrillar vs. sarcoplasmic) is relevant to Grace's goals — and why?
+4) Grace asks: "What rep range should I use?" Explain based on her specific goals.`,
+   answer:`1) ADDRESSING GRACE'S FEAR — 4 HYPERTROPHY FACTORS:
+A) HORMONE LEVELS (most important): Females produce ~10–20× less testosterone than males. Testosterone is the primary anabolic hormone driving significant muscle hypertrophy. Without high testosterone, large muscle mass gains are physiologically very difficult. Competitive female bodybuilders achieve their physique through years of extreme specialization + specific nutritional protocols — not from a 3×/week beginner program.
+
+B) SEX: Directly linked to hormonal profile. Women's hormonal environment limits hypertrophic potential relative to men. Women CAN gain significant functional strength through neural adaptations without visible size increases.
+
+C) AGE (Grace is 45): Anabolic hormone production (testosterone, growth hormone) declines with age. This makes significant hypertrophy MORE difficult for Grace, not easier. Primary adaptations will be neural efficiency + modest functional strength — not bulk.
+
+D) MUSCLE FIBER TYPE: Large bodybuilder hypertrophy requires high percentage of Type II (fast-twitch) fibers. Grace's ADLs (standing, carrying) predominantly use Type I (endurance) fibers. Her likely Type I-dominant composition = lower hypertrophy ceiling.
+CONCLUSION: "You will get stronger and more capable — you will NOT accidentally become a bodybuilder."
+
+2) NEEDS ASSESSMENT FOR GRACE:
+Movement Analysis (ADLs):
+• Carrying groceries → loaded carry, grip strength, single-leg stability
+• Climbing stairs → single-leg squat pattern, hip extension
+• Picking up grandchildren → hip hinge, spinal stability
+Physiological Parameters: Functional strength + muscular endurance (standing all day); NOT maximal strength or size
+
+PROGRAM (3×/week, full-body):
+Warm-up: glute bridges, hip circles, band walks
+• Goblet squat 3×12 (sitting/rising, object pickup)
+• Dumbbell Romanian deadlift 3×12 (lifting from floor, posterior chain)
+• Single-leg step-up 3×10 each (stair climbing, balance)
+• Farmer's carry 3×30 sec (grocery carrying — loaded bilateral)
+• Dumbbell row 3×12 (pulling, postural balance vs. teacher forward lean)
+• Plank 3×30 sec (core stability for all carrying/lifting)
+Exercise order: Compound/large first; core last. Progressive overload via double-progression.
+
+3) HYPERTROPHY TYPE FOR GRACE:
+MYOFIBRILLAR is relevant.
+• Myofibrillar = growth of contractile proteins → increased FORCE PRODUCTION
+• Grace needs functional strength (lift grandchildren, carry groceries) = FORCE = myofibrillar
+• Result: Muscles become stronger and slightly denser — NOT visually bulky
+Sarcoplasmic (NOT Grace's goal):
+• Sarcoplasmic = size without force = bodybuilder aesthetic target
+• Requires high volume + short rest + metabolic stress = opposite of Grace's program design
+• Grace naturally avoids this stimulus with compound movements + moderate reps + adequate rest
+
+4) REP RANGE FOR GRACE'S GOALS:
+• Functional strength: 8–12 reps (Type I + IIa fibers; moderate load; adequate strength stimulus)
+• Muscular endurance (teacher standing all day): 12–20 reps (trains fatigue resistance for prolonged activity)
+• RECOMMENDATION: 10–15 reps — best of both worlds
+• Rest: 60–90 seconds (functional + endurance balance)
+• Apply double-progression: start where comfortable, add reps first, then weight in 5% steps
+• Most important: consistency + progressive overload applied safely matters more than exact rep number"`
+  },
+  {title:"Case 4: Roland",subtitle:"68-Year-Old Returning After 4-Year Layoff — Reversibility + Aging",
+   scenario:`Roland, 68M, competitive Masters powerlifter until age 62. Injury forced 4-year training break. Now medically cleared to return.
+
+His squat: 180 kg → barely manages 80 kg. Feeling demoralized. Assessment reveals: movement quality preserved from decades of training; significant muscle mass lost. BP, glucose, lipids all improved during detraining.`,
+   questions:`1) What does reversibility predict for Roland's state and recovery prognosis?
+2) Why are Roland's motor patterns preserved after 4 years off? Why does this matter?
+3) What physiological factors limit his recovery at age 68 vs. his peak at 55–60?
+4) Design his 8-week return-to-training program addressing both neural reactivation and hypertrophic goals.`,
+   answer:`1) REVERSIBILITY — STATE AND PROGNOSIS:
+• Reversibility = "use it or lose it" — training adaptations decline when training stops
+• Roland's 4-year detraining: significant losses expected (180 → 80 kg squat confirms this)
+WHAT REVERSIBILITY PREDICTS:
+• Strength loss: significant but NOT complete return to zero — research shows strength typically does NOT fully return to pre-training values
+• Roland's 80 kg squat is likely still above age-matched untrained baseline
+• Muscle mass: atrophy occurred but architectural adaptations (pennation angle, tendon properties) partially persist
+PROGNOSIS — POSITIVE:
+• Muscle memory: Prior hypertrophy → myonuclei retained even after atrophy → retraining faster than original
+• Preserved neural patterns → strength returns faster than true beginner
+• Realistic: 8–12 weeks to approach 60–70% of previous strength; 6–12 months closer to prior levels (age-limited)
+
+2) PRESERVED MOTOR PATTERNS — NEURAL EXPLANATION:
+• Motor programs stored in CNS (cerebellum, motor cortex) as learned movement patterns
+• Decades of squatting/pressing/pulling = deeply ingrained neuromuscular programs
+• Neural patterns far more resistant to detraining than muscular hypertrophy
+• Analogy: Like riding a bike — neural skill retained even as physical fitness declines
+WHY IT MATTERS:
+• No need to "re-learn" movement — technique foundation intact = safer loading progression
+• Early strength returns rapidly (neural re-activation first, before hypertrophy)
+• Programming implication: Can progress loading faster than true beginner — but MUST respect musculotendinous deconditioning of 4-year break
+
+3) PHYSIOLOGICAL LIMITING FACTORS AT 68 vs. 55–60:
+A) HORMONES: Testosterone and growth hormone decline with age (both peak in 20s–30s). At 68: significantly lower anabolic hormone levels → muscle protein synthesis rate reduced → hypertrophy response slower.
+B) SATELLITE CELLS: Decline in number and activity with aging. Fewer satellite cells = slower muscle fiber repair = slower hypertrophy. More recovery burden per session.
+C) CONNECTIVE TISSUE: Tendons/ligaments lose elasticity and repair capacity with age. 4 years detraining + age 68 = significantly deconditioned connective tissue. Primary injury risk: tendons can't handle rapid load increases even when muscle strength returns quickly. 10% rule CRITICAL for Roland.
+D) FIBER TYPE: Aging causes selective Type II atrophy. Roland's power training was Type II-dependent — proportionally more fast-twitch capacity lost. Power and explosive strength recovery = slowest component.
+
+4) ROLAND'S 8-WEEK RETURN PROGRAM:
+Frequency: 3 days/week full-body (Mon/Wed/Fri)
+
+WEEKS 1–2: Neural Reactivation (RPE 5–6, ~50–60% current capacity)
+• Goblet squat 3×8, Dumbbell RDL 3×8, Machine chest 3×10, Machine row 3×10
+• NO barbell yet — protect deconditioned connective tissue
+• Rest: 90–120 sec; minimal eccentric emphasis (reduce DOMS severity)
+• Focus: movement quality, not load
+
+WEEKS 3–4: Loading Introduction (RPE 6–7, 60–70% 1RM)
+• Introduce barbell: back squat (light, 40–50 kg), bench press, conventional deadlift
+• Apply double-progression (8–12 rep range)
+• Volume: 3→4 sets on primary movements
+• Rest: 2 min between sets
+
+WEEKS 5–6: Hypertrophic Block (RPE 7–8, 70–75%)
+• 4×8 on squat + press patterns; add isolation work (leg curl, cable fly)
+• Rest: 90 sec (creates hypertrophic metabolic stress)
+• Introduce 2–3 sec eccentric (Roland has adapted by now)
+
+WEEKS 7–8: Strength Return (RPE 8–9, 75–85%)
+• Return to 3–5 rep range; longer rest (3 min between heavy sets)
+• Week 8: Conservative 5RM test to establish new baseline
+MONITORING: RHR tracking (>5 bpm rise = add rest); joint pain = modify immediately (not push through)"`
+  },
+  {title:"Case 5: Jordan",subtitle:"Soccer Athlete — Specificity, Needs Assessment, Injury Prevention",
+   scenario:`Jordan, 22, collegiate soccer midfielder. Goals: explosive speed, 90-min endurance, reduce hamstring strain risk (2 strains in 2 seasons). Current training: 4 field sessions/week + generic internet bodybuilding program (3×10 machines, no periodization).
+
+Movement screen: quad-dominant, weak glutes/hamstrings. Strength: squat 100 kg, RDL 70 kg. Vertical jump: 45 cm (below expectation).`,
+   questions:`1) Conduct a needs assessment based on Jordan's soccer position demands.
+2) Why is his current machine-based bodybuilding program poorly aligned with the specificity principle?
+3) Design Jordan's in-season strength program (4 field sessions already scheduled) for explosive power + hamstring injury prevention.
+4) What does specificity predict about transfer of strength training to Jordan's on-field performance?`,
+   answer:`1) NEEDS ASSESSMENT — SOCCER MIDFIELDER:
+Movement Patterns: Explosive acceleration (concentric hip extension), deceleration (eccentric quad/hamstring), lateral cuts (frontal plane hip), kicking (hip flexion + knee extension velocity), jumping (triple extension: ankle/knee/hip).
+Speeds: Maximal sprint, multi-directional agility, sustained 90-min aerobic endurance.
+Balance/Stability: Single-leg deceleration under fatigue.
+Injury History: Hamstring strains → eccentrically loaded at high speed during sprinting (late swing phase of gait).
+Physiological Parameters: Explosive power (RFD), adequate base strength for deceleration, aerobic endurance, eccentric hamstring strength (CRITICAL).
+Primary priority: Hamstring eccentric strength + posterior chain explosive power.
+
+2) WHY BODYBUILDING PROGRAM FAILS SPECIFICITY:
+A) Machine fixed-plane movements: Build force in isolated ROM, not multi-directional, unpredictable soccer patterns. Transfer to sport-specific movements is significantly less than 100%.
+B) 3×10 moderate load = sarcoplasmic hypertrophy + endurance — NOT rate of force development (RFD) or explosive power. Soccer needs Type IIx recruitment and maximal RFD → requires heavy loads (85–95% 1RM) or plyometric training.
+C) No eccentric hamstring emphasis: Machine leg curl = concentric focus. Hamstring strains occur during ECCENTRIC overload in late swing. Eccentric strength is SPECIFIC — if not trained, not developed.
+D) No single-leg work: Soccer = 90% single-leg explosive actions. Bilateral machines don't develop unilateral balance, coordination, or stability.
+E) No velocity specificity: 3×10 at slow tempo has no carryover to 200-millisecond explosive activation. RFD adapts specifically to training velocity.
+
+3) IN-SEASON STRENGTH PROGRAM (2 days/week):
+Timing: After field sessions (not before) OR on rest days. LOW volume = maintenance + targeted development.
+
+PRIORITY 1 — Hamstring Eccentric Strength:
+• Nordic hamstring curls 3×5 (gold-standard; ~50% injury reduction in research)
+• Romanian deadlift 3×6 @75–80% 1RM (posterior chain eccentric + hip hinge)
+• Single-leg RDL 3×8 each (sport-specific, eccentric, unilateral)
+
+PRIORITY 2 — Explosive Power:
+• Trap bar deadlift (power focus) 3×3 @80–85% 1RM (RFD, posterior chain)
+• Box jumps 3×5 (plyometric: rapid Type IIx concentric; neural pattern for acceleration)
+
+PRIORITY 3 — Quad/Hamstring Balance:
+• Hip thrust 3×8 (glute-specific power; addresses hip extension deficit)
+• Lateral band walks 2×15 each (hip abduction = change of direction stability)
+
+Exercise order: Power first (box jumps, trap bar) when CNS fresh → posterior chain strength (Nordic, RDL) → accessory (hip thrust, bands).
+Rest: 2–3 min between power sets; 90 sec accessory.
+
+4) SPECIFICITY PREDICTION — ON-FIELD TRANSFER:
+TRANSFERS WELL:
+• Posterior chain power (RDL, trap bar) → hip extension → direct carryover to acceleration
+• Nordic curls → eccentric hamstring capacity → reduced strain risk during sprinting
+• Box jumps → RFD → vertical jump, quick acceleration
+TRANSFERS POORLY:
+• General bilateral strength alone → soccer acceleration = ~50–75% (not 100%)
+• Machine isolation → sport-specific coordination = very low
+LIMITATION: Strength training builds the physical CAPACITY; sport-specific pattern is refined on the field. Combined approach (strength + field sessions) = maximum transfer. Realistic timeline: 6–8 weeks → measurable improvement in vertical jump, sprint times; reduced hamstring recurrence."`
+  }
+];
+
+let mcqA=new Array(MCQ.length).fill(null);
+let fiA=new Array(FILLIN.length).fill('');
+let tfA=new Array(TF.length).fill(null);
+let submitted=false;
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMM(){
+  document.getElementById('mm-grid').innerHTML=MINDMAP.branches.map((b,i)=>`
+    <div class="mm-branch" id="mmb-${i}" onclick="toggleB(${i})">
+      <div class="mm-branch-header">
+        <div class="mm-branch-dot" style="background:${b.color}"></div>
+        <div class="mm-branch-name">${b.name}</div>
+        <div class="mm-branch-arrow">›</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">${b.subs.map(s=>`
+          <div class="mm-sub">
+            <div class="mm-sub-name">${s.name}</div>
+            <ul class="mm-sub-points">${s.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+}
+function toggleB(i){document.getElementById('mmb-'+i).classList.toggle('open')}
+
+function buildQuiz(){
+  document.getElementById('mcq-container').innerHTML=MCQ.map((q,i)=>`
+    <div class="q-card" id="mcq-${i}">
+      <div class="q-num">Q${i+1} of 25 — MCQ</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options">${q.opts.map((o,j)=>`
+        <div class="q-option" id="mcq-${i}-${j}" onclick="selMCQ(${i},${j})">
+          <div class="opt-letter">${['A','B','C','D'][j]}</div><span>${o}</span>
+        </div>`).join('')}
+      </div>
+      <div class="explanation" id="mcq-exp-${i}">
+        <div class="explanation-label">Explanation</div>
+        <div class="explanation-text">${q.exp}</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('fillin-container').innerHTML=FILLIN.map((q,i)=>`
+    <div class="q-card" id="fi-${i}">
+      <div class="q-num">Q${i+1} of 15 — Fill in the Blank</div>
+      <div class="q-text">${q.q}</div>
+      <input class="q-input" type="text" placeholder="Type your answer…" oninput="fiA[${i}]=this.value;updProg()" id="fi-input-${i}"/>
+      <div class="answer-reveal" id="fi-ans-${i}"><div class="answer-reveal-label">✓ Correct Answer</div><div class="answer-reveal-text">${q.a}</div></div>
+      <div class="explanation" id="fi-exp-${i}"><div class="explanation-label">Explanation</div><div class="explanation-text">${q.exp}</div></div>
+    </div>`).join('');
+
+  document.getElementById('tf-container').innerHTML=TF.map((q,i)=>`
+    <div class="q-card" id="tf-${i}">
+      <div class="q-num">Q${i+1} of 10 — True / False</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-tf">
+        <button class="q-tf-btn" id="tf-${i}-true" onclick="selTF(${i},true)">True</button>
+        <button class="q-tf-btn" id="tf-${i}-false" onclick="selTF(${i},false)">False</button>
+      </div>
+      <div class="explanation" id="tf-exp-${i}"><div class="explanation-label">Explanation</div><div class="explanation-text">${q.exp}</div></div>
+    </div>`).join('');
+}
+
+function buildCases(){
+  document.getElementById('cases-container').innerHTML=CASES.map((c,i)=>`
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-tag">📋 ACE Case Study ${i+1}</div>
+        <div class="case-title">${c.title} <em>— ${c.subtitle}</em></div>
+      </div>
+      <div class="case-body">
+        <div class="case-scenario">
+          <div class="case-scenario-label">📄 Client Scenario</div>
+          <div class="case-scenario-text">${c.scenario}</div>
+        </div>
+        <div class="case-questions-label">❓ Questions</div>
+        <div class="case-questions-text">${c.questions}</div>
+        <div class="case-answer-label">Your Answer:</div>
+        <textarea class="q-input" rows="7" placeholder="Apply Chapter 9 concepts to this client…" id="case-inp-${i}"></textarea>
+        <button class="reveal-btn" id="case-btn-${i}" onclick="toggleAns(${i})">👁 Reveal Model Answer</button>
+        <div class="case-model-answer" id="case-ans-${i}">
+          <div class="case-model-label">📘 Model Answer</div>
+          <div class="case-model-text">${c.answer}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleAns(i){
+  const el=document.getElementById('case-ans-'+i);
+  const btn=document.getElementById('case-btn-'+i);
+  el.classList.toggle('show');
+  btn.textContent=el.classList.contains('show')?'▲ Hide Answer':'👁 Reveal Model Answer';
+}
+
+function selMCQ(qi,oi){
+  if(submitted)return;
+  mcqA[qi]=oi;
+  document.querySelectorAll(`#mcq-${qi} .q-option`).forEach((el,j)=>el.classList.toggle('selected',j===oi));
+  updProg();
+}
+function selTF(qi,val){
+  if(submitted)return;
+  tfA[qi]=val;
+  document.getElementById(`tf-${qi}-true`).classList.toggle('selected',val===true);
+  document.getElementById(`tf-${qi}-false`).classList.toggle('selected',val===false);
+  updProg();
+}
+function updProg(){
+  const tot=mcqA.filter(a=>a!==null).length+fiA.filter(a=>a.trim()!=='').length+tfA.filter(a=>a!==null).length;
+  const pct=Math.round((tot/50)*100);
+  document.getElementById('progress-text').textContent=`${tot} of 50 answered`;
+  document.getElementById('progress-pct').textContent=`${pct}%`;
+  document.getElementById('prog-bar').style.width=pct+'%';
+}
+function submitQuiz(){
+  submitted=true;
+  let ms=0,fs=0,ts=0;
+  MCQ.forEach((q,i)=>{
+    const u=mcqA[i];
+    document.querySelectorAll(`#mcq-${i} .q-option`).forEach((el,j)=>{
+      if(j===q.c)el.classList.add('correct-ans');
+      if(u!==null&&j===u&&j!==q.c)el.classList.add('wrong-ans');
+    });
+    if(u===q.c)ms++;
+    document.getElementById(`mcq-exp-${i}`).classList.add('show');
+  });
+  FILLIN.forEach((q,i)=>{
+    const u=(fiA[i]||'').toLowerCase().trim();
+    const kws=q.a.toLowerCase().replace(/[();]/g,'').split(/[\s\/,]+/).filter(w=>w.length>3);
+    const ok=kws.some(kw=>u.includes(kw));
+    if(ok)fs++;
+    document.getElementById(`fi-ans-${i}`).classList.add('show');
+    document.getElementById(`fi-exp-${i}`).classList.add('show');
+    const inp=document.getElementById(`fi-input-${i}`);
+    inp.style.borderColor=ok?'var(--correct)':'var(--incorrect)';
+    inp.disabled=true;
+  });
+  TF.forEach((q,i)=>{
+    const u=tfA[i];
+    const tB=document.getElementById(`tf-${i}-true`);
+    const fB=document.getElementById(`tf-${i}-false`);
+    (q.a===true?tB:fB).classList.add('correct-ans');
+    if(u!==null&&u!==q.a)(u===true?tB:fB).classList.add('wrong-ans');
+    if(u===q.a)ts++;
+    document.getElementById(`tf-exp-${i}`).classList.add('show');
+  });
+  const auto=ms+fs+ts;
+  const pct=Math.round((auto/50)*100);
+  document.getElementById('score-display').textContent=`${auto}/50`;
+  document.getElementById('score-label').textContent=`${pct}% — Auto-graded sections`;
+  const g=document.getElementById('score-grade');
+  if(pct>=80){g.textContent='🏆 Excellent — Exam Ready';g.className='result-grade grade-a';}
+  else if(pct>=60){g.textContent='📚 Good — Review Weak Areas';g.className='result-grade grade-b';}
+  else{g.textContent='🔄 Needs Work — Re-study Chapter';g.className='result-grade grade-c';}
+  document.getElementById('rb-mcq').textContent=`${ms}/25`;
+  document.getElementById('rb-fi').textContent=`${fs}/15`;
+  document.getElementById('rb-tf').textContent=`${ts}/10`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+function resetQuiz(){
+  submitted=false;
+  mcqA=new Array(MCQ.length).fill(null);
+  fiA=new Array(FILLIN.length).fill('');
+  tfA=new Array(TF.length).fill(null);
+  buildQuiz();updProg();
+  document.getElementById('results').style.display='none';
+}
+buildMM();buildQuiz();buildCases();updProg();
+</script>
+
+</Layout>
