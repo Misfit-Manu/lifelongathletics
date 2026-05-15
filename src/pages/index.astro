@@ -19,9 +19,9 @@ import Layout from '../layouts/Layout.astro';
   <div class="container">
     <div style="margin-bottom:72px">
       <p class="section-eyebrow">What we train</p>
-      <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);white-space:nowrap">Specific Goals, <span style="color:var(--white);font-style:normal">Healthspan &amp; Longevity.</span></h2>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem)">Specific Goals, <span style="color:var(--white);font-style:normal">Healthspan &amp; Longevity.</span></h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)">
+    <div class="service-grid">
       <div class="service-card">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:16px"><circle cx="16" cy="16" r="14" stroke="rgba(201,168,76,0.25)" stroke-width="1"/><rect x="4" y="14" width="6" height="4" rx="1.5" fill="rgba(201,168,76,0.4)"/><rect x="22" y="14" width="6" height="4" rx="1.5" fill="rgba(201,168,76,0.4)"/><rect x="10" y="12" width="12" height="8" rx="2" fill="#c9a84c" opacity="0.8"/></svg>
         <h4 class="service-title">Strength Training</h4>
@@ -203,7 +203,7 @@ import Layout from '../layouts/Layout.astro';
         <p class="persona-promise">You rebuild your foundation from the ground up — stability, mobility, strength. You go from fragile to capable. From pain to movement. For good.</p>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:2px">
+    <div class="trust-strip">
       <div style="background:var(--surface2);padding:28px 32px">
         <span style="display:block;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Any Age</span>
         <span style="display:block;font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--white)">3 to 70+</span>

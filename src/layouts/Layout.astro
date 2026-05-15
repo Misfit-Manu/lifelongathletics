@@ -582,10 +582,36 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
   }
   .footer-links a:hover { color: var(--white); }
 
+  /* ─── SERVICE GRID + TRUST STRIP ─── */
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .trust-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-top: 2px;
+  }
+
   /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── TABLET ─── */
+  @media (max-width: 1024px) {
+    section { padding: 100px 40px; }
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+    .trust-strip { grid-template-columns: repeat(2, 1fr); }
+    .persona-grid { grid-template-columns: repeat(2, 1fr); }
+    .who-header { gap: 48px; }
+    .method-layout { gap: 60px; }
+    .about-layout { gap: 60px; }
   }
 
   /* ─── MOBILE ─── */
@@ -600,13 +626,11 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     .stat-item:last-child { border-bottom: none; }
     .who-header { grid-template-columns: 1fr; gap: 32px; }
     .persona-grid { grid-template-columns: 1fr; }
-    #who .trust-strip { grid-template-columns: 1fr 1fr !important; }
+    .trust-strip { grid-template-columns: 1fr 1fr; }
+    .service-grid { grid-template-columns: 1fr 1fr; }
     #longevity { padding: 80px 24px !important; }
     #longevity > .container > div:first-child { grid-template-columns: 1fr !important; gap: 48px !important; }
     #longevity > .container > div:nth-child(2) { grid-template-columns: 1fr 1fr !important; }
-    #services { padding: 80px 24px !important; }
-    #services > .container > div:first-child { grid-template-columns: 1fr !important; gap: 32px !important; }
-    #services > .container > div:last-child { grid-template-columns: 1fr 1fr !important; }
     .method-layout { grid-template-columns: 1fr; gap: 40px; }
     .method-sticky { position: static; }
     .about-layout { grid-template-columns: 1fr; gap: 48px; }
