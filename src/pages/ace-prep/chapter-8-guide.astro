@@ -1,501 +1,1251 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
+<Layout title="The Complete Guide to Cardiorespiratory Training | Lifelong Athletics" description="A comprehensive, science-backed guide covering the physiology, assessments, and programming of cardiorespiratory training.">
 
-<Layout title="Chapter 8: Cardiorespiratory Training — ACE-CPT Theory Guide | Lifelong Athletics">
+<style is:global>
+    /* ââ Base reset & typography (Astra-compatible) ââ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #1a1a2e;
+      background: #ffffff;
+    }
+    .blog-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
 
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    /* ââ Hero ââ */
+    .hero {
+      background: linear-gradient(135deg, #0f3460 0%, #16213e 60%, #1a1a2e 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 56px 48px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 280px; height: 280px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: #e94560;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 620px;
+      margin-bottom: 24px;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 6px; }
 
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#080808;--bg2:#111;--bg3:#181818;--bg4:#1e1e1e;
-  --border:#222;--border2:#2e2e2e;--text:#ededec;--muted:#888;--muted2:#555;
-  --accent:#c5f135;--accent2:rgba(197,241,53,.12);--accent3:rgba(197,241,53,.06);
-  --blue:#60a5fa;--purple:#a78bfa;--warn:#fbbf24;--correct:#4ade80;--red:#f87171;
-  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
-  --r:12px;--r2:8px;--r3:4px;--max:860px;--trans:0.2s ease
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+    /* ââ Hero image ââ */
+    .hero-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 48px;
+      object-fit: contain;
+      display: block;
+      background: linear-gradient(135deg, #e8f4fd, #d1e8f5);
+    }
+    .img-placeholder {
+      width: 100%;
+      border-radius: 12px;
+      margin: 28px 0;
+      background: linear-gradient(135deg, #f0f8ff, #dbeafe);
+      border: 2px dashed #93c5fd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      color: #3b82f6;
+      font-size: 14px;
+      text-align: center;
+      gap: 8px;
+    }
+    .img-placeholder .img-icon { font-size: 36px; }
+    .img-placeholder strong { font-size: 15px; color: #1d4ed8; }
 
-/* HERO */
-.hero{max-width:var(--max);margin:0 auto;padding:72px 28px 48px}
-.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
-.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px}
-.tag-chapter{background:var(--accent2);color:var(--accent);border:1px solid rgba(197,241,53,.25)}
-.tag-read{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
-.hero h1{font-family:var(--font-head);font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
-.hero h1 em{font-style:italic;color:var(--accent)}
-.hero-desc{font-size:17px;color:var(--muted);max-width:640px;line-height:1.65;margin-bottom:32px}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
-.btn-primary{background:var(--accent);color:#000;padding:13px 28px;border-radius:30px;font-weight:700;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
-.btn-primary:hover{background:#b8e030;transform:translateY(-1px)}
-.btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);padding:12px 24px;border-radius:30px;font-size:14px;text-decoration:none;transition:var(--trans);display:inline-flex;align-items:center;gap:8px}
-.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+    /* ââ TOC ââ */
+    .toc {
+      background: #f8faff;
+      border-left: 4px solid #0f3460;
+      border-radius: 0 12px 12px 0;
+      padding: 28px 32px;
+      margin-bottom: 48px;
+    }
+    .toc h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0f3460;
+      margin-bottom: 16px;
+    }
+    .toc ol {
+      padding-left: 20px;
+    }
+    .toc li {
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    .toc a {
+      color: #0f3460;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .toc a:hover { text-decoration: underline; color: #e94560; }
 
-/* LAYOUT */
-.page-wrap{max-width:1200px;margin:0 auto;padding:0 28px 80px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start}
-.content{}
-.sidebar{position:sticky;top:90px}
+    /* ââ Headings ââ */
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0f3460;
+      margin: 52px 0 18px;
+      padding-top: 8px;
+      border-top: 3px solid #e94560;
+      display: inline-block;
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #16213e;
+      margin: 32px 0 14px;
+    }
+    h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f3460;
+      margin: 24px 0 10px;
+    }
+    p { margin-bottom: 18px; }
 
-/* SIDEBAR */
-.toc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:20px}
-.toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px}
-.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
-.toc-list a{display:block;font-size:13px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:var(--r3);transition:var(--trans)}
-.toc-list a:hover{background:var(--bg3);color:var(--text)}
-.toc-list a.active{background:var(--accent2);color:var(--accent)}
-.sidebar-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px}
-.sidebar-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px}
-.yt-thumb{background:var(--bg3);border-radius:var(--r2);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:1px solid var(--border);transition:var(--trans);text-decoration:none}
-.yt-thumb:hover{border-color:var(--red)}
-.yt-play{width:44px;height:44px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.yt-play svg{margin-left:3px}
-.yt-label{font-size:12px;color:var(--muted)}
+    /* ââ Callout boxes ââ */
+    .callout {
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin: 28px 0;
+      position: relative;
+    }
+    .callout-key {
+      background: #fffbeb;
+      border-left: 5px solid #f59e0b;
+    }
+    .callout-science {
+      background: #f0fdf4;
+      border-left: 5px solid #22c55e;
+    }
+    .callout-warning {
+      background: #fff1f2;
+      border-left: 5px solid #e94560;
+    }
+    .callout-tip {
+      background: #eff6ff;
+      border-left: 5px solid #3b82f6;
+    }
+    .callout-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      opacity: 0.75;
+    }
+    .callout-key .callout-label { color: #92400e; }
+    .callout-science .callout-label { color: #166534; }
+    .callout-warning .callout-label { color: #9f1239; }
+    .callout-tip .callout-label { color: #1e40af; }
+    .callout p { margin: 0; font-size: 15px; line-height: 1.65; }
+    .callout strong { font-weight: 700; }
 
-/* ARTICLE SECTIONS */
-.section{margin-bottom:56px;scroll-margin-top:100px}
-.section-number{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
-.section h2{font-family:var(--font-head);font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px}
-.section h2 em{font-style:italic;color:var(--accent)}
-.section h3{font-family:var(--font-head);font-size:19px;font-weight:600;margin:28px 0 12px;letter-spacing:-.3px}
-.section p{color:var(--text);margin-bottom:16px;font-size:15.5px}
-.section p:last-child{margin-bottom:0}
-.lead{font-size:17px;color:var(--muted);line-height:1.7;margin-bottom:24px}
-.divider{height:1px;background:var(--border);margin:40px 0}
+    /* ââ Highlight stat ââ */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, #0f3460, #16213e);
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .stat-card .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fbbf24;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-card .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.4;
+    }
 
-/* CALLOUT BOXES */
-.callout{border-radius:var(--r2);padding:18px 20px;margin:24px 0}
-.callout-exam{background:rgba(197,241,53,.06);border:1px solid rgba(197,241,53,.2);border-left:3px solid var(--accent)}
-.callout-key{background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-left:3px solid var(--blue)}
-.callout-warn{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-left:3px solid var(--warn)}
-.callout-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
-.callout-exam .callout-label{color:var(--accent)}
-.callout-key .callout-label{color:var(--blue)}
-.callout-warn .callout-label{color:var(--warn)}
-.callout p{font-size:14px;color:var(--text);margin:0}
+    /* ââ Tables ââ */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+    }
+    thead th {
+      background: #0f3460;
+      color: #fff;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+    tbody tr:nth-child(even) { background: #f8faff; }
+    tbody tr:hover { background: #eff6ff; }
+    td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; vertical-align: top; line-height: 1.55; }
 
-/* TERM HIGHLIGHT */
-.term{background:var(--accent2);color:var(--accent);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
-.term-blue{background:rgba(96,165,250,.12);color:var(--blue);padding:2px 7px;border-radius:4px;font-weight:600;font-size:.95em}
+    /* ââ Zone badges ââ */
+    .zone {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .zone1 { background: #dcfce7; color: #166534; }
+    .zone2 { background: #fef9c3; color: #854d0e; }
+    .zone3 { background: #fee2e2; color: #991b1b; }
 
-/* TABLES */
-.table-wrap{overflow-x:auto;margin:24px 0;border-radius:var(--r2);border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;font-size:13.5px}
-th{background:var(--bg3);padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
-td{padding:11px 14px;border-top:1px solid var(--border);vertical-align:top}
-tr:hover td{background:rgba(255,255,255,.015)}
-.z1{color:var(--correct);font-weight:600}
-.z2{color:var(--warn);font-weight:600}
-.z3{color:var(--red);font-weight:600}
+    /* ââ Bullet lists ââ */
+    ul, ol { padding-left: 22px; margin-bottom: 18px; }
+    li { margin-bottom: 8px; line-height: 1.65; }
 
-/* DIAGRAM: VT ZONES */
-.zone-diagram{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin:24px 0}
-.zone-diagram-title{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:20px}
-.zone-bar-wrap{display:flex;height:44px;border-radius:8px;overflow:hidden;margin-bottom:16px}
-.zone-bar{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;letter-spacing:.5px;transition:var(--trans)}
-.zone-bar-1{background:rgba(74,222,128,.25);border:1px solid rgba(74,222,128,.4);color:var(--correct);flex:3}
-.zone-bar-2{background:rgba(251,191,36,.2);border:1px solid rgba(251,191,36,.4);color:var(--warn);flex:2}
-.zone-bar-3{background:rgba(248,113,113,.2);border:1px solid rgba(248,113,113,.4);color:var(--red);flex:1}
-.zone-labels{display:flex;gap:0}
-.zone-label{flex:1;font-size:11px;color:var(--muted);padding:4px 0}
-.zone-label:nth-child(2){flex:.67}
-.zone-label:nth-child(3){flex:.33}
-.zone-markers{display:flex;justify-content:space-between;font-size:11px;color:var(--muted2);margin-top:8px}
-.threshold-mark{background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;display:inline-flex;align-items:center;gap:8px;font-size:12px;margin:4px 4px 0 0}
-.mark-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    /* ââ Section divider ââ */
+    .divider {
+      border: none;
+      height: 3px;
+      background: linear-gradient(to right, #0f3460, #e94560, transparent);
+      border-radius: 2px;
+      margin: 56px 0;
+    }
 
-/* PHASE CARDS */
-.phase-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:24px 0}
-.phase-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px}
-.phase-num{font-size:28px;font-weight:700;font-family:var(--font-head);line-height:1;margin-bottom:8px}
-.phase-name{font-size:14px;font-weight:600;margin-bottom:12px}
-.phase-meta{font-size:12px;color:var(--muted);line-height:1.6}
-.phase-meta li{margin-bottom:4px}
+    /* ââ Anatomy diagram text ââ */
+    .anatomy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .anatomy-card {
+      background: #f8faff;
+      border: 1px solid #dbeafe;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .anatomy-card h4 { margin-top: 0; color: #0f3460; font-size: 0.95rem; }
+    .anatomy-card ul { margin-bottom: 0; }
+    .anatomy-card li { font-size: 14px; }
 
-/* IMAGE BLOCK */
-.img-block{margin:28px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
-.img-block img{width:100%;display:block;object-fit:cover;max-height:380px}
-.img-caption{background:var(--bg2);padding:10px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+    /* ââ Phase cards ââ */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .phase-card {
+      border-radius: 12px;
+      padding: 26px 22px;
+      border-top: 4px solid;
+    }
+    .phase-base { background: #f0fdf4; border-color: #22c55e; }
+    .phase-fitness { background: #fffbeb; border-color: #f59e0b; }
+    .phase-performance { background: #fff1f2; border-color: #e94560; }
+    .phase-card h3 { margin-top: 0; font-size: 1.1rem; }
+    .phase-base h3 { color: #166534; }
+    .phase-fitness h3 { color: #92400e; }
+    .phase-performance h3 { color: #9f1239; }
+    .phase-card p { font-size: 14px; margin-bottom: 10px; }
+    .phase-card ul { font-size: 14px; }
 
-/* KINETIC CHAIN */
-.chain{display:flex;flex-direction:column;gap:0;margin:20px 0}
-.chain-step{display:flex;align-items:flex-start;gap:14px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-bottom:none}
-.chain-step:first-child{border-radius:var(--r2) var(--r2) 0 0}
-.chain-step:last-child{border-bottom:1px solid var(--border);border-radius:0 0 var(--r2) var(--r2)}
-.chain-arrow{color:var(--accent);font-size:18px;line-height:1.4;flex-shrink:0}
-.chain-text{font-size:13.5px}
+    /* ââ Intensity methods grid ââ */
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+    }
+    .method-card {
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 18px 16px;
+      transition: border-color 0.2s;
+    }
+    .method-card:hover { border-color: #0f3460; }
+    .method-card h4 { margin: 0 0 6px; font-size: 0.95rem; color: #0f3460; }
+    .method-card p { font-size: 13px; color: #4b5563; margin: 0; }
 
-/* QUIZ CTA */
-.quiz-cta{background:linear-gradient(135deg,rgba(197,241,53,.08),rgba(197,241,53,.03));border:1px solid rgba(197,241,53,.2);border-radius:var(--r);padding:32px;text-align:center;margin-top:56px}
-.quiz-cta h3{font-family:var(--font-head);font-size:24px;margin-bottom:8px}
-.quiz-cta h3 em{font-style:italic;color:var(--accent)}
-.quiz-cta p{color:var(--muted);font-size:14px;margin-bottom:22px}
-.quiz-stats{display:flex;gap:20px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
-.qs{background:var(--bg3);padding:8px 18px;border-radius:20px;font-size:13px}
-.qs strong{color:var(--accent)}
+    /* ââ Key takeaways ââ */
+    .takeaways {
+      background: linear-gradient(135deg, #0f3460, #1a237e);
+      color: #fff;
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-top: 56px;
+    }
+    .takeaways h2 {
+      color: #fbbf24;
+      border-color: #fbbf24;
+      font-size: 1.4rem;
+      margin-top: 0;
+    }
+    .takeaways ul { padding-left: 20px; }
+    .takeaways li {
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .takeaways li strong { color: #fbbf24; }
 
-footer{border-top:1px solid var(--border);padding:36px;text-align:center;font-size:12px;color:var(--muted)}
+    /* ââ Formula box ââ */
+    .formula {
+      background: #1e293b;
+      color: #e2e8f0;
+      font-family: 'Courier New', monospace;
+      font-size: 15px;
+      padding: 18px 24px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 4px solid #fbbf24;
+    }
+    .formula span { color: #fbbf24; font-weight: 700; }
 
-@media(max-width:900px){.page-wrap{grid-template-columns:1fr}.sidebar{position:relative;top:0}.phase-grid{grid-template-columns:1fr}}
-@media(max-width:600px){.nav{padding:14px 20px}.nav-links{display:none}.hero{padding:48px 20px 32px}.page-wrap{padding:0 20px 60px}}
+    /* ââ Responsive ââ */
+    @media (max-width: 640px) {
+      .hero { padding: 36px 24px; }
+      .hero h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.4rem; }
+      .anatomy-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+    }
+/* Cross-link banner */
+.crosslink-banner{background:#f1f5f9;border:1px solid #cbd5e1;border-left:4px solid #0f3460;border-radius:10px;padding:20px 24px;margin:0 0 32px;font-size:15px;color:#334155;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.crosslink-banner a{color:#0f3460;font-weight:700;text-decoration:none;border-bottom:1.5px solid #0f3460;padding-bottom:1px;white-space:nowrap}
+.crosslink-banner a:hover{color:#e94560;border-color:#e94560}
 </style>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-meta">
-    <span class="tag tag-chapter">ACE-CPT · Chapter 8</span>
-    <span class="tag tag-read">📖 14 min read</span>
-    <span class="tag tag-read">🎬 Watch on YouTube</span>
-  </div>
-  <h1>Cardiorespiratory <em>Training</em></h1>
-  <p class="hero-desc">Physiology, assessments, and programming — from ventilatory thresholds to the ACE IFT Model. Everything you need to understand, teach, and apply cardiorespiratory training.</p>
-  <div class="hero-actions">
-    <a href="/ace-prep/chapter-8" class="btn-primary">📝 Take the Quiz →</a>
-    <a href="#section-1" class="btn-secondary">Start Reading ↓</a>
-  </div>
+<div class="blog-container">
+
+<div class="crosslink-banner">
+  <span>Looking for the general-fitness version of this guide?</span>
+  <a href="/blog/cardio-decoded">Read it on Education →</a>
 </div>
 
-<!-- PAGE WRAP -->
-<div class="page-wrap">
+<div class="blog-container">
 
-<!-- MAIN CONTENT -->
-<article class="content">
-
-<!-- SECTION 1 -->
-<div class="section" id="section-1">
-  <div class="section-number">Section 1</div>
-  <h2>Why Cardiorespiratory Fitness <em>Matters</em></h2>
-  <p class="lead">Low cardiorespiratory fitness isn't just a performance issue. It's an independent risk factor for cardiovascular disease — as significant as smoking, hypertension, and obesity.</p>
-
-  <div class="img-block">
-    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=80" alt="Person running for cardiovascular fitness" loading="lazy"/>
-    <div class="img-caption">Regular cardiorespiratory exercise is one of the most powerful interventions for long-term health — independent of body weight.</div>
+  <!-- ââ HERO ââ -->
+  <div class="hero">
+    <div class="hero-tag">Personal Trainer Education</div>
+    <h1>The Complete Guide to Cardiorespiratory Training</h1>
+    <p>Physiology, Assessments &amp; Programming â Everything an Aspiring Personal Trainer Needs to Know</p>
+    <div class="hero-meta">
+      <span>ð Chapter 8 Breakdown</span>
+      <span>â± 25 min read</span>
+      <span>ð¤ Lifelong Athletics</span>
+    </div>
   </div>
 
-  <p>A landmark 2009 meta-analysis (Blair) found that <strong>low cardiorespiratory fitness accounted for more overall deaths</strong> than traditional risk factors including obesity, smoking, hypertension, high cholesterol, and diabetes — combined.</p>
+  <!-- Hero image placeholder -->
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://images.unsplash.com/photo-1565133259541-6c75cef7551e?fm=jpg&q=80&w=1400&auto=format&fit=max&ixlib=rb-4.1.0" alt="Woman running â cardiorespiratory training in action" style="max-width:100%;width:100%;object-fit:contain;border-radius:12px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">Cardiorespiratory training: building the engine of human performance. Photo: Unsplash (Free to use)</figcaption>
+  </figure>
 
-  <div class="callout callout-exam">
-    <div class="callout-label">⚡ Exam Point</div>
-    <p>Cardiorespiratory fitness is an <span class="term">independent CVD risk factor</span> — separate from physical inactivity. Being unfit warrants its own screening and intervention, even in otherwise healthy-looking individuals.</p>
+  <!-- ââ TOC ââ -->
+  <div class="toc">
+    <h2>ð In This Article</h2>
+    <ol>
+      <li><a href="#why-matters">Why Cardiorespiratory Training Matters</a></li>
+      <li><a href="#anatomy">Anatomy: Cardiovascular &amp; Respiratory Systems</a></li>
+      <li><a href="#physiology">Physiology: VOâ, Cardiac Output &amp; Oxygen Delivery</a></li>
+      <li><a href="#vt-thresholds">VT1 &amp; VT2 â The Ventilatory Thresholds</a></li>
+      <li><a href="#adaptations">Physiological Adaptations to Training</a></li>
+      <li><a href="#environment">Environmental Considerations</a></li>
+      <li><a href="#fitt">Exercise Guidelines: The FITT-VP Framework</a></li>
+      <li><a href="#intensity">Exercise Intensity Methods</a></li>
+      <li><a href="#assessments">Cardiorespiratory Fitness Assessments</a></li>
+      <li><a href="#session">Components of a Training Session</a></li>
+      <li><a href="#ace-ift">ACE IFT Model: Base, Fitness &amp; Performance Training</a></li>
+      <li><a href="#takeaways">Key Takeaways</a></li>
+    </ol>
   </div>
 
-  <p>What this means for your work as a personal trainer: improving VO₂max is not just about athletic performance. It is a fundamental health intervention that directly reduces cardiovascular mortality risk.</p>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 2 -->
-<div class="section" id="section-2">
-  <div class="section-number">Section 2</div>
-  <h2>Training <em>Principles</em></h2>
-  <p class="lead">All cardiorespiratory adaptations are governed by the same fundamental principles. Understanding these determines how you progress clients safely and effectively.</p>
-
-  <h3>Overload</h3>
-  <p>When additional stresses are placed on the cardiorespiratory system in a timely and appropriate manner, physiological adaptations and improvement occur. The rate of progression depends on three things: the individual's current conditioning level, their program goals, and their tolerance for training discomfort.</p>
-
-  <h3>Specificity (SAID Principle)</h3>
-  <p>The body produces <span class="term">Specific Adaptations to Imposed Demands</span>. A runner training for a half marathon must run — cycling or swimming will not produce equivalent race-specific adaptations. Research shows that transfer of benefits between similar exercises (e.g., cycling → running) is approximately 50% on a minute-for-minute basis — and even less for dissimilar activities.</p>
-
-  <h3>Progression</h3>
-  <p>Duration is the most appropriate variable to manipulate initially. Increase by approximately <strong>10% per week</strong> during early training. Once adherence is established, progress frequency, and only then introduce intensity increases. Progressions should always remain consistent with the client's goals (ACSM, 2018).</p>
+  <!-- ââ SECTION 1: WHY IT MATTERS ââ -->
+  <h2 id="why-matters">1. Why Cardiorespiratory Training Matters</h2>
+  <p>Humans are built to move. Our ancestors walked miles daily to hunt, gather food, and survive. In those hunter-gatherer groups that still exist today, daily physical activity levels are extraordinarily high â and the so-called "diseases of civilization" (heart disease, type 2 diabetes, many cancers) are nearly nonexistent.</p>
+  <p>Fast-forward to modern life: most people can do their jobs and feed themselves with minimal exertion. The biological need for movement hasn't changed, but the environment has. This is why personal trainers exist â to help clients intentionally build the movement their bodies were designed for.</p>
 
   <div class="callout callout-key">
-    <div class="callout-label">🔑 Key Concept</div>
-    <p>Cross-training (e.g., cycling, walking, elliptical) within a program helps limit boredom, burnout, and overuse injury — but specificity means each modality must align with the client's primary goal.</p>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 3 -->
-<div class="section" id="section-3">
-  <div class="section-number">Section 3</div>
-  <h2>Ventilatory <em>Thresholds</em></h2>
-  <p class="lead">As exercise intensity increases, ventilation increases linearly — until specific metabolic breakpoints are reached. These breakpoints, called ventilatory thresholds, are the cornerstone of cardiorespiratory programming in the ACE IFT Model.</p>
-
-  <h3>VT1 — First Ventilatory Threshold</h3>
-  <p><span class="term">VT1</span> is also called the <em>crossover point</em> or <em>lactate threshold</em>. Here's what happens physiologically:</p>
-
-  <div class="chain">
-    <div class="chain-step"><div class="chain-arrow">1</div><div class="chain-text">Blood lactate begins accumulating faster than the body can buffer it</div></div>
-    <div class="chain-step"><div class="chain-arrow">2</div><div class="chain-text">Blood buffers neutralize the acidity — producing extra CO₂</div></div>
-    <div class="chain-step"><div class="chain-arrow">3</div><div class="chain-text">The body increases breathing frequency to blow off the extra CO₂</div></div>
-    <div class="chain-step"><div class="chain-arrow">4</div><div class="chain-text">Ventilation increases disproportionately relative to O₂ uptake</div></div>
-    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-text"><strong>Result:</strong> Person can still TALK but can no longer SING comfortably → VT1</div></div>
+    <div class="callout-label">ð Key Concept</div>
+    <p><strong>Cardiorespiratory training</strong> (also called aerobic or cardiovascular training) improves work capacity, promotes well-being, reduces chronic disease risk, and enhances overall health. It targets the muscular, cardiovascular, and respiratory systems â which function best when regularly challenged.</p>
   </div>
 
-  <p>In well-trained individuals, VT1 represents approximately the highest intensity that can be sustained for <strong>one to two hours</strong> of exercise.</p>
-
-  <h3>VT2 — Second Ventilatory Threshold</h3>
-  <p><span class="term-blue">VT2</span> is also called the <em>respiratory compensation threshold</em>. At this point:</p>
-  <p>Lactate is rising rapidly. The body is attempting to hyperventilate to blow off CO₂ — but the overcompensation in breathing can no longer keep pace with the acid accumulation from anaerobic glycolysis. The person <strong>cannot say more than a few words</strong> without pausing for breath.</p>
-
-  <div class="callout callout-exam">
-    <div class="callout-label">⚡ Exam Point</div>
-    <p>VT2 is equivalent to <span class="term">OBLA</span> — Onset of Blood Lactate Accumulation — defined as blood lactate exceeding 4 mmol/L. VT2 represents the highest intensity sustainable for approximately 30–60 minutes in well-trained individuals.</p>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 4 -->
-<div class="section" id="section-4">
-  <div class="section-number">Section 4</div>
-  <h2>The Talk Test & <em>Field Assessment</em></h2>
-  <p class="lead">Most personal trainers won't have access to metabolic analyzers. The talk test is the practical, evidence-based field method for identifying VT1 — no equipment required.</p>
-
-  <div class="img-block">
-    <img src="https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=900&q=80" alt="Personal trainer monitoring client intensity during exercise" loading="lazy"/>
-    <div class="img-caption">The talk test leverages the physiological link between VT1 and the ability to control breathing frequency — making it a practical intensity tool.</div>
-  </div>
-
-  <p><strong>The principle:</strong> At VT1, the increase in ventilation is accomplished by increasing breathing frequency. Comfortable speech requires the ability to control breathing frequency. Therefore, at the intensity of VT1 — it is no longer possible to speak comfortably.</p>
-
-  <div class="table-wrap">
-    <table>
-      <tr><th>Talk Test Status</th><th>Zone</th><th>Intensity Level</th><th>Metabolic State</th></tr>
-      <tr><td>Can talk AND sing</td><td class="z1">Zone 1</td><td>Below VT1</td><td>Aerobic base</td></tr>
-      <tr><td>Can talk but NOT sing</td><td class="z1">VT1 boundary</td><td>Right at VT1</td><td>Lactate threshold</td></tr>
-      <tr><td>Cannot say more than a few words per breath</td><td class="z2">Zone 2</td><td>VT1 → VT2</td><td>Lactate accumulating</td></tr>
-      <tr><td>Definitely cannot talk</td><td class="z3">Zone 3</td><td>Above VT2</td><td>Respiratory compensation</td></tr>
-    </table>
-  </div>
-
-  <h3>Submaximal Talk Test Protocol (VT1 Assessment)</h3>
-  <p>This test is best performed using HR telemetry. Small workload increments increase steady-state HR by approximately <strong>5 bpm per stage</strong>. Each stage lasts 60–120 seconds. Total test time: 8–16 minutes.</p>
-  <p>The test concludes when the client reports they can speak — but NOT entirely comfortably. This heart rate = VT1 HR, used for all subsequent programming.</p>
-
-  <div class="callout callout-warn">
-    <div class="callout-label">⚠️ Contraindications</div>
-    <p>Do NOT administer this test to clients with: asthma or COPD, panic/anxiety disorders, recent respiratory infection, or insufficient fitness to perform or benefit from the assessment.</p>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 5 -->
-<div class="section" id="section-5">
-  <div class="section-number">Section 5</div>
-  <h2>Three-Zone Intensity <em>Model</em></h2>
-  <p class="lead">The three-zone model maps all intensity markers — RPE, heart rate, METs, talk test — to zones defined by individual VT1 and VT2 values. This is the most personalized approach to cardiorespiratory programming.</p>
-
-  <div class="zone-diagram">
-    <div class="zone-diagram-title">Intensity Distribution — Three-Zone Model</div>
-    <div class="zone-bar-wrap">
-      <div class="zone-bar zone-bar-1">ZONE 1</div>
-      <div class="zone-bar zone-bar-2">ZONE 2</div>
-      <div class="zone-bar zone-bar-3">Z3</div>
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">150</div>
+      <div class="stat-label">Minutes/week minimum moderate-intensity activity (2018 guidelines)</div>
     </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">
-      <span class="threshold-mark"><span class="mark-dot" style="background:var(--correct)"></span>Below VT1 = Zone 1</span>
-      <span class="threshold-mark"><span class="mark-dot" style="background:var(--warn)"></span>VT1 → VT2 = Zone 2 ("Black Hole")</span>
-      <span class="threshold-mark"><span class="mark-dot" style="background:var(--red)"></span>Above VT2 = Zone 3</span>
+    <div class="stat-card">
+      <div class="stat-num">20â25Ã</div>
+      <div class="stat-label">Metabolism rise above rest during intense exercise in elite athletes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">6 mo</div>
+      <div class="stat-label">VOâmax peaks within first 6 months of consistent training</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">2â4Ã</div>
+      <div class="stat-label">Higher CVD mortality risk in low-fit diabetic men vs. moderate-fit</div>
     </div>
   </div>
 
+  <hr class="divider" />
+
+  <!-- ââ SECTION 2: ANATOMY ââ -->
+  <h2 id="anatomy">2. Anatomy: Cardiovascular &amp; Respiratory Systems</h2>
+  <p>Before you can design smart cardiorespiratory programs, you need to understand the machinery. Two systems work in concert during aerobic exercise: the <strong>cardiovascular system</strong> (delivers oxygen) and the <strong>respiratory system</strong> (gets oxygen in).</p>
+
+  <h3>The Cardiovascular System</h3>
+  <p>The cardiovascular (circulatory) system is a <em>closed-circuit system</em> made up of the heart, blood vessels, and blood. Blood continuously moves through this circuit to deliver oxygen and nutrients to tissues while removing metabolic waste products like carbon dioxide and lactate.</p>
+
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Circulatory_System_en.svg" alt="Human circulatory system â major arteries (red) and veins (blue) anterior view" style="max-width:100%;border-radius:10px;background:#fff;padding:12px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">Human circulatory system â major arteries and veins. Source: Wikimedia Commons (CC BY-SA 3.0)</figcaption>
+  </figure>
+
+  <div class="anatomy-grid">
+    <div class="anatomy-card">
+      <h4>ð´ Arteries &amp; Arterioles</h4>
+      <ul>
+        <li>Carry oxygen-rich blood <em>away</em> from the heart</li>
+        <li>Branch into smaller arterioles as they reach tissues</li>
+        <li>Thick, elastic walls that handle high pressure</li>
+        <li>Atherosclerosis (arterial rigidity) â increased BP</li>
+      </ul>
+    </div>
+    <div class="anatomy-card">
+      <h4>ðµ Capillaries</h4>
+      <ul>
+        <li>Microscopic â only 1 cell thick</li>
+        <li>Site of gas, nutrient &amp; waste exchange with tissues</li>
+        <li>Oâ and nutrients leave; COâ and waste enter</li>
+        <li>Training increases capillary density in muscles</li>
+      </ul>
+    </div>
+    <div class="anatomy-card">
+      <h4>ð©¸ Veins &amp; Venules</h4>
+      <ul>
+        <li>Carry deoxygenated blood <em>back</em> to the heart</li>
+        <li>Thinner, less elastic than arteries</li>
+        <li>Valves in limb veins prevent backflow</li>
+        <li>Superior/inferior vena cava empty into right atrium</li>
+      </ul>
+    </div>
+    <div class="anatomy-card">
+      <h4>â¤ï¸ The Heart</h4>
+      <ul>
+        <li>4 chambers: right atrium, right ventricle, left atrium, left ventricle</li>
+        <li><strong>Systole</strong> = contraction â blood pumped out</li>
+        <li><strong>Diastole</strong> = relaxation â chambers fill</li>
+        <li>Two circuits: pulmonary (heartâlungs) &amp; systemic (heartâbody)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-science">
+    <div class="callout-label">ð¬ Science Note</div>
+    <p><strong>Blood composition matters for exercise:</strong> Plasma (liquid portion) transports proteins, amino acids, lipids, and ions. Red blood cells carry oxygen via <strong>hemoglobin (Hb)</strong>. Individuals with anemia (low Hb) have reduced Oâ-carrying capacity and fatigue easily â this directly limits cardiorespiratory exercise performance.</p>
+  </div>
+
+  <h3>The Respiratory System</h3>
+  <p>The respiratory system brings oxygen into the body and expels carbon dioxide. It also makes speech possible and regulates blood pH during exercise.</p>
+
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Respiratory_system_complete_en.svg" alt="Complete respiratory system diagram â nose, trachea, bronchi, lungs, alveoli labeled" style="max-width:100%;border-radius:10px;background:#fff;padding:12px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">The complete respiratory system â upper and lower airways. Source: Wikimedia Commons (CC BY-SA 3.0)</figcaption>
+  </figure>
+
+  <p><strong>The pathway of air:</strong></p>
+  <p>Nose/mouth â pharynx â larynx â trachea (divides at thoracic vertebra 5â6) â right and left primary bronchi â secondary bronchi (one per lung lobe) â tertiary bronchi â bronchioles â terminal bronchioles â <strong>alveoli</strong> (thin-walled air sacs where gas exchange occurs).</p>
+
+  <div class="callout callout-key">
+    <div class="callout-label">ð Remarkable Fact</div>
+    <p>The lungs contain approximately <strong>300 million alveoli</strong>, providing a total surface area for gas exchange roughly equal to a <strong>tennis court</strong>. This enormous surface area is what makes the lungs so efficient at exchanging gases during intense exercise.</p>
+  </div>
+
+  <h4>Muscles of Breathing</h4>
   <div class="table-wrap">
     <table>
-      <tr><th>Intensity Marker</th><th class="z1">Zone 1</th><th class="z2">Zone 2</th><th class="z3">Zone 3</th></tr>
-      <tr><td>Metabolic</td><td>Below VT1</td><td>VT1 to VT2</td><td>Above VT2</td></tr>
-      <tr><td>Talk test</td><td>Can talk + sing</td><td>Can't sing; few words per breath</td><td>Definitely cannot talk</td></tr>
-      <tr><td>RPE (0–10)</td><td>3 to 4</td><td>5 to 6</td><td>7 to 10</td></tr>
-      <tr><td>RPE (6–20)</td><td>12 to 13</td><td>14 to 17</td><td>≥18</td></tr>
-      <tr><td>%MHR</td><td>57–63%</td><td>64–76%</td><td>77–95%</td></tr>
-      <tr><td>%HRR</td><td>30–39%</td><td>40–59%</td><td>60–89%</td></tr>
-      <tr><td>METs</td><td>2–2.9</td><td>3–5.9</td><td>6–8.7</td></tr>
+      <thead>
+        <tr><th>Action</th><th>Primary Muscles</th><th>Accessory Muscles (exercise)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Inspiration</strong></td>
+          <td>Diaphragm, external intercostals</td>
+          <td>Scalenes, pectoralis minor, sternocleidomastoid (SCM), serratus anterior</td>
+        </tr>
+        <tr>
+          <td><strong>Expiration</strong></td>
+          <td>Passive at rest (elastic recoil)</td>
+          <td>Rectus abdominis, internal obliques, serratus posterior inferior, internal intercostals</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
-  <div class="callout callout-warn">
-    <div class="callout-label">⚠️ The "Black Hole" — Zone 2</div>
-    <p>Zone 2 is called the black hole because it is hard enough to cause significant fatigue, yet not intense enough to provoke maximal adaptations. There is a <em>psychological push</em> to work harder, but a <em>physiological pull</em> to slow down. Prolonged Zone 2 training leads to cumulative fatigue without optimal return — avoid it as the dominant training zone.</p>
+  <div class="callout callout-tip">
+    <div class="callout-label">ð¡ Trainer Tip</div>
+    <p>The <strong>diaphragm is the only skeletal muscle considered essential for life</strong>. When it contracts, it pulls downward â increasing thoracic volume and drawing air in. Chronic endurance training strengthens respiratory muscles, improving their endurance and making breathing more efficient at all intensities.</p>
   </div>
-</div>
 
-<div class="divider"></div>
+  <hr class="divider" />
 
-<!-- SECTION 6 -->
-<div class="section" id="section-6">
-  <div class="section-number">Section 6</div>
-  <h2>ACE IFT Model — <em>Three Phases</em></h2>
-  <p class="lead">The ACE Integrated Fitness Training Model organizes cardiorespiratory programming into three phases based on each client's current fitness level and goals.</p>
+  <!-- ââ SECTION 3: PHYSIOLOGY ââ -->
+  <h2 id="physiology">3. Physiology: VOâ, Cardiac Output &amp; Oxygen Delivery</h2>
+  <p><strong>Cardiorespiratory fitness (CRF)</strong> is defined as the capacity of the heart and lungs to deliver blood and oxygen to working muscles during exercise. Three interlocking processes make this possible:</p>
+
+  <div class="anatomy-grid">
+    <div class="anatomy-card" style="border-color:#0f3460; border-width:2px;">
+      <h4>Step 1: Get Oâ Into Blood</h4>
+      <ul>
+        <li>Pulmonary ventilation brings Oâ-rich air to alveoli</li>
+        <li>Oâ diffuses into pulmonary capillaries</li>
+        <li>Oâ binds to <strong>hemoglobin (Hb)</strong> in red blood cells</li>
+        <li>Anemia = less Hb = less Oâ carrying capacity</li>
+      </ul>
+    </div>
+    <div class="anatomy-card" style="border-color:#e94560; border-width:2px;">
+      <h4>Step 2: Deliver Oâ to Muscles</h4>
+      <ul>
+        <li>Cardiac output = HR Ã Stroke Volume (SV)</li>
+        <li>Blood redistributed: vasoconstriction in viscera, vasodilation in active muscles</li>
+        <li>Ejection fraction: 50â60% rest â 60â80% exercise</li>
+      </ul>
+    </div>
+    <div class="anatomy-card" style="border-color:#22c55e; border-width:2px;">
+      <h4>Step 3: Extract Oâ for ATP</h4>
+      <ul>
+        <li>Mitochondria in muscle cells use Oâ to produce ATP aerobically</li>
+        <li>Slow-twitch (Type I) fibers = most oxidative enzymes</li>
+        <li>Training â more mitochondria, larger mitochondria</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Cardiac Output: The Engine of Cardiorespiratory Performance</h3>
+
+  <div class="formula">
+    <span>Cardiac Output (Q)</span> = Heart Rate (HR) Ã Stroke Volume (SV)
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">~5 L</div>
+      <div class="stat-label">Cardiac output at rest per minute</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">20â25 L</div>
+      <div class="stat-label">Cardiac output at max exercise (average)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">30â40 L</div>
+      <div class="stat-label">Cardiac output in elite endurance athletes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">40â50%</div>
+      <div class="stat-label">Maximal capacity where SV plateaus</div>
+    </div>
+  </div>
+
+  <p>HR increases linearly with exercise intensity. SV increases up to ~40â50% of maximal capacity and then plateaus. The ejection fraction (percentage of end-diastolic volume ejected per beat) rises from 50â60% at rest to 60â80% during maximal exercise.</p>
+
+  <div class="callout callout-warning">
+    <div class="callout-label">â ï¸ Clinical Note</div>
+    <p>In individuals with cardiovascular disease (CVD), ejection fraction may be reduced due to damaged heart muscle tissue (post-myocardial infarction) or ischemia. This is why ischemic tissue loses its contractile force â comparable to a limb "falling asleep" from lack of blood flow, but in the heart muscle.</p>
+  </div>
+
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://images.unsplash.com/photo-1549576490-b0b4831ef60a?fm=jpg&q=80&w=1400&auto=format&fit=max&ixlib=rb-4.1.0" alt="People exercising â cardiac output, heart rate, and stroke volume rise with intensity" style="max-width:100%;border-radius:10px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">As exercise intensity rises, so does cardiac output â driven by both HR increase and stroke volume. Photo: Unsplash (Free to use)</figcaption>
+  </figure>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 4: VT1 & VT2 ââ -->
+  <h2 id="vt-thresholds">4. VT1 &amp; VT2 â The Ventilatory Thresholds</h2>
+  <p>As exercise intensity increases, ventilation (breathing) initially rises in a linear fashion. But at certain intensities, the body undergoes metabolic shifts that cause breathing to increase <em>disproportionately</em>. These inflection points are called <strong>ventilatory thresholds</strong> â and they are the most practical tools a personal trainer has for programming intensity.</p>
+
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://images.unsplash.com/photo-1560073742-bc295f81c3c0?fm=jpg&q=80&w=1400&auto=format&fit=max&ixlib=rb-4.1.0" alt="Man running at high intensity â ventilatory threshold response to exercise" style="max-width:100%;border-radius:10px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">VT1 and VT2 mark the points where ventilation increases nonlinearly â the basis of zone training. Photo: Unsplash (Free to use)</figcaption>
+  </figure>
+
+  <h3>VT1 â The First Ventilatory Threshold</h3>
+  <p>At VT1 (also called the "crossover point"), blood lactate begins accumulating faster than it can be cleared. Blood buffers (mainly bicarbonate, NaHCOâ) neutralize the acid, but this produces extra COâ â which the body tries to blow off by increasing ventilation. This is why breathing becomes noticeably heavier at this point.</p>
+
+  <div class="callout callout-key">
+    <div class="callout-label">ð What Happens at VT1</div>
+    <p>Lactic acid â dissociates into <strong>lactateâ» + Hâº</strong> â bicarbonate buffer neutralizes Hâº â produces HâCOâ (carbonic acid) â breaks down into HâO + COâ â extra COâ exhaled â ventilation increases non-linearly.<br><br>
+    <strong>Practical marker: The point at which speaking comfortably first becomes difficult.</strong></p>
+  </div>
+
+  <h3>VT2 â The Second Ventilatory Threshold</h3>
+  <p>VT2 (also called the "respiratory compensation threshold") occurs when the buffering system can no longer keep pace with lactate production. Blood pH drops. The respiratory center is maximally stimulated, causing hyperventilation. This is the <strong>highest intensity that can be sustained</strong> for any meaningful duration.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Threshold</th><th>Also Called</th><th>What Happens</th><th>Practical Marker</th><th>Sustainable Duration</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>VT1</strong></td>
+          <td>Lactate threshold, crossover point</td>
+          <td>Blood buffers neutralize lactate; extra COâ produced; breathing increases non-linearly</td>
+          <td>Can still talk, but no longer with complete comfort</td>
+          <td>Hours (at this intensity)</td>
+        </tr>
+        <tr>
+          <td><strong>VT2</strong></td>
+          <td>OBLA, respiratory compensation threshold</td>
+          <td>Buffering overwhelmed; pH drops; hyperventilation; blood lactate >4 mmol/L</td>
+          <td>Definitely cannot speak comfortably</td>
+          <td>30â60 min (well-trained); less in average individuals</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The Three Training Zones</h3>
+  <p>VT1 and VT2 divide exercise intensity into three meaningful zones â without needing to know a single percentage of max heart rate:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Zone</th><th>Intensity Range</th><th>Talk Test</th><th>RPE (0â10)</th><th>Training Focus</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="zone zone1">Zone 1</span></td>
+          <td>Below VT1</td>
+          <td>Can speak comfortably â unequivocal "yes"</td>
+          <td>3â4</td>
+          <td>Base building, fat utilization, recovery</td>
+        </tr>
+        <tr>
+          <td><span class="zone zone2">Zone 2</span></td>
+          <td>VT1 to just below VT2</td>
+          <td>Not sure / uncomfortable â uncertain "yes"</td>
+          <td>5â6</td>
+          <td>Aerobic development, lactate threshold improvement</td>
+        </tr>
+        <tr>
+          <td><span class="zone zone3">Zone 3</span></td>
+          <td>VT2 and above</td>
+          <td>Definitely cannot speak</td>
+          <td>7â10</td>
+          <td>Anaerobic capacity, VOâmax, performance</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 5: ADAPTATIONS ââ -->
+  <h2 id="adaptations">5. Physiological Adaptations to Cardiorespiratory Training</h2>
+
+  <h3>Muscular Adaptations</h3>
+  <p>Low-intensity endurance training primarily recruits <strong>Type I (slow-twitch) muscle fibers</strong> â which have high densities of mitochondria and oxidative enzymes. Higher-intensity training additionally recruits <strong>Type II (fast-twitch) fibers</strong>. Muscles that are recruited adapt; those that are not do not.</p>
+  <ul>
+    <li>â Mitochondria size and number</li>
+    <li>â Oxidative enzyme activity</li>
+    <li>â Capillary density within muscle tissue</li>
+    <li>â Ability to use fat as fuel (sparing glycogen)</li>
+  </ul>
+
+  <h3>Cardiovascular Adaptations</h3>
+  <ul>
+    <li>â Maximal cardiac output</li>
+    <li>â Plasma volume (more blood to pump)</li>
+    <li>â Stroke volume (larger, stronger left ventricle)</li>
+    <li>â Resting heart rate (more efficient pump)</li>
+    <li>â Blood pressure</li>
+  </ul>
+
+  <h3>Respiratory Adaptations</h3>
+  <ul>
+    <li>â Oxidative capacity of respiratory muscles</li>
+    <li>â Strength and endurance of inspiratory/expiratory muscles</li>
+    <li>â Tidal volume (more air per breath)</li>
+    <li>â Respiratory dead space at high breathing frequencies</li>
+    <li>More efficient ventilation at all exercise intensities</li>
+  </ul>
+
+  <h3>How Long Does It Take?</h3>
+  <div class="callout callout-tip">
+    <div class="callout-label">ð¡ Timeline of Adaptation</div>
+    <p>
+      <strong>First session:</strong> Acute cardiovascular responses begin immediately<br>
+      <strong>2â4 weeks:</strong> First measurable improvements in CRF<br>
+      <strong>3â6 months:</strong> VOâmax peaks and plateaus<br>
+      <strong>6â12+ months:</strong> VT continues to rise; capillary density increases; fat oxidation improves<br><br>
+      Improvements in VOâmax with lower-intensity programs may be smaller, but the <em>health outcomes</em> (lower BP, better cholesterol, reduced chronic disease risk) are significant even at low intensities.
+    </p>
+  </div>
+
+  <h3>Sedentary Behavior vs. Physical Inactivity: A Critical Distinction</h3>
+  <p>These two concepts are <strong>not the same</strong> â and as a personal trainer, understanding the difference will make you far more effective.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>Definition</th><th>Example</th><th>Health Risk</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Physical Inactivity</strong></td>
+          <td>Too little structured exercise</td>
+          <td>Does not meet 150 min/week guideline</td>
+          <td>Reduced CRF, increased chronic disease risk</td>
+        </tr>
+        <tr>
+          <td><strong>Sedentary Behavior</strong></td>
+          <td>Too much sitting</td>
+          <td>Exercises 45 min/day but sits 10+ hours</td>
+          <td>Insulin resistance, elevated triglycerides, metabolic syndrome â independent of exercise</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-label">â ï¸ The Active Couch Potato Problem</div>
+    <p>A client can meet all physical activity guidelines and <em>still</em> be at elevated cardiometabolic risk if they sit for most of the day. Total sedentary time is independently associated with insulin resistance, elevated triglycerides, and metabolic syndrome â even after accounting for exercise time. Personal trainers must address both exercise AND sitting time.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 6: ENVIRONMENT ââ -->
+  <h2 id="environment">6. Environmental Considerations for Exercise</h2>
+
+  <h3>ð¡ï¸ Exercising in the Heat</h3>
+  <p>Contracting muscles produce enormous heat. During intense cardiorespiratory exercise, metabolism can rise <strong>20â25 times above resting levels</strong>, potentially increasing core temperature by 1Â°C every 5â7 minutes. The body combats this via sweating and peripheral vasodilation.</p>
+
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://images.unsplash.com/photo-1772450014666-083b1a23f6a1?fm=jpg&q=80&w=1400&auto=format&fit=max&ixlib=rb-4.1.0" alt="Athlete training hard â heat production and thermoregulation during exercise" style="max-width:100%;border-radius:10px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">Vigorous exercise generates substantial metabolic heat â managed through radiation, convection, and evaporative sweating. Photo: Unsplash (Free to use)</figcaption>
+  </figure>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Condition</th><th>Symptoms</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Heat Exhaustion</strong></td>
+          <td>Weak/rapid pulse, low BP, headache, nausea, dizziness, cold clammy skin, profuse sweating</td>
+          <td>Stop exercise, move to cool area, lie down, elevate feet, give fluids, monitor temperature</td>
+        </tr>
+        <tr>
+          <td><strong>Heat Stroke</strong></td>
+          <td>Hot DRY skin, bright red color, rapid strong pulse, labored breathing, core temp &gt;104Â°F (40Â°C)</td>
+          <td>EMERGENCY â stop, remove clothing, cool immediately (ice, wet towels, fan), give fluids, transport to ER</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Heat Exercise Guidelines for Personal Trainers</h4>
+  <ul>
+    <li><strong>Acclimatization:</strong> 9â14 days of gradual exposure to exercising in heat</li>
+    <li><strong>Hydration before:</strong> 6â7 mL/kg body weight at least 4 hours before exercise</li>
+    <li><strong>During exercise:</strong> Monitor body weight changes; replace fluids containing 20â30 mEq/L sodium and 5â10% carbohydrate</li>
+    <li><strong>After exercise:</strong> Drink 1.5 L per kg of body weight lost</li>
+    <li><strong>Clothing:</strong> Lightweight, light-colored, breathable. Never wear rubber/impermeable garments â this is dangerous, not helpful for fat loss</li>
+    <li><strong>Air movement:</strong> Critical even indoors. Without airflow, the microclimate next to the body can reach ~100Â°F with full saturation</li>
+    <li><strong>Reduce intensity:</strong> A client who normally walks at 3 mph with HR 125 bpm may have HR of 135â140 bpm at the same speed in heat</li>
+  </ul>
+
+  <h3>âï¸ Exercising in the Cold</h3>
+  <p>Cold triggers three sequential heat-preservation mechanisms:</p>
+  <ol>
+    <li><strong>Peripheral vasoconstriction</strong> â narrows arterioles near skin, reducing heat loss</li>
+    <li><strong>Nonshivering thermogenesis</strong> â sympathetic nervous system increases metabolism to generate heat</li>
+    <li><strong>Shivering</strong> â rapid involuntary muscle contractions that can increase heat production 4â5Ã</li>
+  </ol>
+
+  <div class="callout callout-warning">
+    <div class="callout-label">â ï¸ Water vs. Air</div>
+    <p>The body loses heat <strong>4Ã faster in water</strong> than in air of the same temperature. A body immersed in 59Â°F (15Â°C) water for prolonged periods can experience extreme hypothermia and death. Cold air effects are compounded by wind â windchill dramatically increases heat loss.</p>
+  </div>
+
+  <h4>Cold Weather Clothing Tips</h4>
+  <ul>
+    <li><strong>Layer up</strong> â remove layers as intensity increases</li>
+    <li><strong>Avoid cotton in cold</strong> â cotton holds moisture against the skin, accelerating heat loss</li>
+    <li><strong>Choose wool</strong> â insulates even when wet</li>
+    <li><strong>Outerwear:</strong> Synthetic (polypropylene) or Gore-Tex â blocks wind, waterproof, allows moisture to escape</li>
+    <li><strong>Cover the head</strong> â significant body heat radiates from the head</li>
+    <li><strong>Hydrate:</strong> Water loss through respiration increases significantly in cold, dry air</li>
+  </ul>
+
+  <h3>ðï¸ Exercising at Altitude</h3>
+  <p>At moderate (5,000â6,000 ft) to high altitudes (8,000â14,000 ft), the <strong>partial pressure of Oâ in the air is reduced</strong>. There is less pressure to drive Oâ molecules into the blood â so less Oâ is delivered to muscles. Clients must reduce intensity to keep HR in their target zone.</p>
+  <ul>
+    <li>Negative effects peak around the <strong>3rd day</strong> at altitude</li>
+    <li>First phase of acclimatization: ~2 weeks</li>
+    <li>Full acclimatization: several months</li>
+    <li>Even after acclimatization, performance will not match sea-level performance</li>
+    <li><strong>Altitude sickness:</strong> Shortness of breath, headache, lightheadedness, nausea</li>
+    <li>Tip: Plan a prolonged warm-up and cool-down; take frequent exercise breaks</li>
+  </ul>
+
+  <h3>ð¨ Exercising in Air Pollution</h3>
+  <ul>
+    <li>Airborne pollutants (ozone, sulfur dioxide, particulates from fossil fuels) reduce Oâ-carrying capacity and impair ventilation</li>
+    <li>In people with CVD: can induce ischemia and angina</li>
+    <li>In people with asthma: triggers inflammatory responses</li>
+    <li><strong>Indoor ice arenas:</strong> Propane-powered Zamboni machines can leave dangerously high pollutant concentrations over the ice</li>
+    <li><strong>Strategies:</strong> Exercise early morning (before traffic pollution builds), avoid high-traffic urban areas, exercise indoors in extreme conditions</li>
+  </ul>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 7: FITT-VP ââ -->
+  <h2 id="fitt">7. Exercise Guidelines: The FITT-VP Framework</h2>
+  <p>The <strong>FITT-VP</strong> acronym (endorsed by ACSM and AHA) provides personal trainers with a structured framework for designing cardiorespiratory programs. Frequency, Intensity, and Time collectively represent the exercise <em>volume or load</em> that provokes physiological adaptation.</p>
+
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://images.unsplash.com/photo-1620188467120-5042ed1eb5da?fm=jpg&q=80&w=1400&auto=format&fit=max&ixlib=rb-4.1.0" alt="Gym training environment â FITT-VP framework applied to cardiorespiratory programming" style="max-width:100%;border-radius:10px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">FITT-VP: Frequency, Intensity, Time, Type, Volume, and Progression â the six variables of cardiorespiratory prescription. Photo: Unsplash (Free to use)</figcaption>
+  </figure>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Variable</th><th>Recommendation</th><th>Key Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frequency</strong></td>
+          <td>Moderate: â¥5 days/week<br>Vigorous: â¥3 days/week<br>Combination: 3â5 days/week</td>
+          <td>Beginners: more moderate, less vigorous to reduce injury risk and dropout</td>
+        </tr>
+        <tr>
+          <td><strong>Intensity</strong></td>
+          <td>Moderate to vigorous for most adults; light-to-moderate for deconditioned individuals</td>
+          <td>Most important AND most difficult element to quantify; see Section 8 for methods</td>
+        </tr>
+        <tr>
+          <td><strong>Time (Duration)</strong></td>
+          <td>30â60 min/day moderate; 20â60 min/day vigorous</td>
+          <td>Can accumulate in â¥10-min bouts; even short bouts benefit very deconditioned clients; never increase >10%/week</td>
+        </tr>
+        <tr>
+          <td><strong>Type</strong></td>
+          <td>Major muscle groups, continuous, rhythmic â walking, running, cycling, swimming, elliptical, rowing</td>
+          <td>Match to client preference and skill; adherence depends on enjoyment</td>
+        </tr>
+        <tr>
+          <td><strong>Volume</strong></td>
+          <td>Target: 500â1,000 MET-min/week; â¥7,000 steps/day</td>
+          <td>&lt;1,000 kcal/week = health benefits; â¥2,000 kcal/week = fitness + health benefits</td>
+        </tr>
+        <tr>
+          <td><strong>Pattern</strong></td>
+          <td>Continuous session, interval session, or multiple sessions â¥10 min throughout day</td>
+          <td>Multiple short bouts yield similar benefits to single continuous bouts</td>
+        </tr>
+        <tr>
+          <td><strong>Progression</strong></td>
+          <td>Gradual increases in duration â frequency â intensity</td>
+          <td>"Start low, go slow" â reduces injury risk and dropout, especially important for beginners</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-key">
+    <div class="callout-label">ð 2018 Physical Activity Guidelines</div>
+    <p>From the U.S. Department of Health &amp; Human Services (2018):<br>
+    â¢ <strong>Any</strong> physical activity is better than none â sit less throughout the day<br>
+    â¢ <strong>150â300 min/week</strong> moderate OR <strong>75â150 min/week</strong> vigorous (or equivalent combination)<br>
+    â¢ Muscle-strengthening activities involving all major muscle groups at least <strong>2 days/week</strong><br>
+    â¢ High volumes of moderate-to-vigorous PA remove the excess mortality risk from prolonged sitting</p>
+  </div>
+
+  <h3>AFITT for Reducing Sedentary Time</h3>
+  <p>The FITT framework also applies to <em>reducing sitting</em> â not just increasing exercise:</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Variable</th><th>Recommendation</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Frequency</strong></td><td>Take breaks from sitting every 60â120 minutes</td></tr>
+        <tr><td><strong>Intensity</strong></td><td>Light intensity (&lt;3 METs, below VT1) â e.g., standing, slow walking</td></tr>
+        <tr><td><strong>Time</strong></td><td>Each break = 5â10 minutes; limit total discretionary sitting to â¤2 hours/day</td></tr>
+        <tr><td><strong>Type</strong></td><td>Routine tasks: standing desk, walking to colleagues, light household chores</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 8: INTENSITY METHODS ââ -->
+  <h2 id="intensity">8. Exercise Intensity Methods</h2>
+  <p>Intensity is the most important FITT variable to control â and the most complex. Here are all the major methods a personal trainer should understand:</p>
+
+  <h3>Method 1: Heart Rate (HR)</h3>
+  <h4>Maximal Heart Rate (%MHR)</h4>
+  <p>The classic <strong>220 â Age</strong> formula was <em>never intended</em> for clinical use with the general population. It carries a standard deviation of <strong>Â±12 bpm</strong>, meaning 68% of people's true MHR falls within Â±12 bpm, and 32% fall even further outside. This introduces unacceptable error for individual programming.</p>
+
+  <div class="callout callout-warning">
+    <div class="callout-label">â ï¸ Problem with 220 â Age</div>
+    <p>For a 25-year-old, calculated MHR = 195 bpm. But a real 25-year-old may never reach 195 â or may easily exceed it. For a 60-year-old, calculated MHR = 160 bpm, but they may comfortably exceed this. <strong>ACE strongly discourages using straight %MHR based on the 220 â Age formula for individual programming.</strong></p>
+  </div>
+
+  <p><strong>Better MHR formulas (SD â Â±7 bpm):</strong></p>
+  <div class="formula">
+    <span>Gellish et al.:</span> MHR = 206.9 â (0.67 Ã Age)<br>
+    <span>Tanaka, Monahan &amp; Seals:</span> MHR = 208 â (0.7 Ã Age)
+  </div>
+
+  <h4>Heart Rate Reserve (HRR) â Karvonen Formula</h4>
+  <p>More individualized than %MHR because it accounts for resting heart rate (RHR). This matters because two people with the same age but different RHRs (e.g., 50 vs. 80 bpm) will have completely different training heart rates at the same percentage of HRR.</p>
+
+  <div class="formula">
+    <span>HRR</span> = MHR â RHR<br>
+    <span>Training HR (THR)</span> = (HRR Ã % Intensity) + RHR
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-label">ð¡ ACE Recommendation for RHR Measurement</div>
+    <p>Measure RHR in the same body position in which the client will exercise. HR varies by approximately <strong>5â10 bpm</strong> between lying and standing. For seated or recumbent exercise (e.g., cycling), measure RHR sitting. For standing activities (walking, running), measure standing.</p>
+  </div>
+
+  <h3>Method 2: Rating of Perceived Exertion (RPE)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>0â10 CR Scale</th><th>Description</th><th>6â20 Borg Scale</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>Nothing at all</td><td>6</td><td>No exertion</td></tr>
+        <tr><td>1</td><td>Very weak</td><td>7â8</td><td>Very, very light</td></tr>
+        <tr><td>2</td><td>Weak</td><td>9â10</td><td>Very light</td></tr>
+        <tr><td>3</td><td>Moderate</td><td>11â12</td><td>Fairly light</td></tr>
+        <tr><td>4</td><td>Somewhat strong</td><td>13â14</td><td>Somewhat hard</td></tr>
+        <tr><td>5â6</td><td>Strong</td><td>15â16</td><td>Hard</td></tr>
+        <tr><td>7â8</td><td>Very strong</td><td>17â18</td><td>Very hard</td></tr>
+        <tr><td>10</td><td>Very, very strong (max)</td><td>19â20</td><td>Very, very hard / max</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The 0â10 CR scale is easier to teach to clients. Both scales correlate well with metabolic markers and the talk test. Physically inactive individuals often find any exercise "fairly hard" at first â this is normal and should not discourage them.</p>
+
+  <h3>Method 3: METs (Metabolic Equivalents)</h3>
+  <p>1 MET = resting metabolic rate = 3.5 mL Oâ/kg/min. METs are intuitive: a 5-MET activity means the person is working 5Ã harder than at rest.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Intensity</th><th>MET Range</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="zone zone1">Light</span></td><td>&lt;3 METs</td><td>Standing, slow walking around home, billiards, playing instruments</td></tr>
+        <tr><td><span class="zone zone2">Moderate</span></td><td>3â5.9 METs</td><td>Brisk walking (4 mph), recreational badminton, mowing lawn, leisure dancing, golf (walking)</td></tr>
+        <tr><td><span class="zone zone3">Vigorous</span></td><td>â¥6 METs</td><td>Jogging 5â6 mph, basketball game, swimming, soccer, cycling 12â14 mph, skiing cross-country</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Method 4: VOâ and VOâ Reserve (VOâR)</h3>
+  <p>VOâmax is the gold standard of cardiorespiratory fitness. Training at 40â50% VOâmax/VOâR is the minimum threshold for provoking a training effect. However, maximal assessments are rarely available in field settings, and submaximal prediction equations carry significant error â especially if handrail support is used during treadmill testing.</p>
+
+  <h3>Method 5: Caloric Expenditure</h3>
+  <p>When the body burns fat (4.69 kcal/L Oâ) or carbohydrate (5.05 kcal/L Oâ), a blended value of approximately <strong>5 kcal per liter of Oâ consumed</strong> is used. Exercise machines estimate caloric expenditure from estimated gross VOâ â but these values can overestimate in less-fit individuals, especially with handrail support.</p>
+
+  <h3>Method 6: Talk Test / VT1 &amp; VT2 (Preferred Method)</h3>
+  <div class="callout callout-key">
+    <div class="callout-label">ð Why VT-Based Programming is Superior</div>
+    <p>Unlike %MHR or %VOâmax (which are population averages with large individual variation), <strong>VT1 and VT2 are based on your client's own metabolic responses to exercise</strong>. They require minimal equipment, can be easily taught to clients, and directly correspond to meaningful physiological transitions â making them the most practical and personalized intensity markers available to personal trainers.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 9: ASSESSMENTS ââ -->
+  <h2 id="assessments">9. Cardiorespiratory Fitness Assessments</h2>
+
+  <div class="callout callout-warning">
+    <div class="callout-label">â ï¸ Stop Assessment If You See These Signs</div>
+    <p>
+      â¢ Onset of angina or chest pain<br>
+      â¢ Systolic BP drops â¥10 mmHg with increased intensity, or falls below the pre-exercise value<br>
+      â¢ Excessive BP rise: SBP &gt;250 mmHg and/or DBP &gt;115 mmHg<br>
+      â¢ Shortness of breath or wheezing (not due to heavy breathing from exertion)<br>
+      â¢ Client requests to stop<br>
+      â¢ Signs of severe fatigue<br>
+      â¢ Equipment failure
+    </p>
+  </div>
+
+  <h3>The Talk Test â Simplest VT1 Marker</h3>
+  <p>The talk test is grounded in the physiology of VT1: the increase in ventilation at VT1 is driven by the need to blow off extra COâ, which makes it progressively harder to maintain comfortable speech.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Client Response</th><th>Interpretation</th><th>Zone</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Unequivocal "Yes, I can speak comfortably"</td><td>Below VT1</td><td><span class="zone zone1">Zone 1</span></td></tr>
+        <tr><td>Uncertain / slightly uncomfortable</td><td>At or near VT1</td><td><span class="zone zone1">Zone 1</span> / <span class="zone zone2">Zone 2</span> boundary</td></tr>
+        <tr><td>Definitely cannot speak comfortably</td><td>Above VT2</td><td><span class="zone zone3">Zone 3</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Counting method:</strong> Ask the client to count aloud during expiration. Normally they can reach 14â15 at rest. At VT1, they can no longer count past 10.</p>
+  <p><strong>Alphabet method:</strong> Recite "A is for apple, B is for boy..." â if unequivocal "yes" to comfortable speaking, they're below VT1.</p>
+
+  <h3>Submaximal Talk Test for VT1</h3>
+  <p>This protocol gives the personal trainer the <strong>client's exact HR at VT1</strong> â a precise, individualized training marker that replaces estimated %MHR or %HRR.</p>
+
+  <div class="callout callout-tip">
+    <div class="callout-label">ð¡ Contraindications</div>
+    <p>Not recommended for: asthma or COPD; prone to panic/anxiety attacks; recovering from respiratory infection; clients not fit enough to perform the assessment.</p>
+  </div>
+
+  <h4>Protocol Summary</h4>
+  <ul>
+    <li><strong>Equipment:</strong> Treadmill, cycle ergometer, or elliptical; HR monitor with chest strap; stopwatch; predetermined text (e.g., alphabet)</li>
+    <li><strong>Warm-up:</strong> 3â5 min at RPE 2â3 (0â10 scale)</li>
+    <li><strong>Stage increments:</strong> Small increases in workload to raise steady-state HR by ~5 bpm per stage (e.g., 0.5 mph or 1% grade or 10â20 watts)</li>
+    <li><strong>Stage duration:</strong> 60â120 seconds to reach steady-state</li>
+    <li><strong>Test duration:</strong> 8â16 minutes total</li>
+    <li><strong>End point:</strong> Client reports that speaking is no longer completely comfortable â record HR = VT1 HR</li>
+    <li><strong>Cool-down:</strong> 3â5 min at warm-up intensity</li>
+    <li><strong>Best practice:</strong> Conduct on 2 separate occasions; average the results; use same exercise modality each time; conduct before (not after) resistance training</li>
+  </ul>
+
+  <h3>VT2 Threshold Assessment</h3>
+  <p>VT2 is equivalent to <strong>OBLA (Onset of Blood Lactate Accumulation)</strong> â the point where blood lactate exceeds 4 mmol/L and can no longer be buffered at the rate it is produced. This test is only appropriate for well-conditioned clients with fitness and performance goals.</p>
+
+  <div class="formula">
+    <span>VT2 HR</span> = Average HR (15â20 min maximal sustainable effort) Ã 0.95
+  </div>
+
+  <p><strong>Example:</strong> Client's average HR during a 20-minute bike test = 168 bpm. VT2 HR = 168 Ã 0.95 = <strong>160 bpm</strong>.</p>
+
+  <ul>
+    <li>Test uses 15- to 20-minute single-stage maximal sustainable effort</li>
+    <li>Client must have experience pacing at high intensity</li>
+    <li>Use HR telemetry; record HR each minute during last 5 minutes</li>
+    <li>Only for clients cleared for exercise and ready for Performance Training</li>
+  </ul>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 10: SESSION COMPONENTS ââ -->
+  <h2 id="session">10. Components of a Cardiorespiratory Training Session</h2>
+
+  <div class="anatomy-grid">
+    <div class="anatomy-card" style="border-color:#22c55e;">
+      <h4>ð Warm-Up (5â10 min)</h4>
+      <ul>
+        <li>Low-to-moderate intensity, gradually increasing</li>
+        <li>If intervals are planned, later warm-up can include brief higher-intensity efforts</li>
+        <li>Older clients and harder sessions = longer warm-up</li>
+        <li>Should not cause fatigue that reduces conditioning performance</li>
+      </ul>
+    </div>
+    <div class="anatomy-card" style="border-color:#f59e0b;">
+      <h4>â¡ Conditioning Phase</h4>
+      <ul>
+        <li>Planned for frequency, duration, intensity, and modality</li>
+        <li>Higher-intensity elements placed early in session</li>
+        <li>Interval training: work:recovery ratios of 1:3 to 1:1</li>
+        <li>Session concludes with steady-state exercise</li>
+      </ul>
+    </div>
+    <div class="anatomy-card" style="border-color:#3b82f6;">
+      <h4>ð Cool-Down (5â10 min)</h4>
+      <ul>
+        <li>Low-to-moderate intensity â mirrors warm-up</li>
+        <li>Prevents blood pooling in lower extremities (key safety measure)</li>
+        <li>Maintains venous return to heart and vital organs</li>
+        <li>Removes metabolic waste from muscles</li>
+        <li>Optional stretching to improve flexibility</li>
+      </ul>
+    </div>
+    <div class="anatomy-card" style="border-color:#e94560;">
+      <h4>â ï¸ Why Cool-Down Matters</h4>
+      <ul>
+        <li>Without cool-down: "muscle pump" ceases â blood pools in lower limbs â reduced venous return â reduced blood flow to brain â lightheadedness or fainting</li>
+        <li>Active cool-down maintains cardiac output gradually, safely</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ââ SECTION 11: ACE IFT MODEL ââ -->
+  <h2 id="ace-ift">11. ACE Integrated Fitness Training Model â Cardiorespiratory Training</h2>
+
+  <p>The ACE IFT Model provides personal trainers with a <strong>three-phase progression system</strong> built on the three-zone intensity model and individualized by VT1 and VT2 HR. Not every client starts in Phase 1 â entry point is determined by current health status, fitness level, goals, and preferences.</p>
+
+  <figure style="margin:2rem 0;text-align:center;">
+    <img src="https://images.unsplash.com/photo-1690731033723-ad718c6e585a?fm=jpg&q=80&w=1400&auto=format&fit=max&ixlib=rb-4.1.0" alt="Athlete training â ACE IFT model progression from base to fitness to performance phase" style="max-width:100%;border-radius:10px;" loading="lazy">
+    <figcaption style="margin-top:8px;font-size:0.85rem;color:#64748b;">ACE IFT Model: clients progress from Base Training (Zone 1) â Fitness Training (Zone 1+2) â Performance Training (Zone 1+2+3). Photo: Unsplash (Free to use)</figcaption>
+  </figure>
 
   <div class="phase-grid">
-    <div class="phase-card">
-      <div class="phase-num" style="color:var(--correct)">01</div>
-      <div class="phase-name">Base Training</div>
-      <ul class="phase-meta">
-        <li>Inactive / low-fitness clients</li>
-        <li>Zone 1 ONLY (RPE 3–4)</li>
-        <li>Build positive habit</li>
-        <li>NO formal VT1 assessment</li>
-        <li>Progress when: 20+ min zone 1 sustained</li>
+    <div class="phase-card phase-base">
+      <h3>ð± Phase 1: Base Training</h3>
+      <p><strong>For:</strong> Physically inactive clients or those with inconsistent exercise history</p>
+      <p><strong>Zone:</strong> Zone 1 only (below VT1)</p>
+      <p><strong>Goal:</strong> Build the habit of exercise; achieve consistent participation; positive experience</p>
+      <ul>
+        <li>No fitness assessment needed at start</li>
+        <li>RPE 3â4 (0â10 scale)</li>
+        <li>Start: 10â15 min, 2â3 days/week</li>
+        <li>Progress to: 20+ min, 3â5 days/week</li>
+        <li>Max 10% increase/week</li>
+        <li>Very high benefit-to-risk ratio</li>
       </ul>
     </div>
-    <div class="phase-card">
-      <div class="phase-num" style="color:var(--warn)">02</div>
-      <div class="phase-name">Fitness Training</div>
-      <ul class="phase-meta">
-        <li>Consistent exercisers</li>
-        <li>Zone 1 + Zone 2 intervals</li>
-        <li>DO submaximal talk test now</li>
-        <li>Increase frequency + duration</li>
-        <li>Primary phase for gym clients</li>
+    <div class="phase-card phase-fitness">
+      <h3>ðª Phase 2: Fitness Training</h3>
+      <p><strong>For:</strong> Clients who can sustain 20+ min zone 1, 3â5 days/week consistently</p>
+      <p><strong>Zone:</strong> Zone 1 (base) + Zone 2 intervals</p>
+      <p><strong>Goal:</strong> Increase aerobic fitness; raise VT1; improve cardiorespiratory efficiency</p>
+      <ul>
+        <li>Conduct submaximal talk test â establish VT1 HR</li>
+        <li>Introduce intervals at/above VT1 HR (RPE 5â6)</li>
+        <li>75â80% of training time in zone 1</li>
+        <li>Intervals raise VT1 HR over time</li>
+        <li>Reassess VT1 periodically as fitness improves</li>
+        <li>Appropriate for most non-athlete fitness clients</li>
       </ul>
     </div>
-    <div class="phase-card">
-      <div class="phase-num" style="color:var(--red)">03</div>
-      <div class="phase-name">Performance Training</div>
-      <ul class="phase-meta">
-        <li>Endurance-performance goals</li>
-        <li>Zone 1 (70–80%) + Zone 2 + Zone 3</li>
-        <li>VT2 assessment required</li>
-        <li>Anaerobic power work</li>
-        <li>Overtraining risk — manage volume</li>
+    <div class="phase-card phase-performance">
+      <h3>ð Phase 3: Performance Training</h3>
+      <p><strong>For:</strong> Competitive endurance athletes and clients with performance-specific goals</p>
+      <p><strong>Zone:</strong> Zone 1 (dominant) + Zone 3 intervals + minimal Zone 2</p>
+      <p><strong>Goal:</strong> Maximize endurance performance; build anaerobic capacity</p>
+      <ul>
+        <li>Conduct VT2 threshold assessment â establish all 3 zones</li>
+        <li>~80% zone 1, ~10% zone 3, minimal zone 2</li>
+        <li>Zone 2 is the "black hole" â avoid excessive time here</li>
+        <li>Anaerobic power: 10 reps Ã 30â70 sec at ~115% VOâmax</li>
+        <li>1â2 high-intensity sessions per week max</li>
+        <li>Large zone 1 volume prevents overtraining</li>
       </ul>
     </div>
   </div>
 
-  <h3>Base Training in Detail</h3>
-  <p>The underlying rationale: the benefit-to-risk ratio of low-intensity Zone 1 training for the beginning client is <strong>very high</strong>. Large gains in health and basic fitness with almost no risk of cardiovascular or musculoskeletal injury.</p>
-  <p>Do NOT conduct the submaximal VT1 talk test for Base Training clients. It would only confirm low fitness and potentially serve as a negative reminder of their current limitations — exactly the opposite of the encouraging environment needed to build adherence.</p>
-
-  <h3>Fitness Training in Detail</h3>
-  <p>Now conduct the submaximal talk test. The client's VT1 HR becomes your programming anchor. Intervals are introduced at just above VT1 — an RPE of 5–6 — with recovery back to Zone 1 between efforts. The goal over weeks and months: the HR at VT1 increases, so the client works harder while remaining aerobically efficient.</p>
-
-  <div class="callout callout-exam">
-    <div class="callout-label">⚡ Exam Point — Elite Training Distribution</div>
-    <p>Research on elite endurance athletes shows approximately <strong>70–80% of training at Zone 1</strong>, ~10% at Zone 2, and ~10% at Zone 3. Even competitive athletes avoid sustained Zone 2 — it causes fatigue without optimal adaptation.</p>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 7 -->
-<div class="section" id="section-7">
-  <div class="section-number">Section 7</div>
-  <h2>Reducing Sedentary <em>Time</em></h2>
-  <p class="lead">Structured exercise and sedentary time management are two separate variables. You must address both with clients.</p>
-
-  <div class="img-block">
-    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80" alt="Person at standing desk in office environment" loading="lazy"/>
-    <div class="img-caption">Modifying the work environment — standing desks, walking meetings, movement reminders — directly reduces metabolic syndrome risk independent of exercise sessions.</div>
+  <div class="callout callout-science">
+    <div class="callout-label">ð¬ Research Insight: The "Black Hole" of Zone 2</div>
+    <p>Studies on Nordic skiers, cyclists, and distance runners consistently show that athletes who train at <strong>~80% zone 1 intensity</strong> achieve better performance outcomes than those who train excessively in zone 2. Zone 2 is hard enough to create fatigue but not intense enough to provoke the large adaptations of zone 3. It's called the "black hole" because athletes and clients often drift into it, accumulating fatigue without proportional benefit. <em>(Seiler &amp; Kjerland, 2006; Esteve-Lanao et al., 2005)</em></p>
   </div>
 
-  <p>Research (Healy et al., 2008) shows total sedentary time is linked to obesity, abnormal glucose metabolism, and metabolic syndrome — <span class="term">independent of whether someone exercises</span>. A 30-minute workout does not offset 8 hours of continuous sitting.</p>
-
+  <h3>Three-Zone Intensity Table: All Markers in One Place</h3>
   <div class="table-wrap">
     <table>
-      <tr><th>FITT Component</th><th>Recommendation for Sedentary Time Reduction</th></tr>
-      <tr><td><strong>Frequency</strong></td><td>Take breaks every 60–120 minutes</td></tr>
-      <tr><td><strong>Intensity</strong></td><td>Light activity only: &lt;25% VO₂max, 1.5–3 METs (walking, standing)</td></tr>
-      <tr><td><strong>Time</strong></td><td>5–10 min per break; limit discretionary sitting to ≤2 hours/day</td></tr>
-      <tr><td><strong>Type</strong></td><td>Routine occupational tasks; standing; walking to colleagues; environment modification</td></tr>
+      <thead>
+        <tr><th>Intensity Marker</th><th><span class="zone zone1">Zone 1</span></th><th><span class="zone zone2">Zone 2</span></th><th><span class="zone zone3">Zone 3</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>VT / HR relative to VT</strong></td><td>Below VT1 HR</td><td>VT1 HR to &lt;VT2 HR</td><td>â¥VT2 HR</td></tr>
+        <tr><td><strong>Talk Test</strong></td><td>Can talk comfortably</td><td>Not sure / uncomfortable</td><td>Definitely cannot talk</td></tr>
+        <tr><td><strong>RPE (0â10)</strong></td><td>3â4</td><td>5â6</td><td>7â10</td></tr>
+        <tr><td><strong>RPE (6â20 Borg)</strong></td><td>12â13</td><td>14â17</td><td>18â20</td></tr>
+        <tr><td><strong>%VOâR / %HRR</strong></td><td>30â39%</td><td>40â59%</td><td>60â89%</td></tr>
+        <tr><td><strong>%MHR</strong></td><td>57â63%</td><td>64â76%</td><td>77â95%</td></tr>
+        <tr><td><strong>METs</strong></td><td>â¤2.9</td><td>3.0â5.9</td><td>6.0â8.7</td></tr>
+      </tbody>
     </table>
   </div>
-</div>
 
-<div class="divider"></div>
-
-<!-- SECTION 8 -->
-<div class="section" id="section-8">
-  <div class="section-number">Section 8</div>
-  <h2>Water Exercise & Special <em>Populations</em></h2>
-
-  <p>Water exercise provides a convenient alternative form of exercise that is pleasant, reduces orthopedic loading, and trains different muscle groups than ambulatory activities.</p>
-  <p>It is particularly valuable for <strong>older adults, individuals with obesity, and those with orthopedic issues</strong> because the buoyancy of water unloads weight-bearing joints.</p>
-
-  <div class="callout callout-key">
-    <div class="callout-label">🔑 Critical Detail</div>
-    <p>Energy cost of water exercise is <span class="term">strongly related to water depth</span>. Walking in chest-deep water costs significantly more energy than thigh-deep water. Energy cost also increases markedly with only slight increases in walking speed. Depth and speed are the primary intensity variables in water-based training.</p>
+  <div class="callout callout-science">
+    <div class="callout-label">ð¬ Cardiorespiratory Fitness &amp; Heart Health: The Research</div>
+    <p>
+      <strong>1989 (Blair et al.):</strong> Inverse relationship established between VOâmax and CVD risk â holds true regardless of number of other CVD risk factors.<br><br>
+      <strong>2005 (Church et al.):</strong> In men with diabetes, CVD mortality risk was <strong>2â4Ã higher</strong> in low-fit vs. moderate/high-fit individuals across all weight categories (normal, overweight, obese).<br><br>
+      <strong>2009 (Blair):</strong> Low cardiorespiratory fitness accounted for more total deaths (including from CVD) than obesity, smoking, hypertension, high cholesterol, and diabetes combined.<br><br>
+      <em>Conclusion: Cardiorespiratory fitness is arguably the single most important modifiable health outcome a personal trainer can address.</em>
+    </p>
   </div>
 
-  <p><strong>Cardiovascular note:</strong> Immersion causes blood to redistribute to the central circulation and away from the limbs. In clients with compromised cardiovascular function, this can cause breathlessness and added cardiac stress. Always screen appropriately.</p>
-</div>
+  <hr class="divider" />
 
-<!-- QUIZ CTA -->
-<div class="quiz-cta">
-  <h3>Ready to <em>Test Yourself?</em></h3>
-  <p>55 questions — MCQ, fill-in-the-blank, true/false, and 5 real client case studies.</p>
-  <div class="quiz-stats">
-    <span class="qs"><strong>25</strong> MCQ</span>
-    <span class="qs"><strong>15</strong> Fill-in</span>
-    <span class="qs"><strong>10</strong> True/False</span>
-    <span class="qs"><strong>5</strong> Case Studies</span>
-  </div>
-  <a href="/ace-prep/chapter-8" class="btn-primary" style="display:inline-flex">📝 Start Chapter 8 Quiz →</a>
-</div>
-
-</article>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="toc">
-    <div class="toc-title">In This Chapter</div>
-    <ul class="toc-list">
-      <li><a href="#section-1">1. Why CRF Matters</a></li>
-      <li><a href="#section-2">2. Training Principles</a></li>
-      <li><a href="#section-3">3. Ventilatory Thresholds</a></li>
-      <li><a href="#section-4">4. The Talk Test</a></li>
-      <li><a href="#section-5">5. Three-Zone Model</a></li>
-      <li><a href="#section-6">6. ACE IFT Model Phases</a></li>
-      <li><a href="#section-7">7. Sedentary Time</a></li>
-      <li><a href="#section-8">8. Water Exercise</a></li>
+  <!-- ââ KEY TAKEAWAYS ââ -->
+  <div class="takeaways" id="takeaways">
+    <h2>ð Key Takeaways</h2>
+    <ul>
+      <li><strong>Humans are built to move.</strong> Modern inactivity creates the need for intentional exercise programs.</li>
+      <li><strong>Cardiac Output = HR Ã Stroke Volume.</strong> Both increase with training; resting HR decreases. Elite athletes can pump 30â40 L/min at max effort.</li>
+      <li><strong>VT1 and VT2 are the most practical intensity markers</strong> for personal trainers â personalized, equipment-light, and directly tied to meaningful physiology.</li>
+      <li><strong>Zone 1 dominates optimal training programs</strong> &mdash; about 80% of training volume in Zone 1, with the remaining 20% split between Zone 2 and high-intensity Zone 3 work. Avoid the "black hole" of excessive Zone 2 training.</li>
+      <li><strong>The Talk Test is the most practical VT1 marker.</strong> No expensive equipment required &mdash; just track when comfortable speech becomes difficult.</li>
+      <li><strong>Sedentary behaviour is its own problem.</strong> Even active people are at risk if they sit for 10+ hours daily. Address both sitting time and exercise time.</li>
     </ul>
   </div>
 
-  <div class="sidebar-card">
-    <div class="sidebar-card-title">🎬 Watch on YouTube</div>
-    <a href="#" class="yt-thumb">
-      <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
-      <div class="yt-label">Chapter 8 — Full Teaching Video</div>
-    </a>
-  </div>
-
-  <div class="sidebar-card">
-    <div class="sidebar-card-title">Key Terms</div>
-    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
-      <div><span class="term">VT1</span> — first ventilatory threshold</div>
-      <div><span class="term">VT2</span> — respiratory compensation threshold</div>
-      <div><span class="term">OBLA</span> — onset of blood lactate accumulation</div>
-      <div><span class="term">SAID</span> — specific adaptations to imposed demands</div>
-      <div><span class="term-blue">Zone 2</span> — "black hole" (VT1 to VT2)</div>
-    </div>
-  </div>
-
-  <div class="sidebar-card">
-    <div class="sidebar-card-title">Chapter Navigation</div>
-    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
-      <a href="/ace-prep/chapter-9-guide" style="color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border)">Ch 9: Muscular Training →</a>
-      <a href="/ace-prep/chapter-10-guide" style="color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border)">Ch 10: MT Assessments →</a>
-      <a href="/ace-prep/chapter-11-guide" style="color:var(--muted);text-decoration:none;padding:6px 0">Ch 11: Integrated Programming →</a>
-    </div>
-  </div>
-</aside>
-
-</div><!-- /page-wrap -->
-
-
-
-<script>
-// Active TOC highlighting on scroll
-const sections = document.querySelectorAll('.section[id]');
-const tocLinks = document.querySelectorAll('.toc-list a');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      tocLinks.forEach(l => l.classList.remove('active'));
-      const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
-      if (active) active.classList.add('active');
-    }
-  });
-}, {rootMargin: '-20% 0px -70% 0px'});
-
-sections.forEach(s => observer.observe(s));
-</script>
-
+</div>
 </Layout>
