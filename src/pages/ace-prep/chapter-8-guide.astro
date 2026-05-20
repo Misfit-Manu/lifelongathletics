@@ -405,9 +405,111 @@ h2[id], .section[id], .hero, .takeaways { scroll-margin-top: 90px; }
   .crosslink-bottom { padding: 24px 20px; }
   .crosslink-bottom h3 { font-size: 1.05rem; }
 }
-</style>
 
-<div class="blog-container">
+/* ============================================
+   DARK THEME OVERRIDE — match site aesthetic
+   ============================================ */
+body { background: #080808 !important; color: #f5f0e8 !important; font-family: 'DM Sans', 'Inter', sans-serif !important; }
+
+/* Headings */
+h1, h3 { color: #f5f0e8 !important; }
+h4 { color: #c9a84c !important; }
+h2 { color: #c9a84c !important; font-family: 'Cormorant Garamond', Georgia, serif !important; font-weight: 600 !important; }
+.takeaways h2 { color: #c9a84c !important; border-color: rgba(201,168,76,0.3) !important; }
+em, h2 em, h3 em { color: #c9a84c !important; }
+
+/* Text colour */
+p { color: rgba(245,240,232,0.85); }
+strong { color: #f5f0e8; }
+li { color: rgba(245,240,232,0.85); }
+figcaption { color: rgba(245,240,232,0.5) !important; }
+hr.divider { background: linear-gradient(to right, #c9a84c, transparent) !important; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #181818 0%, #111 60%, #080808 100%) !important; border: 1px solid rgba(201,168,76,0.2); }
+.hero h1 { color: #f5f0e8 !important; font-family: 'Cormorant Garamond', Georgia, serif !important; font-weight: 400 !important; }
+.hero p { color: rgba(245,240,232,0.7) !important; }
+.hero-tag { background: #c9a84c !important; color: #080808 !important; }
+.hero-meta { color: rgba(245,240,232,0.5) !important; }
+.hero-meta span { color: rgba(245,240,232,0.6) !important; border-color: rgba(245,240,232,0.15) !important; }
+
+/* TOC */
+.toc { background: #111 !important; border: 1px solid rgba(255,255,255,0.08) !important; }
+.toc h2 { color: #c9a84c !important; }
+.toc a, .toc li { color: rgba(245,240,232,0.75) !important; }
+.toc a:hover { color: #c9a84c !important; }
+
+/* Callouts — keep coloured left borders, dark surface bg */
+.callout { background: #111 !important; }
+.callout-key { border-left-color: #c9a84c !important; }
+.callout-warning, .callout-warn { border-left-color: #f87171 !important; }
+.callout-tip { border-left-color: #60a5fa !important; }
+.callout-science { border-left-color: #a78bfa !important; }
+.callout-exam { border-left-color: #c9a84c !important; }
+.callout-label { color: #c9a84c !important; }
+.callout p { color: rgba(245,240,232,0.85) !important; }
+.callout strong { color: #f5f0e8 !important; }
+
+/* Tables */
+.table-wrap { border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 4px; overflow: hidden; }
+table { background: #111 !important; color: #f5f0e8 !important; }
+thead th { background: #181818 !important; color: #c9a84c !important; border-bottom: 1px solid rgba(201,168,76,0.3) !important; }
+tbody tr { background: transparent !important; }
+tbody tr:nth-child(even) { background: rgba(255,255,255,0.02) !important; }
+tbody tr:hover { background: rgba(201,168,76,0.05) !important; }
+td { border-bottom: 1px solid rgba(255,255,255,0.05) !important; color: rgba(245,240,232,0.85) !important; }
+td strong { color: #f5f0e8 !important; }
+
+/* Anatomy cards */
+.anatomy-card { background: #111 !important; border: 1px solid rgba(255,255,255,0.08) !important; }
+.anatomy-card h4 { color: #c9a84c !important; }
+.anatomy-card li { color: rgba(245,240,232,0.8) !important; }
+
+/* Stat cards */
+.stat-card { background: #181818 !important; border: 1px solid rgba(201,168,76,0.15) !important; }
+.stat-num { color: #c9a84c !important; }
+.stat-label { color: rgba(245,240,232,0.6) !important; }
+
+/* Phase cards (Base / Fitness / Performance) */
+.phase-card { background: #111 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-top-width: 4px !important; }
+.phase-base { border-top-color: #22c55e !important; }
+.phase-fitness { border-top-color: #c9a84c !important; }
+.phase-performance { border-top-color: #f87171 !important; }
+.phase-base h3 { color: #4ade80 !important; }
+.phase-fitness h3 { color: #c9a84c !important; }
+.phase-performance h3 { color: #f87171 !important; }
+.phase-card p { color: rgba(245,240,232,0.8) !important; }
+.phase-card li { color: rgba(245,240,232,0.8) !important; }
+
+/* Method cards */
+.method-card { background: #111 !important; border: 1.5px solid rgba(255,255,255,0.08) !important; }
+.method-card:hover { border-color: rgba(201,168,76,0.4) !important; }
+.method-card h4 { color: #c9a84c !important; }
+.method-card p { color: rgba(245,240,232,0.7) !important; }
+
+/* Takeaways */
+.takeaways { background: linear-gradient(135deg, #181818, #111) !important; border: 1px solid rgba(201,168,76,0.3); }
+.takeaways li { color: rgba(245,240,232,0.9) !important; }
+.takeaways strong { color: #f5f0e8 !important; }
+
+/* Cross-link banner at bottom */
+.crosslink-bottom { background: linear-gradient(135deg, #181818, #111) !important; border: 1px solid rgba(201,168,76,0.25) !important; border-left: 4px solid #c9a84c !important; }
+.crosslink-bottom h3 { color: #c9a84c !important; }
+.crosslink-bottom p { color: rgba(245,240,232,0.7) !important; }
+.crosslink-bottom a { background: #c9a84c !important; color: #080808 !important; }
+.crosslink-bottom a:hover { background: #d4b65a !important; }
+
+/* Formula / code blocks */
+.formula { background: #181818 !important; color: #f5f0e8 !important; border-left: 3px solid #c9a84c !important; }
+.formula span { color: #c9a84c !important; }
+
+/* Image placeholder (if any) */
+.img-placeholder { background: #111 !important; border-color: rgba(201,168,76,0.25) !important; }
+.img-placeholder strong { color: #c9a84c !important; }
+
+/* Img captions and figure styling */
+figure img { border: 1px solid rgba(255,255,255,0.06) !important; }
+</style>
 
 <div class="blog-container">
 
