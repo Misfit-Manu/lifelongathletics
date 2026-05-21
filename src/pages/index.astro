@@ -329,18 +329,22 @@ import Layout from '../layouts/Layout.astro';
     <p class="section-eyebrow">Apply for coaching</p>
     <h2>Ready to become a<br/><em>Lifelong Athlete?</em></h2>
     <p class="section-body" style="margin:20px auto 0;text-align:center">Coaching spots are limited. Tell me a little about yourself and I'll get back to you within 24 hours.</p>
-    <form class="apply-form" onsubmit="event.preventDefault(); const btn = event.target.querySelector('.btn-full'); btn.textContent = 'Application Sent ✓'; btn.style.background = '#2a5c2a'; btn.style.color = '#f5f0e8'; btn.disabled = true;">
+    <form id="applyForm" class="apply-form" action="https://formsubmit.co/ajax/manusehgal1995@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="🏋️ New Lifelong Athletics Application"/>
+      <input type="hidden" name="_template" value="table"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off"/>
       <div class="form-field">
         <label>Your name</label>
-        <input type="text" placeholder="Arjun Sharma" required/>
+        <input type="text" name="Name" placeholder="Arjun Sharma" required/>
       </div>
       <div class="form-field">
         <label>Phone / WhatsApp</label>
-        <input type="tel" placeholder="+91 98765 43210" required/>
+        <input type="tel" name="Phone" placeholder="+91 98765 43210" required/>
       </div>
       <div class="form-field full">
         <label>Who are you?</label>
-        <select required>
+        <select name="Persona" required>
           <option value="" disabled selected>Select your situation</option>
           <option>The Beginner — I need direction and education</option>
           <option>The Momentum Seeker — I want to break plateaus and train for performance</option>
@@ -349,8 +353,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div class="form-field full">
         <label>Tell me your biggest challenge right now</label>
-        <textarea placeholder="Be as specific as you can — this helps me understand if and how I can help you."></textarea>
+        <textarea name="Biggest Challenge" placeholder="Be as specific as you can — this helps me understand if and how I can help you."></textarea>
       </div>
+      <p id="applyFormStatus" style="font-size:0.8rem;color:var(--muted);margin-top:8px;min-height:1.2em" aria-live="polite"></p>
       <div class="form-submit">
         <button type="submit" class="btn-full">Submit Application →</button>
       </div>
@@ -387,6 +392,53 @@ import Layout from '../layouts/Layout.astro';
     }
     // Start typing after the fadeUp animation finishes (1.4s)
     setTimeout(type, 1400);
+  })();
+
+  // Apply form — AJAX submit to Formsubmit (sends emails to manusehgal1995@gmail.com)
+  (function() {
+    const form = document.getElementById('applyForm');
+    if (!form) return;
+    const statusEl = document.getElementById('applyFormStatus');
+    const btn = form.querySelector('.btn-full');
+    const originalBtnText = btn.textContent;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot — silent fail for bots
+      if (form.elements['_honey'] && form.elements['_honey'].value) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      statusEl.textContent = '';
+      statusEl.style.color = 'var(--muted)';
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: formData,
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && (data.success === 'true' || data.success === true)) {
+          btn.textContent = 'Application Sent ✓';
+          btn.style.background = '#2a5c2a';
+          btn.style.color = '#f5f0e8';
+          statusEl.textContent = "Thanks — I'll get back to you within 24 hours.";
+          statusEl.style.color = '#5ec46f';
+          form.reset();
+        } else {
+          throw new Error((data && (data.message || data.error)) || 'Submission failed');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = originalBtnText;
+        statusEl.textContent = "Something went wrong. Please WhatsApp us instead — link in the bottom right.";
+        statusEl.style.color = '#e07a5f';
+      }
+    });
   })();
 </script>
 
