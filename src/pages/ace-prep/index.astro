@@ -115,15 +115,21 @@ const sortedChapters = allChapters.sort((a, b) => a.data.chapter - b.data.chapte
     display: flex;
     justify-content: flex-end;
   }
+  @keyframes text-breathe {
+    0%,100% { color: rgba(197,241,53,0.65); text-shadow: none; }
+    50%      { color: #c5f135; text-shadow: 0 0 14px rgba(197,241,53,0.55); }
+  }
   .view-link {
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--gold);
-    transition: opacity 0.2s;
+    color: #c5f135;
+    animation: text-breathe 3s ease-in-out infinite;
   }
   .chapter-card:hover .view-link {
-    opacity: 0.8;
+    animation-play-state: paused;
+    color: #c5f135;
+    text-shadow: 0 0 18px rgba(197,241,53,0.7);
   }
 
   @media (max-width: 768px) {
