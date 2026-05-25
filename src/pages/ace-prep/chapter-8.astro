@@ -168,6 +168,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
 
+/* ANIMATED EDGES */
+@keyframes hub-glow{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,0)}50%{box-shadow:0 0 0 10px rgba(212,168,67,0.22),0 0 28px 4px rgba(212,168,67,0.16)}}
+@keyframes tab-glow{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,0)}50%{box-shadow:0 0 8px 2px rgba(212,168,67,0.2),inset 0 0 0 1px rgba(212,168,67,0.28)}}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transition:transform .2s ease;animation:hub-glow 2.5s ease-in-out infinite}
+a.mm-center-node:hover{transform:scale(1.04)}
+.tab-btn.glow:not(.active){animation:tab-glow 2.8s ease-in-out 0.7s infinite}
 @media(max-width:640px){
   .nav{padding:14px 20px}.nav-links{display:none}
   .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
@@ -192,14 +198,13 @@ footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;fo
     <div class="stat-chip"><strong>5</strong><span>Case Studies</span></div>
     <div class="stat-chip"><strong>55</strong><span>Total</span></div>
   </div>
-  <a href="/ace-prep/chapter-8-guide" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--accent);padding:9px 20px;border-radius:30px;transition:background 0.2s">📖 Read the Full Theory Guide →</a>
 </div>
 
 <div class="tab-bar">
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
-    <button class="tab-btn" onclick="switchTab('quiz',this)">📝 Quiz</button>
-    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn glow" onclick="switchTab('cases',this)">🩺 Case Studies</button>
     <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
   </div>
 </div>
@@ -210,7 +215,7 @@ footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;fo
 <div class="tab-panel active" id="tab-mindmap">
   <p class="mm-title">Click any branch to expand. All Chapter 8 concepts mapped.</p>
   <div class="mm-center">
-    <div class="mm-center-node">Chapter 8: Cardiorespiratory Training</div>
+    <a href="/ace-prep/chapter-8-guide" class="mm-center-node">📖 Theory Guide →</a>
     <div class="mm-center-sub">Physiology · Assessments · Programming · ACE IFT Model</div>
   </div>
   <div class="mm-grid" id="mm-grid"></div>
