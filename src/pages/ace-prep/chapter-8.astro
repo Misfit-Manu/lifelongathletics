@@ -168,15 +168,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
 
-/* FLASHY ANIMATIONS */
-@keyframes sheen{0%{background-position:-250% center}60%,100%{background-position:250% center}}
-@keyframes hub-halo{0%,100%{box-shadow:0 0 8px 2px rgba(212,168,67,0.45)}50%{box-shadow:0 0 30px 10px rgba(255,220,80,0.8),0 0 60px 20px rgba(212,168,67,0.4)}}
-@keyframes tab-spark{0%{background-position:-150% 0}100%{background-position:250% 0}}
-@keyframes tab-flash{0%,100%{background:transparent}50%{background:rgba(212,168,67,0.08)}}
-a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transition:transform .2s ease;background:linear-gradient(105deg,#a07c2a 0%,#d4a843 20%,#ffe083 38%,#fff9d4 48%,#ffe083 58%,#d4a843 80%,#a07c2a 100%);background-size:300% auto;animation:sheen 2.4s ease-in-out infinite,hub-halo 2.4s ease-in-out infinite}
-a.mm-center-node:hover{transform:scale(1.06)}
-.tab-btn.glow:not(.active){position:relative;animation:tab-flash 2.8s ease-in-out 0.5s infinite}
-.tab-btn.glow:not(.active)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 0%,rgba(255,230,100,0.95) 50%,transparent 100%);background-size:50% 100%;animation:tab-spark 1.4s linear infinite}
+/* ELEGANT ANIMATIONS */
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(212,168,67,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(212,168,67,0.52),0 0 48px rgba(212,168,67,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(212,168,67,0.7),0 2px 10px rgba(212,168,67,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
 @media(max-width:640px){
   .nav{padding:14px 20px}.nav-links{display:none}
   .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
