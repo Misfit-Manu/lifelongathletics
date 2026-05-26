@@ -196,6 +196,52 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
   }
   .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
+  /* ─── HERO 2-COL LAYOUT ─── */
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1100px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-text { text-align: left; }
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .hero-photo { display: flex; align-items: center; justify-content: center; }
+  .hero-photo-placeholder {
+    width: 100%;
+    height: 480px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 60%);
+  }
+  .hero-photo-placeholder span {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.4;
+    position: relative;
+    z-index: 1;
+  }
+
   /* ─── SECTIONS ─── */
   section { padding: 120px 60px; }
   .container { max-width: 1100px; margin: 0 auto; }
@@ -319,41 +365,55 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     background: var(--surface);
     border-top: 1px solid var(--border);
   }
-  .method-layout {
+  .method-cards {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 100px;
-    align-items: start;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
   }
-  .method-sticky { position: sticky; top: 120px; }
-  .pillar {
-    padding: 48px 0;
-    border-bottom: 1px solid var(--border);
-    opacity: 0;
-    transform: translateX(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+  .method-card {
+    background: var(--surface2);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
   }
-  .pillar:first-child { border-top: 1px solid var(--border); }
-  .pillar.visible { opacity: 1; transform: translateX(0); }
-  .pillar-num {
+  .method-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+  }
+  .method-card:hover::before { transform: scaleX(1); }
+  .method-card:hover { background: #1a1a1a; }
+  .method-icon {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 24px;
+  }
+  .method-num {
     font-family: var(--font-display);
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     font-weight: 300;
     color: var(--gold);
-    opacity: 0.7;
+    opacity: 0.6;
     line-height: 1;
-    margin-bottom: 16px;
-  }
-  .pillar-title {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 600;
     margin-bottom: 12px;
   }
-  .pillar-body {
-    font-size: 0.9rem;
+  .method-card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .method-card-body {
+    font-size: 0.88rem;
     color: var(--muted);
-    line-height: 1.8;
+    line-height: 1.75;
   }
 
   /* ─── ABOUT ─── */
@@ -450,6 +510,61 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     color: var(--muted);
     line-height: 1.7;
   }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+  .testimonial-card {
+    background: var(--surface);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .testimonial-quote {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: 0.8;
+    color: var(--gold);
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .testimonial-text {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.75;
+    color: var(--white);
+  }
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .testimonial-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+  .testimonial-meta {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
   .service-card {
     background: var(--surface2);
     padding: 36px 32px;
@@ -606,11 +721,13 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
   /* ─── TABLET ─── */
   @media (max-width: 1024px) {
     section { padding: 100px 40px; }
+    .hero-inner { gap: 48px; }
     .service-grid { grid-template-columns: repeat(2, 1fr); }
     .trust-strip { grid-template-columns: repeat(2, 1fr); }
     .persona-grid { grid-template-columns: repeat(2, 1fr); }
     .who-header { gap: 48px; }
-    .method-layout { gap: 60px; }
+    .method-cards { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr 1fr; }
     .about-layout { gap: 60px; }
   }
 
@@ -620,7 +737,12 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     nav.scrolled { padding: 14px 24px; }
     .nav-links { display: none; }
     section { padding: 80px 24px; }
+    #hero { padding: 90px 24px 60px; }
     #problem { padding: 60px 24px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 0; }
+    .hero-text { text-align: center; }
+    .hero-actions { align-items: center; }
+    .hero-photo { display: none; }
     .stats-row { grid-template-columns: 1fr; }
     .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 36px 24px; }
     .stat-item:last-child { border-bottom: none; }
@@ -631,8 +753,8 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     #longevity { padding: 80px 24px !important; }
     #longevity > .container > div:first-child { grid-template-columns: 1fr !important; gap: 48px !important; }
     #longevity > .container > div:nth-child(2) { grid-template-columns: 1fr 1fr !important; }
-    .method-layout { grid-template-columns: 1fr; gap: 40px; }
-    .method-sticky { position: static; }
+    .method-cards { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
     .about-layout { grid-template-columns: 1fr; gap: 48px; }
     .differentiator-grid { grid-template-columns: 1fr; }
     .apply-form { grid-template-columns: 1fr; }

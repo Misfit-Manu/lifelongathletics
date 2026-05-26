@@ -6,11 +6,20 @@ import Layout from '../layouts/Layout.astro';
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <h1>Become a<br/><em>Life<span id="typed-long"></span></em><br/>Athlete.</h1>
-  <p class="hero-sub">Pain-free movement for life.</p>
-  <div class="hero-actions" style="justify-content:center;flex-direction:column;align-items:center;gap:12px">
-    <a href="#apply" class="btn-primary" style="padding:18px 48px">Get a Free Assessment</a>
-    <span style="font-size:0.75rem;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase">(Know Your Starting Point)</span>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Become a<br/><em>Life<span id="typed-long"></span></em><br/>Athlete.</h1>
+      <p class="hero-sub">Pain-free movement for life.</p>
+      <div class="hero-actions">
+        <a href="#apply" class="btn-primary" style="padding:18px 48px">Get a Free Assessment</a>
+        <span style="font-size:0.75rem;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase">(Know Your Starting Point)</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="hero-photo-placeholder">
+        <span>Photo Coming Soon</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -70,49 +79,47 @@ import Layout from '../layouts/Layout.astro';
 <!-- METHOD -->
 <section id="method">
   <div class="container">
-    <div class="method-layout">
-      <div class="method-sticky">
-        <p class="section-eyebrow">The methodology</p>
-        <h2>Main Pillars of<em> Transformation</em></h2>
-        <p class="section-body" style="margin-top:24px">Most trainers give you workouts. Lifelong Athletics gives you a system — built on exercise science, behavioral psychology, and movement mechanics.</p>
+    <div style="text-align:center;max-width:680px;margin:0 auto 64px">
+      <p class="section-eyebrow">The methodology</p>
+      <h2>Main Pillars of<em> Transformation</em></h2>
+      <p class="section-body" style="margin:16px auto 0">Most trainers give you workouts. Lifelong Athletics gives you a system — built on exercise science, behavioral psychology, and movement mechanics.</p>
+    </div>
+    <div class="method-cards">
+      <div class="method-card">
+        <svg class="method-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="20" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <path d="M18 28 Q23 18 28 22 Q33 26 38 16" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <circle cx="28" cy="14" r="3" fill="rgba(201,168,76,0.6)"/>
+          <line x1="20" y1="36" x2="36" y2="36" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="20" y1="41" x2="32" y2="41" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        <div class="method-num">01</div>
+        <h3 class="method-card-title">Education</h3>
+        <p class="method-card-body">You don't just follow a plan — you understand it. Why this exercise, why this load, why this sequence. Fitness becomes a skill you own for life.</p>
       </div>
-      <div class="pillars">
-        <div class="pillar">
-          <svg class="pillar-visual" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="28" cy="28" r="20" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
-            <path d="M18 28 Q23 18 28 22 Q33 26 38 16" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <circle cx="28" cy="14" r="3" fill="rgba(201,168,76,0.6)"/>
-            <line x1="20" y1="36" x2="36" y2="36" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-linecap="round"/>
-            <line x1="20" y1="41" x2="32" y2="41" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-linecap="round"/>
-          </svg>
-          <div class="pillar-num">01</div>
-          <h3 class="pillar-title">Education</h3>
-          <p class="pillar-body">You don't just follow a plan — you understand it. Why this exercise. Why this load. Why this sequence. When you understand the science behind your training, you stop needing a trainer to make every decision. That's the goal.</p>
-        </div>
-        <div class="pillar" style="transition-delay:0.15s">
-          <svg class="pillar-visual" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="28" cy="28" r="20" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
-            <path d="M28 12 A16 16 0 1 1 12.5 36" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <path d="M10 32 L12.5 36 L16 33" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <circle cx="28" cy="28" r="3" fill="rgba(201,168,76,0.6)"/>
-          </svg>
-          <div class="pillar-num">02</div>
-          <h3 class="pillar-title">Behavior Change</h3>
-          <p class="pillar-body">Information alone doesn't change behavior — and that's why most programs fail. Using proven frameworks from behavioral science, we build "happy habits" — sustainable routines that fit your life rather than fight it. Consistency stops being a willpower battle.</p>
-        </div>
-        <div class="pillar" style="transition-delay:0.3s">
-          <svg class="pillar-visual" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="28" cy="28" r="20" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
-            <rect x="16" y="38" width="5" height="8" fill="rgba(201,168,76,0.3)" rx="1"/>
-            <rect x="23" y="32" width="5" height="14" fill="rgba(201,168,76,0.5)" rx="1"/>
-            <rect x="30" y="25" width="5" height="21" fill="rgba(201,168,76,0.75)" rx="1"/>
-            <rect x="37" y="18" width="5" height="28" fill="#c9a84c" rx="1"/>
-            <path d="M14 36 L22 18" stroke="rgba(201,168,76,0.4)" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 2"/>
-          </svg>
-          <div class="pillar-num">03</div>
-          <h3 class="pillar-title">Physical Training</h3>
-          <p class="pillar-body">Safe. Effective. Built for your body. Whether you're starting from zero or recovering from injury, every program is grounded in movement science — load management, tissue tolerance, and progressive overload. No guesswork. No shortcuts.</p>
-        </div>
+      <div class="method-card">
+        <svg class="method-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="20" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <path d="M28 12 A16 16 0 1 1 12.5 36" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M10 32 L12.5 36 L16 33" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="28" cy="28" r="3" fill="rgba(201,168,76,0.6)"/>
+        </svg>
+        <div class="method-num">02</div>
+        <h3 class="method-card-title">Behavior Change</h3>
+        <p class="method-card-body">Sustainable habits beat willpower every time. We build routines that fit your life — using behavioral science frameworks proven to create lasting change.</p>
+      </div>
+      <div class="method-card">
+        <svg class="method-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="20" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <rect x="16" y="38" width="5" height="8" fill="rgba(201,168,76,0.3)" rx="1"/>
+          <rect x="23" y="32" width="5" height="14" fill="rgba(201,168,76,0.5)" rx="1"/>
+          <rect x="30" y="25" width="5" height="21" fill="rgba(201,168,76,0.75)" rx="1"/>
+          <rect x="37" y="18" width="5" height="28" fill="#c9a84c" rx="1"/>
+          <path d="M14 36 L22 18" stroke="rgba(201,168,76,0.4)" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 2"/>
+        </svg>
+        <div class="method-num">03</div>
+        <h3 class="method-card-title">Physical Training</h3>
+        <p class="method-card-body">Safe. Effective. Built for your body. Load management, progressive overload, and movement science — no guesswork, no shortcuts, just results.</p>
       </div>
     </div>
   </div>
@@ -134,21 +141,6 @@ import Layout from '../layouts/Layout.astro';
     </div>
     <div class="persona-grid">
       <div class="persona-card">
-        <div class="persona-visual">
-          <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="140" height="105">
-            <circle cx="80" cy="28" r="12" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-            <line x1="80" y1="40" x2="80" y2="72" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="50" x2="55" y2="62" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="50" x2="105" y2="62" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="72" x2="64" y2="95" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="72" x2="96" y2="95" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <text x="108" y="45" font-size="22" fill="#c9a84c" font-family="Georgia, serif" opacity="0.7">?</text>
-            <path d="M30 55 L20 48 M20 48 L26 48 M20 48 L20 54" stroke="rgba(201,168,76,0.35)" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M35 80 L25 88 M25 88 L31 89 M25 88 L25 82" stroke="rgba(201,168,76,0.35)" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M130 60 L140 53 M140 53 L134 53 M140 53 L140 59" stroke="rgba(201,168,76,0.35)" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="40" y1="100" x2="120" y2="100" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
-          </svg>
-        </div>
         <span class="persona-num">01</span>
         <h3 class="persona-title">The Beginner</h3>
         <p class="persona-label">Seeking direction</p>
@@ -156,23 +148,6 @@ import Layout from '../layouts/Layout.astro';
         <p class="persona-promise">You leave knowing exactly where you stand, what your body needs, and why every exercise in your program is there. Fitness becomes a skill, not a guessing game.</p>
       </div>
       <div class="persona-card" style="transition-delay:0.15s">
-        <div class="persona-visual">
-          <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="140" height="105">
-            <circle cx="80" cy="18" r="12" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-            <line x1="80" y1="30" x2="80" y2="58" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="38" x2="58" y2="28" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="38" x2="102" y2="28" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="58" x2="62" y2="72" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="80" y1="58" x2="98" y2="72" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="28" y1="88" x2="100" y2="88" stroke="rgba(201,168,76,0.3)" stroke-width="1.2" stroke-dasharray="5 3" stroke-linecap="round"/>
-            <text x="106" y="92" font-size="9" fill="rgba(201,168,76,0.45)" font-family="sans-serif">plateau</text>
-            <line x1="62" y1="72" x2="50" y2="88" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-linecap="round"/>
-            <line x1="98" y1="72" x2="110" y2="88" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-linecap="round"/>
-            <path d="M38 90 Q60 40 80 18" stroke="rgba(201,168,76,0.35)" stroke-width="1" stroke-dasharray="3 3" fill="none" stroke-linecap="round"/>
-            <circle cx="80" cy="8" r="3" fill="rgba(201,168,76,0.5)" stroke="#c9a84c" stroke-width="1"/>
-            <line x1="28" y1="100" x2="132" y2="100" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
-          </svg>
-        </div>
         <span class="persona-num">02</span>
         <h3 class="persona-title">The Momentum Seeker</h3>
         <p class="persona-label">Seeking high performance</p>
@@ -180,22 +155,6 @@ import Layout from '../layouts/Layout.astro';
         <p class="persona-promise">You break through the plateau with performance coaching built for your next level — strength, power, plyometrics, and sport-specific conditioning designed to make you genuinely athletic, not just fit.</p>
       </div>
       <div class="persona-card" style="transition-delay:0.3s">
-        <div class="persona-visual">
-          <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="140" height="105">
-            <circle cx="80" cy="26" r="12" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-            <path d="M80 38 Q76 55 78 68" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <line x1="79" y1="50" x2="60" y2="58" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="79" y1="52" x2="97" y2="44" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="78" y1="68" x2="66" y2="96" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="78" y1="68" x2="92" y2="96" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="95" cy="56" r="6" stroke="rgba(201,168,76,0.6)" stroke-width="1" fill="none"/>
-            <circle cx="95" cy="56" r="10" stroke="rgba(201,168,76,0.25)" stroke-width="0.8" fill="none"/>
-            <circle cx="95" cy="56" r="14" stroke="rgba(201,168,76,0.1)" stroke-width="0.6" fill="none"/>
-            <path d="M118 95 Q130 75 125 55" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="4 3"/>
-            <path d="M125 55 L119 60 M125 55 L130 62" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="40" y1="100" x2="120" y2="100" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
-          </svg>
-        </div>
         <span class="persona-num">03</span>
         <h3 class="persona-title">The Vulnerable</h3>
         <p class="persona-label">Seeking pain-free movement</p>
@@ -231,6 +190,48 @@ import Layout from '../layouts/Layout.astro';
   </p>
   <p style="margin-top:12px;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold)">The Lifelong Athletics standard</p>
 </div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:64px">
+      <p class="section-eyebrow">Results</p>
+      <h2>What clients <em>say.</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div>
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">I'd tried every programme online. Manu was the first coach who actually explained why each exercise was in my plan. After 3 months, my chronic back pain is gone — and I finally understand how to train.</p>
+        </div>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Rohit S.</span>
+          <span class="testimonial-meta">Post-rehab · Chandigarh</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div>
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">Stuck at the same lifts for over a year. The periodisation programming broke through every plateau I had. Six months later I'm genuinely athletic — not just fit.</p>
+        </div>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Aditya K.</span>
+          <span class="testimonial-meta">Performance coaching · Online</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div>
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">As someone who had never trained seriously, I was completely overwhelmed. Manu's education-first approach made everything click. Now I train confidently — I know exactly what I'm doing and why.</p>
+        </div>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Priya M.</span>
+          <span class="testimonial-meta">Beginner coaching · Online</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ABOUT -->
 <section id="about">
