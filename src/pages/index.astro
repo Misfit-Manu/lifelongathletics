@@ -16,8 +16,8 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
     <div class="hero-photo">
-      <div class="hero-photo-placeholder">
-        <span>Photo Coming Soon</span>
+      <div class="hero-art-frame">
+        <canvas id="hero-art"></canvas>
       </div>
     </div>
   </div>
@@ -441,6 +441,254 @@ import Layout from '../layouts/Layout.astro';
     }
     // Start typing after the fadeUp animation finishes (1.4s)
     setTimeout(type, 1400);
+  })();
+
+  // ─── HERO ART: Sinuous Currents (flow field) ─────────────────────────
+  // Generative kinetic chain visualization. Vanilla canvas, no dependencies.
+  (function() {
+    const canvas = document.getElementById('hero-art');
+    if (!canvas) return;
+    // Skip on mobile (hero-photo is display:none there) — save battery
+    if (canvas.offsetParent === null) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Locked parameters — chosen by Manu in the artifact preview
+    const PARAMS = {
+      seed: 12345,
+      particleCount: 1000,
+      flowSpeed: 2.9,
+      trailFade: 11,        // alpha 0-255 of dark layer per frame; lower = longer trails
+      noiseScale: 0.0025,
+      verticalBias: 0.05,
+      centerPull: 0.55,
+      brightness: 1.0
+    };
+
+    // Compact Perlin noise (Ken Perlin's improved noise, seeded)
+    function makePerlin(seed) {
+      const perm = new Uint8Array(256);
+      for (let i = 0; i < 256; i++) perm[i] = i;
+      let s = seed | 0 || 1;
+      const rng = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+      for (let i = 255; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        const t = perm[i]; perm[i] = perm[j]; perm[j] = t;
+      }
+      const p = new Uint8Array(512);
+      for (let i = 0; i < 512; i++) p[i] = perm[i & 255];
+      const fade = t => t * t * t * (t * (t * 6 - 15) + 10);
+      const lerp = (a, b, t) => a + t * (b - a);
+      const grad = (hash, x, y, z) => {
+        const h = hash & 15;
+        const u = h < 8 ? x : y;
+        const v = h < 4 ? y : (h === 12 || h === 14 ? x : z);
+        return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
+      };
+      return function(x, y, z) {
+        const X = Math.floor(x) & 255, Y = Math.floor(y) & 255, Z = Math.floor(z) & 255;
+        x -= Math.floor(x); y -= Math.floor(y); z -= Math.floor(z);
+        const u = fade(x), v = fade(y), w = fade(z);
+        const A = p[X] + Y, AA = p[A] + Z, AB = p[A + 1] + Z;
+        const B = p[X + 1] + Y, BA = p[B] + Z, BB = p[B + 1] + Z;
+        return (lerp(
+          lerp(
+            lerp(grad(p[AA], x, y, z), grad(p[BA], x - 1, y, z), u),
+            lerp(grad(p[AB], x, y - 1, z), grad(p[BB], x - 1, y - 1, z), u),
+            v),
+          lerp(
+            lerp(grad(p[AA + 1], x, y, z - 1), grad(p[BA + 1], x - 1, y, z - 1), u),
+            lerp(grad(p[AB + 1], x, y - 1, z - 1), grad(p[BB + 1], x - 1, y - 1, z - 1), u),
+            v),
+          w) + 1) * 0.5; // map to 0..1 to match p5
+      };
+    }
+    const noise = makePerlin(PARAMS.seed);
+
+    // Seeded RNGs (separate streams so resize doesn't reshuffle particles)
+    function makeRng(seed) {
+      let s = seed | 0 || 1;
+      return () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    }
+    const initRng = makeRng(PARAMS.seed * 7);
+    const respawnRng = makeRng(PARAMS.seed * 13);
+
+    let W = 0, H = 0, DPR = 1;
+    let particles = [];
+    let t = 0;
+    let running = false;
+    let rafId = null;
+
+    function resize() {
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      W = Math.max(1, Math.round(rect.width));
+      H = Math.max(1, Math.round(rect.height));
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.fillStyle = '#080808';
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    function spawnAtEdge(p) {
+      const r = respawnRng();
+      if (r < 0.55) {
+        // top — biased toward center column
+        p.x = W / 2 + (respawnRng() - respawnRng()) * W * 0.45;
+        p.y = (respawnRng() * 40) - 20;
+      } else if (r < 0.75) {
+        p.x = (respawnRng() * 40) - 20;
+        p.y = H * 0.2 + respawnRng() * H * 0.6;
+      } else if (r < 0.95) {
+        p.x = W - 20 + respawnRng() * 40;
+        p.y = H * 0.2 + respawnRng() * H * 0.6;
+      } else {
+        p.x = respawnRng() * W;
+        p.y = H - 20 + respawnRng() * 40;
+      }
+      p.vx = 0; p.vy = 0;
+      p.px = p.x; p.py = p.y;
+      p.life = 0;
+      p.maxLife = 140 + respawnRng() * 180;
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < PARAMS.particleCount; i++) {
+        const p = {
+          x: initRng() * W,
+          y: initRng() * H,
+          px: 0, py: 0, vx: 0, vy: 0,
+          life: initRng() * 200,
+          maxLife: 140 + initRng() * 180
+        };
+        p.px = p.x; p.py = p.y;
+        particles.push(p);
+      }
+    }
+
+    function flowAt(x, y) {
+      const s = PARAMS.noiseScale;
+      const n1 = noise(x * s,           y * s,           t)        * 2 - 1;
+      const n2 = noise(x * s * 2.4 + 1000, y * s * 2.4 + 1000, t * 1.6) * 2 - 1;
+      const n3 = noise(x * s * 5.5 + 2000, y * s * 5.5 + 2000, t * 2.5) * 2 - 1;
+      const combined = n1 * 1.0 + n2 * 0.5 + n3 * 0.22;
+      const angle = combined * Math.PI * 2 * 1.4;
+      let fx = Math.cos(angle);
+      let fy = Math.sin(angle);
+      fy += PARAMS.verticalBias * 0.45;
+      fx += ((W / 2 - x) / W) * PARAMS.centerPull * 1.2;
+      return { x: fx, y: fy };
+    }
+
+    function step() {
+      // Fade existing trails toward void
+      ctx.fillStyle = 'rgba(8,8,8,' + (PARAMS.trailFade / 255) + ')';
+      ctx.fillRect(0, 0, W, H);
+      t += 0.0018;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.px = p.x; p.py = p.y;
+        const f = flowAt(p.x, p.y);
+        p.vx = p.vx * 0.85 + f.x * PARAMS.flowSpeed * 0.35;
+        p.vy = p.vy * 0.85 + f.y * PARAMS.flowSpeed * 0.35;
+        p.x += p.vx; p.y += p.vy;
+        p.life++;
+
+        if (p.x < -10 || p.x > W + 10 || p.y < -10 || p.y > H + 10 || p.life > p.maxLife) {
+          spawnAtEdge(p);
+          continue;
+        }
+
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        // Velocity → color (deep amber → brand gold → bright gold)
+        const v = speed > 2.2 ? 1 : speed / 2.2;
+        let r, g, b;
+        if (v < 0.5) {
+          const k = v * 2;
+          r = 109 + (201 - 109) * k;
+          g = 85  + (168 - 85)  * k;
+          b = 36  + (76  - 36)  * k;
+        } else {
+          const k = (v - 0.5) * 2;
+          r = 201 + (245 - 201) * k;
+          g = 168 + (214 - 168) * k;
+          b = 76  + (132 - 76)  * k;
+        }
+
+        let lifeFade;
+        if (p.life < 18) lifeFade = p.life / 18;
+        else if (p.life > p.maxLife - 40) lifeFade = (p.maxLife - p.life) / 40;
+        else lifeFade = 1;
+        if (lifeFade < 0) lifeFade = 0;
+
+        const speedAlpha = 35 + (200 - 35) * Math.min(1, speed / 2.4);
+        const alpha = (speedAlpha * lifeFade * PARAMS.brightness) / 255;
+
+        ctx.strokeStyle = 'rgba(' + (r | 0) + ',' + (g | 0) + ',' + (b | 0) + ',' + alpha.toFixed(3) + ')';
+        ctx.lineWidth = 0.6 + Math.min(1, speed / 3) * 0.8;
+        ctx.beginPath();
+        ctx.moveTo(p.px, p.py);
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+      }
+    }
+
+    function frame() {
+      if (!running) return;
+      step();
+      rafId = requestAnimationFrame(frame);
+    }
+    function start() {
+      if (running) return;
+      running = true;
+      rafId = requestAnimationFrame(frame);
+    }
+    function stop() {
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    // Initial setup
+    resize();
+    initParticles();
+
+    // Reduced-motion preference → render a single rich static frame
+    const mqReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mqReduced.matches) {
+      for (let i = 0; i < 220; i++) step();
+      return;
+    }
+
+    // Start immediately so animation runs even if the observer never fires
+    start();
+
+    // Pause when off-screen (battery / perf) — only acts as a pause, never blocks start
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) start();
+          else stop();
+        }
+      }, { threshold: 0 });
+      io.observe(canvas);
+    }
+
+    // Resize handling — debounced
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const wasRunning = running;
+        stop();
+        resize();
+        initParticles();
+        if (wasRunning) start();
+      }, 180);
+    });
   })();
 
   // Apply form — AJAX submit to Formsubmit (sends emails to manusehgal1995@gmail.com)
