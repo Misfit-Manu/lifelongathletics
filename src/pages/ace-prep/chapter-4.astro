@@ -1,0 +1,839 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 4 — Effective Communication, Goal Setting & Teaching Techniques | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* HERO */
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+/* TABS */
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+/* CONTENT */
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ HEADER */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+/* CASE STUDY BLOCKS */
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+/* QUESTION CARDS */
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+/* EXPLANATION REVEAL */
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+/* FILL IN */
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:340px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+/* TRUE / FALSE */
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+/* QUIZ FOOTER */
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* RESULT MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:4px}
+.tag-tl{background:rgba(34,211,238,.15);color:var(--teal)}
+.tag-or{background:rgba(251,146,60,.15);color:var(--orange)}
+.tag-up{background:rgba(197,241,53,.15);color:var(--accent)}
+.tag-dn{background:rgba(248,113,113,.15);color:var(--incorrect)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+/* ANIMATIONS */
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 4 — Effective Communication, Goal Setting & Teaching Techniques</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeQuiz()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 4</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 4</div>
+  <h1>Effective <em>Communication</em>, Goal Setting &amp; Teaching</h1>
+  <p>MI &amp; OARS, 4 Stages of the Client Relationship, SMART Goals, Locke &amp; Latham, Fitts &amp; Posner Motor Learning, VAK, Tell–Show–Do.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>35</strong><span>Case MCQ</span></div>
+    <div class="stat-chip"><strong>5</strong><span>Fill-in</span></div>
+    <div class="stat-chip"><strong>5</strong><span>True / False</span></div>
+    <div class="stat-chip"><strong>45</strong><span>Total</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 4 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-4-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Rapport · MI / OARS · SMART Goals · Motor Learning · VAK · Tell–Show–Do</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="tab-panel" id="tab-quiz">
+  <div class="quiz-header">
+    <h2>Chapter 4 <em>Quiz</em></h2>
+    <button class="reset-btn" onclick="retakeQuiz()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="progress-text">0 of 45 answered</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Four Stages of the <em>Client–Trainer Relationship</em></h3>
+      <table class="ref-table">
+        <tr><th>Stage</th><th>Focus</th><th>Trainer Role</th></tr>
+        <tr><td><strong>1. Rapport</strong></td><td>First impressions, trust, cultural competence</td><td>Listen, show genuine interest, align verbal + nonverbal communication</td></tr>
+        <tr><td><strong>2. Investigation</strong></td><td>Health history, goals, lifestyle, active listening, MI</td><td>Ask open questions, use OARS, don't assume readiness</td></tr>
+        <tr><td><strong>3. Planning</strong></td><td>Goal-setting, program design, SMART goals</td><td>Collaborate on goals, apply Locke &amp; Latham, balance process &amp; performance goals</td></tr>
+        <tr><td><strong>4. Action</strong></td><td>Exercise execution, self-monitoring, behavioral contracting</td><td>Teach motor skills, provide feedback, taper coaching as client advances</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>MI Spirit — <em>CACE</em></h3>
+      <div class="key-term"><strong>Collaboration</strong><span>Partner with the client; they are the expert on themselves</span></div>
+      <div class="key-term"><strong>Acceptance</strong><span>Honor autonomy, affirm strengths, respect decisions about change</span></div>
+      <div class="key-term"><strong>Compassion</strong><span>Pursue client's welfare; avoid evoking own goals/values</span></div>
+      <div class="key-term"><strong>Evocation</strong><span>Draw out the client's own motivations — they already have them</span></div>
+      <div class="key-term"><strong>Righting Reflex</strong><span>Trainer's urge to give advice/solutions — counterproductive in MI; resist it</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>OARS — <em>Core MI Skills</em></h3>
+      <div class="key-term"><strong>O — Open Questions</strong><span>Require more than yes/no; elicit the client's own reasons for change</span></div>
+      <div class="key-term"><strong>A — Affirming</strong><span>Statements valuing client strengths; counters the idea people change when shamed</span></div>
+      <div class="key-term"><strong>R — Reflecting</strong><span>Mirror the client's meaning back as a statement (not a question)</span></div>
+      <div class="key-term"><strong>S — Summarizing</strong><span>Tie together key themes; lets client hear their full picture</span></div>
+      <div class="key-term"><strong>Importance Ruler</strong><span>0-10 scale; ask "Why not a lower number?" to elicit change talk</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>SMART <em>Goals</em></h3>
+      <table class="ref-table">
+        <tr><th>Letter</th><th>Meaning</th><th>Key Point</th></tr>
+        <tr><td><strong style="color:var(--accent)">S</strong></td><td>Specific</td><td>Clear, unambiguous — states exactly what to accomplish</td></tr>
+        <tr><td><strong style="color:var(--accent)">M</strong></td><td>Measurable</td><td>Trackable so progress is visible</td></tr>
+        <tr><td><strong style="color:var(--accent)">A</strong></td><td>Attainable</td><td>Realistic; achievement reinforces commitment</td></tr>
+        <tr><td><strong style="color:var(--accent)">R</strong></td><td>Relevant</td><td>Pertinent to client's individual needs &amp; interests</td></tr>
+        <tr><td><strong style="color:var(--accent)">T</strong></td><td>Time-bound</td><td>Has a deadline; drives persistence</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Goal Types &amp; <em>Locke &amp; Latham</em></h3>
+      <div class="key-term"><strong>Process Goal</strong><span>Something you DO — e.g. "Walk 30 min, 4×/week". Highly controllable; effective early</span></div>
+      <div class="key-term"><strong>Performance Goal</strong><span>Something you ACHIEVE — e.g. "Lose 10 lb". Pair with process goals</span></div>
+      <div class="key-term"><strong>Directed Attention</strong><span>Goals focus thoughts on goal-relevant activities</span></div>
+      <div class="key-term"><strong>Mobilized Effort</strong><span>Goals increase effort; challenging goals elicit more effort short-term</span></div>
+      <div class="key-term"><strong>Persistence</strong><span>Goal-directed clients push through difficulties longer</span></div>
+      <div class="key-term"><strong>Strategy</strong><span>Goals prompt clients to find strategies that help them succeed</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Fitts &amp; Posner — <em>Motor Learning Stages</em></h3>
+      <div class="key-term"><strong>1. Cognitive Stage</strong><span>Learning by thinking; movements uncoordinated; use Tell-Show-Do; frequent feedback on key cues</span></div>
+      <div class="key-term"><strong>2. Associative Stage</strong><span>Refining; fewer errors; more specific feedback; balance feedback with not overwhelming</span></div>
+      <div class="key-term"><strong>3. Autonomous Stage</strong><span>Automatic; can multi-task; trainer observes then introduces progressions</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>VAK Learning Styles &amp; <em>Tell–Show–Do</em></h3>
+      <div class="key-term"><strong>Visual</strong><span>Prefers demonstrations; "Let me see that again." Give longer demos, less talk</span></div>
+      <div class="key-term"><strong>Auditory</strong><span>Prefers verbal instruction; "Yeah, I hear you." Q&amp;A over visual demo</span></div>
+      <div class="key-term"><strong>Kinesthetic</strong><span>Learns by doing / touch; "I feel that." Needs hands-on practice</span></div>
+      <div class="key-term"><strong>Tell</strong><span>Short, clear verbal explanation — focus on the goal of the movement</span></div>
+      <div class="key-term"><strong>Show</strong><span>Accurate demonstration; can combine telling + showing for complex moves</span></div>
+      <div class="key-term"><strong>Do</strong><span>Focused practice time; observe carefully; prepare helpful feedback</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 4: Effective Communication, Goal Setting &amp; Teaching Techniques
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"4 STAGES OF RELATIONSHIP",color:"#22d3ee",subs:[
+    {name:"Stage 1: Rapport",points:["First impressions formed instantly — appearance, confidence, attire","Research: time building rapport directly enhances adherence","Empathy evolves from good communication over time","All 4 stages may occur within a single session"]},
+    {name:"Stage 2: Investigation",points:["Gather health history, goals, lifestyle factors, exercise likes/dislikes","Clients open up when they sense trainer has their best interests at heart","Use readiness questionnaire — don't assume commitment","Listen between the lines for emotions behind the stories"]},
+    {name:"Stage 3: Planning",points:["Give-and-take: trainer more directive but continues eliciting input","Adherence improves when client is a true partner in design","Steps: set goals → generate ideas → formulate plan → evaluate","Use Locke & Latham goal theory + SMART framework"]},
+    {name:"Stage 4: Action",points:["Program is mix of trainer-led and independent exercise","Enhance success through self-monitoring systems","Behavioral contracting supports early commitment","As client advances, taper external feedback gradually"]}
+  ]},
+  {id:2,name:"RAPPORT & CULTURAL COMPETENCE",color:"#fb923c",subs:[
+    {name:"First Impressions",points:["Clients form gut response at first meeting","Physical appearance, facial expressions, self-confidence all factor in","Rapport-building is continuous — never ends after session 1","Positive experiences: caring, respect, clear communication"]},
+    {name:"Cultural Competence",points:["Defined: ability to communicate effectively with people from different cultures","Requires more effort when trainer-client differ in age, gender, race, size","Some cultures view asking questions as rude","Some clients say they understand when they don't — check in actively"]},
+    {name:"Recognize Biases",points:["Acknowledge own assumptions about other backgrounds","Biases ('older adults are frail', 'people with obesity are lazy') harm rapport","Learning about groups should NOT create new generalizations","Treat every client with dignity as an individual"]},
+    {name:"Professional Boundaries",points:["Romantic relationships: cease immediately — impossible to maintain professionalism","Intimate conversations: express concern, then redirect to fitness topics","Physical contact: always ask permission; explain purpose","Social media: establish clear communication plan early"]}
+  ]},
+  {id:3,name:"COMMUNICATION",color:"#4ade80",subs:[
+    {name:"Verbal Communication",points:["Clear, jargon-free language adapted to client's vocabulary","Avoid exercise-science terminology unless client is comfortable","Tone, pace, and word choice all carry meaning","Saying 'I'm glad you're here' must be matched by body language"]},
+    {name:"Nonverbal Communication",points:["Handshake: firm = respect and professionalism","Eye contact: full attention, whether listening or talking","Facial expression: must be sincere — clients detect artificial smiles","Body position: open, erect posture = confidence; mirror client in seated conversations"]},
+    {name:"Body Language Cues",points:["Crossed arms: anger, defiance, or disinterest","Feet toward door: anxious to leave","Repeatedly checking watch: bored or pressed for time","Biting lip: tension; cracking knuckles: anxiety"]},
+    {name:"Active Listening",points:["Empathetic and nonjudgmental — put yourself in client's shoes","Barrier: formulating response before client finishes speaking","Barrier: forming judgments or daydreaming","'How are you feeling about this?' recalibrates the conversation"]}
+  ]},
+  {id:4,name:"MOTIVATIONAL INTERVIEWING & OARS",color:"#c5f135",subs:[
+    {name:"MI Spirit — CACE",points:["Collaboration: trainer is partner; client is undisputed expert on self","Acceptance: honor autonomy; affirm strengths; respect decisions","Compassion: prioritize client welfare; don't impose trainer's goals","Evocation: draw out client's own motivation — don't install it from outside"]},
+    {name:"OARS Skills",points:["Open questions: require more than yes/no; draw out motivations","Affirming: highlight strengths; counters idea that shame drives change","Reflecting: mirror meaning back as a statement (not a question)","Summarizing: tie together themes; invites further exploration"]},
+    {name:"Importance Ruler",points:["'On a scale of 0–10, how important is change to you?'","Always ask: 'Why not a lower number?' → elicits change talk","Never ask why not higher — that evokes sustain talk","Change talk = any statement favoring movement toward change"]},
+    {name:"Righting Reflex",points:["Trainer's natural urge to fix and give solutions","In MI, recognized as counterproductive","If trainer argues for change while client resists: 'you've got it exactly backward'","Guide, don't direct — let clients talk themselves into change"]}
+  ]},
+  {id:5,name:"SMART GOALS & GOAL-SETTING THEORY",color:"#a78bfa",subs:[
+    {name:"SMART Framework",points:["Specific: clear and unambiguous","Measurable: trackable progress","Attainable: realistic; early achievement reinforces commitment","Relevant & Time-bound: personal + deadline-driven"]},
+    {name:"Locke & Latham — 4 Mechanisms",points:["Directed Attention: focuses thoughts on goal-relevant activities","Mobilized Effort: challenging goals elicit greater short-term effort","Persistence: clients push through difficulties longer when goal-directed","Strategy: goals prompt discovery of success strategies"]},
+    {name:"Process vs Performance Goals",points:["Process: something you DO — most controllable, effective early on","Performance: something you ACHIEVE — takes longer to manifest","Include BOTH: process wins provide early positive reinforcement","Reframe negative goals into positive ones always"]},
+    {name:"Goal-Setting Guidelines",points:["Avoid too many goals at once","Include short- AND long-term goals","Involve client in the process — it's collaborative","Revisit and adjust regularly — most important practice"]}
+  ]},
+  {id:6,name:"MOTOR LEARNING & TEACHING",color:"#f87171",subs:[
+    {name:"Fitts & Posner — 3 Stages",points:["Cognitive: thinking about each cue; jerky movements; tell-show-do; frequent feedback","Associative: refining; errors decrease; balance feedback vs overload","Autonomous: automatic; can multi-task; introduce progressions → restart from cognitive","Motor skills are more related to practice than innate ability"]},
+    {name:"VAK Learning Styles",points:["Visual: 'Let me see that' — longer demos, less talking","Auditory: 'Yeah I hear you' — verbal instruction, Q&A","Kinesthetic: 'I feel that / doesn't feel right' — hands-on practice","Identify preferred pathway by observing behaviors and listening for language clues"]},
+    {name:"Tell, Show, Do",points:["Tell: short explanation of what + why; emphasize safety","Show: accurate demo; can combine telling + showing for complex movements","Do: focused practice; observe carefully to prepare helpful feedback","Covers all VAK preferences simultaneously"]},
+    {name:"Feedback Principles",points:["Without feedback, motor learning is essentially non-existent","Cognitive stage: frequent augmented feedback on key cues","Associative/Autonomous: taper off external feedback","Always acknowledge what went well before correcting"]}
+  ]},
+  {id:7,name:"FEEDBACK, MODELING & SELF-MONITORING",color:"#fbbf24",subs:[
+    {name:"3-Part Feedback",points:["1. Acknowledge what went well — anchors confidence, builds self-efficacy","2. Identify ONE correction — too many overwhelm the learner","3. Encourage practice — frame correction as path to progress","Over-coaching at advanced stages prevents independent competence"]},
+    {name:"Modeling",points:["Trainers model the healthful lifestyle they advocate","Enhances credibility — walking the talk is persuasive","Peer models: expose clients to similar people who are succeeding","Arthritis client: young pain-free trainer ≠ realistic model; peer model = powerful"]},
+    {name:"Self-Monitoring",points:["One of the strongest evidence-based strategies for exercise adherence","Acts as mirror — gives clients objective view of their own behaviors","Enables productive discussions about what is and isn't working","Workout logs, food diaries, mood tracking all qualify"]},
+    {name:"Behavioral Contracting",points:["Contracts spell out expected behaviors and rewards","Works best when rewards are personally meaningful to client","Supports accountability to the CLIENT's own goals (not the trainer)","Accountability to trainer alone undermines lasting behavior change"]}
+  ]}
+]};
+
+// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+const CASES = [
+  {
+    num: 1,
+    topic: "First Impressions",
+    scenario: "Marcus is a new personal trainer meeting his first client, Diane, a 52-year-old executive. During the initial session, Marcus greets Diane with a firm handshake, maintains eye contact, and speaks clearly. He learns that Diane is Latina and prefers to be called by her first name. He asks about her goals and health history before discussing any exercise plan.",
+    qs: [
+      { q: "Which stage of the client-trainer relationship is Marcus primarily in during this first session?", opts: ["Action","Planning","Rapport","Investigation"], ans: 2, exp: "The Rapport stage focuses on establishing mutual trust and first impressions." },
+      { q: "Marcus gives Diane a firm handshake at the start of the session. This is an example of which type of communication?", opts: ["Verbal communication","Nonverbal communication","Motivational interviewing","Active listening"], ans: 1, exp: "A handshake is a form of nonverbal communication that immediately conveys respect and confidence." },
+      { q: "Marcus learns Diane is Latina before their meeting. Which of the following best reflects cultural competence in his approach?", opts: ["Assume Diane shares all cultural norms common in Latin cultures","Treat Diane exactly like every other client regardless of background","Acknowledge that Diane is the expert on her own cultural context and ask open questions","Avoid mentioning culture entirely so as not to offend"], ans: 2, exp: "Cultural competence means never forming stereotypes and treating each client as an individual with their own unique context." },
+      { q: "Before discussing exercise, Marcus collects Diane's health history and goals. This activity primarily belongs to which stage?", opts: ["Rapport","Investigation","Planning","Action"], ans: 1, exp: "The Investigation stage involves gathering health history, lifestyle info, goals, and exercise preferences using active listening and MI." },
+      { q: "When words and body language conflict, research shows people tend to trust which form of communication?", opts: ["Verbal content","Tone of voice only","Body language","Written instructions"], ans: 2, exp: "When verbal and nonverbal messages conflict, people instinctively trust body language over spoken words." }
+    ]
+  },
+  {
+    num: 2,
+    topic: "Professional Boundaries",
+    scenario: "Jordan is a certified personal trainer at a mid-size gym. His client, Priya, starts sharing personal relationship problems during their sessions and has begun texting Jordan late at night for emotional support. Jordan genuinely cares about Priya's well-being but feels the relationship is shifting outside professional limits. He decides to address this directly but compassionately.",
+    qs: [
+      { q: "Jordan and Priya's relationship has shifted beyond professional scope. What does this situation primarily illustrate?", opts: ["The need for more frequent check-ins","A boundary crossing that requires a clear, compassionate response","Normal relationship development in long-term training","The Investigation stage deepening appropriately"], ans: 1, exp: "Professional boundaries define the limits of appropriate trainer-client interaction. When these are crossed, clear and compassionate redirection is required." },
+      { q: "Jordan decides to refer Priya to a mental health professional for her personal problems. This action demonstrates:", opts: ["Lack of empathy","Scope-of-practice awareness and client advocacy","That Jordan is too busy to help Priya","Poor active listening skills"], ans: 1, exp: "Recognizing when to refer clients to appropriate professionals is a core component of maintaining professional boundaries and scope of practice." },
+      { q: "Which of the following behaviors would MOST clearly indicate a trainer is maintaining professional boundaries?", opts: ["Accepting a client's invitation to a family social event","Exchanging personal cell numbers for any type of communication","Keeping session topics focused on fitness-related goals and check-ins","Sharing personal relationship details to build rapport"], ans: 2, exp: "Maintaining professional boundaries means keeping the focus of the relationship on fitness-related matters and client goals." },
+      { q: "Priya is described as a difficult client who tests Jordan's limits. Which strategy is MOST appropriate?", opts: ["Ignore the behavior and hope it resolves","End the training relationship immediately","Address the behavior directly, calmly, and compassionately","Allow the behavior since client satisfaction is paramount"], ans: 2, exp: "Difficult client behaviors should be addressed calmly and directly. Compassionate, clear communication protects both parties." },
+      { q: "Jordan maintains eye contact, leans slightly forward, and nods as Priya speaks. These behaviors are examples of:", opts: ["MI Righting Reflex","Active listening and engaged nonverbal communication","Planning stage goal-setting","Behavioral contracting"], ans: 1, exp: "Eye contact, open posture, and nodding are hallmarks of active listening and show the client they have full attention." }
+    ]
+  },
+  {
+    num: 3,
+    topic: "Motivational Interviewing — OARS",
+    scenario: "Simone is a personal trainer working with Kevin, a 38-year-old who acknowledges he needs to exercise more but feels ambivalent about committing. Simone uses motivational interviewing techniques throughout the session — asking open questions, affirming Kevin's past successes, reflecting his words back to him, and summarizing the key points of their discussion before ending.",
+    qs: [
+      { q: "When Simone asks Kevin, \"What would a more active lifestyle look like for you?\" she is using which OARS skill?", opts: ["Affirming","Reflecting","Summarizing","Open questioning"], ans: 3, exp: "Open questions invite clients to explore their own thoughts and motivations rather than giving yes/no answers." },
+      { q: "Simone says, \"I know you've been consistent with walking three times a week — that shows real discipline.\" This is an example of which OARS skill?", opts: ["Open questioning","Affirming","Reflecting","Summarizing"], ans: 1, exp: "Affirming highlights the client's strengths and past successes, reinforcing self-efficacy and motivation." },
+      { q: "Kevin says, \"I want to get fit but I just don't have the time.\" Simone responds, \"It sounds like fitness matters to you, but finding time feels like a real challenge.\" This technique is called:", opts: ["Summarizing","Open questioning","Reflecting","Behavioral contracting"], ans: 2, exp: "Reflecting mirrors the client's words or emotional meaning back to them, demonstrating understanding and prompting further exploration." },
+      { q: "At the end of the session Simone recaps everything Kevin has said about his goals, barriers, and readiness to change. This technique is called:", opts: ["Affirming","Open questioning","Reflecting","Summarizing"], ans: 3, exp: "Summarizing ties together key themes from the conversation, reinforcing the client's own words and preparing for next steps." },
+      { q: "The spirit of motivational interviewing is best described by which acronym?", opts: ["SMART","OARS","CACE","VAK"], ans: 2, exp: "CACE stands for Collaboration, Acceptance, Compassion, and Evocation — the four elements of the MI spirit." }
+    ]
+  },
+  {
+    num: 4,
+    topic: "The Importance Ruler",
+    scenario: "Elena is working with Robert, a 45-year-old accountant who says he wants to lose weight but seems uncommitted. Elena asks Robert to rate how important losing weight is to him on a scale of 0 to 10. Robert answers \"6.\" Elena then asks, \"What would need to happen for that number to move from a 6 to an 8?\" Robert begins identifying specific personal reasons why losing weight matters.",
+    qs: [
+      { q: "The tool Elena uses to assess Robert's motivation is called:", opts: ["Behavioral contracting","The importance ruler","The SMART framework","The Righting Reflex"], ans: 1, exp: "The importance ruler is an MI tool that asks clients to rate the personal importance of change on a 0-10 scale." },
+      { q: "After Robert gives a rating of 6, Elena asks why he did not give a lower number. What is the PRIMARY purpose of this follow-up question?", opts: ["To challenge Robert and make him feel accountable","To elicit change talk by having Robert voice his own reasons for change","To assess Robert's physical readiness for exercise","To set a SMART goal with Robert"], ans: 1, exp: "Asking why a client did not choose a lower number elicits the client's own arguments for change, which are more persuasive than trainer-given reasons." },
+      { q: "The Righting Reflex in MI refers to a trainer's tendency to:", opts: ["Correct the client's exercise form immediately","Impose their own reasons for change on the client","Summarize the client's stated barriers","Maintain client autonomy throughout the session"], ans: 1, exp: "The Righting Reflex is the trainer's urge to provide solutions and advice, which in MI is recognized as counterproductive." },
+      { q: "Which element of the CACE spirit does Elena demonstrate by letting Robert identify his own reasons for change rather than lecturing him?", opts: ["Compassion","Acceptance","Evocation","Collaboration"], ans: 2, exp: "Evocation means drawing out the client's own motivations rather than instilling them from the outside." },
+      { q: "Robert begins verbally articulating personal reasons why losing weight matters to him. In MI terminology this is called:", opts: ["Sustain talk","Resistance","Change talk","Righting reflex"], ans: 2, exp: "Change talk is any client statement that favors movement toward change. Eliciting change talk is a central goal of MI." }
+    ]
+  },
+  {
+    num: 5,
+    topic: "SMART Goal Setting",
+    scenario: "Aisha is a personal trainer helping her client Dan set a fitness goal. Dan's initial statement is: \"I want to get in shape.\" Through collaborative discussion, Aisha helps Dan refine this into: \"I will walk briskly for 30 minutes, 4 days per week, for the next 8 weeks, and track progress in a log.\" Aisha explains this revised goal using Locke and Latham's goal-setting theory.",
+    qs: [
+      { q: "Dan's original goal \"I want to get in shape\" fails primarily because it lacks:", opts: ["Relevance and time-bound components only","Specificity and measurability","Attainability","A behavioral contract"], ans: 1, exp: "\"Get in shape\" is vague and unmeasurable. SMART goals must be specific and measurable so progress can be tracked." },
+      { q: "In the revised goal, \"for the next 8 weeks\" satisfies which component of SMART?", opts: ["Specific","Measurable","Attainable","Time-bound"], ans: 3, exp: "A time-bound goal includes a defined deadline, which drives persistence and helps clients monitor progress." },
+      { q: "\"Walk briskly for 30 minutes, 4 days per week\" is best classified as a:", opts: ["Performance goal","Outcome goal","Process goal","Long-term goal"], ans: 2, exp: "Process goals focus on behaviors and actions (what you do), rather than the end result. They are especially effective early in a program." },
+      { q: "Locke and Latham's goal-setting theory identifies four mechanisms by which goals affect performance. Which of the following is NOT one of those mechanisms?", opts: ["Goals direct attention toward goal-relevant activities","Goals mobilize effort proportional to difficulty","Goals eliminate all intrinsic motivation","Goals promote development of task-specific strategies"], ans: 2, exp: "Locke and Latham's four mechanisms are: directing attention, mobilizing effort, enhancing persistence, and promoting strategy development. Goals do not eliminate intrinsic motivation." },
+      { q: "Aisha has Dan track his walks in a written log each week. This behavior modification strategy is called:", opts: ["Behavioral contracting","Self-monitoring","Motivational interviewing","Righting reflex avoidance"], ans: 1, exp: "Self-monitoring is one of the strongest evidence-based strategies for improving exercise adherence." }
+    ]
+  },
+  {
+    num: 6,
+    topic: "Stages of Motor Learning",
+    scenario: "Coach Leah is teaching her new client Tom how to perform a squat. In their first session, Tom must consciously think about every cue: \"Feet shoulder-width apart, chest up, push knees out.\" Three months later, Tom performs squats fluidly without conscious thought, even while carrying on a conversation. Leah adapts her instruction style at each phase.",
+    qs: [
+      { q: "During Tom's first session when he must consciously think about every cue, he is in which stage of motor learning?", opts: ["Autonomous stage","Associative stage","Cognitive stage","Kinesthetic stage"], ans: 2, exp: "The cognitive stage (Fitts and Posner) is when learners must consciously attend to each movement component. Performance is inconsistent and errors are frequent." },
+      { q: "Three months later Tom performs squats without conscious thought. He has reached which stage?", opts: ["Cognitive stage","Associative stage","Kinesthetic stage","Autonomous stage"], ans: 3, exp: "The autonomous stage is when motor patterns are fully automatic. The performer can carry on another activity while executing the skill." },
+      { q: "Between the cognitive and autonomous stages is a period when Tom is refining technique and making fewer errors. This is the:", opts: ["Kinesthetic stage","Associative stage","Observational stage","Visual stage"], ans: 1, exp: "The associative stage is characterized by practice and refinement. Errors decrease and movements become more consistent, but not yet automatic." },
+      { q: "Leah demonstrates the squat herself before having Tom attempt it. This instructional approach is called:", opts: ["Open questioning","Affirming","Modeling","Behavioral contracting"], ans: 2, exp: "Modeling (showing) is a core component of the tell-show-do instructional method. Seeing correct execution engages visual learners and sets performance benchmarks." },
+      { q: "When teaching new clients in the cognitive stage, which feedback approach is MOST appropriate?", opts: ["Provide no feedback so the client self-discovers","Deliver augmented feedback frequently, focusing on key movement cues","Focus exclusively on competitive performance outcomes","Reduce feedback to avoid overwhelming the learner"], ans: 1, exp: "In the cognitive stage, frequent augmented feedback on key technical cues is critical for building the correct motor pattern." }
+    ]
+  },
+  {
+    num: 7,
+    topic: "VAK Learning Styles & Tell–Show–Do",
+    scenario: "Trainer Sofia is working with three new clients: Alex learns best by hearing detailed verbal explanations; Bianca needs to see a movement demonstrated before she can replicate it; Carlos only truly internalizes skills by physically practicing them with hands-on guidance. Sofia adapts her coaching style for each client using the VAK model and the tell-show-do teaching sequence.",
+    qs: [
+      { q: "Alex learns best through auditory explanations. In the VAK model, Alex is classified as:", opts: ["Visual learner","Auditory learner","Kinesthetic learner","Cognitive stage learner"], ans: 1, exp: "Auditory learners prefer verbal instructions, rhythm cues, and spoken explanations over visual demonstrations." },
+      { q: "Bianca needs to see a movement before she can replicate it. She is best classified as:", opts: ["Auditory learner","Kinesthetic learner","Visual learner","Associative-stage learner"], ans: 2, exp: "Visual learners benefit most from demonstrations, watching video, and seeing the movement performed correctly." },
+      { q: "Carlos must physically practice a movement with tactile guidance to internalize it. This represents which VAK type?", opts: ["Visual","Auditory","Cognitive","Kinesthetic"], ans: 3, exp: "Kinesthetic learners need physical practice, hands-on manipulation, and tactile feedback to learn movement patterns." },
+      { q: "Sofia follows the sequence: explain the movement verbally, demonstrate it herself, then have the client perform it. This method is called:", opts: ["OARS","VAK sequencing","Tell-Show-Do","Behavioral contracting"], ans: 2, exp: "Tell-Show-Do is the structured instructional sequence: verbal explanation (Tell), demonstration (Show), then client practice (Do)." },
+      { q: "Which of the following best describes the PRIMARY advantage of the tell-show-do method over verbal instruction alone?", opts: ["It is faster than other methods","It accommodates multiple learning style preferences simultaneously","It eliminates the need for feedback","It only works for kinesthetic learners"], ans: 1, exp: "Tell-Show-Do integrates auditory, visual, and kinesthetic channels, making instruction effective across different learner types." }
+    ]
+  }
+];
+
+const FILLIN = [
+  { q: "The four stages of the client-personal trainer relationship in order are: Rapport, ________, Planning, and Action.", a: "investigation", hint: "The stage focused on gathering health history and using active listening / MI." },
+  { q: "The MI spirit acronym CACE stands for Collaboration, Acceptance, Compassion, and ________.", a: "evocation", hint: "Drawing out the client's own motivations rather than instilling them from outside." },
+  { q: "The SMART acronym stands for Specific, Measurable, Attainable, Relevant, and ________.", a: "time-bound", hint: "This component provides a deadline and drives persistence." },
+  { q: "Fitts and Posner's three stages of motor learning in order are: Cognitive, ________, and Autonomous.", a: "associative", hint: "The middle stage where practice refines the movement and errors decrease." },
+  { q: "A trainer's instinctive urge to provide solutions and tell clients what to do, which MI discourages, is called the ________ Reflex.", a: "righting", hint: "In MI this impulse is recognized as counterproductive to client autonomy." }
+];
+
+const TRUEF = [
+  { q: "Process goals focus on specific behaviors and actions rather than end outcomes, making them especially effective early in an exercise program.", a: true, exp: "Process goals are behavior-focused (what you do) and highly controllable, making them ideal for building early adherence." },
+  { q: "According to the ACE model, the four stages of the client-trainer relationship always progress in a strict, non-overlapping sequence.", a: false, exp: "The stages often overlap and recur. A trainer may move through multiple stages in a single session and revisit earlier stages throughout the relationship." },
+  { q: "Self-monitoring — tracking one's own exercise behaviors — is one of the strongest evidence-based strategies for improving long-term exercise adherence.", a: true, exp: "Research consistently shows self-monitoring is among the most effective behavioral strategies for sustaining exercise habits." },
+  { q: "In motivational interviewing, the trainer's role is to provide the client with the best arguments for why they should change their behavior.", a: false, exp: "In MI the trainer evokes the client's own reasons for change. The client's self-generated arguments are far more persuasive than trainer-provided ones." },
+  { q: "When teaching motor skills, it is appropriate to provide frequent augmented feedback to beginners in the cognitive stage of learning.", a: true, exp: "Beginners require frequent external feedback on key cues to build correct motor patterns. Feedback frequency can be reduced as learners advance." }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let mcqAnswers  = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let graded      = false;
+let globalQNum  = 0;
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderAll() {
+  globalQNum = 0;
+  renderMCQ();
+  renderFIB();
+  renderTF();
+  updateProgress();
+}
+
+function renderMCQ() {
+  const sec = document.getElementById('mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      globalQNum++;
+      const gNum = globalQNum;
+      const key  = `c${ci}q${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="${key}" data-idx="${oi}" onclick="pickMCQ('${key}',${oi},${q.ans})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="card-${key}">
+          <div class="q-num">Q${gNum}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options" id="opts-${key}">${opts}</div>
+          <div class="q-exp" id="exp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function renderFIB() {
+  const sec = document.getElementById('fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, i) => {
+    globalQNum++;
+    const gNum = globalQNum;
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="fib-card-${i}">
+        <div class="q-num">Q${gNum}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="fib-input-${i}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${i}]=this.value;updateProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="fib-fb-${i}"></span>
+        </div>
+        <div class="fib-hint" id="fib-hint-${i}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function renderTF() {
+  const sec = document.getElementById('tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, i) => {
+    globalQNum++;
+    const gNum = globalQNum;
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="tf-card-${i}">
+        <div class="q-num">Q${gNum}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="tf-${i}-T" onclick="pickTF(${i},true)">True</button>
+          <button class="q-tf-btn" id="tf-${i}-F" onclick="pickTF(${i},false)">False</button>
+        </div>
+        <div class="tf-exp" id="tf-exp-${i}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+// ── INTERACTION ───────────────────────────────────────────────────────────────
+function pickMCQ(key, idx, ans) {
+  if (graded) return;
+  mcqAnswers[key] = idx;
+  document.querySelectorAll(`[data-key="${key}"]`).forEach((el,i) => {
+    el.classList.toggle('selected', i === idx);
+    el.querySelector('.opt-letter').style.background = (i === idx) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color = (i === idx) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === idx) ? 'var(--accent)' : '';
+  });
+  updateProgress();
+}
+
+function pickTF(i, val) {
+  if (graded) return;
+  tfAnswers[i] = val;
+  document.getElementById(`tf-${i}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`tf-${i}-F`).classList.toggle('selected', val === false);
+  updateProgress();
+}
+
+// ── PROGRESS ──────────────────────────────────────────────────────────────────
+function countAnswered() {
+  let n = Object.keys(mcqAnswers).length;
+  FILLIN.forEach((_, i) => { if (fibAnswers[i] && fibAnswers[i].trim()) n++; });
+  TRUEF.forEach((_, i)  => { if (tfAnswers[i] !== undefined) n++; });
+  return n;
+}
+function updateProgress() {
+  const n = countAnswered();
+  document.getElementById('progress-text').textContent = `${n} of 45 answered`;
+  document.getElementById('progress-pct').textContent  = `${Math.round(n/45*100)}%`;
+  document.getElementById('prog-bar').style.width      = `${n/45*100}%`;
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────────────
+function submitQuiz() {
+  if (graded) return;
+  graded = true;
+  document.getElementById('submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  // Grade MCQ
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key = `c${ci}q${qi}`;
+      const sel = mcqAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`exp-${key}`).classList.add('show');
+    });
+  });
+
+  // Grade FIB
+  FILLIN.forEach((f, i) => {
+    const inp = document.getElementById(`fib-input-${i}`);
+    inp.disabled = true;
+    const val = (fibAnswers[i] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`fib-fb-${i}`);
+    if (!val) {
+      skip++;
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans)) {
+      correct++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      wrong++;
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`fib-hint-${i}`).classList.add('show');
+  });
+
+  // Grade T/F
+  TRUEF.forEach((t, i) => {
+    const tBtn = document.getElementById(`tf-${i}-T`);
+    const fBtn = document.getElementById(`tf-${i}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[i];
+    if (sel === undefined) {
+      skip++;
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      correct++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      wrong++;
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`tf-exp-${i}`).classList.add('show');
+  });
+
+  // Show modal after short delay
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 45 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Excellent! Strong command of communication, MI, goal-setting, and teaching techniques.',
+    B: 'Good work. A few areas to revisit — check explanations for any wrong answers.',
+    C: 'Passing, but worth another review — especially MI spirit, SMART goals, and motor learning.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const colors = { A:'var(--accent)', B:'var(--blue)', C:'var(--warn)', D:'var(--incorrect)' };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent    = titles[grade];
+  document.getElementById('modal-correct').textContent  = correct;
+  document.getElementById('modal-wrong').textContent    = wrong;
+  document.getElementById('modal-skip').textContent     = skip;
+  document.getElementById('modal-pct').textContent      = `${pct}%`;
+  document.getElementById('modal-band').textContent     = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('result-modal').classList.remove('open');
+}
+
+function retakeQuiz() {
+  mcqAnswers = {}; fibAnswers = {}; tfAnswers = {}; graded = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('submit-btn').disabled = false;
+  renderAll();
+}
+
+// ── TABS ─────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── MINDMAP ───────────────────────────────────────────────────────────────────
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) {
+  branch.classList.toggle('open');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+renderAll();
+</script>
+
+</Layout>

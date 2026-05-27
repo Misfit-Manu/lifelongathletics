@@ -1,0 +1,940 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Effective Communication, Goal Setting & Teaching Techniques — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering the 4 stages of the client-trainer relationship, Cultural Competence, MI & OARS, SMART Goals, Locke & Latham, Motor Learning, VAK, and Tell-Show-Do for ACE-CPT Chapter 4.">
+
+<style is:global>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #1a1a2e;
+  background: #ffffff;
+}
+.blog-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #0d1f35 0%, #0a1a28 50%, #0f2028 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 56px 48px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 280px; height: 280px;
+  background: rgba(197,241,53,0.06);
+  border-radius: 50%;
+}
+.hero-tag {
+  display: inline-block;
+  background: #c5f135;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+.hero p {
+  color: rgba(255,255,255,0.65);
+  font-size: 15px;
+  max-width: 560px;
+  margin-bottom: 24px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c5f135;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* ── TOC BAR ── */
+.toc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0;
+  margin-bottom: 48px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.toc-inner {
+  display: inline-flex;
+  gap: 0;
+  padding: 0 4px;
+}
+.toc-link {
+  display: inline-block;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.toc-link:hover { color: #111; border-bottom-color: #c5f135; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 64px; }
+.section-tag {
+  display: inline-block;
+  background: #c5f135;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.section-tag.teal  { background: #22d3ee; color: #000; }
+.section-tag.blue  { background: #3b82f6; color: #fff; }
+.section-tag.purple{ background: #a855f7; color: #fff; }
+.section-tag.orange{ background: #f97316; color: #fff; }
+.section-tag.green { background: #10b981; color: #fff; }
+.section h2 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+.section p {
+  color: #374151;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+.section p strong { color: #111827; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: #e5e7eb; margin: 56px 0; }
+
+/* ── CALLOUT ── */
+.callout {
+  background: #f9fafb;
+  border-left: 4px solid #c5f135;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+.callout.teal   { border-left-color: #22d3ee; }
+.callout.blue   { border-left-color: #3b82f6; }
+.callout.purple { border-left-color: #a855f7; }
+.callout.orange { border-left-color: #f97316; }
+.callout.green  { border-left-color: #10b981; }
+.callout p { font-size: 14px; margin: 0; color: #374151; line-height: 1.65; }
+.callout strong { color: #111; }
+
+/* ── STAGE FLOW ── */
+.stage-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 28px 0;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.stage-pill {
+  flex: 1;
+  min-width: 120px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 14px 12px;
+  text-align: center;
+}
+.stage-pill.active { background: #f0fdf4; border-color: #86efac; }
+.stage-pill .sn { font-size: 10px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.stage-pill .st { font-size: 14px; font-weight: 800; color: #111; }
+.stage-pill.active .st { color: #16a34a; }
+.stage-arrow { color: #9ca3af; font-size: 16px; padding: 0 4px; }
+
+/* ── CARD GRID ── */
+.card-grid {
+  display: grid;
+  gap: 14px;
+  margin: 24px 0;
+}
+.card-grid-2 { grid-template-columns: 1fr 1fr; }
+.card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.card-grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+  border-left: 3px solid #c5f135;
+}
+.card.teal   { border-left-color: #22d3ee; }
+.card.blue   { border-left-color: #3b82f6; }
+.card.purple { border-left-color: #a855f7; }
+.card.orange { border-left-color: #f97316; }
+.card.green  { border-left-color: #10b981; }
+.card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  color: #111;
+}
+.card p { font-size: 13px; color: #374151; margin: 0; line-height: 1.6; }
+
+/* ── OARS TABLE ── */
+.oars-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+.oars-table th, .oars-table td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.oars-table th {
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.oars-table tr:hover td { background: #f9fafb; }
+.oars-letter { font-size: 22px; font-weight: 900; color: #111827; line-height: 1; }
+.oars-skill { font-weight: 700; color: #111827; }
+.oars-def { color: #6b7280; font-size: 13px; }
+.oars-example { color: #f97316; font-size: 13px; font-style: italic; }
+
+/* ── SMART GRID ── */
+.smart-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+.smart-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px 12px;
+  text-align: center;
+}
+.smart-letter { font-size: 32px; font-weight: 900; margin-bottom: 6px; color: #c5f135; }
+.smart-word { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin-bottom: 6px; }
+.smart-desc { font-size: 12px; color: #374151; line-height: 1.5; }
+.smart-card:nth-child(1) .smart-letter { color: #22d3ee; }
+.smart-card:nth-child(2) .smart-letter { color: #10b981; }
+.smart-card:nth-child(3) .smart-letter { color: #f97316; }
+.smart-card:nth-child(4) .smart-letter { color: #3b82f6; }
+.smart-card:nth-child(5) .smart-letter { color: #a855f7; }
+
+/* ── GOAL TYPES ── */
+.goal-types { display: flex; gap: 14px; margin: 20px 0; }
+.goal-type {
+  flex: 1;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+}
+.goal-type.process { border-top: 3px solid #3b82f6; }
+.goal-type.performance { border-top: 3px solid #10b981; }
+.goal-type h5 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.goal-type.process h5 { color: #3b82f6; }
+.goal-type.performance h5 { color: #10b981; }
+.goal-type p { font-size: 13px; color: #374151; margin: 0; line-height: 1.6; }
+
+/* ── MECHANISM LIST ── */
+.mechanism-list { margin: 20px 0; }
+.mechanism-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.m-icon { font-size: 20px; min-width: 30px; text-align: center; margin-top: 2px; }
+.m-content h5 { font-size: 14px; font-weight: 700; color: #f97316; margin-bottom: 4px; }
+.m-content p { font-size: 13px; color: #374151; margin: 0; line-height: 1.5; }
+
+/* ── MOTOR LEARNING STAGES ── */
+.stages-row { display: flex; gap: 14px; margin: 24px 0; }
+.stage-card {
+  flex: 1;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stage-card .s-num { font-size: 28px; font-weight: 900; line-height: 1; }
+.stage-card:nth-child(1) .s-num { color: #3b82f6; }
+.stage-card:nth-child(2) .s-num { color: #f97316; }
+.stage-card:nth-child(3) .s-num { color: #10b981; }
+.stage-card .s-name { font-size: 14px; font-weight: 800; color: #111; }
+.stage-card .s-desc { font-size: 13px; color: #6b7280; line-height: 1.5; }
+
+/* ── VAK ROW ── */
+.vak-row { display: flex; gap: 14px; margin: 24px 0; }
+.vak-card {
+  flex: 1;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+}
+.v-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+.vak-card:nth-child(1) .v-label { color: #22d3ee; }
+.vak-card:nth-child(2) .v-label { color: #f97316; }
+.vak-card:nth-child(3) .v-label { color: #a855f7; }
+.v-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #111; }
+.v-cue { font-size: 13px; color: #6b7280; font-style: italic; margin-bottom: 6px; }
+.v-tip { font-size: 13px; color: #374151; }
+
+/* ── BODY LANGUAGE TABLE ── */
+.bl-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.bl-table th, .bl-table td {
+  padding: 11px 14px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.bl-table th { background: #f3f4f6; color: #6b7280; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.bl-table tr:hover td { background: #f9fafb; }
+
+/* ── MI SPIRIT GRID ── */
+.mi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+.mi-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px; }
+.mi-word { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #22d3ee; margin-bottom: 6px; }
+.mi-def { font-size: 13px; color: #374151; line-height: 1.55; }
+
+/* ── KEY TAKEAWAYS ── */
+.takeaways {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 32px;
+  margin: 48px 0;
+}
+.takeaways h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #16a34a;
+  margin-bottom: 20px;
+}
+.takeaway-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid #d1fae5;
+}
+.takeaway-item:last-child { border: none; }
+.tick { color: #16a34a; font-size: 14px; margin-top: 3px; flex-shrink: 0; }
+.takeaway-item p { font-size: 14px; color: #374151; margin: 0; line-height: 1.55; }
+
+/* ── BACK FOOTER ── */
+.page-footer {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 32px 24px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 64px;
+}
+.page-footer a { color: #374151; font-weight: 600; text-decoration: none; }
+.page-footer a:hover { color: #000; }
+
+@media (max-width: 680px) {
+  .hero { padding: 36px 24px; }
+  .card-grid-2, .card-grid-3, .card-grid-4, .smart-grid, .stages-row, .vak-row, .mi-grid, .goal-types { grid-template-columns: 1fr; flex-direction: column; }
+  .stage-flow { flex-direction: column; gap: 6px; }
+  .stage-arrow { transform: rotate(90deg); }
+}
+</style>
+
+<div class="blog-container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">ACE-CPT · Chapter 4 · Theory Guide</div>
+    <h1>Effective Communication, Goal Setting &amp; Teaching Techniques</h1>
+    <p>The science of building trust, evoking motivation, setting SMART goals, and teaching motor skills that stick.</p>
+    <a href="/ace-prep/chapter-4" class="back-link">← Back to Chapter 4 Hub</a>
+  </div>
+
+  <!-- TOC BAR -->
+  <nav class="toc-bar">
+    <div class="toc-inner">
+      <a href="#stages"        class="toc-link">01 Stages</a>
+      <a href="#rapport"       class="toc-link">02 Rapport</a>
+      <a href="#cultural"      class="toc-link">03 Cultural</a>
+      <a href="#communication" class="toc-link">04 Communication</a>
+      <a href="#professional"  class="toc-link">05 Boundaries</a>
+      <a href="#investigation" class="toc-link">06 Investigation</a>
+      <a href="#mi"            class="toc-link">07 MI & OARS</a>
+      <a href="#planning"      class="toc-link">08 Planning</a>
+      <a href="#smart"         class="toc-link">09 SMART</a>
+      <a href="#action"        class="toc-link">10 Action</a>
+      <a href="#teaching"      class="toc-link">11 Teaching</a>
+      <a href="#feedback"      class="toc-link">12 Feedback</a>
+    </div>
+  </nav>
+
+  <!-- 1. STAGES OVERVIEW -->
+  <div class="section" id="stages">
+    <span class="section-tag teal">Overview</span>
+    <h2>Stages of the Client–Personal Trainer Relationship</h2>
+    <p>The client–personal trainer relationship progresses through four overlapping stages. Each builds on the last, and excellent communication skills are essential throughout all of them. These stages often recur — a trainer may reinvestigate client data, update the exercise plan, and teach new skills repeatedly over the course of a long-term relationship.</p>
+
+    <div class="stage-flow">
+      <div class="stage-pill active">
+        <div class="sn">Stage 1</div>
+        <div class="st">Rapport</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-pill">
+        <div class="sn">Stage 2</div>
+        <div class="st">Investigation</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-pill">
+        <div class="sn">Stage 3</div>
+        <div class="st">Planning</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-pill">
+        <div class="sn">Stage 4</div>
+        <div class="st">Action</div>
+      </div>
+    </div>
+
+    <p>These stages connect directly to the other ACE frameworks. The <strong>ACE Mover Method</strong> underlies every interaction. The <strong>ACE ABC Approach</strong> (Ask, Break down barriers, Collaborate) drives communication during rapport and investigation. The <strong>ACE IFT Model</strong> drives program design during planning and action.</p>
+
+    <div class="callout teal">
+      <p><strong>Key principle:</strong> Personal trainers who complete only a single session with a client may move through all four stages within that one session. Excellent communication is non-negotiable at every stage.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 2. RAPPORT STAGE -->
+  <div class="section" id="rapport">
+    <span class="section-tag teal">Stage 1</span>
+    <h2>Rapport Stage</h2>
+    <p>Empathy and rapport evolve from good communication over time. Research shows that time spent establishing a good working relationship directly enhances adherence to behavior-change programs. During the rapport stage, the trainer sets the scene for mutual understanding and trust — a foundation that endures throughout the entire relationship.</p>
+
+    <div class="callout orange">
+      <p><strong>First impressions matter instantly.</strong> Clients form a "gut response" the moment they meet a trainer. Physical appearance, facial expressions, attire, and self-confidence all contribute. But rapport-building is a continuous task — it doesn't end after the first meeting.</p>
+    </div>
+  </div>
+
+  <!-- 3. CULTURAL COMPETENCE -->
+  <div class="section" id="cultural">
+    <span class="section-tag orange">Culture & Communication</span>
+    <h2>Cultural Competence &amp; First Impressions</h2>
+    <p>Trainers often find it takes more effort to build trust with clients who differ from themselves in age, gender, race, ethnicity, size, socioeconomic status, or fitness level. <strong>Cultural competence</strong> is defined as the ability to communicate and work effectively with people from different cultures.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card orange">
+        <h4>Recognize Your Biases</h4>
+        <p>Acknowledge your own assumptions about people of other backgrounds — ethnicity, age, gender, size, socioeconomic level, or disability. Biases like "older adults are frail" or "people with obesity are lazy" directly harm rapport.</p>
+      </div>
+      <div class="card blue">
+        <h4>Learn Individual Context</h4>
+        <p>Talk to others who work with similar client groups. Learn about beliefs, attitudes, and lifestyles. Some cultures view asking questions as rude; some clients say they understand when they don't. Never assume.</p>
+      </div>
+      <div class="card purple">
+        <h4>Avoid New Stereotypes</h4>
+        <p>Learning about other groups should not lead to new generalizations. Use active listening to understand each individual client. Treat every person with dignity and respect.</p>
+      </div>
+      <div class="card teal">
+        <h4>Positive First Experiences</h4>
+        <p>Clients perceive positive experiences when they sense caring, respect, clear communication, and professionalism. When clients feel their concerns are taken seriously, rapport begins immediately.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. VERBAL & NONVERBAL COMMUNICATION -->
+  <div class="section" id="communication">
+    <span class="section-tag green">Communication</span>
+    <h2>Verbal &amp; Nonverbal Communication</h2>
+    <p>Research confirms that when words and body language conflict, people trust body language. A trainer saying "I'm glad to meet you" while making no eye contact sends a negative message. Personal trainers must align both channels.</p>
+
+    <p><strong>Verbal communication</strong> should be clear, jargon-free, and adapted to the client's vocabulary. Avoid exercise-science terminology unless the client is comfortable with it.</p>
+
+    <div class="card-grid card-grid-3">
+      <div class="card teal">
+        <h4>Handshake</h4>
+        <p>A firm, confident handshake immediately communicates respect and professionalism.</p>
+      </div>
+      <div class="card teal">
+        <h4>Eye Contact</h4>
+        <p>Direct, friendly eye contact shows clients they have the trainer's full attention — whether listening or talking.</p>
+      </div>
+      <div class="card teal">
+        <h4>Facial Expression</h4>
+        <p>Conveys emotion — but only when sincere. Most clients can detect an artificial smile.</p>
+      </div>
+      <div class="card teal">
+        <h4>Hand Gestures</h4>
+        <p>Relaxed, fluid gestures are most comfortable. Fidgeting or finger-pointing may distract or intimidate clients.</p>
+      </div>
+      <div class="card teal">
+        <h4>Body Position</h4>
+        <p>Open, erect posture = confidence. Mirror the client's position during seated conversations for enhanced engagement.</p>
+      </div>
+      <div class="card orange">
+        <h4>Read Client Cues</h4>
+        <p>Remain aware of the client's nonverbal signals. "How are you feeling about this?" recalibrates the conversation.</p>
+      </div>
+    </div>
+
+    <table class="bl-table">
+      <thead>
+        <tr><th>Body Language</th><th>Possible Meaning</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Crossed arms</td><td>Anger, defiance, or disinterest (unless the client is cold)</td></tr>
+        <tr><td>Feet pointed toward the door</td><td>Anxious to leave</td></tr>
+        <tr><td>Repeatedly looking at a watch</td><td>Bored or pressed for time</td></tr>
+        <tr><td>Biting lip</td><td>Tension or trepidation</td></tr>
+        <tr><td>Cracking knuckles</td><td>Comforting habit / anxiety</td></tr>
+        <tr><td>Using a bag or briefcase as a barrier</td><td>Personal space feels invaded</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. PROFESSIONAL BOUNDARIES -->
+  <div class="section" id="professional">
+    <span class="section-tag purple">Boundaries</span>
+    <h2>Professional Boundaries</h2>
+    <p>Strong rapport can become a double-edged sword. When personal trainers and clients work together for extended periods, feelings of friendship are natural — but professional effectiveness is undermined when trainers become too personally involved with clients.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card purple">
+        <h4>Romantic Relationships</h4>
+        <p>The client-personal trainer relationship should cease immediately if a romantic relationship develops. It is essentially impossible to maintain an effective professional relationship once this line has been crossed.</p>
+      </div>
+      <div class="card purple">
+        <h4>Intimate Conversations</h4>
+        <p>When clients begin discussing intimate personal issues, trainers should express genuine concern but redirect to professional topics. Trainers are not therapists.</p>
+      </div>
+      <div class="card purple">
+        <h4>Physical Contact</h4>
+        <p>Always ask and receive permission before touching a client for spotting or correction. Explain the purpose of any physical contact early in the relationship.</p>
+      </div>
+      <div class="card purple">
+        <h4>Social Media &amp; Texting</h4>
+        <p>Discuss preferred communication channels early. Agree on a professional communication plan. Keep all interactions professional and establish clear boundaries.</p>
+      </div>
+    </div>
+
+    <div class="callout purple">
+      <p><strong>Dealing with difficult clients:</strong> Resistance, fear of injury, depression, or anxiety requires patience. Trainers who ask clarifying questions to understand clients' perspectives — and who display relevant credentials — often win the trust of even the most reluctant clients.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 6. INVESTIGATION STAGE -->
+  <div class="section" id="investigation">
+    <span class="section-tag green">Stage 2</span>
+    <h2>Investigation Stage: Gathering Information &amp; Active Listening</h2>
+    <p>During the investigation stage, trainers gather very personal information: medical history, fitness-assessment results, body weight, exercise history, goals, and lifestyle factors. Clients sense when a trainer has their best interests at heart — which directly determines how honest and open they will be.</p>
+
+    <p><strong>Active listening</strong> means the trainer listens carefully and empathetically with an open, nonjudgmental mind — trying to put themselves in the client's shoes. It requires practice. Common barriers include formulating responses before the client is done speaking, forming judgments, or simply daydreaming.</p>
+
+    <div class="callout green">
+      <p><strong>Readiness to change:</strong> Never assume that because someone purchases personal-training sessions, they are committed and ready to change. They may be appeasing a significant other, using gifted sessions, or responding to a doctor's recommendation. Use a readiness-to-change questionnaire to uncover actual motivation level.</p>
+    </div>
+
+    <p>Beyond forms and health history, trainers should listen carefully for clients' <em>exercise likes and dislikes</em>, previous experiences with physical activity, and what has or hasn't worked in the past. Careful listening between the lines reveals the emotions behind the stories clients tell.</p>
+  </div>
+
+  <!-- 7. MOTIVATIONAL INTERVIEWING -->
+  <div class="section" id="mi">
+    <span class="section-tag teal">Motivational Interviewing</span>
+    <h2>Motivational Interviewing &amp; OARS</h2>
+    <p><strong>Motivational interviewing (MI)</strong> is a method of speaking with clients in a way that motivates them to make a decision to change their behavior. Originally designed for addiction counseling, it is well-suited to personal training because it parallels the contemplation stage of the Transtheoretical Model — when clients are weighing the pros and cons of change.</p>
+
+    <p>MI contrasts with the <em>directing</em> style — where the trainer simply tells the client what to do. Instead, MI uses a <em>guiding</em> approach: the trainer assists the client in the process of change, establishing rapport and eliciting the client's own motivation. Forceful, guilt-ridden, authoritarian approaches are contraindicated in MI.</p>
+
+    <h3 style="font-size:18px;font-weight:800;color:#22d3ee;margin:28px 0 16px;">The Four-Component Spirit of MI — CACE</h3>
+
+    <div class="mi-grid">
+      <div class="mi-card">
+        <div class="mi-word">Collaboration</div>
+        <div class="mi-def">The trainer functions as a partner with the client, recognizing that clients are the undisputed experts on themselves. The client's ideas are integrated into how behavior change occurs.</div>
+      </div>
+      <div class="mi-card">
+        <div class="mi-word">Acceptance</div>
+        <div class="mi-def">The trainer recognizes every client's absolute worth and potential, honors individual autonomy, and affirms strengths and efforts. Acceptance means respecting the client's decisions about whether and how to change.</div>
+      </div>
+      <div class="mi-card">
+        <div class="mi-word">Compassion</div>
+        <div class="mi-def">The trainer deliberately avoids evoking their own goals and values during a MI conversation. They pursue the welfare and best interests of the client, giving priority to the client's needs.</div>
+      </div>
+      <div class="mi-card">
+        <div class="mi-word">Evocation</div>
+        <div class="mi-def">The trainer elicits the client's own motivation for change instead of telling the client why they should change. Clients already have within them the positive arguments for change.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:800;color:#f97316;margin:32px 0 16px;">OARS: Core Communication Skills</h3>
+
+    <table class="oars-table">
+      <thead>
+        <tr><th></th><th>Skill</th><th>Definition</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="oars-letter">O</span></td>
+          <td><span class="oars-skill">Open-ended Questions</span><br><span class="oars-def">Require more than yes/no</span></td>
+          <td>Allows the trainer to understand the client's internal frame of reference; draws out motivations and directions for change.</td>
+          <td class="oars-example">"Why is physical activity important to you?" / "What would you gain by exercising more?"</td>
+        </tr>
+        <tr>
+          <td><span class="oars-letter">A</span></td>
+          <td><span class="oars-skill">Affirmations</span><br><span class="oars-def">Statements valuing client strengths</span></td>
+          <td>Counters the idea that people change when made to feel bad. Accentuates the positive and enhances volitional capacity for growth.</td>
+          <td class="oars-example">"You've clearly spent real time thinking about this." / "Your intention was good, even if it didn't go as planned."</td>
+        </tr>
+        <tr>
+          <td><span class="oars-letter">R</span></td>
+          <td><span class="oars-skill">Reflective Listening</span><br><span class="oars-def">Statements (not questions) reflecting the client's meaning</span></td>
+          <td>Focuses on the client's narrative rather than asserting the trainer's interpretation. Avoids the interrogation feel of continuous questions.</td>
+          <td class="oars-example">"You're frustrated that your efforts aren't getting the results you want." / "Family time outdoors feels enjoyable and meaningful to you."</td>
+        </tr>
+        <tr>
+          <td><span class="oars-letter">S</span></td>
+          <td><span class="oars-skill">Summarizing</span><br><span class="oars-def">Reflecting two or more client statements</span></td>
+          <td>Helps clients hear the whole picture of their situation. Invites further exploration and shows the trainer is tracking the full conversation.</td>
+          <td class="oars-example">"Your roommates always have junk food around, and you're worried you won't be able to resist when hungry..."</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout teal">
+      <p><strong>The Importance Ruler:</strong> Ask "On a scale of 0–10, how important is it to you to make this change?" Then always ask "Why a [their number] and not a [lower number]?" This consistently elicits <em>change talk</em>. Never ask why they didn't choose higher — that evokes sustain talk.</p>
+    </div>
+
+    <div class="callout orange">
+      <p><strong>The Righting Reflex:</strong> Trainers naturally want to fix what seems wrong and offer advice — but this is often counterproductive. If the trainer is arguing for change and the client is arguing against it, the approach is exactly backwards. Let clients talk themselves into changing.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 8. PLANNING STAGE -->
+  <div class="section" id="planning">
+    <span class="section-tag orange">Stage 3</span>
+    <h2>Planning Stage: Goal Setting</h2>
+    <p>The planning stage is a give-and-take process. The trainer moves into a more directive role but must continue listening to client responses and eliciting input. Client adherence improves when clients feel like true partners in program design. The stage moves through: setting goals → generating ideas → formulating a plan → evaluating the program.</p>
+
+    <p><strong>Goal-setting theory</strong> (Locke &amp; Latham) identifies four mechanisms by which specific, challenging goals drive behavior change:</p>
+
+    <div class="mechanism-list">
+      <div class="mechanism-item">
+        <div class="m-icon">🎯</div>
+        <div class="m-content">
+          <h5>Directed Attention</h5>
+          <p>Goals help clients focus thoughts and behaviors on the activities necessary to move toward their goals. A goal of becoming more active influences daily movement choices, schedule planning, and associated health behaviors.</p>
+        </div>
+      </div>
+      <div class="mechanism-item">
+        <div class="m-icon">💪</div>
+        <div class="m-content">
+          <h5>Mobilized Effort</h5>
+          <p>Goals increase the effort clients expend. Challenging goals elicit more effort in the short term — but goals must be seen as both positive and achievable, or clients will give up.</p>
+        </div>
+      </div>
+      <div class="mechanism-item">
+        <div class="m-icon">🔄</div>
+        <div class="m-content">
+          <h5>Persistence</h5>
+          <p>Clients trying to reach goals persist longer in target behaviors. Challenging goals rooted in the client's personal motivations stimulate them to push through difficulties.</p>
+        </div>
+      </div>
+      <div class="mechanism-item">
+        <div class="m-icon">🧠</div>
+        <div class="m-content">
+          <h5>Strategy</h5>
+          <p>Goal setting prompts clients to look for and use strategies that will help them succeed. More complex goals require more sophisticated planning and support.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Key guidelines:</strong> Avoid too many goals at once. Reframe negative goals into positive ones ("I will attend every session" vs. "I will not miss workouts"). Include both short- and long-term goals, and both process and performance goals. Revisit and adjust goals regularly — this is the most important thing a trainer can do to maximize effectiveness.</p>
+    </div>
+  </div>
+
+  <!-- 9. SMART GOALS -->
+  <div class="section" id="smart">
+    <span class="section-tag blue">SMART Goals</span>
+    <h2>SMART Goals</h2>
+    <p>Clients often express vague goals like "get in better shape" or "lose some weight." SMART goals transform these into clear, trackable targets that drive meaningful behavior change. The trainer should err on the conservative side — lofty goals feel inspirational but lead to discouragement when progress is slow.</p>
+
+    <div class="smart-grid">
+      <div class="smart-card">
+        <div class="smart-letter">S</div>
+        <div class="smart-word">Specific</div>
+        <div class="smart-desc">Clear and unambiguous — states precisely what should be accomplished.</div>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">M</div>
+        <div class="smart-word">Measurable</div>
+        <div class="smart-desc">Trackable so clients can see whether they are making progress.</div>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">A</div>
+        <div class="smart-word">Attainable</div>
+        <div class="smart-desc">Realistically achievable. Goal achievement reinforces commitment.</div>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">R</div>
+        <div class="smart-word">Relevant</div>
+        <div class="smart-desc">Pertinent to the individual client's interests, needs, and abilities.</div>
+      </div>
+      <div class="smart-card">
+        <div class="smart-letter">T</div>
+        <div class="smart-word">Time-bound</div>
+        <div class="smart-desc">Contains estimated timelines for completion. Progress is monitored regularly.</div>
+      </div>
+    </div>
+
+    <div class="goal-types">
+      <div class="goal-type process">
+        <h5>Process Goals</h5>
+        <p>Something a client <em>does</em>. Example: completing a certain number of workouts per week. Clients often reach process goals before any noticeable change in weight or performance — these early wins are critical for motivation.</p>
+      </div>
+      <div class="goal-type performance">
+        <h5>Performance Goals</h5>
+        <p>Something a client <em>achieves</em>. Example: losing 10 lbs or increasing bench press by 20 lbs. Takes longer to manifest. Should be paired with process goals so clients recognize progress along the way.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 10. ACTION STAGE -->
+  <div class="section" id="action">
+    <span class="section-tag green">Stage 4</span>
+    <h2>Action Stage &amp; Self-Monitoring</h2>
+    <p>Once program design is complete, the client begins exercising. The program is typically a combination of sessions with the trainer and independent exercise. The trainer enhances client success through program evaluation and self-monitoring systems.</p>
+
+    <p><strong>Self-monitoring</strong> is one of the most effective strategies for supporting behavior change, including exercise adherence and improved eating behaviors. It works two ways:</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card green">
+        <h4>Increases Self-Awareness</h4>
+        <p>Self-monitoring acts like a mirror — it gives clients a more objective view of their own behaviors, revealing patterns they might otherwise miss or rationalize away.</p>
+      </div>
+      <div class="card green">
+        <h4>Enhances Communication</h4>
+        <p>As the trainer reviews workout records, productive discussions arise about what is and isn't working. This drives program adjustments and keeps the trainer–client relationship dynamic and responsive.</p>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <p><strong>Behavioral contracting</strong> can be motivational for getting clients started. Contracts spell out expected behaviors and rewards. They work best when rewards are personally meaningful to the client and used consistently. Contracts should support accountability <em>to the client's own goals</em> — not accountability to the trainer, which undermines lasting behavior change.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 11. TEACHING TECHNIQUES -->
+  <div class="section" id="teaching">
+    <span class="section-tag blue">Teaching</span>
+    <h2>Effective Teaching Techniques</h2>
+    <p>Personal trainers teach motor skills (lifting technique, machine use, flexibility), cognitive knowledge (health information, injury prevention), and sometimes sport-specific skills. Understanding how people learn most effectively helps trainers provide sound instruction to diverse clients.</p>
+
+    <h3 style="font-size:18px;font-weight:800;color:#3b82f6;margin:28px 0 16px;">Stages of Motor Learning (Fitts &amp; Posner)</h3>
+
+    <div class="stages-row">
+      <div class="stage-card">
+        <div class="s-num">01</div>
+        <div class="s-name">Cognitive Stage</div>
+        <div class="s-desc">The client is learning and thinking about what to do. Movements are often uncoordinated and jerky. Use the "tell, show, do" technique. Do not overwhelm with too many new or complex skills at once. Provide frequent augmented feedback on key cues.</div>
+      </div>
+      <div class="stage-card">
+        <div class="s-num">02</div>
+        <div class="s-name">Associative Stage</div>
+        <div class="s-desc">The client has mastered basics and is ready for more specific feedback to refine the skill. Balance appropriate feedback with not providing so much information that it overwhelms learning. Errors are decreasing.</div>
+      </div>
+      <div class="stage-card">
+        <div class="s-num">03</div>
+        <div class="s-name">Autonomous Stage</div>
+        <div class="s-desc">The client performs the skill effectively and automatically. The trainer shifts to observing, then may introduce progressions or new exercises — restarting the process from the cognitive stage.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Motor-skill reality check:</strong> Many clients — and some trainers — believe motor ability is innate. In reality, motor skills are more strongly related to practice and experience than fixed ability. Clients new to exercise feel self-conscious and may be performing movement patterns for the first time that gym regulars have practiced for years.</p>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:800;color:#a855f7;margin:32px 0 16px;">Learning Pathways: VAK</h3>
+    <p>Clients gather information through their senses in different ways. Identifying a client's preferred pathway — by observing behaviors and listening for language clues — allows the trainer to tailor instruction.</p>
+
+    <div class="vak-row">
+      <div class="vak-card">
+        <div class="v-label">Visual</div>
+        <div class="v-title">Sees to Learn</div>
+        <div class="v-cue">"Let me see that again."</div>
+        <div class="v-tip">Prefers watching demonstrations; appreciates longer demonstrations with less talking.</div>
+      </div>
+      <div class="vak-card">
+        <div class="v-label">Auditory</div>
+        <div class="v-title">Hears to Learn</div>
+        <div class="v-cue">"Yeah, I hear you."</div>
+        <div class="v-tip">Listens carefully; prefers verbal instruction and Q&amp;A over visual demonstration.</div>
+      </div>
+      <div class="vak-card">
+        <div class="v-label">Kinesthetic</div>
+        <div class="v-title">Feels to Learn</div>
+        <div class="v-cue">"I feel that." / "This doesn't feel right."</div>
+        <div class="v-tip">Learns by doing; needs to feel the movement before it clicks. Prefers hands-on supervision.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:800;color:#f97316;margin:32px 0 16px;">Tell, Show, Do</h3>
+    <p>The "tell, show, do" technique is the gold standard for introducing a new motor skill. It covers all VAK preferences simultaneously:</p>
+
+    <div class="card-grid card-grid-3">
+      <div class="card orange">
+        <h4>Tell</h4>
+        <p>Give a short, clear explanation of what will be done and why. Emphasize safety and injury prevention. Focus on the goal of the movement rather than distracting details about limb position.</p>
+      </div>
+      <div class="card orange">
+        <h4>Show</h4>
+        <p>Demonstrate the skill accurately. For complex movements, the trainer may combine telling and showing simultaneously. Allow the client time to watch carefully before attempting.</p>
+      </div>
+      <div class="card orange">
+        <h4>Do</h4>
+        <p>Give the client focused practice time. People learn more quickly when they can focus on performing the skill without being distracted. Observe carefully to prepare helpful feedback.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. FEEDBACK & MODELING -->
+  <div class="section" id="feedback">
+    <span class="section-tag teal">Feedback & Modeling</span>
+    <h2>Providing Feedback, Modeling &amp; Behavioral Contracts</h2>
+
+    <p>Feedback is one of the most important responsibilities of a personal trainer. Without it, motor learning is essentially non-existent — clients have no reason to make adjustments and cannot track progress toward goals. Effective feedback does three things:</p>
+
+    <div class="card-grid card-grid-3">
+      <div class="card teal">
+        <h4>Acknowledge What Went Well</h4>
+        <p>Always start by recognizing genuine positives. This is not empty praise — it anchors confidence and builds self-efficacy.</p>
+      </div>
+      <div class="card teal">
+        <h4>Identify One Correction</h4>
+        <p>Focus on the single most important correction. Too many corrections at once overwhelm the learner and degrade performance. Keep it specific and actionable.</p>
+      </div>
+      <div class="card teal">
+        <h4>Encourage Practice</h4>
+        <p>Close with motivational reinforcement that emphasizes improvement is possible with continued practice. Frame the correction as a path to progress, not a failure.</p>
+      </div>
+    </div>
+
+    <p>As clients advance to the associative and autonomous stages, trainers should <strong>taper off external feedback</strong> — allowing clients to develop their own intrinsic feedback systems. Over-coaching at advanced stages prevents clients from developing independent competence.</p>
+
+    <h3 style="font-size:18px;font-weight:800;color:#10b981;margin:32px 0 16px;">Modeling</h3>
+    <p>Personal trainers should model the healthful lifestyle they advocate. This matters for two reasons. First, it enhances credibility — trainers who genuinely practice what they preach are more persuasive. Second, it provides clients with visible evidence that the lifestyle is achievable.</p>
+
+    <p>Trainers can also expose clients to <em>peer models</em> — people similar to the client who are successfully exercising. A client coping with arthritis may not see a young, pain-free trainer as a realistic model. But seeing a client of similar age and condition exercising successfully powerfully increases confidence in one's own ability.</p>
+
+    <div class="callout green">
+      <p><strong>Model positive attitudes:</strong> Promote exercise for intrinsic reasons — it feels good, reduces stress, leads to health improvements. Avoid promoting negative motivations like appearance-shaming, which can contribute to negative body image, disordered eating, and unhealthy exercise behaviors.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- KEY TAKEAWAYS -->
+  <div class="takeaways">
+    <h3>Key Takeaways — Chapter 4</h3>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>The client–trainer relationship moves through four stages: Rapport → Investigation → Planning → Action. All stages overlap and recur, and excellent communication is essential throughout.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Cultural competence — the ability to communicate and work effectively with people from different cultures — requires acknowledging your own biases, learning about each client's context, and avoiding new stereotypes.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Nonverbal communication carries more trust weight than verbal content. Body language, eye contact, facial expressions, and posture must align with the trainer's words.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Motivational interviewing uses a guiding — not directing — style. The Spirit of MI (CACE: Collaboration, Acceptance, Compassion, Evocation) and OARS skills help elicit the client's own motivation for change.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>SMART goals (Specific, Measurable, Attainable, Relevant, Time-bound) transform vague intentions into actionable targets. Include both process goals and performance goals.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Goal-setting theory (Locke &amp; Latham) identifies four mechanisms: directed attention, mobilized effort, persistence, and strategy. Goals must be both challenging and achievable.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Motor learning progresses through cognitive, associative, and autonomous stages (Fitts &amp; Posner). The "tell, show, do" approach and VAK learning pathways guide effective skill instruction.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Self-monitoring is among the most evidence-supported strategies for exercise adherence. It increases self-awareness and enhances trainer–client communication about what is working.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Professional boundaries protect both trainer and client. Romantic relationships, excessive personal involvement, and improper physical contact are contraindicated in the professional relationship.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <a href="/ace-prep/chapter-4">← Back to Chapter 4 Hub</a>
+  &nbsp;·&nbsp; Lifelong Athletics &nbsp;·&nbsp; ACE-CPT Chapter 4: Effective Communication, Goal Setting &amp; Teaching Techniques
+</div>
+
+</Layout>
