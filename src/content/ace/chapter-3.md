@@ -1,7 +1,7 @@
 ---
-title: "Basics of behaviour Change"
+title: "Basics of Behavior Change"
 chapter: 3
-description: "Theory, Mindmaps, and Quiz for Chapter 3"
+description: "HBM, Self-Determination Theory, Stages of Change, Self-Efficacy, Operant Conditioning, Cognitive Distortions & Adherence — 45-question case-study quiz."
 ---
 
 Welcome to **Chapter 3: Basics of behaviour Change**. 

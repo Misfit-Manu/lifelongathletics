@@ -1,0 +1,951 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Basics of Behavior Change — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering Health Belief Model, Self-Determination Theory, Stages of Change, Self-Efficacy, Operant Conditioning, and Adherence Determinants for ACE-CPT Chapter 3.">
+
+<style is:global>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #1a1a2e;
+  background: #ffffff;
+}
+.blog-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #0f2b1a 0%, #1a2e0d 50%, #0d1f35 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 56px 48px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 280px; height: 280px;
+  background: rgba(197,241,53,0.06);
+  border-radius: 50%;
+}
+.hero-tag {
+  display: inline-block;
+  background: #c5f135;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.hero h1 em { color: #c5f135; font-style: italic; }
+.hero p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.78);
+  max-width: 620px;
+  margin-bottom: 24px;
+}
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* ── STICKY TOC ── */
+.toc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e8e8e8;
+  padding: 10px 0;
+  margin-bottom: 36px;
+}
+.toc-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.toc-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #999;
+  white-space: nowrap;
+}
+.toc-links { display: flex; gap: 6px; flex-wrap: wrap; }
+.toc-links a {
+  font-size: 12px;
+  color: #666;
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
+  transition: all .2s;
+}
+.toc-links a:hover {
+  color: #000;
+  border-color: #c5f135;
+  background: rgba(197,241,53,0.1);
+}
+
+/* ── TYPOGRAPHY ── */
+h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0d1f35;
+  margin: 48px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #c5f135;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h2 .icon { font-size: 1.2rem; }
+h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a2e0d;
+  margin: 28px 0 10px;
+}
+h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0d6636;
+  margin: 18px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+p { color: #2d2d2d; margin-bottom: 14px; font-size: 0.97rem; }
+strong { color: #0d1f35; }
+em { color: #0d6636; }
+hr { border: none; border-top: 1px solid #ebebeb; margin: 36px 0; }
+
+/* ── INTRO BOX ── */
+.intro-box {
+  background: linear-gradient(135deg, rgba(197,241,53,0.1), rgba(5,150,105,0.06));
+  border: 1px solid rgba(197,241,53,0.4);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 36px;
+}
+.intro-box p { color: #1a1a2e; font-size: 1.02rem; line-height: 1.8; margin: 0; }
+
+/* ── CARD GRID ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin: 16px 0 20px;
+}
+.card {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 16px;
+}
+.card.green  { border-top: 3px solid #4ade80; }
+.card.blue   { border-top: 3px solid #60a5fa; }
+.card.orange { border-top: 3px solid #fb923c; }
+.card.purple { border-top: 3px solid #a78bfa; }
+.card.teal   { border-top: 3px solid #2dd4bf; }
+.card.lime   { border-top: 3px solid #c5f135; }
+.card h4 { font-size: 0.85rem; margin-top: 0; letter-spacing: 0; }
+.card.green h4  { color: #16a34a; }
+.card.blue h4   { color: #2563eb; }
+.card.orange h4 { color: #ea580c; }
+.card.purple h4 { color: #7c3aed; }
+.card.teal h4   { color: #0d9488; }
+.card.lime h4   { color: #65a30d; }
+.card p { font-size: 0.87rem; color: #555; margin: 0; }
+
+/* ── STAGES FLOW ── */
+.stages-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 20px;
+}
+.stage-pill {
+  flex: 1;
+  min-width: 130px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+.stage-pill .stage-name { font-weight: 700; font-size: 0.88rem; }
+.stage-pill .stage-desc { font-size: 0.78rem; color: #777; margin-top: 6px; line-height: 1.4; }
+.stage-pill:nth-child(1) { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.35); }
+.stage-pill:nth-child(1) .stage-name { color: #7c3aed; }
+.stage-pill:nth-child(2) { background: rgba(96,165,250,0.1); border-color: rgba(96,165,250,0.35); }
+.stage-pill:nth-child(2) .stage-name { color: #2563eb; }
+.stage-pill:nth-child(3) { background: rgba(45,212,191,0.1); border-color: rgba(45,212,191,0.35); }
+.stage-pill:nth-child(3) .stage-name { color: #0d9488; }
+.stage-pill:nth-child(4) { background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.35); }
+.stage-pill:nth-child(4) .stage-name { color: #ea580c; }
+.stage-pill:nth-child(5) { background: rgba(74,222,128,0.1); border-color: rgba(74,222,128,0.35); }
+.stage-pill:nth-child(5) .stage-name { color: #16a34a; }
+
+/* ── PROCESS TABLE ── */
+.proc-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.88rem; }
+.proc-table th {
+  background: #f4f4f4;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-size: 0.76rem;
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 2px solid #e0e0e0;
+}
+.proc-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: top;
+  font-size: 0.87rem;
+}
+.proc-table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+.proc-table tr:hover td { background: rgba(197,241,53,0.05); }
+.tag-cog { display:inline-block; background:rgba(96,165,250,.15); color:#2563eb; font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:4px; text-transform:uppercase; letter-spacing:.06em; }
+.tag-beh { display:inline-block; background:rgba(74,222,128,.15); color:#16a34a; font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:4px; text-transform:uppercase; letter-spacing:.06em; }
+
+/* ── CONSEQUENCE TABLE ── */
+.cons-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.87rem; }
+.cons-table th { background: #f4f4f4; color: #555; font-size: .76rem; text-transform:uppercase; letter-spacing:.06em; padding:8px 12px; text-align:left; border-bottom:2px solid #e0e0e0; }
+.cons-table td { padding:9px 12px; border-bottom:1px solid #f0f0f0; vertical-align:top; }
+.cons-table td:first-child { font-weight:600; color:#1a1a2e; }
+.tag-up { display:inline-block; background:rgba(74,222,128,.15); color:#16a34a; font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:4px; }
+.tag-dn { display:inline-block; background:rgba(251,146,60,.15); color:#ea580c; font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:4px; }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight {
+  background: #f8fef0;
+  border-left: 4px solid #c5f135;
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin: 16px 0;
+}
+.highlight.blue   { background:#eff6ff; border-left-color:#60a5fa; }
+.highlight.orange { background:#fff7ed; border-left-color:#fb923c; }
+.highlight.teal   { background:#f0fdfa; border-left-color:#2dd4bf; }
+.highlight.purple { background:#faf5ff; border-left-color:#a78bfa; }
+.highlight p { margin: 0; font-size: 0.9rem; color: #333; }
+
+/* ── SOURCES LIST ── */
+.sources-list { list-style:none; display:flex; flex-direction:column; gap:10px; margin:14px 0; }
+.sources-list li {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.src-num {
+  background: #c5f135;
+  color: #000;
+  font-weight: 800;
+  font-size: 0.75rem;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.src-text strong { color: #1a1a2e; display: block; margin-bottom: 3px; font-size: 0.9rem; }
+.src-text span   { color: #666; font-size: 0.85rem; }
+
+/* ── DISTORTION GRID ── */
+.distortion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+.distortion-card {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 14px;
+}
+.distortion-card .d-name { font-weight: 700; font-size: 0.87rem; color: #ea580c; margin-bottom: 6px; }
+.distortion-card .d-def  { font-size: 0.82rem; color: #666; margin-bottom: 8px; line-height: 1.4; }
+.distortion-card .d-ex   { font-size: 0.8rem; color: #444; font-style: italic; border-left: 2px solid #e0e0e0; padding-left: 8px; }
+
+/* ── ADHERENCE GRID ── */
+.adh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.adh-card {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 16px;
+}
+.adh-card .a-icon  { font-size: 1.3rem; margin-bottom: 8px; }
+.adh-card .a-title { font-weight: 700; font-size: 0.9rem; color: #1a1a2e; margin-bottom: 8px; }
+.adh-card ul { list-style: none; }
+.adh-card ul li {
+  font-size: 0.84rem;
+  color: #555;
+  padding: 3px 0 3px 14px;
+  position: relative;
+}
+.adh-card ul li::before { content: '›'; position:absolute; left:0; color: #c5f135; font-weight:700; }
+
+/* ── DIALOGUE (ACE ABC) ── */
+.case-box {
+  background: #f4f8ff;
+  border: 1px solid #d0dff0;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+.case-label { font-size: 11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:#0d9488; margin-bottom:12px; }
+.dialogue { display:flex; flex-direction:column; gap:10px; }
+.dl-turn  { display:flex; gap:12px; }
+.speaker  { font-size:11px; font-weight:700; text-transform:uppercase; padding:3px 8px; border-radius:4px; white-space:nowrap; height:fit-content; margin-top:2px; flex-shrink:0; }
+.speaker.pt { background:rgba(197,241,53,0.25); color:#3d6b00; }
+.speaker.cl { background:rgba(96,165,250,0.2);  color:#1d4ed8; }
+.dl-text { font-size: 0.88rem; color: #2d2d2d; line-height: 1.6; }
+
+/* ── CLEAN LIST ── */
+.clean-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin:14px 0; }
+.clean-list li {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1px solid #ebebeb;
+  font-size: 0.88rem;
+  color: #333;
+  padding-left: 14px;
+}
+.clean-list li strong { color: #0d6636; }
+
+/* ── SOCRATIC BOX ── */
+.socratic-box {
+  background: #f4f8ff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+.socratic-box ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.socratic-box ul li {
+  font-size: 0.88rem;
+  color: #2d2d2d;
+  padding-left: 14px;
+  position: relative;
+}
+.socratic-box ul li::before { content:'›'; position:absolute; left:0; color:#0d6636; font-weight:700; }
+
+/* ── TAKEAWAY ── */
+.takeaway {
+  background: linear-gradient(135deg, rgba(197,241,53,0.1), rgba(5,150,105,0.06));
+  border: 1px solid rgba(197,241,53,0.4);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin: 40px 0 0;
+}
+.takeaway h3 { margin:0 0 14px; color:#0d6636; font-size:0.95rem; text-transform:uppercase; letter-spacing:.08em; font-weight:800; }
+.takeaway ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.takeaway ul li { font-size:0.9rem; color:#1a1a2e; padding-left:20px; position:relative; line-height:1.6; }
+.takeaway ul li::before { content:'✓'; position:absolute; left:0; color:#16a34a; font-weight:800; }
+
+/* ── BACK LINK ── */
+.back-bar {
+  max-width: 860px;
+  margin: 0 auto 24px;
+  padding: 0 24px;
+}
+.back-bar a {
+  font-size: 13px;
+  color: #888;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.back-bar a:hover { color: #0d6636; }
+
+/* ── FOOTER ── */
+.blog-footer {
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  padding: 32px 24px;
+  border-top: 1px solid #ebebeb;
+  margin-top: 40px;
+}
+.blog-footer a { color: #0d6636; text-decoration: none; }
+
+@media (max-width: 640px) {
+  .hero { padding: 36px 24px; }
+  .hero h1 { font-size: 1.8rem; }
+  .stages-flow { flex-direction: column; }
+  .blog-container { padding: 28px 16px 60px; }
+}
+</style>
+
+<div class="back-bar">
+  <a href="/ace-prep/chapter-3">← Back to Chapter 3</a>
+</div>
+
+<div class="blog-container">
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-tag">ACE-CPT · Chapter 3 · Theory Guide</span>
+  <h1>Basics of <em>Behavior Change</em></h1>
+  <p>Understanding the psychology behind why clients start, stick with, and sometimes quit their exercise programs — and what you can do about it.</p>
+  <div class="hero-meta">
+    <span>🧠 Behavioral Theory</span>
+    <span>📈 Motivation Models</span>
+    <span>🔄 Stages of Change</span>
+    <span>🎯 Adherence Strategies</span>
+  </div>
+</div>
+
+</div><!-- close container for sticky toc -->
+
+<!-- STICKY TOC -->
+<div class="toc-bar">
+  <div class="toc-inner">
+    <span class="toc-label">Jump to</span>
+    <div class="toc-links">
+      <a href="#hbm">Health Belief</a>
+      <a href="#sdt">Self-Determination</a>
+      <a href="#ttm">Stages of Change</a>
+      <a href="#selfeff">Self-Efficacy</a>
+      <a href="#operant">Operant Conditioning</a>
+      <a href="#cognitions">Cognitions</a>
+      <a href="#adherence">Adherence</a>
+    </div>
+  </div>
+</div>
+
+<div class="blog-container">
+
+  <div class="intro-box">
+    <p>Why do some clients transform their lives while others drop out after three sessions? The answer rarely comes down to fitness programming alone — it's about <strong>behavior change</strong>. This chapter explores the key psychological theories and practical strategies that help personal trainers understand, motivate, and support clients in adopting lasting physical-activity habits.</p>
+  </div>
+
+  <!-- ── HEALTH BELIEF MODEL ── -->
+  <section id="hbm">
+    <h2><span class="icon">🏥</span> Health Belief Model</h2>
+    <p>The <strong>Health Belief Model (HBM)</strong> states that people's beliefs and emotions about illness and prevention directly influence their health decisions. It is most applicable to clients in the <em>early stages of change</em> — those still weighing whether to act at all. Four variables drive the decision to change:</p>
+
+    <div class="card-grid">
+      <div class="card green">
+        <h4>Perceived Susceptibility</h4>
+        <p>How likely does the person think they are to develop a health problem? Higher perceived risk → stronger motivation to act.</p>
+      </div>
+      <div class="card blue">
+        <h4>Perceived Seriousness</h4>
+        <p>How severe do they believe the consequences of the illness would be? Greater perceived severity increases urgency to change.</p>
+      </div>
+      <div class="card orange">
+        <h4>Perceived Benefits</h4>
+        <p>Does the person believe taking action will reduce the threat? Benefits must outweigh barriers for change to occur.</p>
+      </div>
+      <div class="card purple">
+        <h4>Perceived Barriers</h4>
+        <p>What obstacles — time, cost, embarrassment — does the person believe stand in the way? Reducing barriers is key.</p>
+      </div>
+    </div>
+
+    <h3>Cues to Action</h3>
+    <p>A cue to action is any trigger that prompts the decision to change — a high blood pressure reading, a family member's illness, or a health professional's advice. Personal trainers can serve as cues to action themselves, especially when clients feel susceptible but have not yet been prompted to start.</p>
+
+    <div class="highlight">
+      <p><strong>Trainer Application:</strong> Clients who feel fine but have risk factors (family history, weight, inactivity) may have high perceived susceptibility but no immediate cue. A physician referral, fitness assessment, or frank conversation about their health trajectory can serve as that cue — but keep the plan simple and attainable to minimize perceived barriers immediately.</p>
+    </div>
+
+    <p>The HBM reminds trainers that the decision to change is <em>dynamic and complex</em>. A client's balance of perceived benefits versus barriers shifts over time — check in regularly.</p>
+  </section>
+
+  <hr/>
+
+  <!-- ── SELF-DETERMINATION THEORY ── -->
+  <section id="sdt">
+    <h2><span class="icon">🌱</span> Self-Determination Theory</h2>
+    <p><strong>Self-Determination Theory (SDT)</strong> proposes that people have three innate psychological needs. When these needs are met, intrinsic motivation flourishes and clients are far more likely to sustain long-term exercise habits.</p>
+
+    <div class="card-grid">
+      <div class="card teal">
+        <h4>Competence</h4>
+        <p>The belief that one can successfully perform tasks. Enhanced by positive feedback; undermined by excessive criticism or overly difficult programs.</p>
+      </div>
+      <div class="card lime">
+        <h4>Autonomy</h4>
+        <p>The feeling that behavior is self-chosen, not coerced. Include clients in goal-setting and program design decisions.</p>
+      </div>
+      <div class="card purple">
+        <h4>Relatedness</h4>
+        <p>Belonging and connectedness with others in the exercise environment. Foster camaraderie and introductions to other members.</p>
+      </div>
+    </div>
+
+    <h3>Motivational Climate</h3>
+    <div class="card-grid">
+      <div class="card green">
+        <h4>✅ Task-Involving Climate</h4>
+        <p>Emphasizes individual effort and improvement. Everyone is valued and welcomed. Clients report higher self-esteem, enjoyment, and commitment.</p>
+      </div>
+      <div class="card orange">
+        <h4>⚠️ Ego-Involving Climate</h4>
+        <p>Highlights the most skilled/fit. Encourages rivalry. Members feel embarrassed by mistakes. Associated with higher anxiety, exhaustion, and dropout.</p>
+      </div>
+    </div>
+
+    <h3>Creating a Caring Climate</h3>
+    <p>A <strong>caring climate</strong> is one where clients feel the setting is safe and supportive, and the trainer has genuine concern for their well-being. Strategies include:</p>
+
+    <ul class="clean-list">
+      <li><strong>Focus on process goals</strong> over outcome goals — "attend 4x this week" rather than "lose 10 pounds."</li>
+      <li><strong>Never compare clients to others.</strong> Reframe comparisons as personal progress.</li>
+      <li><strong>Celebrate milestones</strong> every session — more reps, better technique, consistent attendance.</li>
+      <li><strong>Build social relatedness</strong> by introducing clients to gym members and encouraging peer accountability.</li>
+      <li><strong>Provide genuine warmth and acceptance</strong> — the trainer's role is to support the whole person.</li>
+    </ul>
+  </section>
+
+  <hr/>
+
+  <!-- ── TTM ── -->
+  <section id="ttm">
+    <h2><span class="icon">🔄</span> Transtheoretical Model of Behavior Change</h2>
+    <p>The <strong>Transtheoretical Model (TTM)</strong> recognizes that not everyone is ready to begin exercising. Behavior change is a <em>process</em>, not an event. The TTM has four components: stages of change, processes of change, self-efficacy, and decisional balance.</p>
+
+    <h3>The 5 Stages of Change</h3>
+    <div class="stages-flow">
+      <div class="stage-pill">
+        <div class="stage-name">Precontemplation</div>
+        <div class="stage-desc">Not active, not planning to start. May deny or discount the importance of exercise.</div>
+      </div>
+      <div class="stage-pill">
+        <div class="stage-name">Contemplation</div>
+        <div class="stage-desc">Inactive but thinking about change in the next 6 months. Aware of pros but still weighing cons.</div>
+      </div>
+      <div class="stage-pill">
+        <div class="stage-name">Preparation</div>
+        <div class="stage-desc">Beginning to take small steps. May exercise occasionally but inconsistently.</div>
+      </div>
+      <div class="stage-pill">
+        <div class="stage-name">Action</div>
+        <div class="stage-desc">Consistently active for fewer than 6 months. Building habits. Still vulnerable to relapse.</div>
+      </div>
+      <div class="stage-pill">
+        <div class="stage-name">Maintenance</div>
+        <div class="stage-desc">Active for 6+ months. Habit is established. Risk for lapses remains — accountability is key.</div>
+      </div>
+    </div>
+
+    <div class="highlight blue">
+      <p><strong>Key insight:</strong> Movement through the stages is not linear. Clients can move backward — even those in maintenance may relapse. This is normal and expected. The trainer's job is to recognize where a client is and apply stage-matched strategies, not push them before they are ready.</p>
+    </div>
+
+    <h3>Processes of Change</h3>
+    <p>Processes of change describe the cognitive and behavioral activities people use to progress through stages. There are 10 processes divided into two types:</p>
+
+    <table class="proc-table">
+      <thead><tr><th>Process</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Consciousness Raising</td><td><span class="tag-cog">Cognitive</span></td><td>Finding and learning new facts about healthy behavior change</td></tr>
+        <tr><td>Dramatic Relief</td><td><span class="tag-cog">Cognitive</span></td><td>Experiencing negative emotions about unhealthy behavior, then relief from deciding to change</td></tr>
+        <tr><td>Self-Reevaluation</td><td><span class="tag-cog">Cognitive</span></td><td>Recognizing that behavior change is part of one's identity</td></tr>
+        <tr><td>Environmental Reevaluation</td><td><span class="tag-cog">Cognitive</span></td><td>Realizing how the behavior affects the social environment</td></tr>
+        <tr><td>Self-Liberation</td><td><span class="tag-cog">Cognitive</span></td><td>Deciding to change and believing in the ability to do so</td></tr>
+        <tr><td>Helping Relationships</td><td><span class="tag-beh">Behavioral</span></td><td>Seeking and using social support for behavior change</td></tr>
+        <tr><td>Counter-Conditioning</td><td><span class="tag-beh">Behavioral</span></td><td>Substituting healthy behaviors for unhealthy ones</td></tr>
+        <tr><td>Reinforcement Management</td><td><span class="tag-beh">Behavioral</span></td><td>Increasing rewards for healthy behavior; reducing rewards for unhealthy behavior</td></tr>
+        <tr><td>Stimulus Control</td><td><span class="tag-beh">Behavioral</span></td><td>Removing cues for unhealthy behavior; adding cues for healthy behavior</td></tr>
+        <tr><td>Social Liberation</td><td><span class="tag-beh">Behavioral</span></td><td>Taking advantage of social environments that reinforce new behavior norms</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Lapse and Relapse</h3>
+    <p>A <strong>lapse</strong> is a brief return to old behavior; a <strong>relapse</strong> is a more sustained return. Both are common and should be anticipated, not treated as failures.</p>
+    <div class="card-grid">
+      <div class="card blue">
+        <h4>Discuss Lapses in Advance</h4>
+        <p>Warn clients that lapses are likely and normal. Collaboratively develop a "get back on track" plan before barriers arise.</p>
+      </div>
+      <div class="card green">
+        <h4>Enhance Social Support</h4>
+        <p>Reach out between sessions — text, email, or phone. Involve family and friends. Spousal support significantly increases adherence.</p>
+      </div>
+      <div class="card purple">
+        <h4>Build Community</h4>
+        <p>Group involvement, peer accountability, and fun run registrations reduce relapse risk by connecting clients to an active identity.</p>
+      </div>
+    </div>
+
+    <h3>Understanding Willpower</h3>
+    <p>Willpower is a <em>biological function</em>, not a personality trait — and it is inherently limited. Exerting self-control on one task depletes willpower for subsequent tasks.</p>
+    <div class="highlight teal">
+      <p>Help clients <strong>conserve willpower</strong> by planning meals and workouts in advance (when resolve is high), journaling about potential barriers before they arise, and avoiding setting too many goals simultaneously. The goal is to reduce reliance on willpower by building habit and structure instead.</p>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- ── SELF-EFFICACY ── -->
+  <section id="selfeff">
+    <h2><span class="icon">💪</span> Self-Efficacy</h2>
+    <p>The third TTM component, <strong>self-efficacy</strong> — a person's belief in their own ability to successfully perform a behavior — is the <em>single strongest psychological predictor</em> of physical activity. It influences whether someone starts, and participation builds it further.</p>
+
+    <div class="highlight">
+      <p><strong>Practical rule:</strong> Clients in precontemplation/contemplation have significantly lower self-efficacy than those in action/maintenance. Focus early sessions on building mastery through achievable, progressive challenges — every early success deposits into a client's self-efficacy bank.</p>
+    </div>
+
+    <h3>6 Sources of Self-Efficacy</h3>
+    <ul class="sources-list">
+      <li>
+        <div class="src-num">1</div>
+        <div class="src-text">
+          <strong>Past Performance Experience</strong>
+          <span>The most powerful source. Previous success with exercise directly raises current self-efficacy. Ask clients about their exercise history to understand their starting point.</span>
+        </div>
+      </li>
+      <li>
+        <div class="src-num">2</div>
+        <div class="src-text">
+          <strong>Vicarious Experience</strong>
+          <span>Observing someone similar to oneself succeeding ("If they can do it, so can I"). Especially important for beginners with limited personal experience.</span>
+        </div>
+      </li>
+      <li>
+        <div class="src-num">3</div>
+        <div class="src-text">
+          <strong>Verbal Persuasion</strong>
+          <span>Encouragement and positive feedback from a credible source. Different clients need different amounts — read the client and calibrate accordingly.</span>
+        </div>
+      </li>
+      <li>
+        <div class="src-num">4</div>
+        <div class="src-text">
+          <strong>Physiological State Appraisals</strong>
+          <span>How clients interpret bodily sensations during exercise (fatigue, soreness, breathlessness). Teach clients to distinguish normal discomfort from warning signs — reframe exertion positively.</span>
+        </div>
+      </li>
+      <li>
+        <div class="src-num">5</div>
+        <div class="src-text">
+          <strong>Emotional State &amp; Mood Appraisals</strong>
+          <span>Negative emotions (fear, anxiety) reduce self-efficacy; positive emotions (mastery, pride, energy) increase it. Design programs that generate positive emotional states.</span>
+        </div>
+      </li>
+      <li>
+        <div class="src-num">6</div>
+        <div class="src-text">
+          <strong>Imaginal Experiences</strong>
+          <span>A client's mental picture of what exercise will feel like. Ask: "How do you imagine you'll feel after completing 20 minutes without stopping?" Cultivate positive mental images early.</span>
+        </div>
+      </li>
+    </ul>
+
+    <h3>Decisional Balance</h3>
+    <p>The fourth TTM component, <strong>decisional balance</strong>, is the internal ledger of exercise pros versus cons. In early stages, cons dominate. In action/maintenance, pros dominate. The trainer's goal is to <em>shift the balance</em>:</p>
+
+    <div class="card-grid">
+      <div class="card teal">
+        <h4>Emphasize Short-Term Benefits</h4>
+        <p>Improved mood, energy, sleep quality, and mastery of exercises — immediate payoffs clients can feel after a single session.</p>
+      </div>
+      <div class="card green">
+        <h4>Address Perceived Cons Directly</h4>
+        <p>Many cons (pain, boredom, embarrassment) stem from misinformation or past negative experiences. Use motivational interviewing to explore and reframe them.</p>
+      </div>
+      <div class="card purple">
+        <h4>Use the Decisional Balance Worksheet</h4>
+        <p>Collaboratively document perceived gains and losses with strategies to maximize gains and minimize barriers. Keep it practical and actionable.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- ── OPERANT CONDITIONING ── -->
+  <section id="operant">
+    <h2><span class="icon">⚡</span> Operant Conditioning</h2>
+    <p><strong>Operant conditioning</strong> examines how behaviors are influenced by their consequences — specifically the relationship between antecedents, behaviors, and consequences. In personal training, the goal is to use consequences strategically to increase healthy behaviors and reduce unhealthy ones.</p>
+
+    <h3>Antecedents: Stimulus Control</h3>
+    <p>Antecedents are stimuli that precede behavior and signal its likely consequences. They can be manipulated (stimulus control) to make healthy behavior more likely:</p>
+    <div class="highlight teal">
+      <p><strong>Example:</strong> A client who keeps leaving work late sets a recurring phone alarm 15 minutes before it's time to leave for the gym. The alarm is an antecedent that triggers the "leave now" behavior, preventing lost workout time.</p>
+    </div>
+
+    <h3>The 4 Operant Outcomes</h3>
+    <table class="cons-table">
+      <thead><tr><th>Consequence Type</th><th>What Happens</th><th>Effect</th><th>Trainer Example</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Positive Reinforcement <span class="tag-up">↑ Behavior</span></td>
+          <td>A positive stimulus is added after the behavior</td>
+          <td>Behavior becomes more likely</td>
+          <td>Trainer praises client after completing a full workout</td>
+        </tr>
+        <tr>
+          <td>Negative Reinforcement <span class="tag-up">↑ Behavior</span></td>
+          <td>A negative stimulus is removed after the behavior</td>
+          <td>Behavior becomes more likely</td>
+          <td>Low-intensity intro program prevents soreness → client keeps returning</td>
+        </tr>
+        <tr>
+          <td>Extinction <span class="tag-dn">↓ Behavior</span></td>
+          <td>A previously positive stimulus is removed</td>
+          <td>Behavior becomes less likely</td>
+          <td>Trainer stops giving praise → client engagement decreases</td>
+        </tr>
+        <tr>
+          <td>Punishment <span class="tag-dn">↓ Behavior</span></td>
+          <td>An aversive stimulus is added after the behavior</td>
+          <td>Behavior becomes less likely</td>
+          <td>Excessive soreness after session → client avoids returning</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight orange">
+      <p><strong>Trainer takeaway:</strong> Every session is a conditioning event. A positive, supportive, pleasantly challenging experience is a positive reinforcement. An overly brutal first workout is a punishment. Design early sessions for <em>mastery and positive emotion</em> — not maximum fatigue.</p>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- ── COGNITIONS ── -->
+  <section id="cognitions">
+    <h2><span class="icon">🧩</span> Cognitions and Behavior</h2>
+    <p>How clients <em>think about exercise</em> shapes whether they do it. Personal trainers need to help clients become aware of <strong>cognitive distortions</strong> — irrational, inaccurate thinking patterns that interfere with healthy behavior.</p>
+
+    <h3>Common Cognitive Distortions</h3>
+    <div class="distortion-grid">
+      <div class="distortion-card">
+        <div class="d-name">All-or-Nothing Thinking</div>
+        <div class="d-def">Seeing things as black/white; no middle ground.</div>
+        <div class="d-ex">"I already had one cookie, so I might as well eat the whole package."</div>
+      </div>
+      <div class="distortion-card">
+        <div class="d-name">Jumping to Conclusions</div>
+        <div class="d-def">Mind reading or fortune telling without evidence.</div>
+        <div class="d-ex">"No one in my family thinks I'll reach my goal."</div>
+      </div>
+      <div class="distortion-card">
+        <div class="d-name">Magnification / Catastrophizing</div>
+        <div class="d-def">Blowing things out of proportion.</div>
+        <div class="d-ex">"Even if I lose a few pounds, I'll just gain it all back."</div>
+      </div>
+      <div class="distortion-card">
+        <div class="d-name">Overgeneralizing</div>
+        <div class="d-def">One setback becomes a never-ending pattern of failure.</div>
+        <div class="d-ex">"Nothing good ever happens to me."</div>
+      </div>
+      <div class="distortion-card">
+        <div class="d-name">Personalization &amp; Blame</div>
+        <div class="d-def">Taking full blame for things outside your control.</div>
+        <div class="d-ex">"I'd stop smoking if my boss wasn't so stressful."</div>
+      </div>
+      <div class="distortion-card">
+        <div class="d-name">Labeling</div>
+        <div class="d-def">Assigning rigid negative labels to self or others.</div>
+        <div class="d-ex">"I forgot my gym bag again. I'm such an idiot."</div>
+      </div>
+    </div>
+
+    <h3>Challenging Irrational Thoughts</h3>
+    <p>Help clients question their own thinking using Socratic questions:</p>
+    <div class="socratic-box">
+      <ul>
+        <li>"What is the evidence for and against this thought?"</li>
+        <li>"What would I tell a friend in this same situation?"</li>
+        <li>"What is the worst that could realistically happen? How bad would that actually be?"</li>
+        <li>"Is there any conceivable way to look at this positively?"</li>
+        <li>"Is thinking this way helping me — or only making things worse?"</li>
+      </ul>
+    </div>
+
+    <h3>Goal Setting &amp; Self-Monitoring</h3>
+    <p><strong>SMART goal setting</strong> (Specific, Measurable, Attainable, Relevant, Time-bound) must be a <em>collaborative and ongoing</em> process, not a one-time intake form. Goals should be revisited regularly and adjusted as clients progress.</p>
+    <p><strong>Self-monitoring</strong> — tracking workouts, food, mood, or sleep — is a form of self-regulation that helps clients notice patterns, celebrate progress, and identify early warning signs of relapse.</p>
+
+    <h3>The ACE ABC Approach in Action</h3>
+    <p>The ACE ABC Approach (Ask, Break down barriers, Collaborate) models how to use motivational interviewing to meet clients where they are. Notice: the client generates the plan — the trainer just asks the questions.</p>
+    <div class="case-box">
+      <div class="case-label">Case Study: ACE ABC Approach — Dietary Behavior Change</div>
+      <div class="dialogue">
+        <div class="dl-turn">
+          <span class="speaker pt">PT</span>
+          <span class="dl-text">You mentioned being interested in eating a healthier diet. What does eating healthier mean to you?</span>
+        </div>
+        <div class="dl-turn">
+          <span class="speaker cl">Client</span>
+          <span class="dl-text">The fast food, soda, and candy I eat throughout the week cannot be good for me and isn't helping my goals of losing weight and improving my fitness.</span>
+        </div>
+        <div class="dl-turn">
+          <span class="speaker pt">PT</span>
+          <span class="dl-text">That amount of fast food is a concern for you. Have you tried eating healthier before? What worked and what got in the way?</span>
+        </div>
+        <div class="dl-turn">
+          <span class="speaker cl">Client</span>
+          <span class="dl-text">I've planned meals before, but always go back to old habits when I'm stressed or busy. Not knowing enough about cooking and not having time are my biggest barriers.</span>
+        </div>
+        <div class="dl-turn">
+          <span class="speaker pt">PT</span>
+          <span class="dl-text">You don't have time to get serious about nutrition right now. What <em>do</em> you have time for?</span>
+        </div>
+        <div class="dl-turn">
+          <span class="speaker cl">Client</span>
+          <span class="dl-text">I could start by looking up healthier options at the places I already eat — so I make better choices without making major changes.</span>
+        </div>
+        <div class="dl-turn">
+          <span class="speaker pt">PT</span>
+          <span class="dl-text">What can you do within the next week to get started?</span>
+        </div>
+        <div class="dl-turn">
+          <span class="speaker cl">Client</span>
+          <span class="dl-text">I'll spend one hour on the websites of my three regular spots and make a list of healthy options in my phone notes.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- ── ADHERENCE ── -->
+  <section id="adherence">
+    <h2><span class="icon">📊</span> Physical Activity &amp; Adherence</h2>
+    <p>Most people know exercise is beneficial — yet the majority quit within 6 months. Adherence determinants fall into three categories: personal attributes, environmental factors, and physical-activity factors.</p>
+
+    <h3>Personal Attributes</h3>
+    <div class="adh-grid">
+      <div class="adh-card">
+        <div class="a-icon">📋</div>
+        <div class="a-title">Demographic Variables</div>
+        <ul>
+          <li>Lower activity with increasing age (though supervised adherence stays high)</li>
+          <li>Lower activity with fewer years of education and lower income</li>
+          <li>Men show higher, more consistent adherence than women</li>
+        </ul>
+      </div>
+      <div class="adh-card">
+        <div class="a-icon">📖</div>
+        <div class="a-title">Physical-Activity History</div>
+        <ul>
+          <li>Strong predictor of current exercise behavior</li>
+          <li>Collect a detailed history: what worked, what didn't, what was enjoyable</li>
+          <li>Use this to design programs that build on past successes</li>
+        </ul>
+      </div>
+      <div class="adh-card">
+        <div class="a-icon">🧠</div>
+        <div class="a-title">Psychological Traits</div>
+        <ul>
+          <li>Lower depression, stress, and anxiety predict adherence</li>
+          <li>Negative affect and anger predict dropout</li>
+          <li>Lack of enjoyment in the program is a modifiable barrier</li>
+        </ul>
+      </div>
+      <div class="adh-card">
+        <div class="a-icon">🔄</div>
+        <div class="a-title">Locus of Control</div>
+        <ul>
+          <li><strong>Internal LOC:</strong> Attributes health to own effort → more likely to be active</li>
+          <li><strong>External LOC:</strong> Attributes health to luck → less likely to exercise</li>
+          <li>Build internal LOC by co-creating achievable plans and reframing challenges as controllable</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Environmental Factors</h3>
+    <div class="card-grid">
+      <div class="card blue">
+        <h4>Access to Facilities</h4>
+        <p>Proximity to a gym or activity space is a consistent predictor of adherence. Ask clients about their realistic access options.</p>
+      </div>
+      <div class="card orange">
+        <h4>Time</h4>
+        <p>The most commonly cited barrier. "Not having time" often reflects low priority, not actual unavailability. Explore what the client enjoys and fit activity around existing routines.</p>
+      </div>
+      <div class="card green">
+        <h4>Social Support</h4>
+        <p>Spousal support is the most reliable social predictor of exercise adherence. If a client lacks support, build it — find an exercise partner, join a group, or use social accountability tools.</p>
+      </div>
+    </div>
+
+    <h3>Physical-Activity Factors</h3>
+    <div class="card-grid">
+      <div class="card teal">
+        <h4>Intensity &amp; Enjoyment</h4>
+        <p>Enjoyment is paramount. Match intensity to the client's experience and preferences — not just what produces the fastest results.</p>
+      </div>
+      <div class="card purple">
+        <h4>Injury Risk</h4>
+        <p>Higher exercise dose = higher injury risk. Too much progression too soon leads to dropout. Use progressive overload principles to keep clients healthy and consistent.</p>
+      </div>
+      <div class="card orange">
+        <h4>Program Design</h4>
+        <p>Programs must account for each client's preferences, schedule, experience, apprehensions, and practical constraints. Customization IS the strategy.</p>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p><strong>A trainer's real competition is not the gym down the street.</strong> It's the couch, streaming services, family demands, and work stress. The exercise experience must generate enough value in the client's life to consistently win that competition. Design programs that clients <em>look forward to</em>.</p>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- KEY TAKEAWAYS -->
+  <div class="takeaway">
+    <h3>Chapter 3 — Key Takeaways</h3>
+    <ul>
+      <li>The <strong>Health Belief Model</strong> explains behavior change through perceived susceptibility, seriousness, benefits, and barriers. Use cues to action with clients who feel at risk but are not yet ready.</li>
+      <li><strong>Self-Determination Theory</strong> identifies competence, autonomy, and relatedness as core psychological needs. Task-involving, caring climates dramatically improve retention.</li>
+      <li>The <strong>TTM (Stages of Change)</strong> reminds trainers that change is nonlinear. Use stage-matched strategies — never push clients before they're ready.</li>
+      <li><strong>Self-efficacy</strong> is the strongest psychological predictor of physical activity. Build it through mastery experiences, positive feedback, and early program design that guarantees success.</li>
+      <li><strong>Operant conditioning</strong> is happening in every session. Positive, pleasant early experiences are reinforcing; painful or humiliating ones are punishing and drive dropout.</li>
+      <li><strong>Cognitive distortions</strong> are invisible barriers to behavior change. Help clients challenge irrational thinking using Socratic questioning.</li>
+      <li><strong>Adherence determinants</strong> span personal attributes (history, psychology, locus of control), environment (access, time, support), and programming factors (enjoyment, intensity, injury prevention).</li>
+      <li>The <strong>trainer's role</strong> is not just to prescribe exercise — it's to serve as a behavior-change coach who understands motivation, reduces barriers, and creates lasting positive experiences.</li>
+    </ul>
+  </div>
+
+</div><!-- /blog-container -->
+
+<div class="blog-footer">
+  <p><a href="/ace-prep/chapter-3">← Back to Chapter 3 Quiz</a> &nbsp;·&nbsp; <a href="/ace-prep">ACE Hub</a> &nbsp;·&nbsp; Chapter 3: Basics of Behavior Change</p>
+</div>
+
+</Layout>

@@ -1,0 +1,847 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 3 — Basics of Behavior Change | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* HERO */
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(30px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:720px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:560px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+/* TABS */
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+/* CONTENT */
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ HEADER */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+/* CASE STUDY BLOCKS */
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+/* QUESTION CARDS */
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+/* FILL IN */
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:340px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+
+/* TRUE / FALSE */
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+
+/* ANSWER BANNER */
+.answer-banner{display:none;background:rgba(197,241,53,.06);border:1px solid rgba(197,241,53,.18);border-radius:var(--r2);padding:8px 12px;margin-top:10px;font-size:12px;color:var(--accent)}
+.answer-banner.show{display:block}
+
+/* QUIZ FOOTER */
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* RESULT MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:28px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:4px}
+.tag-cog{background:rgba(96,165,250,.15);color:var(--blue)}
+.tag-beh{background:rgba(74,222,128,.15);color:var(--correct)}
+.tag-up{background:rgba(197,241,53,.15);color:var(--accent)}
+.tag-dn{background:rgba(248,113,113,.15);color:var(--incorrect)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+/* ANIMATIONS */
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:16px}
+}
+</style>
+
+<!-- RESULT MODAL -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 3 — Basics of Behavior Change</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeQuiz()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 3</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 3</div>
+  <h1>Basics of <em>Behavior Change</em></h1>
+  <p>Psychology, Motivation & Adherence — Health Belief Model, SDT, Stages of Change, Self-Efficacy, Operant Conditioning, and Real-World Case Studies.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>35</strong><span>Case MCQ</span></div>
+    <div class="stat-chip"><strong>5</strong><span>Fill-in</span></div>
+    <div class="stat-chip"><strong>5</strong><span>True / False</span></div>
+    <div class="stat-chip"><strong>45</strong><span>Total</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 3 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-3-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">HBM · SDT · TTM · Self-Efficacy · Operant Conditioning · Adherence</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="tab-panel" id="tab-quiz">
+  <div class="quiz-header">
+    <h2>Chapter 3 <em>Quiz</em></h2>
+    <button class="reset-btn" onclick="retakeQuiz()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="progress-text">0 of 45 answered</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + answer reveals.</div>
+    <button class="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Five Stages of <em>Change (TTM)</em></h3>
+      <table class="ref-table">
+        <tr><th>Stage</th><th>Definition</th><th>Trainer Strategy</th></tr>
+        <tr><td><strong>Precontemplation</strong></td><td>Not active, not planning to start in next 6 months</td><td>Raise consciousness; discuss risks; don't push — build rapport</td></tr>
+        <tr><td><strong>Contemplation</strong></td><td>Inactive but thinking about change in next 6 months</td><td>Explore pros/cons; serve as cue to action; keep plan simple</td></tr>
+        <tr><td><strong>Preparation</strong></td><td>Taking small steps; may exercise but inconsistently</td><td>Collaboratively design a starter program; set SMART goals</td></tr>
+        <tr><td><strong>Action</strong></td><td>Consistently active for fewer than 6 months</td><td>Reinforce habits; address lapses proactively; build social support</td></tr>
+        <tr><td><strong>Maintenance</strong></td><td>Active 6+ months; habit established</td><td>Prevent relapse; diversify program; strengthen community ties</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Ten Processes of <em>Change</em></h3>
+      <table class="ref-table">
+        <tr><th>Process</th><th>Type</th><th>Description</th></tr>
+        <tr><td>Consciousness Raising</td><td><span class="tag-badge tag-cog">Cognitive</span></td><td>Finding and learning new facts about healthy behavior change</td></tr>
+        <tr><td>Dramatic Relief</td><td><span class="tag-badge tag-cog">Cognitive</span></td><td>Experiencing negative emotions about unhealthy behavior, then relief from deciding to change</td></tr>
+        <tr><td>Self-Reevaluation</td><td><span class="tag-badge tag-cog">Cognitive</span></td><td>Recognizing behavior change as part of one's identity</td></tr>
+        <tr><td>Environmental Reevaluation</td><td><span class="tag-badge tag-cog">Cognitive</span></td><td>Realizing how behavior affects the social environment</td></tr>
+        <tr><td>Self-Liberation</td><td><span class="tag-badge tag-cog">Cognitive</span></td><td>Deciding to change and believing in the ability to do so</td></tr>
+        <tr><td>Helping Relationships</td><td><span class="tag-badge tag-beh">Behavioral</span></td><td>Seeking and using social support for behavior change</td></tr>
+        <tr><td>Counter-Conditioning</td><td><span class="tag-badge tag-beh">Behavioral</span></td><td>Substituting healthy behaviors for unhealthy ones</td></tr>
+        <tr><td>Reinforcement Management</td><td><span class="tag-badge tag-beh">Behavioral</span></td><td>Increasing rewards for healthy behavior; reducing rewards for unhealthy</td></tr>
+        <tr><td>Stimulus Control</td><td><span class="tag-badge tag-beh">Behavioral</span></td><td>Removing cues for unhealthy behavior; adding cues for healthy behavior</td></tr>
+        <tr><td>Social Liberation</td><td><span class="tag-badge tag-beh">Behavioral</span></td><td>Taking advantage of social environments that reinforce new behavior norms</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Operant Conditioning <em>Outcomes</em></h3>
+      <table class="ref-table">
+        <tr><th>Type</th><th>What Happens</th><th>Effect</th></tr>
+        <tr><td><strong>Positive Reinforcement</strong></td><td>Positive stimulus added</td><td><span class="tag-badge tag-up">↑ Behavior</span></td></tr>
+        <tr><td><strong>Negative Reinforcement</strong></td><td>Negative stimulus removed</td><td><span class="tag-badge tag-up">↑ Behavior</span></td></tr>
+        <tr><td><strong>Extinction</strong></td><td>Positive stimulus removed</td><td><span class="tag-badge tag-dn">↓ Behavior</span></td></tr>
+        <tr><td><strong>Punishment</strong></td><td>Aversive stimulus added</td><td><span class="tag-badge tag-dn">↓ Behavior</span></td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Health Belief Model <em>Variables</em></h3>
+      <div class="key-term"><strong>Perceived Susceptibility</strong><span>How likely does the person think they are to develop a health problem?</span></div>
+      <div class="key-term"><strong>Perceived Seriousness</strong><span>How severe do they believe the consequences of illness would be?</span></div>
+      <div class="key-term"><strong>Perceived Benefits</strong><span>Does the person believe action will reduce the threat? Benefits must outweigh barriers.</span></div>
+      <div class="key-term"><strong>Perceived Barriers</strong><span>Obstacles (time, cost, embarrassment) the person believes stand in the way.</span></div>
+      <div class="key-term"><strong>Cues to Action</strong><span>Any trigger that prompts the decision to change — labs, advice, family illness.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>6 Sources of <em>Self-Efficacy</em></h3>
+      <div class="key-term"><strong>1. Past Performance Experience</strong><span>Most powerful source. Previous success directly raises self-efficacy.</span></div>
+      <div class="key-term"><strong>2. Vicarious Experience</strong><span>Observing someone similar succeed ("If they can, so can I").</span></div>
+      <div class="key-term"><strong>3. Verbal Persuasion</strong><span>Encouragement and positive feedback from a credible source.</span></div>
+      <div class="key-term"><strong>4. Physiological State Appraisals</strong><span>How clients interpret bodily sensations — teach normal vs. warning signs.</span></div>
+      <div class="key-term"><strong>5. Emotional State Appraisals</strong><span>Positive emotions raise SE; negative emotions lower it.</span></div>
+      <div class="key-term"><strong>6. Imaginal Experiences</strong><span>Mental image of what exercise will feel like — cultivate positively.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>6 Cognitive <em>Distortions</em></h3>
+      <div class="key-term"><strong>All-or-Nothing Thinking</strong><span>"I missed one session — my whole week is ruined." No middle ground.</span></div>
+      <div class="key-term"><strong>Overgeneralizing</strong><span>"I always quit everything." One setback = permanent pattern of failure.</span></div>
+      <div class="key-term"><strong>Catastrophizing / Magnification</strong><span>Blowing things out of proportion. "Even if I lose weight, I'll gain it all back."</span></div>
+      <div class="key-term"><strong>Jumping to Conclusions</strong><span>Mind reading or fortune telling without evidence.</span></div>
+      <div class="key-term"><strong>Labeling</strong><span>"I'm just not a fitness person." Rigid negative labels on self.</span></div>
+      <div class="key-term"><strong>Personalization & Blame</strong><span>Taking full blame for things outside control, or blaming others for own choices.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>SDT — Three Core <em>Needs</em></h3>
+      <div class="key-term"><strong>Competence</strong><span>Belief in ability to perform tasks. Built by achievable challenges and positive feedback.</span></div>
+      <div class="key-term"><strong>Autonomy</strong><span>Feeling behavior is self-chosen. Involve clients in goal-setting and program decisions.</span></div>
+      <div class="key-term"><strong>Relatedness</strong><span>Belonging and connectedness. Introduce clients; encourage accountability partnerships.</span></div>
+      <div class="key-term"><strong>Task vs Ego Climate</strong><span>Task climate (effort-focused) → commitment. Ego climate (rivalry-focused) → dropout.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Adherence <em>Determinants</em></h3>
+      <div class="key-term"><strong>Personal — Strongest Predictor</strong><span>PA history. Internal locus of control. Low negative affect. Enjoyment of activity.</span></div>
+      <div class="key-term"><strong>Environmental — Social</strong><span>Spousal support = most reliable social predictor of exercise adherence.</span></div>
+      <div class="key-term"><strong>Environmental — Access</strong><span>Proximity to facility is a consistent predictor. Time = most cited barrier.</span></div>
+      <div class="key-term"><strong>PA Factors — Design</strong><span>Enjoyment is paramount. Avoid excessive early intensity (injury = dropout). Customize everything.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 3: Basics of Behavior Change
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"HEALTH BELIEF MODEL",color:"#FF6B6B",subs:[
+    {name:"4 Key Variables",points:["Perceived Susceptibility — how likely am I to get sick?","Perceived Seriousness — how bad would it be?","Perceived Benefits — will acting reduce the threat?","Perceived Barriers — what stands in my way?"]},
+    {name:"Cues to Action",points:["Any trigger that prompts the decision to change","High BP reading, family illness, physician advice","Personal trainer can serve as a cue to action","Simple plan reduces perceived barriers immediately"]},
+    {name:"Trainer Application",points:["Most useful for clients in early stages of change","Identify which variable is currently dominant","Reduce perceived barriers immediately and practically","Keep initial plan simple and attainable"]},
+    {name:"Dynamic Nature",points:["Balance of benefits vs barriers shifts over time","Chronic illness can progressively shift the balance","Check in regularly to reassess client's position","Decision to change is complex, not linear"]}
+  ]},
+  {id:2,name:"SELF-DETERMINATION THEORY",color:"#4ECDC4",subs:[
+    {name:"3 Core Needs",points:["Competence — belief in ability to perform tasks","Autonomy — feeling behavior is self-chosen","Relatedness — belonging and connectedness","When all 3 are met, intrinsic motivation flourishes"]},
+    {name:"Task vs Ego Climate",points:["Task: emphasizes individual effort and improvement","Ego: highlights most skilled, encourages rivalry","Task climate → higher self-esteem and commitment","Ego climate → anxiety, exhaustion, dropout risk"]},
+    {name:"Caring Climate",points:["Safe, supportive environment for clients","Trainer demonstrates genuine concern for well-being","Links to higher enjoyment and stronger social bonds","Focus on process goals, not outcome goals"]},
+    {name:"Trainer Strategies",points:["Never compare clients to each other","Involve clients in goal-setting and program design","Celebrate milestones every session","Introduce clients to gym community for relatedness"]}
+  ]},
+  {id:3,name:"TRANSTHEORETICAL MODEL (TTM)",color:"#95E1D3",subs:[
+    {name:"5 Stages of Change",points:["Precontemplation — not active, not planning","Contemplation — thinking about it, next 6 months","Preparation — taking small steps inconsistently","Action (<6 months) → Maintenance (6+ months)"]},
+    {name:"10 Processes of Change",points:["Cognitive (5): Consciousness raising, Dramatic relief, Self-reevaluation, Environmental reevaluation, Self-liberation","Behavioral (5): Helping relationships, Counter-conditioning, Reinforcement management, Stimulus control, Social liberation","Cognitive processes dominant in early stages","Behavioral processes dominant in later stages"]},
+    {name:"Lapse & Relapse",points:["Lapse = brief return to old behavior (normal)","Relapse = sustained return (not a failure)","Discuss lapses in advance, develop recovery plan","Enhance social support between sessions"]},
+    {name:"Willpower",points:["Biological function, not a personality trait","Inherently limited — depletes across tasks","Build habit and structure to reduce reliance on it","Plan meals and workouts when resolve is high"]}
+  ]},
+  {id:4,name:"SELF-EFFICACY",color:"#F38181",subs:[
+    {name:"6 Sources",points:["1. Past Performance — most powerful source","2. Vicarious — watching similar others succeed","3. Verbal Persuasion — credible encouragement","4. Physiological State — body sensations appraisal","5. Emotional State — positive emotions raise SE","6. Imaginal Experience — mental image of exercise"]},
+    {name:"Role in TTM",points:["Strongest psychological predictor of physical activity","Precontemplation = significantly lower SE","Acts as both determinant AND outcome of behavior","Early success = deposits into self-efficacy bank"]},
+    {name:"Decisional Balance",points:["4th TTM component — pros vs cons ledger","Precontemplation: cons dominate","Action / Maintenance: pros dominate","Trainer's goal: shift the balance toward pros"]},
+    {name:"Shifting the Balance",points:["Emphasize short-term benefits (mood, energy, sleep)","Address perceived cons directly using MI techniques","Use Decisional Balance Worksheet collaboratively","Make pros felt after the very first session"]}
+  ]},
+  {id:5,name:"OPERANT CONDITIONING",color:"#AA96DA",subs:[
+    {name:"Antecedents & Stimulus Control",points:["Antecedents precede behavior and signal consequences","Stimulus control = manipulating antecedents to help","Set phone alarm to leave work for gym on time","Pack gym bag the night before (bag at door = cue)"]},
+    {name:"4 Consequence Types",points:["Positive reinforcement: add positive → behavior ↑","Negative reinforcement: remove negative → behavior ↑","Extinction: remove positive → behavior ↓","Punishment: add aversive stimulus → behavior ↓"]},
+    {name:"Session Design Implications",points:["Every session is a conditioning event","Positive, pleasant experience = positive reinforcement","Brutal first workout = punishment → client dropout","Design early sessions for mastery, not max fatigue"]},
+    {name:"ABC Framework",points:["A: Antecedent (stimulus before behavior)","B: Behavior (the action itself)","C: Consequence (what follows the behavior)","Trainers can manipulate A and C to shape B"]}
+  ]},
+  {id:6,name:"COGNITIONS & BEHAVIOR",color:"#FCBAD3",subs:[
+    {name:"6 Cognitive Distortions",points:["All-or-nothing: black/white, no middle ground","Overgeneralizing: one setback = never-ending failure","Catastrophizing: blowing things out of proportion","Labeling: rigid negative labels ('I'm not a gym person')","Jumping to conclusions: mind reading or fortune telling","Personalization & Blame: misattributing responsibility"]},
+    {name:"Challenging Distortions",points:["'What is evidence for and against this thought?'","'What would I tell a friend in this situation?'","'What is the worst that could realistically happen?'","'Is thinking this way helping me or making things worse?'"]},
+    {name:"SMART Goals & Self-Monitoring",points:["SMART: Specific, Measurable, Attainable, Relevant, Time-bound","Goal-setting is collaborative and ongoing, not one-time","Self-monitoring: track workouts, food, mood, sleep","Open-ended questions keep clients reflective"]},
+    {name:"ACE ABC Approach",points:["Ask — explore what change means to the client","Break down barriers — identify what is realistic now","Collaborate — client generates the plan, not trainer","Essence of motivational interviewing: client-led"]}
+  ]},
+  {id:7,name:"ADHERENCE DETERMINANTS",color:"#FFD93D",subs:[
+    {name:"Personal Attributes",points:["Demographic: age, education, income, gender","Health status: chronic illness → lower activity","PA history: strongest personal predictor of adherence","Psychological: low depression/anxiety → higher adherence"]},
+    {name:"Locus of Control",points:["Internal LOC: health attributed to own effort → active","External LOC: health attributed to luck → inactive","Build internal LOC via achievable, co-created plans","Reframe challenges as controllable outcomes"]},
+    {name:"Environmental Factors",points:["Access: proximity to gym = consistent predictor","Time: most cited barrier — often reflects priority","Social support: spousal support = most reliable predictor","Build exercise partnerships if support is lacking"]},
+    {name:"Physical-Activity Factors",points:["Enjoyment is paramount — design programs clients love","Higher dose = higher injury risk = higher dropout","Customization IS the strategy (no one-size-fits-all)","Real competition = the couch, not other gyms"]}
+  ]}
+]};
+
+// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+const CASES = [
+  {
+    num: 1,
+    topic: "Health Belief Model",
+    scenario: "Marcus, 47, recently received a physical exam showing pre-hypertension and elevated cholesterol. His father died of a heart attack at 55. Marcus knows he should probably do something but feels fine, works 60 hours per week, and has three children. He approaches a personal trainer but seems hesitant to commit to a program.",
+    qs: [
+      { q: "Marcus's worry about developing heart disease like his father represents which Health Belief Model variable?", opts: ["Perceived benefits","Perceived barriers","Perceived susceptibility","Perceived seriousness"], ans: 2 },
+      { q: "Marcus's pre-hypertension reading from his physical exam is best described as:", opts: ["A perceived barrier","A cue to action","A perceived benefit","A stage of change"], ans: 1 },
+      { q: 'Marcus saying "I\'d love to exercise but I work 60 hours a week and have three kids" reflects which HBM variable?', opts: ["Perceived seriousness","Perceived susceptibility","Perceived barriers","Perceived benefits"], ans: 2 },
+      { q: "According to the Health Belief Model, the decision to change is most likely when:", opts: ["A physician orders the person to exercise","Perceived benefits outweigh perceived barriers","The person has achieved the action stage","All perceived barriers are eliminated"], ans: 1 },
+      { q: "The personal trainer's BEST initial strategy for Marcus is to:", opts: ["Design a rigorous 6-day program to maximize early results","Refer Marcus to a physician before any exercise discussion","Start with a simple, flexible program with minimal time commitment","Focus entirely on long-term health outcomes to motivate commitment"], ans: 2 }
+    ]
+  },
+  {
+    num: 2,
+    topic: "Self-Determination Theory",
+    scenario: "Sarah, 32, has worked with a trainer for three months. She feels energized when she successfully completes challenging exercises and receives positive feedback. However, she feels frustrated that her trainer designs workouts without asking her input, and she often feels isolated because she does not know other gym members.",
+    qs: [
+      { q: "Sarah's positive response to completing challenging exercises and receiving positive feedback aligns with which SDT need?", opts: ["Relatedness","Autonomy","Competence","Operant reinforcement"], ans: 2 },
+      { q: "Sarah's frustration with not being involved in workout design reflects an unmet need for:", opts: ["Competence","Autonomy","Relatedness","Self-efficacy"], ans: 1 },
+      { q: "Sarah's feeling of isolation at the gym indicates her need for ___ is not being met.", opts: ["Competence","Autonomy","Relatedness","Stimulus control"], ans: 2 },
+      { q: "An ego-involving climate would MOST likely cause Sarah to experience:", opts: ["Higher self-esteem and greater commitment","Increased enjoyment and autonomy","Higher anxiety and increased dropout risk","Greater perceived competence"], ans: 2 },
+      { q: "The BEST strategy to simultaneously address all three of Sarah's SDT needs is to:", opts: ["Design harder workouts to challenge her more","Reduce feedback to build her independence","Involve Sarah in goal-setting, provide positive feedback, and introduce her to other members","Focus exclusively on performance outcomes and competition"], ans: 2 }
+    ]
+  },
+  {
+    num: 3,
+    topic: "Transtheoretical Model — Stages of Change",
+    scenario: 'David, 55, is approached at a corporate wellness event. He says: "I know I should exercise, and I\'ve been thinking about joining a gym for the past few months. I just haven\'t actually done anything yet — I\'m not sure I\'d stick with it anyway." After speaking with a trainer, he begins attending twice per week but misses multiple sessions over the following two months.',
+    qs: [
+      { q: "Based on David's opening statement, he is MOST likely in which stage of change?", opts: ["Precontemplation","Contemplation","Preparation","Action"], ans: 1 },
+      { q: "The MOST appropriate trainer strategy for David at the time of the wellness event is to:", opts: ["Immediately design a 5-day exercise program","Collaboratively explore options and support cues to action","Tell David he needs to commit before it is too late","Schedule daily sessions beginning the following week"], ans: 1 },
+      { q: "David has been attending the gym inconsistently for nearly two months. He is now in which TTM stage?", opts: ["Precontemplation","Contemplation","Action","Maintenance"], ans: 2 },
+      { q: 'David\'s statement "I\'m not sure I\'d stick with it anyway" reflects which TTM component?', opts: ["Decisional balance","Processes of change","Self-efficacy","Stimulus control"], ans: 2 },
+      { q: "As David moves from Contemplation to Preparation, the PRIMARY shift in decisional balance is that:", opts: ["All perceived barriers disappear","The perceived pros of being active begin to outweigh the perceived cons","Cons are entirely forgotten","The trainer assumes responsibility for all decision-making"], ans: 1 }
+    ]
+  },
+  {
+    num: 4,
+    topic: "Self-Efficacy — Sources",
+    scenario: 'Keisha, 28, has never exercised regularly. She tells her trainer: "I\'ve always been bad at sports and I don\'t know anything about fitness. I\'m afraid I\'ll look stupid at the gym." Her friend Ana — similar in age and current fitness level — started at the same gym six months ago and has made impressive progress.',
+    qs: [
+      { q: "Keisha's lack of prior exercise experience MOST directly affects which source of self-efficacy?", opts: ["Verbal persuasion","Imaginal experiences","Past performance experience","Physiological state appraisals"], ans: 2 },
+      { q: "Pointing out Ana's success to Keisha to boost her confidence is an example of which self-efficacy source?", opts: ["Verbal persuasion","Vicarious experience","Past performance","Emotional state appraisal"], ans: 1 },
+      { q: 'Keisha saying "I\'m afraid I\'ll look stupid" reflects a negative:', opts: ["Physiological state appraisal","Vicarious experience","Imaginal experience","Past performance experience"], ans: 2 },
+      { q: "The trainer's BEST early program design strategy for Keisha is to:", opts: ["Start with challenging exercises to build mental toughness","Design workouts Keisha will successfully master to build early self-efficacy","Compare her progress to gym averages for her age group","Focus on weight-loss outcome goals to maintain motivation"], ans: 1 },
+      { q: "The trainer praises Keisha enthusiastically after she completes her first full workout. This primarily uses which self-efficacy source?", opts: ["Past performance experience","Physiological state appraisal","Verbal persuasion","Imaginal experience"], ans: 2 }
+    ]
+  },
+  {
+    num: 5,
+    topic: "Operant Conditioning",
+    scenario: "Carlos arrives 15–20 minutes late to every training session. His trainer applies operant conditioning principles: she gives Carlos a phone alarm to leave work on time; she makes early sessions enjoyable and fun; she praises him enthusiastically when he arrives punctually; when he is late, the session simply starts late with no make-up time given. Carlos previously avoided resistance training because past workouts caused severe soreness. The trainer starts him on a low-intensity program, and Carlos now participates eagerly.",
+    qs: [
+      { q: "Carlos setting a phone alarm to remind himself to leave work on time is an example of:", opts: ["Positive reinforcement","Stimulus control","Negative reinforcement","Extinction"], ans: 1 },
+      { q: "The trainer's enthusiastic praise when Carlos arrives on time is an example of:", opts: ["Negative reinforcement","Extinction","Positive reinforcement","Punishment"], ans: 2 },
+      { q: "If the trainer permanently stopped praising Carlos for arriving on time, his punctual behavior would likely:", opts: ["Increase due to negative reinforcement","Stay the same indefinitely","Decrease through extinction","Increase due to punishment"], ans: 2 },
+      { q: "When the late session starts without make-up time — meaning Carlos simply loses workout time — this is BEST described as:", opts: ["Positive reinforcement","Negative reinforcement","A natural consequence functioning as mild punishment","Extinction"], ans: 2 },
+      { q: "Carlos's previous avoidance of weight training because of soreness, now resolved by the low-intensity program, illustrates which operant mechanism driving his new participation?", opts: ["Positive reinforcement","Extinction","Punishment","Negative reinforcement"], ans: 3 }
+    ]
+  },
+  {
+    num: 6,
+    topic: "Cognitive Distortions",
+    scenario: 'Alicia is six weeks into her exercise program. She misses two sessions due to illness, then says to her trainer: "I knew this would happen — I always quit everything. I\'m just not a fitness person. I\'ll never be able to stick with anything. I might as well stop now since I already ruined my streak."',
+    qs: [
+      { q: '"I always quit everything. I\'ll never be able to stick with anything" is MOST consistent with which cognitive distortion?', opts: ["All-or-nothing thinking","Overgeneralizing","Catastrophizing","Personalization"], ans: 1 },
+      { q: '"I might as well stop now since I already ruined my streak" MOST closely reflects:', opts: ["Magnification","Overgeneralizing","All-or-nothing thinking","Jumping to conclusions"], ans: 2 },
+      { q: '"I\'m just not a fitness person" is BEST described as which cognitive distortion?', opts: ["Fortune telling","Labeling","Overgeneralizing","All-or-nothing thinking"], ans: 1 },
+      { q: "The trainer's BEST response to challenge Alicia's irrational thinking is to:", opts: ["Agree that missing sessions is a serious problem requiring immediate correction",'Ask "What is the evidence for and against the thought that you always quit?"',"Completely redesign the program to prevent future lapses","Tell Alicia she simply needs to be more positive"], ans: 1 },
+      { q: "Which statement BEST reflects a rational thought to replace Alicia's cognitive distortions?", opts: ["Missing two sessions is fine — consistency doesn't really matter","I should double my workouts next week to compensate","I missed two sessions due to illness but have attended 10 of 12 — that's strong adherence","I should accept that I am not built for fitness"], ans: 2 }
+    ]
+  },
+  {
+    num: 7,
+    topic: "Physical Activity Adherence",
+    scenario: 'Jamie, 38, joined a gym four months ago and initially loved her results. She lives 30 minutes from the gym, works full time, and has two young children. Her husband views exercise as "a waste of time." As summer began, her children\'s schedule changed and she has started missing sessions. She tells her trainer: "I just don\'t have time, and honestly the workouts have gotten boring."',
+    qs: [
+      { q: "Jamie's 30-minute commute to the gym represents which category of adherence determinant?", opts: ["Personal attribute — psychological trait","Environmental factor — access to facilities","Physical-activity factor — intensity","Personal attribute — health status"], ans: 1 },
+      { q: "Jamie's husband's negative attitude toward exercise BEST represents which adherence barrier?", opts: ["Environmental factor — social support","Personal attribute — locus of control","Physical-activity factor — program design","Environmental factor — access to facilities"], ans: 0 },
+      { q: '"The workouts have gotten boring" is BEST addressed through:', opts: ["Significantly increasing workout intensity","Reducing session frequency to once per week","Redesigning the program with variety and enjoyment as priorities","Switching to a completely different training modality immediately"], ans: 2 },
+      { q: "The trainer's BEST strategy for Jamie's schedule changes is to:", opts: ["Require Jamie to attend at the original time regardless of new schedule","Collaboratively identify flexible workout options that fit her changed routine","Temporarily suspend her membership until school resumes","Tell Jamie she must prioritize fitness above family obligations"], ans: 1 },
+      { q: "To address Jamie's lack of spousal support, the trainer's BEST recommendation is to:", opts: ["Invite the husband to sessions to change his attitude directly","Advise Jamie to stop discussing exercise with her husband","Help Jamie build alternative social support — an exercise partner, accountability group, or active community","Ignore spousal opinion as irrelevant to program adherence"], ans: 2 }
+    ]
+  }
+];
+
+const FILLIN = [
+  { q: "The _______________ model of behavior change examines the relationship between antecedents, behaviors, and consequences to understand how exercise habits are formed and maintained.", a: "operant conditioning" },
+  { q: "According to Self-Determination Theory, the three innate psychological needs are competence, autonomy, and _______________.", a: "relatedness" },
+  { q: "The TTM component that refers to a person's internal evaluation of the pros and cons of adopting a physical-activity program is called _______________ balance.", a: "decisional" },
+  { q: "_______________ — defined as a person's belief in their own ability to successfully perform an exercise program — is the strongest psychological predictor of physical-activity behavior.", a: "Self-efficacy" },
+  { q: "In the Transtheoretical Model, the _______________ stage is characterized by consistent physical activity for fewer than six months, during which habit formation is still underway.", a: "action" }
+];
+
+const TRUEF = [
+  { q: "According to the Health Belief Model, a person who perceives high susceptibility and high seriousness will automatically begin an exercise program.", a: false },
+  { q: "Research consistently shows that ego-involving exercise climates are associated with higher anxiety and greater physical exhaustion compared to task-involving climates.", a: true },
+  { q: "Willpower is an unlimited resource that strengthens with consistent use, making it the best long-term strategy for maintaining healthy behaviors.", a: false },
+  { q: "Self-efficacy functions as both a determinant AND an outcome of physical-activity behavior change.", a: true },
+  { q: "In operant conditioning, punishment refers specifically to receiving a critical verbal comment from a personal trainer.", a: false }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let mcqAnswers  = {};  // key: "c0q0", value: index 0-3
+let fibAnswers  = {};  // key: "fib0", value: string
+let tfAnswers   = {};  // key: "tf0", value: true/false
+let graded      = false;
+let globalQNum  = 0;
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderAll() {
+  globalQNum = 0;
+  renderMCQ();
+  renderFIB();
+  renderTF();
+  updateProgress();
+}
+
+function renderMCQ() {
+  const sec = document.getElementById('mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      globalQNum++;
+      const key = 'c' + ci + 'q' + qi;
+      const qn  = globalQNum;
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = 'card-' + key;
+      card.innerHTML = `
+        <div class="q-num">Q${qn} &nbsp;·&nbsp; Case ${cs.num}: ${cs.topic}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options" id="opts-${key}">
+          ${q.opts.map((opt, oi) => `
+            <div class="q-option" id="opt-${key}-${oi}" onclick="selectMCQ('${key}',${oi},${ci},${qi})">
+              <div class="opt-letter">${['A','B','C','D'][oi]}</div>
+              <span>${opt}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="answer-banner" id="banner-${key}"></div>
+      `;
+      block.appendChild(card);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function renderFIB() {
+  const sec = document.getElementById('fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((item, i) => {
+    globalQNum++;
+    const qn = globalQNum;
+    const card = document.createElement('div');
+    card.className = 'fib-card';
+    card.innerHTML = `
+      <div class="q-num">Q${qn} &nbsp;·&nbsp; Fill in the Blank</div>
+      <div class="fib-q">${item.q}</div>
+      <div class="fib-input-wrap">
+        <input type="text" class="q-input" id="fib-input-${i}" placeholder="Type answer…"
+          oninput="fibAnswers['fib${i}']=this.value; updateProgress()"
+          autocomplete="off"/>
+        <span class="fib-feedback" id="fib-fb-${i}"></span>
+      </div>
+      <div class="answer-banner" id="fib-banner-${i}"></div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+function renderTF() {
+  const sec = document.getElementById('tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((item, i) => {
+    globalQNum++;
+    const qn = globalQNum;
+    const card = document.createElement('div');
+    card.className = 'tf-card';
+    card.innerHTML = `
+      <div class="q-num">Q${qn} &nbsp;·&nbsp; True / False</div>
+      <div class="tf-q">${item.q}</div>
+      <div class="q-tf">
+        <button class="q-tf-btn" id="tf-${i}-true"  onclick="selectTF(${i},true)">True</button>
+        <button class="q-tf-btn" id="tf-${i}-false" onclick="selectTF(${i},false)">False</button>
+      </div>
+      <div class="answer-banner" id="tf-banner-${i}"></div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+// ── INTERACTION ───────────────────────────────────────────────────────────────
+function selectMCQ(key, oi, ci, qi) {
+  if (graded) return;
+  document.querySelectorAll('#opts-' + key + ' .q-option').forEach(el => el.classList.remove('selected'));
+  const opt = document.getElementById('opt-' + key + '-' + oi);
+  if (opt) {
+    opt.classList.add('selected');
+    opt.querySelector('.opt-letter').style.background = 'var(--accent)';
+    opt.querySelector('.opt-letter').style.borderColor = 'var(--accent)';
+    opt.querySelector('.opt-letter').style.color = '#000';
+  }
+  mcqAnswers[key] = oi;
+  updateProgress();
+}
+
+function selectTF(i, val) {
+  if (graded) return;
+  document.getElementById('tf-' + i + '-true').classList.remove('selected');
+  document.getElementById('tf-' + i + '-false').classList.remove('selected');
+  document.getElementById('tf-' + i + '-' + (val ? 'true' : 'false')).classList.add('selected');
+  tfAnswers['tf' + i] = val;
+  updateProgress();
+}
+
+function updateProgress() {
+  const mcqDone = Object.keys(mcqAnswers).length;
+  const fibDone = Object.values(fibAnswers).filter(v => v && v.length > 0).length;
+  const tfDone  = Object.keys(tfAnswers).length;
+  const total   = mcqDone + fibDone + tfDone;
+  const pct     = Math.round((total / 45) * 100);
+  document.getElementById('progress-text').textContent = total + ' of 45 answered';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('prog-bar').style.width = pct + '%';
+}
+
+// ── GRADING ───────────────────────────────────────────────────────────────────
+function submitQuiz() {
+  graded = true;
+  let correct = 0, wrong = 0;
+
+  // Grade MCQ
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key    = 'c' + ci + 'q' + qi;
+      const chosen = mcqAnswers[key];
+      const opts   = document.querySelectorAll('#opts-' + key + ' .q-option');
+      opts.forEach(el => { el.style.cursor = 'default'; el.classList.remove('selected'); });
+      // Reset letter styles
+      opts.forEach(el => {
+        const letter = el.querySelector('.opt-letter');
+        if (letter) { letter.style.background = ''; letter.style.borderColor = ''; letter.style.color = ''; }
+      });
+      if (chosen === undefined || chosen === null) {
+        opts[q.ans].classList.add('reveal-correct');
+        wrong++;
+        showBanner('banner-' + key, 'Correct answer: ' + ['A','B','C','D'][q.ans] + ') ' + q.opts[q.ans]);
+      } else {
+        if (chosen === q.ans) {
+          opts[chosen].classList.add('correct-ans');
+          correct++;
+        } else {
+          opts[chosen].classList.add('wrong-ans');
+          opts[q.ans].classList.add('reveal-correct');
+          wrong++;
+          showBanner('banner-' + key, 'Correct answer: ' + ['A','B','C','D'][q.ans] + ') ' + q.opts[q.ans]);
+        }
+      }
+    });
+  });
+
+  // Grade Fill-in
+  FILLIN.forEach((item, i) => {
+    const input = document.getElementById('fib-input-' + i);
+    const val   = (fibAnswers['fib' + i] || '').toLowerCase().trim();
+    const ans   = item.a.toLowerCase().trim();
+    input.readOnly = true;
+    const isCorrect = val === ans || val.includes(ans) || ans.includes(val);
+    if (!val) {
+      input.classList.add('fib-wrong');
+      showBanner('fib-banner-' + i, 'Correct answer: ' + item.a);
+      wrong++;
+    } else if (isCorrect) {
+      input.classList.add('fib-correct');
+      document.getElementById('fib-fb-' + i).className = 'fib-feedback ok';
+      document.getElementById('fib-fb-' + i).textContent = '✓';
+      correct++;
+    } else {
+      input.classList.add('fib-wrong');
+      document.getElementById('fib-fb-' + i).className = 'fib-feedback bad';
+      document.getElementById('fib-fb-' + i).textContent = '✗';
+      showBanner('fib-banner-' + i, 'Correct answer: ' + item.a);
+      wrong++;
+    }
+  });
+
+  // Grade T/F
+  TRUEF.forEach((item, i) => {
+    const chosen   = tfAnswers['tf' + i];
+    const trueBtn  = document.getElementById('tf-' + i + '-true');
+    const falseBtn = document.getElementById('tf-' + i + '-false');
+    [trueBtn, falseBtn].forEach(b => { b.style.cursor = 'default'; b.classList.remove('selected'); });
+    if (chosen === undefined || chosen === null) {
+      (item.a ? trueBtn : falseBtn).classList.add('tf-reveal');
+      wrong++;
+      showBanner('tf-banner-' + i, 'Correct answer: ' + (item.a ? 'True' : 'False'));
+    } else {
+      if (chosen === item.a) {
+        (chosen ? trueBtn : falseBtn).classList.add('tf-correct');
+        correct++;
+      } else {
+        (chosen ? trueBtn : falseBtn).classList.add('tf-wrong');
+        (item.a ? trueBtn : falseBtn).classList.add('tf-reveal');
+        wrong++;
+        showBanner('tf-banner-' + i, 'Correct answer: ' + (item.a ? 'True' : 'False'));
+      }
+    }
+  });
+
+  // Show modal
+  const pct   = Math.round((correct / 45) * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: "Strong command of behavior change theory — ready to apply these models with clients.",
+    B: "Solid understanding. Review any missed questions and reinforce the weaker topics.",
+    C: "Core concepts need more review. Revisit the Theory Guide and focus on missed areas.",
+    D: "Return to the chapter material before retaking. Focus on the models you found hardest."
+  };
+  const titles = { A:"Excellent Work!", B:"Good Work!", C:"Keep Studying", D:"More Review Needed" };
+
+  document.getElementById('modal-ring').textContent  = grade;
+  document.getElementById('modal-ring').className    = 'modal-grade-ring grade-' + grade;
+  document.getElementById('modal-title').textContent = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-pct').textContent     = pct + '%';
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function showBanner(id, msg) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.classList.add('show'); }
+}
+
+function closeModal() {
+  document.getElementById('result-modal').classList.remove('open');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retakeQuiz() {
+  location.reload();
+}
+
+// ── MINDMAP & TABS ────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  grid.innerHTML = MINDMAP.branches.map((b, i) => `
+    <div class="mm-branch" id="mmb-${i}" onclick="toggleBranch(${i})">
+      <div class="mm-branch-header">
+        <div class="mm-branch-dot" style="background:${b.color}"></div>
+        <div class="mm-branch-name">${b.name}</div>
+        <div class="mm-branch-arrow">›</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${b.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">${s.points.map(p => '<li>' + p + '</li>').join('')}</ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleBranch(i) {
+  document.getElementById('mmb-' + i).classList.toggle('open');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+renderAll();
+</script>
+
+</Layout>
