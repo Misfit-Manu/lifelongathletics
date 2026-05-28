@@ -1,0 +1,972 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Preparticipation Health Screening — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering the ACSM Preparticipation Algorithm, 3-Step Checklist, PAR-Q+, 9 Signs & Symptoms, Cardiac Rehab, Additional Forms, and Medications & Exercise HR for ACE-CPT Chapter 5.">
+
+<style is:global>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #1a1a2e;
+  background: #ffffff;
+}
+.blog-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #0d1f35 0%, #0a1a28 50%, #0f2028 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 56px 48px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 280px; height: 280px;
+  background: rgba(197,241,53,0.06);
+  border-radius: 50%;
+}
+.hero-tag {
+  display: inline-block;
+  background: #c5f135;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+.hero p {
+  color: rgba(255,255,255,0.65);
+  font-size: 15px;
+  max-width: 560px;
+  margin-bottom: 24px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c5f135;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* ── TOC BAR ── */
+.toc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0;
+  margin-bottom: 48px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.toc-inner {
+  display: inline-flex;
+  gap: 0;
+  padding: 0 4px;
+}
+.toc-link {
+  display: inline-block;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.toc-link:hover { color: #111; border-bottom-color: #c5f135; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 64px; }
+.section-tag {
+  display: inline-block;
+  background: #c5f135;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.section-tag.teal   { background: #22d3ee; color: #000; }
+.section-tag.blue   { background: #3b82f6; color: #fff; }
+.section-tag.purple { background: #a855f7; color: #fff; }
+.section-tag.orange { background: #f97316; color: #fff; }
+.section-tag.green  { background: #10b981; color: #fff; }
+.section-tag.red    { background: #ef4444; color: #fff; }
+.section h2 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+.section p {
+  color: #374151;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+.section p strong { color: #111827; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: #e5e7eb; margin: 56px 0; }
+
+/* ── CALLOUT ── */
+.callout {
+  background: #f9fafb;
+  border-left: 4px solid #c5f135;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+.callout.teal   { border-left-color: #22d3ee; }
+.callout.blue   { border-left-color: #3b82f6; }
+.callout.purple { border-left-color: #a855f7; }
+.callout.orange { border-left-color: #f97316; }
+.callout.green  { border-left-color: #10b981; }
+.callout.red    { border-left-color: #ef4444; }
+.callout p { font-size: 14px; margin: 0 0 6px; color: #374151; line-height: 1.65; }
+.callout p:last-child { margin-bottom: 0; }
+.callout strong { color: #111; }
+.callout ul { padding-left: 18px; margin-top: 6px; }
+.callout li { font-size: 14px; color: #374151; margin-bottom: 4px; line-height: 1.55; }
+
+/* ── CARD GRID ── */
+.card-grid {
+  display: grid;
+  gap: 14px;
+  margin: 24px 0;
+}
+.card-grid-2 { grid-template-columns: 1fr 1fr; }
+.card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+  border-left: 3px solid #c5f135;
+}
+.card.teal   { border-left-color: #22d3ee; }
+.card.blue   { border-left-color: #3b82f6; }
+.card.purple { border-left-color: #a855f7; }
+.card.orange { border-left-color: #f97316; }
+.card.green  { border-left-color: #10b981; }
+.card.red    { border-left-color: #ef4444; }
+.card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  color: #111;
+}
+.card p { font-size: 13px; color: #374151; margin: 0; line-height: 1.6; }
+.card ul { padding-left: 16px; margin-top: 4px; }
+.card li { font-size: 13px; color: #374151; margin-bottom: 4px; line-height: 1.5; }
+
+/* ── ALGORITHM TABLE ── */
+.alg-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+.alg-table th, .alg-table td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+  border: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+.alg-table thead th {
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.alg-table .row-label {
+  background: #f9fafb;
+  font-weight: 700;
+  color: #111827;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.alg-table td.cell-safe   { background: #f0fdf4; color: #16a34a; font-weight: 600; }
+.alg-table td.cell-caution { background: #fff7ed; color: #c2410c; font-weight: 600; }
+.alg-table td.cell-stop   { background: #fef2f2; color: #dc2626; font-weight: 600; }
+.alg-table td p { font-size: 13px; font-weight: 400; color: #374151; margin-top: 4px; }
+
+/* ── 3-STEP CHECKLIST ── */
+.steps { margin: 24px 0; }
+.step {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 18px;
+}
+.step-num.teal   { background: #e0f9fe; color: #0891b2; }
+.step-num.orange { background: #fff7ed; color: #ea580c; }
+.step-num.green  { background: #f0fdf4; color: #16a34a; }
+.step-body h3 { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.step-body p { font-size: 14px; color: #374151; margin-bottom: 8px; line-height: 1.6; }
+.step-body ul { padding-left: 18px; margin-bottom: 8px; }
+.step-body li { font-size: 14px; color: #374151; margin-bottom: 4px; line-height: 1.5; }
+
+/* ── STOP CALLOUT ── */
+.stop-callout {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-left: 4px solid #ef4444;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin-top: 12px;
+}
+.stop-callout h4 { font-size: 13px; font-weight: 800; color: #dc2626; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.stop-callout p  { font-size: 13px; color: #374151; margin: 0; line-height: 1.55; }
+
+/* ── SYMPTOM GRID ── */
+.symptom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+  margin: 24px 0;
+}
+.symptom-item {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-left: 3px solid #ef4444;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+}
+.symptom-item strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.symptom-item p { font-size: 13px; color: #374151; margin: 0; line-height: 1.5; }
+
+/* ── FORM CARDS ── */
+.forms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+.form-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-top: 3px solid #f97316;
+  border-radius: 10px;
+  padding: 20px;
+}
+.form-card h4 { font-size: 14px; font-weight: 700; color: #c2410c; margin-bottom: 8px; }
+.form-card p  { font-size: 13px; color: #374151; margin-bottom: 8px; line-height: 1.6; }
+.form-card ul { padding-left: 16px; }
+.form-card li { font-size: 13px; color: #374151; margin-bottom: 3px; }
+
+/* ── MEDICATIONS TABLE ── */
+.med-table-wrap { overflow-x: auto; margin: 24px 0; border-radius: 10px; border: 1px solid #e5e7eb; }
+.med-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.med-table thead th {
+  background: #f3f4f6;
+  color: #6b7280;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+.med-table tbody tr { border-top: 1px solid #e5e7eb; }
+.med-table tbody tr:hover td { background: #f9fafb; }
+.med-table tbody td { padding: 12px 14px; color: #374151; vertical-align: top; }
+.med-table td.drug-name { font-weight: 700; color: #111827; }
+.med-table td.up   { color: #dc2626; font-weight: 700; }
+.med-table td.down { color: #16a34a; font-weight: 700; }
+.med-table td.flat { color: #9ca3af; }
+.med-table td.var  { color: #d97706; font-style: italic; }
+
+/* ── DEEP DIVE CARDS ── */
+.deep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.deep-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+  border-top: 3px solid #6b7280;
+}
+.deep-card.red    { border-top-color: #ef4444; }
+.deep-card.orange { border-top-color: #f97316; }
+.deep-card.blue   { border-top-color: #3b82f6; }
+.deep-card.purple { border-top-color: #a855f7; }
+.deep-card.green  { border-top-color: #10b981; }
+.deep-card.teal   { border-top-color: #22d3ee; }
+.deep-card h4 { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+.deep-card p  { font-size: 13px; color: #374151; margin: 0; line-height: 1.6; }
+
+/* ── KEY TAKEAWAYS ── */
+.takeaways {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 32px;
+  margin: 48px 0;
+}
+.takeaways h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #16a34a;
+  margin-bottom: 20px;
+}
+.takeaway-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid #d1fae5;
+}
+.takeaway-item:last-child { border: none; }
+.tick { color: #16a34a; font-size: 14px; margin-top: 3px; flex-shrink: 0; }
+.takeaway-item p { font-size: 14px; color: #374151; margin: 0; line-height: 1.55; }
+
+/* ── BACK FOOTER ── */
+.page-footer {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 32px 24px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 64px;
+}
+.page-footer a { color: #374151; font-weight: 600; text-decoration: none; }
+.page-footer a:hover { color: #000; }
+
+/* ── INTENSITY TABLE ── */
+.int-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.int-table th, .int-table td {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.int-table th { background: #f3f4f6; color: #6b7280; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.int-table tr:hover td { background: #f9fafb; }
+.int-lbl-light  { color: #22d3ee; font-weight: 700; }
+.int-lbl-mod    { color: #f97316; font-weight: 700; }
+.int-lbl-vig    { color: #ef4444; font-weight: 700; }
+
+@media (max-width: 680px) {
+  .hero { padding: 36px 24px; }
+  .card-grid-2, .card-grid-3, .deep-grid, .forms-grid, .symptom-grid { grid-template-columns: 1fr; }
+  .alg-table td, .alg-table th { font-size: 12px; padding: 10px 10px; }
+  .step { flex-direction: column; gap: 12px; }
+}
+</style>
+
+<div class="blog-container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">ACE-CPT · Chapter 5 · Theory Guide</div>
+    <h1>Preparticipation Health Screening</h1>
+    <p>Before the first rep, know the client's risks. A systematic screening process protects clients, guides program design, and keeps trainers operating within their professional scope.</p>
+    <a href="/ace-prep/chapter-5" class="back-link">← Back to Chapter 5 Hub</a>
+  </div>
+
+  <!-- TOC BAR -->
+  <nav class="toc-bar">
+    <div class="toc-inner">
+      <a href="#risks"     class="toc-link">01 Risks</a>
+      <a href="#algorithm" class="toc-link">02 Algorithm</a>
+      <a href="#signs"     class="toc-link">03 Signs</a>
+      <a href="#checklist" class="toc-link">04 Checklist</a>
+      <a href="#parq"      class="toc-link">05 PAR-Q+</a>
+      <a href="#cardiac"   class="toc-link">06 Cardiac Rehab</a>
+      <a href="#forms"     class="toc-link">07 Forms</a>
+      <a href="#meds"      class="toc-link">08 Medications</a>
+      <a href="#takeaways" class="toc-link">09 Takeaways</a>
+    </div>
+  </nav>
+
+  <!-- ── 01 INHERENT RISKS ── -->
+  <div class="section" id="risks">
+    <span class="section-tag red">Inherent Health Risks</span>
+    <h2>Exercise Has Risks — But Inactivity Has More</h2>
+    <p>Physical activity reduces risk for cardiovascular, pulmonary, and metabolic diseases, certain cancers, anxiety, and premature death. Yet some exercise-related risk exists, and trainers must understand who is at greatest risk and why.</p>
+
+    <div class="callout red">
+      <p><strong>Highest-Risk Profile:</strong> Individuals with underlying cardiovascular disease (CVD) who perform <strong>unaccustomed vigorous physical activity</strong> are at the greatest risk for activity-associated acute myocardial infarction (AMI) and sudden cardiac death (SCD). The risk is highest when the activity level far exceeds what they are accustomed to.</p>
+    </div>
+
+    <div class="card-grid card-grid-3">
+      <div class="card teal">
+        <h4>Low Risk — General Population</h4>
+        <p>Moderate exercise does not provoke dangerous cardiovascular or musculoskeletal events in healthy, asymptomatic individuals. The overall risk of an adverse event during vigorous exercise is extremely low for healthy adults.</p>
+      </div>
+      <div class="card orange">
+        <h4>Elevated Risk — Specific Groups</h4>
+        <ul>
+          <li>Exertional signs and symptoms present</li>
+          <li>Diagnosed cardiovascular, metabolic, or renal disease</li>
+          <li>Vigorous-to-near-maximal intensity exercise</li>
+          <li>Activity to which they are unaccustomed</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <h4>Risk Declines with Activity</h4>
+        <p>As individuals become more physically active, their exercise-related cardiovascular risks <strong>decline</strong>. Unnecessary screening barriers that prevent people from becoming active are themselves a public health risk.</p>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      <p><strong>Three ACSM Risk Modulators</strong> — the most important factors that determine exercise-related cardiovascular risk:</p>
+      <ul>
+        <li>The individual's <strong>current level of physical activity</strong></li>
+        <li>Presence of <strong>diagnosed cardiovascular, metabolic, or renal disease</strong> and/or <strong>signs or symptoms</strong> suggestive of disease</li>
+        <li>The <strong>desired exercise intensity</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 02 ACSM ALGORITHM ── -->
+  <div class="section" id="algorithm">
+    <span class="section-tag orange">ACSM Algorithm</span>
+    <h2>Preparticipation Health-Screening Algorithm</h2>
+    <p>The ACSM preparticipation health-screening algorithm (Figure 5-1) provides clear decision pathways based on two variables: the client's <strong>current exercise status</strong> and their <strong>disease/symptom profile</strong>.</p>
+
+    <div class="callout orange">
+      <p><strong>Definition — Regular Exercise:</strong> Performing planned, structured physical activity for at least <strong>30 minutes at moderate intensity on at least 3 days/week for at least the past 3 months</strong>.</p>
+    </div>
+
+    <table class="alg-table">
+      <thead>
+        <tr>
+          <th>Exercise Status</th>
+          <th>No Disease, No Symptoms</th>
+          <th>Known Disease, Asymptomatic</th>
+          <th>Any Signs or Symptoms</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">Does NOT participate in regular exercise</td>
+          <td class="cell-safe">Medical clearance NOT necessary.
+            <p>May begin light to moderate intensity. Gradually progress following ACSM Guidelines.</p>
+          </td>
+          <td class="cell-caution">Medical clearance recommended before vigorous exercise.
+            <p>Light to moderate intensity permitted following clearance.</p>
+          </td>
+          <td class="cell-stop">Medical clearance recommended regardless of disease status.
+            <p>Discontinue exercise if symptoms appear. Light to moderate following clearance.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="row-label">Participates in regular exercise</td>
+          <td class="cell-safe">Continue moderate to vigorous intensity.
+            <p>Gradually progress as tolerated following ACSM Guidelines.</p>
+          </td>
+          <td class="cell-caution">Continue moderate intensity without clearance.
+            <p>Medical clearance recommended before progressing to vigorous.</p>
+          </td>
+          <td class="cell-stop">Discontinue exercise. Seek medical clearance.
+            <p>May return following clearance and gradually progress.</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout green">
+      <p><strong>ACSM Intensity Definitions:</strong></p>
+      <ul>
+        <li><strong>Light:</strong> 30–39% HRR or VO₂R · 2–2.9 METs · RPE 9–11 — slight increases in HR and breathing</li>
+        <li><strong>Moderate:</strong> 40–59% HRR or VO₂R · 3–5.9 METs · RPE 12–13 — noticeable increases in HR and breathing</li>
+        <li><strong>Vigorous:</strong> ≥60% HRR or VO₂R · ≥6 METs · RPE ≥14 — substantial increases in HR and breathing</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 03 SIGNS & SYMPTOMS ── -->
+  <div class="section" id="signs">
+    <span class="section-tag red">Red Flags</span>
+    <h2>Signs &amp; Symptoms Requiring Medical Clearance</h2>
+    <p>The following nine signs and symptoms — whether at rest or during activity — suggest possible cardiovascular, metabolic, or renal disease and always warrant medical evaluation before or during exercise.</p>
+
+    <div class="symptom-grid">
+      <div class="symptom-item">
+        <strong>Chest Pain / Angina Equivalent</strong>
+        <p>Pain, discomfort in chest, neck, jaw, arms, or other areas that may result from myocardial ischemia.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Dyspnea</strong>
+        <p>Shortness of breath at rest or with mild exertion, beyond what is expected for the activity level.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Dizziness / Syncope</strong>
+        <p>Dizziness or fainting, most commonly caused by reduced perfusion to the brain.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Orthopnea / PND</strong>
+        <p>Dyspnea in a reclined position (orthopnea), or paroxysmal nocturnal dyspnea — onset usually 2–5 hours after lying down.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Ankle Edema</strong>
+        <p>Swelling of the ankles; may indicate cardiac or circulatory dysfunction.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Palpitations / Tachycardia</strong>
+        <p>Unpleasant awareness of a forceful, rapid, or irregular heartbeat.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Intermittent Claudication</strong>
+        <p>Burning or cramping in the lower extremities during exercise caused by inadequate blood supply.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Known Heart Murmur</strong>
+        <p>Any previously identified heart murmur warrants follow-up before vigorous exercise.</p>
+      </div>
+      <div class="symptom-item">
+        <strong>Unusual Fatigue / SOB with Daily Activities</strong>
+        <p>Unusual fatigue or shortness of breath with usual daily activities — disproportionate to the task.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 04 3-STEP CHECKLIST ── -->
+  <div class="section" id="checklist">
+    <span class="section-tag teal">Exercise Professionals</span>
+    <h2>3-Step Preparticipation Checklist</h2>
+    <p>Figure 5-2 presents the exercise preparticipation health-screening questionnaire for exercise professionals — a simple, time-efficient 3-step process used at point of service.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num teal">1</div>
+        <div class="step-body">
+          <h3>Step 1 — Symptoms</h3>
+          <p>Ask whether the client experiences any of the following:</p>
+          <ul>
+            <li>Chest discomfort with exertion</li>
+            <li>Unreasonable breathlessness</li>
+            <li>Dizziness, fainting, or blackouts</li>
+            <li>Ankle swelling</li>
+            <li>Unpleasant awareness of a forceful, rapid, or irregular heart rate</li>
+            <li>Burning or cramping sensations in lower legs when walking short distances</li>
+          </ul>
+          <div class="stop-callout">
+            <h4>🛑 STOP</h4>
+            <p>If any symptoms are marked — the client must seek medical clearance before exercise. They may need a facility with medically qualified staff.</p>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">2</div>
+        <div class="step-body">
+          <h3>Step 2 — Current Activity Level</h3>
+          <p>Has the client performed planned, structured physical activity for <strong>at least 30 minutes at moderate intensity on at least 3 days per week for at least the past 3 months?</strong> Answer Yes or No, then continue to Step 3.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num green">3</div>
+        <div class="step-body">
+          <h3>Step 3 — Medical Conditions</h3>
+          <p>Has the client had or do they currently have any of the following?</p>
+          <ul>
+            <li>Heart attack</li>
+            <li>Heart surgery, cardiac catheterization, or coronary angioplasty</li>
+            <li>Pacemaker / implantable cardiac defibrillator / rhythm disturbance</li>
+            <li>Heart valve disease</li>
+            <li>Heart failure</li>
+            <li>Heart transplantation</li>
+            <li>Congenital heart disease</li>
+            <li>Diabetes</li>
+            <li>Renal disease</li>
+          </ul>
+          <div class="callout teal" style="margin-top:14px;">
+            <p><strong>Evaluating Steps 2 &amp; 3:</strong></p>
+            <ul>
+              <li><strong>No conditions in Step 3</strong> → clearance NOT necessary</li>
+              <li><strong>Step 2 = Yes + any Step 3 condition</strong> → continue light to moderate without clearance; medical clearance before vigorous</li>
+              <li><strong>Step 2 = No + any Step 3 condition</strong> → medical clearance recommended; may need medically qualified facility</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout purple" style="margin-top:32px;">
+      <p><strong>ACE ABC Approach in Action — Nathaniel:</strong> Nathaniel has diabetes and hasn't seen his doctor in over a year. Using the ACE ABC Approach (Ask, Break Down Barriers, Collaborate), the trainer gathers health history through open-ended questions, identifies the need for medical clearance without dampening enthusiasm, and collaborates with Nathaniel on a plan: contact his doctor this week, keep walking twice a week, and start training once clearance is received. Medical clearance should be framed as ensuring the best possible experience — never as a barrier to being active.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 05 PAR-Q+ ── -->
+  <div class="section" id="parq">
+    <span class="section-tag blue">Self-Guided Screening</span>
+    <h2>PAR-Q+ — The Physical Activity Readiness Questionnaire</h2>
+    <p>The PAR-Q+ is the standard self-guided screening tool. It has been redesigned to reduce unnecessary barriers to physical activity while still identifying individuals who need further evaluation.</p>
+
+    <div class="card-grid card-grid-3">
+      <div class="card blue">
+        <h4>Page 1 — General Health (7 items)</h4>
+        <ul>
+          <li>Heart condition or high blood pressure</li>
+          <li>Chest pain at rest or during activity</li>
+          <li>Balance problems, dizziness, or loss of consciousness</li>
+          <li>Other diagnosed chronic medical conditions</li>
+          <li>Prescribed medications for a chronic condition</li>
+          <li>Bone, joint, or soft-tissue problems</li>
+          <li>Doctor recommends medically supervised exercise only</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <h4>Pages 2–3 — Follow-Up by Condition</h4>
+        <ul>
+          <li>Arthritis, osteoporosis, or back problems</li>
+          <li>Cancer (lung, multiple myeloma, head/neck)</li>
+          <li>Heart or cardiovascular condition (CAD, arrhythmia, CHF)</li>
+          <li>High blood pressure (&gt;160/90 mmHg)</li>
+          <li>Metabolic conditions (Type 1/2 diabetes, pre-diabetes)</li>
+          <li>Mental health (depression, anxiety, eating disorders)</li>
+          <li>Respiratory disease (COPD, asthma, pulmonary hypertension)</li>
+          <li>Spinal cord injury, stroke, or TIA</li>
+        </ul>
+      </div>
+      <div class="card teal">
+        <h4>Outcome Pathways</h4>
+        <ul>
+          <li><strong>No to all 7 general questions</strong> → cleared; no need to complete pages 2–3</li>
+          <li><strong>Yes to any → complete pages 2–3:</strong> if all follow-ups are No → cleared with caution; if any follow-up Yes → seek ePARmed-X+</li>
+          <li><strong>ePARmed-X+</strong> (eparmedx.com) → advanced online screening for those with health conditions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout orange">
+      <p><strong>PAR-Q+ Validity &amp; Key Notes:</strong></p>
+      <ul>
+        <li>Valid for a maximum of <strong>12 months</strong> from date of completion</li>
+        <li>Becomes invalid if the client's health condition changes</li>
+        <li>If temporarily ill (cold, fever) — delay activity until they feel better</li>
+        <li>If <strong>pregnant</strong> — talk to healthcare practitioner and/or complete ePARmed-X+</li>
+        <li>Over age 45 and NOT accustomed to vigorous exercise — consult a qualified exercise professional before engaging in high-intensity work</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 06 CARDIAC REHAB ── -->
+  <div class="section" id="cardiac">
+    <span class="section-tag red">Clinical Settings</span>
+    <h2>Patients in Cardiac Rehabilitation &amp; Medical Fitness Facilities</h2>
+    <p>Trainers working with clients with known CVD in clinical settings require a more comprehensive screening approach than the standard tools. The standard ACSM preparticipation tools are designed for general fitness settings.</p>
+
+    <div class="callout red">
+      <p><strong>Use AACVPR Risk Stratification:</strong> Personal trainers in cardiac rehabilitation and medical fitness facilities should use the risk-stratification criteria from the <strong>American Association of Cardiovascular and Pulmonary Rehabilitation (AACVPR)</strong> — a more in-depth screening tool than the standard ACSM preparticipation tools.</p>
+      <p>It is imperative that the client's personal physician be made aware of any signs or symptoms suggestive of coronary artery disease discovered during preparticipation screening <em>or</em> during ongoing exercise sessions.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 07 ADDITIONAL FORMS ── -->
+  <div class="section" id="forms">
+    <span class="section-tag green">Documentation</span>
+    <h2>Additional Forms for Complete Client Intake</h2>
+    <p>Beyond preparticipation screening, several essential forms must be reviewed, kept accessible, and utilized appropriately. These protect both the client and the trainer, and must be reviewed by a legal professional in your jurisdiction.</p>
+
+    <div class="forms-grid">
+      <div class="form-card">
+        <h4>Agreement to Participate</h4>
+        <p>Acknowledges the client's understanding of the nature of the exercise program and their voluntary participation. Fundamental liability document.</p>
+      </div>
+      <div class="form-card">
+        <h4>Informed Consent / Assumption of Risk</h4>
+        <p>Explains the risks associated with exercise participation. The client acknowledges these risks and consents to participate. Must be reviewed by a legal professional for your jurisdiction.</p>
+      </div>
+      <div class="form-card">
+        <h4>Lifestyle &amp; Health-History Questionnaire</h4>
+        <p>Collects comprehensive information beyond the preparticipation screen:</p>
+        <ul>
+          <li>Past/present exercise history</li>
+          <li>Medications and supplements</li>
+          <li>Illnesses, injuries, chronic/acute pain</li>
+          <li>Surgery and injury history</li>
+          <li>Family medical history</li>
+          <li>Nutrition, stress, sleep, work, lifestyle</li>
+          <li>Substance habits (alcohol, caffeine, tobacco)</li>
+          <li>Weight history and body composition goals</li>
+        </ul>
+      </div>
+      <div class="form-card">
+        <h4>Medical Release Form</h4>
+        <p>Sent to the client's physician. Provides the trainer with the client's medical information and specifies physical-activity limitations or guidelines. Any deviation from the physician's guidelines must be physician-approved.</p>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      <p><strong>Legal Best Practice:</strong> All forms used in a personal training practice should be reviewed by a legal professional in your area. Protecting your clients and yourself from exercise-related risks is a prudent and necessary part of operating as a personal trainer.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 08 MEDICATIONS ── -->
+  <div class="section" id="meds">
+    <span class="section-tag purple">Pharmacology</span>
+    <h2>Medications &amp; Their Effect on Exercise Heart Rate</h2>
+    <p>Many substances and prescription drugs affect the heart's response to exercise. Trainers must understand these effects when designing programs and monitoring intensity. Drug responses are <strong>dose-dependent</strong> — the larger the dose, the greater the response. If a trainer has concerns about a client's medications, they must discuss them with the client and their physician.</p>
+
+    <div class="med-table-wrap">
+      <table class="med-table">
+        <thead>
+          <tr>
+            <th>Drug Category</th>
+            <th>Resting HR</th>
+            <th>Exercise HR</th>
+            <th>VO₂max / Performance</th>
+            <th>Key Notes for Trainers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="drug-name">Beta Blockers</td>
+            <td class="down">↓</td>
+            <td class="down">↓</td>
+            <td class="down">↓ (dose-related)</td>
+            <td>Do NOT use target HR for intensity. Use RPE or talk test instead.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Calcium Channel Blockers</td>
+            <td class="var">↓ or →</td>
+            <td class="var">↓ or →</td>
+            <td class="flat">→</td>
+            <td>Effect depends on specific agent. Individual responses vary.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">ACE Inhibitors</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td>No HR effect; BP decreases at rest and during exercise.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">ARBs (Angiotensin II Receptor Blockers)</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td>Well tolerated; do not adversely affect blood lipids or cause rebound hypertension.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Diuretics</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td>Risk of electrolyte imbalance and cardiac arrhythmias. Monitor hydration — especially in heat.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Antihistamines</td>
+            <td class="var">↑ or ↓</td>
+            <td class="var">↑ or ↓</td>
+            <td class="up">↑ performance/endurance</td>
+            <td>May cause drowsiness and drying effect in upper airways.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Antidepressants / Antianxiety</td>
+            <td class="var">↑ or ↓</td>
+            <td class="var">↑ or ↓</td>
+            <td class="flat">→</td>
+            <td>Variable effects — confirm with client/physician.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Stimulants</td>
+            <td class="up">↑</td>
+            <td class="up">↑</td>
+            <td class="down">↓ endurance/performance</td>
+            <td>Include ADHD medications, some decongestants.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Caffeine</td>
+            <td class="up">↑</td>
+            <td class="up">↑</td>
+            <td class="up">↑ endurance</td>
+            <td>Ergogenic at moderate doses; individual tolerance varies widely.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Bronchodilators</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td class="up">↑ (in COPD/asthma)</td>
+            <td>Minimal HR/BP effect in healthy individuals; significantly improve exercise capacity in those with airway obstruction.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Alcohol</td>
+            <td class="var">variable</td>
+            <td class="var">variable</td>
+            <td class="down">↓ VO₂max</td>
+            <td>Exercise prohibited while under the influence. Impairs coordination and increases injury risk.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">Nicotine Replacement</td>
+            <td class="up">↑</td>
+            <td class="up">↑</td>
+            <td class="flat">→</td>
+            <td>Patches/gum — HR elevated at rest; monitor cardiovascular response.</td>
+          </tr>
+          <tr>
+            <td class="drug-name">NSAIDs</td>
+            <td class="flat">→</td>
+            <td class="flat">→</td>
+            <td class="var">↓ performance (possible)</td>
+            <td>Anti-inflammatories (ibuprofen, naproxen). May mask pain — be cautious with exercise intensity.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:800;color:#3b82f6;margin:36px 0 16px;">Antihypertensive Drug Classes — Deep Dive</h3>
+
+    <div class="deep-grid">
+      <div class="deep-card red">
+        <h4>Beta Blockers</h4>
+        <p>Block adrenergic receptors → limit sympathetic nervous system stimulation → reduce resting, exercise, and max HR. <strong>Critical:</strong> use RPE or talk test — never target heart rate — to prescribe intensity for clients on beta blockers.</p>
+      </div>
+      <div class="deep-card orange">
+        <h4>Calcium Channel Blockers</h4>
+        <p>Prevent calcium-dependent smooth muscle contraction in arteries → dilation → lower BP. Also used for angina and dysrhythmias. HR effect varies by specific agent (may decrease or have no effect).</p>
+      </div>
+      <div class="deep-card blue">
+        <h4>ACE Inhibitors</h4>
+        <p>Block the enzyme that produces angiotensin II (a potent vasoconstrictor) → vessels dilate → BP decreases. No significant effect on HR. BP will be lower both at rest and during exercise.</p>
+      </div>
+      <div class="deep-card purple">
+        <h4>ARBs</h4>
+        <p>Newer class — selective for angiotensin II type 1 receptor. Well tolerated. Do not adversely affect blood lipid profiles or cause rebound hypertension after discontinuation.</p>
+      </div>
+      <div class="deep-card green">
+        <h4>Diuretics</h4>
+        <p>Increase water excretion via kidneys. Used for hypertension and congestive heart failure. No direct HR effect, but electrolyte imbalances can cause dangerous arrhythmias. Dehydration risk is significant — especially in warm/humid environments.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:800;color:#22d3ee;margin:36px 0 16px;">Respiratory &amp; Cold Medications</h3>
+
+    <div class="deep-grid">
+      <div class="deep-card teal">
+        <h4>Bronchodilators</h4>
+        <p>Relax and open air passages in the lungs. Primarily stimulate the sympathetic nervous system. Increase exercise capacity in persons with bronchoconstriction but have minimal effect on resting and exercise HR/BP in healthy individuals.</p>
+      </div>
+      <div class="deep-card orange">
+        <h4>Sympathomimetics / Decongestants</h4>
+        <p>Mimic sympathetic nervous system activity → increase BP and HR at rest and during exercise. Decongestants cause vasoconstriction in upper airways, reducing tissue volume and increasing air space.</p>
+      </div>
+      <div class="deep-card purple">
+        <h4>Antihistamines</h4>
+        <p>Block histamine receptors — no direct HR/BP effect, but cause drying in upper airways and may cause drowsiness. Most cold medications combine decongestants and antihistamines; at low doses, minimal effect on exercise capacity.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 09 TAKEAWAYS ── -->
+  <div class="takeaways" id="takeaways">
+    <h3>Key Takeaways — Chapter 5</h3>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>Risk is real but manageable.</strong> Exercise-related AMI and SCD occur primarily in those with underlying CVD doing unaccustomed vigorous activity. Moderate exercise is safe for the vast majority of people.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>Three ACSM risk modulators</strong> guide the entire screening framework: current activity level, presence of diagnosed disease or symptoms, and desired exercise intensity.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>The ACSM algorithm</strong> has two pathways (exercising vs. not) × three conditions (no disease/no symptoms, known disease asymptomatic, any symptoms). Symptoms always require stopping and referring — regardless of disease status or current activity level.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>The 3-step checklist</strong> for exercise professionals screens symptoms first (Step 1 — any yes = STOP), then activity level (Step 2), then medical conditions (Step 3). The combination of Steps 2 &amp; 3 determines clearance needs.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>PAR-Q+</strong> is the standard self-guided screening tool. Valid for 12 months; becomes invalid if health status changes. Any yes on the general health questions triggers follow-up pages; any yes on follow-ups triggers ePARmed-X+ at eparmedx.com.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>Medical clearance is not a barrier</strong> — it is client advocacy. Frame it as ensuring the safest, most effective exercise experience possible. Use the ACE ABC Approach (Ask, Break Down Barriers, Collaborate) to maintain client enthusiasm throughout the process.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>Comprehensive forms</strong> — lifestyle questionnaire, medical release, agreement to participate, informed consent — protect both client and trainer. All forms should be reviewed by a local legal professional.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>Beta blockers blunt heart rate response</strong> — never use target heart rate to prescribe exercise intensity for clients on these medications. Use RPE (Rating of Perceived Exertion) or the talk test instead.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>Diuretics and electrolytes:</strong> clients on diuretics are at risk of dehydration and dangerous cardiac arrhythmias from electrolyte imbalances. Ensure adequate hydration before, during, and after every session.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p><strong>Drug effects are dose-dependent and time-sensitive.</strong> The larger the dose and the more recently it was taken, the greater the pharmacological effect on exercise response. Always ask when a client last took their medication.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <a href="/ace-prep/chapter-5">← Back to Chapter 5 Hub</a>
+  &nbsp;·&nbsp; Lifelong Athletics &nbsp;·&nbsp; ACE-CPT Chapter 5: Preparticipation Health Screening
+</div>
+
+</Layout>
