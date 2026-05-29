@@ -63,7 +63,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
 .mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
 
-/* QUIZ */
+/* QUIZ SHARED */
 .quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
 .quiz-header h2{font-family:var(--font-head);font-size:24px}
 .quiz-header h2 em{font-style:italic;color:var(--accent)}
@@ -74,12 +74,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
 .section-label-line{flex:1;height:1px;background:var(--border)}
 .section-label-count{font-size:12px;color:var(--muted)}
-
-.case-block{margin-bottom:36px}
-.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
-.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
-.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
 
 .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
 .q-card:hover{border-color:var(--border2)}
@@ -133,6 +127,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
 .reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
 
+/* THEORY QUIZ INLINE RESULT */
+.result-hero{text-align:center;padding:36px 24px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);margin-bottom:32px}
+.score-display{margin-bottom:8px}
+.score-num{font-family:var(--font-head);font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-family:var(--font-head);font-size:32px;color:var(--muted)}
+.score-label{font-size:14px;color:var(--muted);margin-top:6px;margin-bottom:16px}
+.score-label span{color:var(--accent);font-weight:700}
+.rb-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:8px 18px;font-size:13px;color:var(--muted)}
+.rb-mcq span,.rb-fi span,.rb-tf span{font-weight:700;color:var(--text)}
+
+/* CASE STUDY BLOCKS */
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+/* RESULT MODAL (Case Studies) */
 #result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
 #result-modal.open{display:flex}
 .modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
@@ -194,12 +207,12 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
 }
 </style>
 
-<!-- RESULT MODAL -->
+<!-- RESULT MODAL (Case Studies) -->
 <div id="result-modal">
   <div class="modal-box">
     <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
     <div class="modal-title" id="modal-title">Excellent Work!</div>
-    <div class="modal-subtitle">Chapter 1 — Role &amp; Scope of Practice</div>
+    <div class="modal-subtitle">Chapter 1 — Case Studies (35 MCQ)</div>
     <div class="modal-stats">
       <div class="modal-stat">
         <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
@@ -221,7 +234,7 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
     <div class="modal-band" id="modal-band"></div>
     <div class="modal-actions">
       <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
-      <button class="modal-btn-secondary" onclick="retakeQuiz()">↺ Retake</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
     </div>
   </div>
 </div>
@@ -236,10 +249,9 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <h1>Role &amp; <em>Scope of Practice</em></h1>
   <p>Who is an ACE Certified Personal Trainer, what can they legally do, and how do they fit into the broader healthcare continuum?</p>
   <div class="hero-stats">
-    <div class="stat-chip"><strong>35</strong><span>Case MCQ</span></div>
-    <div class="stat-chip"><strong>5</strong><span>Fill-in</span></div>
-    <div class="stat-chip"><strong>5</strong><span>True / False</span></div>
-    <div class="stat-chip"><strong>45</strong><span>Total</span></div>
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
   </div>
 </div>
 
@@ -247,13 +259,14 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
     <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
     <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
   </div>
 </div>
 
 <div class="content">
 
-<!-- MIND MAP -->
+<!-- ═══════════════════ MIND MAP ═══════════════════ -->
 <div class="tab-panel active" id="tab-mindmap">
   <p class="mm-title">Click any branch to expand. All Chapter 1 concepts mapped.</p>
   <div class="mm-center">
@@ -263,46 +276,88 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <div class="mm-grid" id="mm-grid"></div>
 </div>
 
-<!-- QUIZ -->
+<!-- ═══════════════════ THEORY QUIZ ═══════════════════ -->
 <div class="tab-panel" id="tab-quiz">
+
+  <!-- Inline Result (hidden until submit) -->
+  <div id="theory-result" style="display:none">
+    <div class="result-hero">
+      <div class="score-display">
+        <span class="score-num" id="theory-score-num">0</span><span class="score-denom">/30</span>
+      </div>
+      <div class="score-label">Score: <span id="theory-score-pct">0%</span></div>
+      <div class="rb-row">
+        <div class="rb-mcq" id="theory-rb-mcq">Theory MCQ <span>0/20</span></div>
+        <div class="rb-fi" id="theory-rb-fi">Fill-in <span>0/5</span></div>
+        <div class="rb-tf" id="theory-rb-tf">T/F <span>0/5</span></div>
+      </div>
+      <button class="reset-btn" style="margin-top:16px" onclick="resetTheory()">↺ Reset Theory Quiz</button>
+    </div>
+  </div>
+
   <div class="quiz-header">
-    <h2>Chapter 1 <em>Quiz</em></h2>
-    <button class="reset-btn" onclick="retakeQuiz()">↺ Reset</button>
+    <h2>Chapter 1 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
   </div>
   <div class="progress-label">
-    <span id="progress-text">0 of 45 answered</span>
-    <span id="progress-pct">0%</span>
+    <span id="theory-progress-text">0 of 30 answered</span>
+    <span id="theory-progress-pct">0%</span>
   </div>
-  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="theory-prog-bar"></div></div>
 
   <div class="section-label">
-    <div class="section-label-badge">Part A — Case Studies (Multiple Choice)</div>
+    <div class="section-label-badge">Part A — Theory (Multiple Choice)</div>
     <div class="section-label-line"></div>
-    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
   </div>
-  <div id="mcq-section"></div>
+  <div id="theory-mcq-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part B — Fill in the Blank</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="fib-section"></div>
+  <div id="theory-fib-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part C — True / False</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="tf-section"></div>
+  <div id="theory-tf-section"></div>
 
   <div class="quiz-footer">
-    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
-    <button class="submit-btn" id="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="theory-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
   </div>
 </div>
 
-<!-- QUICK REFERENCE -->
+<!-- ═══════════════════ CASE STUDIES ═══════════════════ -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 1 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="case-progress-text">0 of 35 answered</span>
+    <span id="case-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="case-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Study MCQ</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="case-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="case-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ QUICK REFERENCE ═══════════════════ -->
 <div class="tab-panel" id="tab-reference">
   <div class="ref-grid">
 
@@ -373,7 +428,9 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
 </footer>
 
 <script is:inline>
-// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── MINDMAP DATA ──────────────────────────────────────
+// ══════════════════════════════════════════════════════
 const MINDMAP = {branches:[
   {id:1,name:"PHYSICAL INACTIVITY CRISIS",color:"#f87171",subs:[
     {name:"NCD Epidemic",points:["NCDs kill ~41 million people/year (71% of all deaths globally)","4 primary modifiable risk factors: physical inactivity, tobacco, poor diet, alcohol","WHO, 2018: deaths from chronic diseases now surpass communicable diseases","Personal trainers are on the public health frontline"]},
@@ -419,7 +476,53 @@ const MINDMAP = {branches:[
   ]}
 ]};
 
-// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── THEORY QUIZ DATA ──────────────────────────────────
+// ══════════════════════════════════════════════════════
+const THEORY = [
+  { q: "Approximately how many people do non-communicable diseases (NCDs) kill per year globally?", opts: ["21 million","31 million","41 million","51 million"], c: 2, exp: "NCDs kill approximately 41 million people per year, representing 71% of all global deaths annually." },
+  { q: "Which four factors are the primary modifiable risk factors associated with non-communicable diseases?", opts: ["Stress, poor sleep, smoking, and obesity","Physical inactivity, tobacco use, unhealthy diet, and alcohol use","Physical inactivity, hypertension, diabetes, and obesity","Tobacco use, poor sleep, stress, and physical inactivity"], c: 1, exp: "The four primary modifiable risk factors for NCDs are physical inactivity, tobacco use, unhealthy diet, and harmful alcohol use." },
+  { q: "Between 2001 and 2016, global insufficient physical activity rates:", opts: ["Decreased by approximately 10%","Decreased by approximately 1% (virtually no change)","Increased by approximately 5%","Remained exactly unchanged"], c: 1, exp: "Global insufficient physical activity decreased by only ~1% (28.5% → 27.5%) over 15 years — virtually no progress. The 2025 WHO target will not be met at this rate." },
+  { q: "In high-income countries between 2001 and 2016, insufficient physical activity rates:", opts: ["Decreased by 5.2%","Remained unchanged","Increased by 5.2% (from 31.6% to 36.8%)","Increased by 10%"], c: 2, exp: "High-income countries saw physical inactivity INCREASE by 5.2%, from 31.6% in 2001 to 36.8% in 2016 — more than twice the global rate of change." },
+  { q: "The WHO's 2025 global target for physical activity is:", opts: ["25% relative reduction in insufficient physical activity","15% relative reduction in NCD mortality","10% relative reduction in insufficient physical activity","Elimination of physical inactivity as a modifiable risk factor"], c: 2, exp: "The WHO set a 2025 target of a 10% relative reduction in insufficient physical activity. Research has shown this target will not be met at current trends." },
+  { q: "The ACE Personal Trainer Certification primarily assesses:", opts: ["Advanced exercise science mastery beyond entry-level","Minimum competency — the threshold to work safely with minimal supervision","Clinical exercise prescription for medically complex clients","Both fitness and nutrition counseling competency at the expert level"], c: 1, exp: "The ACE CPT assesses minimum competency — the threshold required to begin professional practice and work safely with apparently healthy individuals with minimal supervision." },
+  { q: "NCCA stands for:", opts: ["National Certification Council for Athletics","National Commission for Certifying Agencies","National Credentialing Committee for Allied Health","National Coalition for Certification Accreditation"], c: 1, exp: "NCCA = National Commission for Certifying Agencies. It is the gold standard accreditor for certification programs in healthcare, fitness, and other industries." },
+  { q: "How often does ACE conduct a job task analysis to update its Exam Content Outline?", opts: ["Every 2 years","Every 3 years","Every 5 years","Every 10 years"], c: 2, exp: "Every 5 years, subject matter experts conduct a job task analysis to define the critical tasks and KSAs of a competent personal trainer, ensuring the exam reflects current real-world demands." },
+  { q: "ACE certifications expire how long after being earned, and on what day?", opts: ["1 year; on the anniversary date","2 years; on the last day of the month earned","3 years; on the first of the month earned","2 years; on the exact date of exam passage"], c: 1, exp: "ACE certifications are valid for 2 years and expire on the last day of the month in which they were earned." },
+  { q: "Which of the following is WITHIN the ACE CPT scope of practice?", opts: ["Prescribing individualized meal plans with calorie and macro targets","Diagnosing the cause of a postural deviation such as exaggerated lordosis","Sharing MyPlate and Dietary Guidelines for Americans with clients","Performing hands-on massage therapy to address muscle tightness"], c: 2, exp: "Sharing federal dietary guidelines (MyPlate, Dietary Guidelines for Americans) is within scope. Diagnosing, prescribing meal plans, and performing massage are all outside the ACE CPT scope." },
+  { q: "Which of the following is OUTSIDE the ACE CPT scope of practice?", opts: ["Conducting preparticipation health history screening","Administering a muscular endurance fitness assessment","Continuing physical therapy exercises prescribed by a client's PT","Referring clients to appropriate healthcare professionals"], c: 2, exp: "Continuing PT-prescribed exercises constitutes treating an injury, which is outside the ACE CPT scope. Trainers build on PT work but do not replicate clinical therapeutic exercises." },
+  { q: "Before sharing a client's health information with their physician, a personal trainer must have:", opts: ["Verbal consent from the client during their initial session","The client's written permission","Approval from the facility's medical director","A physician's written request for the information"], c: 1, exp: "HIPAA and the ACE Code of Ethics require written client permission before sharing health information with any third party, including their referring physician." },
+  { q: "USREPS (United States Registry of Exercise Professionals) is maintained by:", opts: ["NCCA","ACE International","CREP (Coalition for the Registration of Exercise Professionals)","CAAHEP / CoAES"], c: 2, exp: "USREPS is maintained by CREP. To be listed, exercise professionals must hold a current NCCA-accredited certification from a CREP member organization." },
+  { q: "How many exercise professionals are listed on USREPS?", opts: ["25,000+","75,000+","175,000+","275,000+"], c: 2, exp: "USREPS lists 175,000+ registered exercise professionals who hold current NCCA-accredited certifications from CREP member organizations." },
+  { q: "The ACE disciplinary process consists of how many tiers, and in what order?", opts: ["Two tiers: Warning → Suspension","Two tiers: Investigation → Appeals","Three tiers: Review → Hearing → Appeals","Four tiers: Complaint → Investigation → Hearing → Appeals"], c: 2, exp: "ACE uses a 3-tiered disciplinary process: Tier 1 Review (initial investigation) → Tier 2 Hearing (formal review) → Tier 3 Appeals (final determination)." },
+  { q: "The Medical Fitness Association (2013) mandated that medically integrated facilities hire exercise professionals who hold:", opts: ["A 4-year exercise science degree","At least 5 years of verifiable experience","An NCCA-accredited certification","Both a CPT and Health Coach credential"], c: 2, exp: "The Medical Fitness Association mandated (2013) that NCCA-accredited certifications are the standard for exercise professionals at medically integrated health and fitness facilities." },
+  { q: "ICREPs (International Confederation for Registers of Exercise Professionals) provides what benefit to USREPS-listed professionals?", opts: ["Global accreditation for their certification programs","International portability of their credentials","Exemption from state licensure requirements","Access to clinical healthcare settings abroad"], c: 1, exp: "ICREPs provides international portability — USREPS-listed professionals are recognized through ICREPs in countries with affiliated exercise registries worldwide." },
+  { q: "CAAHEP / CoAES uses the ACE CPT certification as:", opts: ["A requirement for all exercise science faculty positions","An outcome measure for accrediting university exercise science programs","A prerequisite for graduate exercise physiology programs","A standard for hospital-based fitness programs"], c: 1, exp: "CAAHEP is the largest programmatic accreditor in health sciences. CoAES uses ACE CPT performance data as an outcome measure when accrediting university exercise science degree programs." },
+  { q: "The Bureau of Labor Statistics projected what employment growth for fitness trainers from 2016–2026?", opts: ["5%","7%","10%","15%"], c: 2, exp: "BLS projected 10% employment growth for fitness trainers and instructors from 2016 to 2026, driven by aging baby boomers, employer wellness programs, and the obesity epidemic." },
+  { q: "Which statement BEST describes a personal trainer's role on the healthcare continuum?", opts: ["Personal trainers operate at the clinical end of the healthcare continuum","Personal trainers have the highest education among all allied health professionals","Personal trainers fill the prevention and fitness gap that clinical professionals cannot fully address","Personal trainers provide equivalent services to exercise physiologists in clinical settings"], c: 2, exp: "Personal trainers occupy a unique prevention-focused position, helping clients sustain long-term physical activity — a role physicians, PTs, and RDs cannot fully provide in their clinical scope." }
+];
+
+// ── FIB DATA ──────────────────────────────────────────
+const FILLIN = [
+  { q: "The _______ is the accreditation body that provides the gold standard for certification program accreditation in healthcare, fitness, and other industries.", a: "ncca", hint: "National Commission for Certifying Agencies" },
+  { q: "A scope of practice defines the _______ range of services a professional can provide in their field.", a: "legal", hint: "legal" },
+  { q: "The _______ maintains a registry of 175,000+ exercise professionals who hold current NCCA-accredited certifications.", a: "usreps", hint: "United States Registry of Exercise Professionals" },
+  { q: "ACE certifications require a minimum of _______ hours of ACE-approved continuing education credits for renewal every two years.", a: "20", hint: "20" },
+  { q: "Personal trainers may share dietary advice endorsed by the federal government, such as the _______ recommendations, which is within their scope of practice.", a: "myplate", hint: "MyPlate" }
+];
+
+// ── T/F DATA ──────────────────────────────────────────
+const TRUEF = [
+  { q: "A personal trainer with extensive personal knowledge about supplements may recommend specific supplements to clients if the trainer believes the supplement is safe.", a: false, exp: "Supplement recommendations are outside scope regardless of the trainer's personal knowledge. Clients must be referred to an RD or physician." },
+  { q: "The primary purpose of a professional certification such as the ACE CPT is to prove that the professional has mastered everything there is to know about personal training.", a: false, exp: "The primary purpose is to protect the public from harm by assessing minimum competency — the threshold required to work safely with minimal supervision." },
+  { q: "Written client permission is required before a personal trainer can share a client's health information with the client's physician.", a: true, exp: "HIPAA and the ACE Code of Ethics require written client permission before sharing health information with any third party, including the referring physician." },
+  { q: "A personal trainer who earns a specialty certificate in manual therapeutic manipulation may legally perform those techniques on clients.", a: false, exp: "Manual manipulation falls in the legal domain of other licensed professions. Additional CECs do not extend the personal trainer scope into another profession's legal domain." },
+  { q: "The Medical Fitness Association (2013) established the standard that medically integrated health and fitness facilities should hire exercise professionals who hold NCCA-accredited certifications.", a: true, exp: "The Medical Fitness Association mandated NCCA-accredited certifications as the standard for hiring exercise professionals at medical fitness facilities." }
+];
+
+// ══════════════════════════════════════════════════════
+// ── CASE STUDY DATA ───────────────────────────────────
+// ══════════════════════════════════════════════════════
 const CASES = [
   {
     num: 1,
@@ -501,47 +604,220 @@ const CASES = [
       { q: "According to WHO data, what percentage change occurred in global insufficient physical activity from 2001 to 2016?", opts: ["Decreased by 10%","Decreased by 1%","Increased by 5%","No change"], ans: 1, exp: "WHO data found only a nonsignificant 1% change in global insufficient physical activity levels from 2001 (28.5%) to 2016 (27.5%)." },
       { q: "Which of the following is a driver of the projected 10% employment growth for fitness trainers (2016–2026) per the Bureau of Labor Statistics?", opts: ["Declining participation in organized sports","Baby boomers remaining active to prevent injuries, illness, and chronic disease","Reduction in private health insurance coverage for exercise","Decrease in medical fitness facility openings"], ans: 1, exp: "BLS cited baby boomers staying active, employer wellness programs, obesity epidemic focus, and older adults seeking low-impact exercise as growth drivers." },
       { q: "The ACE Integrated Fitness Training (IFT) Model is designed to help personal trainers:", opts: ["Follow a rigid script for every client interaction","Navigate the complete process of working with clients from initial meeting through the ongoing relationship","Expand their scope of practice to include clinical services","Evaluate clients for medical clearance without physician referral"], ans: 1, exp: "The ACE IFT Model helps personal trainers competently navigate the complete process of working with clients from initial meeting through the ongoing relationship." },
-      { q: "What is the 2025 global target for physical activity improvement set by the WHO?", opts: ["25% relative reduction in insufficient physical activity","15% reduction in NCD mortality","10% relative reduction in insufficient physical activity","Elimination of physical inactivity as a modifiable risk factor"], ans: 2, exp: "The WHO set a 2025 global target of a 10% relative reduction in insufficient physical activity. Researchers reported this target will not be met at current trends." },
+      { q: "What is the 2025 global target for physical activity improvement set by the WHO?", opts: ["25% relative reduction in insufficient physical activity","15% reduction in NCD mortality","10% relative reduction in insufficient physical activity","Elimination of physical inactivity as a modifiable risk factor"], ans: 2, exp: "The WHO set a 2025 target of a 10% relative reduction in insufficient physical activity. Researchers reported this target will not be met at current trends." },
       { q: "In high-income countries, what happened to insufficient physical activity levels from 2001 to 2016?", opts: ["Decreased by 5.2%","Remained unchanged","Increased by 5.2% (from 31.6% to 36.8%)","Increased by 10%"], ans: 2, exp: "In high-income countries, insufficient physical activity increased by 5.2% from 2001 (31.6%) to 2016 (36.8%) — more than twice the rate seen in low-income countries." }
     ]
   }
 ];
 
-const FILLIN = [
-  { q: "The _______ is the accreditation body that provides the gold standard for certification program accreditation in healthcare, fitness, and other industries.", a: "ncca", hint: "National Commission for Certifying Agencies" },
-  { q: "A scope of practice defines the _______ range of services a professional can provide in their field.", a: "legal", hint: "legal" },
-  { q: "The _______ maintains a registry of 175,000+ exercise professionals who hold current NCCA-accredited certifications.", a: "usreps", hint: "United States Registry of Exercise Professionals" },
-  { q: "ACE certifications require a minimum of _______ hours of ACE-approved continuing education credits for renewal every two years.", a: "20", hint: "20" },
-  { q: "Personal trainers may share dietary advice endorsed by the federal government, such as the _______ recommendations, which is within their scope of practice.", a: "myplate", hint: "MyPlate" }
-];
+// ══════════════════════════════════════════════════════
+// ── STATE ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+let theoryMCQ   = {};  // {qi: oi}
+let fibAnswers  = {};  // {fi: string}
+let tfAnswers   = {};  // {ti: bool}
+let theoryGraded = false;
 
-const TRUEF = [
-  { q: "A personal trainer with extensive personal knowledge about supplements may recommend specific supplements to clients if the trainer believes the supplement is safe.", a: false, exp: "Supplement recommendations are outside scope regardless of the trainer's personal knowledge. Clients must be referred to an RD or physician." },
-  { q: "The primary purpose of a professional certification such as the ACE CPT is to prove that the professional has mastered everything there is to know about personal training.", a: false, exp: "The primary purpose is to protect the public from harm by assessing minimum competency — the threshold required to work safely with minimal supervision." },
-  { q: "Written client permission is required before a personal trainer can share a client's health information with the client's physician.", a: true, exp: "HIPAA and the ACE Code of Ethics require written client permission before sharing health information with any third party, including the referring physician." },
-  { q: "A personal trainer who earns a specialty certificate in manual therapeutic manipulation may legally perform those techniques on clients.", a: false, exp: "Manual manipulation falls in the legal domain of other licensed professions. Additional CECs do not extend the personal trainer scope into another profession's legal domain." },
-  { q: "The Medical Fitness Association (2013) established the standard that medically integrated health and fitness facilities should hire exercise professionals who hold NCCA-accredited certifications.", a: true, exp: "The Medical Fitness Association mandated NCCA-accredited certifications as the standard for hiring exercise professionals at medical fitness facilities." }
-];
+let caseAnswers = {};  // {"ci-qi": oi}
+let caseGraded  = false;
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let mcqAnswers = {};
-let fibAnswers = {};
-let tfAnswers  = {};
-let graded     = false;
-let globalQNum = 0;
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function renderAll() {
-  globalQNum = 0;
-  renderMCQ();
-  renderFIB();
-  renderTF();
-  updateProgress();
+// ══════════════════════════════════════════════════════
+// ── THEORY QUIZ BUILD ─────────────────────────────────
+// ══════════════════════════════════════════════════════
+function buildTheoryQuiz() {
+  const sec = document.getElementById('theory-mcq-section');
+  sec.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  THEORY.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `tq-${qi}`;
+    card.innerHTML = `
+      <div class="q-num">Question ${qi + 1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options">
+        ${q.opts.map((o, oi) => `
+          <div class="q-option" onclick="pickTheory(${qi},${oi},this)">
+            <span class="opt-letter">${letters[oi]}</span>
+            <span>${o}</span>
+          </div>`).join('')}
+      </div>
+      <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+    `;
+    sec.appendChild(card);
+  });
 }
 
-function renderMCQ() {
-  const sec = document.getElementById('mcq-section');
+function buildFIB() {
+  const sec = document.getElementById('theory-fib-section');
   sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    const card = document.createElement('div');
+    card.className = 'fib-card';
+    card.innerHTML = `
+      <div class="q-num">Fill-in ${fi + 1}</div>
+      <div class="fib-q">${f.q}</div>
+      <div class="fib-input-wrap">
+        <input class="q-input" id="tfib-${fi}" type="text" placeholder="Your answer…" oninput="trackFIB(${fi})">
+        <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+      </div>
+      <div class="fib-hint" id="tfib-hint-${fi}">Hint: ${f.hint}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('theory-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    const card = document.createElement('div');
+    card.className = 'tf-card';
+    card.innerHTML = `
+      <div class="q-num">True / False ${ti + 1}</div>
+      <div class="tf-q">${t.q}</div>
+      <div class="q-tf">
+        <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">TRUE</button>
+        <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">FALSE</button>
+      </div>
+      <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+// ── Theory Interactions ────────────────────────────────
+function pickTheory(qi, oi, el) {
+  if (theoryGraded) return;
+  const opts = el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  theoryMCQ[qi] = oi;
+  updateTheoryProgress();
+}
+
+function trackFIB(fi) {
+  fibAnswers[fi] = document.getElementById(`tfib-${fi}`).value.trim();
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).className = 'q-tf-btn' + (val === true  ? ' selected' : '');
+  document.getElementById(`ttf-${ti}-F`).className = 'q-tf-btn' + (val === false ? ' selected' : '');
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  const mcqDone = Object.keys(theoryMCQ).length;
+  const fibDone = Object.values(fibAnswers).filter(v => v.length > 0).length;
+  const tfDone  = Object.keys(tfAnswers).length;
+  const total   = mcqDone + fibDone + tfDone;
+  const pct = Math.round((total / 30) * 100);
+  document.getElementById('theory-progress-text').textContent = `${total} of 30 answered`;
+  document.getElementById('theory-progress-pct').textContent  = `${pct}%`;
+  document.getElementById('theory-prog-bar').style.width       = `${pct}%`;
+}
+
+// ── Theory Submit ─────────────────────────────────────
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('theory-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  // Grade MCQ
+  THEORY.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`#tq-${qi} .q-option`);
+    opts.forEach(o => { o.style.pointerEvents = 'none'; });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      opts[sel].classList.add('correct-ans');
+      mcqC++;
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  // Grade FIB
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').toLowerCase().trim();
+    const ans = f.a.toLowerCase();
+    const ok  = val === ans || ans.includes(val) || val.includes(ans.split(' ')[0]);
+    if (val === '') {
+      document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+    } else if (ok) {
+      inp.classList.add('fib-correct');
+      document.getElementById(`tfib-fb-${fi}`).className = 'fib-feedback ok';
+      document.getElementById(`tfib-fb-${fi}`).textContent = '✓';
+      fibC++;
+    } else {
+      inp.classList.add('fib-wrong');
+      document.getElementById(`tfib-fb-${fi}`).className = 'fib-feedback bad';
+      document.getElementById(`tfib-fb-${fi}`).textContent = `✗ ${f.hint}`;
+      document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+    }
+  });
+
+  // Grade T/F
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    tBtn.disabled = true; fBtn.disabled = true;
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+      tfC++;
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (!sel ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  // Show inline result
+  const total = mcqC + fibC + tfC;
+  const pct   = Math.round((total / 30) * 100);
+  document.getElementById('theory-score-num').textContent = total;
+  document.getElementById('theory-score-pct').textContent = pct + '%';
+  document.getElementById('theory-rb-mcq').innerHTML = `Theory MCQ <span>${mcqC}/20</span>`;
+  document.getElementById('theory-rb-fi').innerHTML  = `Fill-in <span>${fibC}/5</span>`;
+  document.getElementById('theory-rb-tf').innerHTML  = `T/F <span>${tfC}/5</span>`;
+  const resultEl = document.getElementById('theory-result');
+  resultEl.style.display = 'block';
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {};
+  theoryGraded = false;
+  document.getElementById('theory-submit-btn').disabled = false;
+  document.getElementById('theory-result').style.display = 'none';
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+  document.getElementById('tab-quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ══════════════════════════════════════════════════════
+// ── CASE STUDIES BUILD ────────────────────────────────
+// ══════════════════════════════════════════════════════
+function buildCases() {
+  const sec = document.getElementById('case-mcq-section');
+  sec.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  let qn = 0;
   CASES.forEach((cs, ci) => {
     const block = document.createElement('div');
     block.className = 'case-block';
@@ -553,23 +829,21 @@ function renderMCQ() {
       <div class="scenario-box">${cs.scenario}</div>
     `;
     cs.qs.forEach((q, qi) => {
-      globalQNum++;
-      const qn = globalQNum;
+      qn++;
       const card = document.createElement('div');
       card.className = 'q-card';
-      card.id = `q-${qn}`;
-      const letters = ['A','B','C','D'];
+      card.id = `cq-${qn}`;
       card.innerHTML = `
         <div class="q-num">Question ${qn}</div>
         <div class="q-text">${q.q}</div>
         <div class="q-options">
           ${q.opts.map((o, oi) => `
-            <div class="q-option" data-ci="${ci}" data-qi="${qi}" data-oi="${oi}" onclick="pickMCQ(${ci},${qi},${oi},this)">
+            <div class="q-option" onclick="pickCase(${ci},${qi},${oi},this)">
               <span class="opt-letter">${letters[oi]}</span>
               <span>${o}</span>
             </div>`).join('')}
         </div>
-        <div class="q-exp" id="exp-${qn}"><strong>Explanation</strong>${q.exp}</div>
+        <div class="q-exp" id="cexp-${qn}"><strong>Explanation</strong>${q.exp}</div>
       `;
       block.appendChild(card);
     });
@@ -577,99 +851,37 @@ function renderMCQ() {
   });
 }
 
-function renderFIB() {
-  const sec = document.getElementById('fib-section');
-  sec.innerHTML = '';
-  FILLIN.forEach((f, fi) => {
-    globalQNum++;
-    const qn = globalQNum;
-    const card = document.createElement('div');
-    card.className = 'fib-card';
-    card.id = `q-${qn}`;
-    card.innerHTML = `
-      <div class="q-num">Question ${qn}</div>
-      <div class="fib-q">${f.q}</div>
-      <div class="fib-input-wrap">
-        <input class="q-input" id="fib-${fi}" type="text" placeholder="Your answer…" oninput="trackFIB(${fi})">
-        <span class="fib-feedback" id="fib-fb-${fi}"></span>
-      </div>
-      <div class="fib-hint" id="fib-hint-${fi}">Hint: ${f.hint}</div>
-    `;
-    sec.appendChild(card);
-  });
-}
-
-function renderTF() {
-  const sec = document.getElementById('tf-section');
-  sec.innerHTML = '';
-  TRUEF.forEach((t, ti) => {
-    globalQNum++;
-    const qn = globalQNum;
-    const card = document.createElement('div');
-    card.className = 'tf-card';
-    card.id = `q-${qn}`;
-    card.innerHTML = `
-      <div class="q-num">Question ${qn}</div>
-      <div class="tf-q">${t.q}</div>
-      <div class="q-tf">
-        <button class="q-tf-btn" id="tf-${ti}-T" onclick="pickTF(${ti},true)">TRUE</button>
-        <button class="q-tf-btn" id="tf-${ti}-F" onclick="pickTF(${ti},false)">FALSE</button>
-      </div>
-      <div class="tf-exp" id="tf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
-    `;
-    sec.appendChild(card);
-  });
-}
-
-// ── INTERACTIONS ──────────────────────────────────────────────────────────────
-function pickMCQ(ci, qi, oi, el) {
-  if (graded) return;
+// ── Case Interactions ─────────────────────────────────
+function pickCase(ci, qi, oi, el) {
+  if (caseGraded) return;
   const opts = el.closest('.q-options').querySelectorAll('.q-option');
   opts.forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  mcqAnswers[`${ci}-${qi}`] = oi;
-  updateProgress();
+  caseAnswers[`${ci}-${qi}`] = oi;
+  updateCaseProgress();
 }
 
-function trackFIB(fi) {
-  fibAnswers[fi] = document.getElementById(`fib-${fi}`).value.trim();
-  updateProgress();
+function updateCaseProgress() {
+  const done = Object.keys(caseAnswers).length;
+  const pct  = Math.round((done / 35) * 100);
+  document.getElementById('case-progress-text').textContent = `${done} of 35 answered`;
+  document.getElementById('case-progress-pct').textContent  = `${pct}%`;
+  document.getElementById('case-prog-bar').style.width       = `${pct}%`;
 }
 
-function pickTF(ti, val) {
-  if (graded) return;
-  tfAnswers[ti] = val;
-  document.getElementById(`tf-${ti}-T`).className = 'q-tf-btn' + (val === true  ? ' selected' : '');
-  document.getElementById(`tf-${ti}-F`).className = 'q-tf-btn' + (val === false ? ' selected' : '');
-  updateProgress();
-}
-
-function updateProgress() {
-  const mcqDone = Object.keys(mcqAnswers).length;
-  const fibDone = Object.values(fibAnswers).filter(v => v.length > 0).length;
-  const tfDone  = Object.keys(tfAnswers).length;
-  const total   = mcqDone + fibDone + tfDone;
-  const pct = Math.round((total / 45) * 100);
-  document.getElementById('progress-text').textContent = `${total} of 45 answered`;
-  document.getElementById('progress-pct').textContent  = `${pct}%`;
-  document.getElementById('prog-bar').style.width       = `${pct}%`;
-}
-
-// ── GRADE ─────────────────────────────────────────────────────────────────────
-function submitQuiz() {
-  if (graded) return;
-  graded = true;
-  document.getElementById('submit-btn').disabled = true;
+// ── Case Submit ───────────────────────────────────────
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('case-submit-btn').disabled = true;
 
   let correct = 0, wrong = 0, skip = 0;
-
-  // MCQ
   let qn = 0;
   CASES.forEach((cs, ci) => {
     cs.qs.forEach((q, qi) => {
       qn++;
-      const sel = mcqAnswers[`${ci}-${qi}`];
-      const opts = document.querySelectorAll(`#q-${qn} .q-option`);
+      const sel  = caseAnswers[`${ci}-${qi}`];
+      const opts = document.querySelectorAll(`#cq-${qn} .q-option`);
       opts.forEach(o => { o.style.pointerEvents = 'none'; });
       if (sel === undefined) {
         opts[q.ans].classList.add('reveal-correct');
@@ -682,62 +894,26 @@ function submitQuiz() {
         opts[q.ans].classList.add('reveal-correct');
         wrong++;
       }
-      document.getElementById(`exp-${qn}`).classList.add('show');
+      document.getElementById(`cexp-${qn}`).classList.add('show');
     });
-  });
-
-  // FIB
-  FILLIN.forEach((f, fi) => {
-    qn++;
-    const inp = document.getElementById(`fib-${fi}`);
-    inp.disabled = true;
-    const val = (fibAnswers[fi] || '').toLowerCase().trim();
-    const ans = f.a.toLowerCase();
-    const ok  = val === ans || ans.includes(val) || val.includes(ans.split(' ')[0]);
-    if (val === '') {
-      skip++;
-      document.getElementById(`fib-hint-${fi}`).classList.add('show');
-    } else if (ok) {
-      inp.classList.add('fib-correct');
-      document.getElementById(`fib-fb-${fi}`).className = 'fib-feedback ok';
-      document.getElementById(`fib-fb-${fi}`).textContent = '✓';
-      correct++;
-    } else {
-      inp.classList.add('fib-wrong');
-      document.getElementById(`fib-fb-${fi}`).className = 'fib-feedback bad';
-      document.getElementById(`fib-fb-${fi}`).textContent = `✗ ${f.hint}`;
-      document.getElementById(`fib-hint-${fi}`).classList.add('show');
-      wrong++;
-    }
-  });
-
-  // T/F
-  TRUEF.forEach((t, ti) => {
-    qn++;
-    const tBtn = document.getElementById(`tf-${ti}-T`);
-    const fBtn = document.getElementById(`tf-${ti}-F`);
-    tBtn.disabled = true; fBtn.disabled = true;
-    const sel = tfAnswers[ti];
-    if (sel === undefined) {
-      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
-      skip++;
-    } else if (sel === t.a) {
-      (sel ? tBtn : fBtn).classList.add('tf-correct');
-      correct++;
-    } else {
-      (sel ? tBtn : fBtn).classList.add('tf-wrong');
-      (!sel ? tBtn : fBtn).classList.add('tf-reveal');
-      wrong++;
-    }
-    document.getElementById(`tf-exp-${ti}`).classList.add('show');
   });
 
   showModal(correct, wrong, skip);
 }
 
-// ── MODAL ─────────────────────────────────────────────────────────────────────
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('case-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+  document.getElementById('tab-cases').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Modal ─────────────────────────────────────────────
 function showModal(correct, wrong, skip) {
-  const pct   = Math.round((correct / 45) * 100);
+  const pct   = Math.round((correct / 35) * 100);
   const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
   const bands = {
     A: "Outstanding! Near-perfect command of scope of practice, certifications, and the healthcare continuum.",
@@ -758,18 +934,13 @@ function showModal(correct, wrong, skip) {
   document.getElementById('result-modal').classList.add('open');
 }
 
-function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
-
-function retakeQuiz() {
-  mcqAnswers = {}; fibAnswers = {}; tfAnswers = {};
-  graded = false;
+function closeModal() {
   document.getElementById('result-modal').classList.remove('open');
-  document.getElementById('submit-btn').disabled = false;
-  renderAll();
-  window.scrollTo({ top: document.getElementById('tab-quiz').offsetTop - 80, behavior: 'smooth' });
 }
 
-// ── MINDMAP ───────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── MINDMAP ───────────────────────────────────────────
+// ══════════════════════════════════════════════════════
 function buildMindmap() {
   const grid = document.getElementById('mm-grid');
   grid.innerHTML = '';
@@ -802,7 +973,9 @@ function toggleBranch(header) {
   header.closest('.mm-branch').classList.toggle('open');
 }
 
-// ── TABS ──────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── TABS ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
 function switchTab(name, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('glow'); });
@@ -810,9 +983,14 @@ function switchTab(name, btn) {
   btn.classList.add('active');
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── INIT ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
 buildMindmap();
-renderAll();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
 </script>
 
 </Layout>
