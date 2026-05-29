@@ -13,13 +13,13 @@ import Layout from '../../layouts/Layout.astro';
   --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
   --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
   --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;
   --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
   --r:10px;--r2:6px;--trans:0.2s ease;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
 
-/* HERO */
 .hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
 .breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
 .breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
@@ -33,13 +33,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
 .stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
 
-/* TABS */
 .tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
 .tabs{display:flex;gap:0}
 .tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
 .tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
 
-/* CONTENT */
 .content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
@@ -65,7 +63,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
 .mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
 
-/* QUIZ HEADER */
+/* QUIZ SHARED */
 .quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
 .quiz-header h2{font-family:var(--font-head);font-size:24px}
 .quiz-header h2 em{font-style:italic;color:var(--accent)}
@@ -77,14 +75,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .section-label-line{flex:1;height:1px;background:var(--border)}
 .section-label-count{font-size:12px;color:var(--muted)}
 
-/* CASE STUDY BLOCKS */
-.case-block{margin-bottom:36px}
-.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
-.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
-.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
-
-/* QUESTION CARDS */
 .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
 .q-card:hover{border-color:var(--border2)}
 .q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
@@ -101,19 +91,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
 .q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
 .q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
 
-/* FILL IN */
 .fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
 .fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
 .fib-input-wrap{display:flex;align-items:center;gap:10px}
-.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:340px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
 .q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
 .q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
 .q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
 .fib-feedback{font-size:13px;font-weight:700}
 .fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
 
-/* TRUE / FALSE */
 .tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
 .tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
 .q-tf{display:flex;gap:10px}
@@ -123,19 +116,38 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
 .q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
 .q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
 
-/* ANSWER BANNER */
-.answer-banner{display:none;background:rgba(197,241,53,.06);border:1px solid rgba(197,241,53,.18);border-radius:var(--r2);padding:8px 12px;margin-top:10px;font-size:12px;color:var(--accent)}
-.answer-banner.show{display:block}
-
-/* QUIZ FOOTER */
 .quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
 .submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
 .submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
 .reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
 .reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
 
-/* RESULT MODAL */
+/* THEORY QUIZ INLINE RESULT */
+.result-hero{text-align:center;padding:36px 24px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);margin-bottom:32px}
+.score-display{margin-bottom:8px}
+.score-num{font-family:var(--font-head);font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-family:var(--font-head);font-size:32px;color:var(--muted)}
+.score-label{font-size:14px;color:var(--muted);margin-top:6px;margin-bottom:16px}
+.score-label span{color:var(--accent);font-weight:700}
+.rb-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:8px 18px;font-size:13px;color:var(--muted)}
+.rb-mcq span,.rb-fi span,.rb-tf span{font-weight:700;color:var(--text)}
+
+/* CASE STUDY BLOCKS */
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+.answer-banner{display:none;background:rgba(197,241,53,.06);border:1px solid rgba(197,241,53,.18);border-radius:var(--r2);padding:8px 12px;margin-top:10px;font-size:12px;color:var(--accent)}
+.answer-banner.show{display:block}
+
+/* RESULT MODAL (Case Studies) */
 #result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
 #result-modal.open{display:flex}
 .modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
@@ -146,7 +158,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
 .modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
 .modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
-.modal-stats{display:flex;justify-content:center;gap:28px;margin-bottom:24px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
 .modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
 .modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
 .modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
@@ -174,10 +186,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .tag-up{background:rgba(197,241,53,.15);color:var(--accent)}
 .tag-dn{background:rgba(248,113,113,.15);color:var(--incorrect)}
 
-/* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
 
-/* ANIMATIONS */
 @keyframes breathe{
   0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
   50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
@@ -194,16 +204,16 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
   .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
   .mm-subs{grid-template-columns:1fr}
-  .modal-box{padding:28px 20px}.modal-stats{gap:16px}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
 }
 </style>
 
-<!-- RESULT MODAL -->
+<!-- RESULT MODAL (Case Studies) -->
 <div id="result-modal">
   <div class="modal-box">
     <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
     <div class="modal-title" id="modal-title">Excellent Work!</div>
-    <div class="modal-subtitle">Chapter 3 — Basics of Behavior Change</div>
+    <div class="modal-subtitle">Chapter 3 — Case Studies (35 MCQ)</div>
     <div class="modal-stats">
       <div class="modal-stat">
         <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
@@ -214,6 +224,10 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
         <div class="lbl">Wrong</div>
       </div>
       <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
         <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
         <div class="lbl">Score</div>
       </div>
@@ -221,7 +235,7 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
     <div class="modal-band" id="modal-band"></div>
     <div class="modal-actions">
       <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
-      <button class="modal-btn-secondary" onclick="retakeQuiz()">↺ Retake</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
     </div>
   </div>
 </div>
@@ -234,12 +248,11 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   </div>
   <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 3</div>
   <h1>Basics of <em>Behavior Change</em></h1>
-  <p>Psychology, Motivation & Adherence — Health Belief Model, SDT, Stages of Change, Self-Efficacy, Operant Conditioning, and Real-World Case Studies.</p>
+  <p>Psychology, Motivation &amp; Adherence — Health Belief Model, SDT, Stages of Change, Self-Efficacy, Operant Conditioning, and Real-World Case Studies.</p>
   <div class="hero-stats">
-    <div class="stat-chip"><strong>35</strong><span>Case MCQ</span></div>
-    <div class="stat-chip"><strong>5</strong><span>Fill-in</span></div>
-    <div class="stat-chip"><strong>5</strong><span>True / False</span></div>
-    <div class="stat-chip"><strong>45</strong><span>Total</span></div>
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
   </div>
 </div>
 
@@ -247,13 +260,14 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
     <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
     <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
   </div>
 </div>
 
 <div class="content">
 
-<!-- MIND MAP -->
+<!-- ═══════════════════ MIND MAP ═══════════════════ -->
 <div class="tab-panel active" id="tab-mindmap">
   <p class="mm-title">Click any branch to expand. All Chapter 3 concepts mapped.</p>
   <div class="mm-center">
@@ -263,46 +277,88 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <div class="mm-grid" id="mm-grid"></div>
 </div>
 
-<!-- QUIZ -->
+<!-- ═══════════════════ THEORY QUIZ ═══════════════════ -->
 <div class="tab-panel" id="tab-quiz">
+
+  <!-- Inline Result (hidden until submit) -->
+  <div id="theory-result" style="display:none">
+    <div class="result-hero">
+      <div class="score-display">
+        <span class="score-num" id="theory-score-num">0</span><span class="score-denom">/30</span>
+      </div>
+      <div class="score-label">Score: <span id="theory-score-pct">0%</span></div>
+      <div class="rb-row">
+        <div class="rb-mcq" id="theory-rb-mcq">Theory MCQ <span>0/20</span></div>
+        <div class="rb-fi" id="theory-rb-fi">Fill-in <span>0/5</span></div>
+        <div class="rb-tf" id="theory-rb-tf">T/F <span>0/5</span></div>
+      </div>
+      <button class="reset-btn" style="margin-top:16px" onclick="resetTheory()">↺ Reset Theory Quiz</button>
+    </div>
+  </div>
+
   <div class="quiz-header">
-    <h2>Chapter 3 <em>Quiz</em></h2>
-    <button class="reset-btn" onclick="retakeQuiz()">↺ Reset</button>
+    <h2>Chapter 3 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
   </div>
   <div class="progress-label">
-    <span id="progress-text">0 of 45 answered</span>
-    <span id="progress-pct">0%</span>
+    <span id="theory-progress-text">0 of 30 answered</span>
+    <span id="theory-progress-pct">0%</span>
   </div>
-  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="theory-prog-bar"></div></div>
 
   <div class="section-label">
-    <div class="section-label-badge">Part A — Case Studies (Multiple Choice)</div>
+    <div class="section-label-badge">Part A — Theory (Multiple Choice)</div>
     <div class="section-label-line"></div>
-    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
   </div>
-  <div id="mcq-section"></div>
+  <div id="theory-mcq-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part B — Fill in the Blank</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="fib-section"></div>
+  <div id="theory-fib-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part C — True / False</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="tf-section"></div>
+  <div id="theory-tf-section"></div>
 
   <div class="quiz-footer">
-    <div style="font-size:13px;color:var(--muted)">Submit to see score + answer reveals.</div>
-    <button class="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="theory-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
   </div>
 </div>
 
-<!-- QUICK REFERENCE -->
+<!-- ═══════════════════ CASE STUDIES ═══════════════════ -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 3 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="case-progress-text">0 of 35 answered</span>
+    <span id="case-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="case-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Study MCQ</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="case-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + answer reveals.</div>
+    <button class="submit-btn" id="case-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ QUICK REFERENCE ═══════════════════ -->
 <div class="tab-panel" id="tab-reference">
   <div class="ref-grid">
 
@@ -372,7 +428,7 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
       <div class="key-term"><strong>Catastrophizing / Magnification</strong><span>Blowing things out of proportion. "Even if I lose weight, I'll gain it all back."</span></div>
       <div class="key-term"><strong>Jumping to Conclusions</strong><span>Mind reading or fortune telling without evidence.</span></div>
       <div class="key-term"><strong>Labeling</strong><span>"I'm just not a fitness person." Rigid negative labels on self.</span></div>
-      <div class="key-term"><strong>Personalization & Blame</strong><span>Taking full blame for things outside control, or blaming others for own choices.</span></div>
+      <div class="key-term"><strong>Personalization &amp; Blame</strong><span>Taking full blame for things outside control, or blaming others for own choices.</span></div>
     </div>
 
     <div class="ref-card">
@@ -402,7 +458,9 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
 </footer>
 
 <script is:inline>
-// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── MINDMAP DATA ──────────────────────────────────────
+// ══════════════════════════════════════════════════════
 const MINDMAP = {branches:[
   {id:1,name:"HEALTH BELIEF MODEL",color:"#FF6B6B",subs:[
     {name:"4 Key Variables",points:["Perceived Susceptibility — how likely am I to get sick?","Perceived Seriousness — how bad would it be?","Perceived Benefits — will acting reduce the threat?","Perceived Barriers — what stands in my way?"]},
@@ -448,7 +506,53 @@ const MINDMAP = {branches:[
   ]}
 ]};
 
-// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── THEORY QUIZ DATA ──────────────────────────────────
+// ══════════════════════════════════════════════════════
+const THEORY = [
+  { q: "In the Health Belief Model, which variable refers to a person's belief about how likely they are to develop a health condition?", opts: ["Perceived Seriousness","Perceived Benefits","Perceived Susceptibility","Perceived Barriers"], c: 2, exp: "Perceived Susceptibility asks 'How likely am I to develop this problem?' — it motivates action when combined with high perceived seriousness." },
+  { q: "In the Health Belief Model, which variable represents obstacles the person believes stand in the way of behavior change?", opts: ["Perceived Seriousness","Perceived Susceptibility","Cues to Action","Perceived Barriers"], c: 3, exp: "Perceived Barriers are obstacles (time, cost, embarrassment) a person believes prevent them from acting. Reducing barriers is a primary trainer strategy in early stages." },
+  { q: "According to the Health Belief Model, the decision to begin an exercise program is MOST likely when:", opts: ["All perceived barriers are eliminated","Perceived susceptibility alone is very high","Perceived benefits outweigh perceived barriers","A physician advises the person to exercise"], c: 2, exp: "The HBM predicts action when perceived benefits outweigh perceived barriers — not when barriers disappear or when one variable dominates in isolation." },
+  { q: "Which of the following is NOT one of the three core psychological needs in Self-Determination Theory?", opts: ["Competence","Autonomy","Self-efficacy","Relatedness"], c: 2, exp: "The three SDT core needs are Competence, Autonomy, and Relatedness. Self-efficacy comes from Social Cognitive Theory (Bandura), not SDT." },
+  { q: "In Self-Determination Theory, a task-involving climate PRIMARILY emphasizes:", opts: ["Comparing clients' performances to gym averages","Individual effort, learning, and personal improvement","Athletic competition and ranking among members","Outcome-based fitness metrics only"], c: 1, exp: "A task climate focuses on individual effort and improvement — associated with higher self-esteem, commitment, and lower dropout. Ego climates (rivalry) produce anxiety and exhaustion." },
+  { q: "In the Transtheoretical Model (TTM), a person in the Contemplation stage is BEST described as:", opts: ["Consistently active for more than 6 months","Taking small, inconsistent steps toward exercise","Not active but thinking about change in the next 6 months","Not active and not intending to start within 6 months"], c: 2, exp: "Contemplators are inactive but considering change in the next 6 months. They are weighing pros and cons but have not yet taken action." },
+  { q: "Which TTM stage is defined as consistent physical activity for FEWER than 6 months?", opts: ["Preparation","Contemplation","Action","Maintenance"], c: 2, exp: "Action = consistently active for fewer than 6 months. Habit is forming but not fully established. Maintenance = 6+ months of consistent activity." },
+  { q: "The 10 Processes of Change in the TTM are divided into which two categories?", opts: ["Motivational and environmental","Cognitive and behavioral","Internal and external","Active and passive"], c: 1, exp: "10 Processes = 5 Cognitive (dominant in early stages: Precontemplation/Contemplation) + 5 Behavioral (dominant in later stages: Action/Maintenance)." },
+  { q: "Which source of self-efficacy is considered the MOST powerful according to Bandura?", opts: ["Verbal persuasion from a credible trainer","Vicarious experience observing similar others","Past performance experience","Positive physiological state appraisals"], c: 2, exp: "Past performance experience is the most powerful SE source. Previous success creates the strongest belief that future success is possible — early wins are critical." },
+  { q: "'Watching someone similar in age and fitness level successfully complete a challenging workout' is which source of self-efficacy?", opts: ["Verbal persuasion","Past performance experience","Vicarious experience","Imaginal experience"], c: 2, exp: "Vicarious experience ('if they can, I can') is especially powerful when the observer closely identifies with the model in age, health, or fitness level." },
+  { q: "In operant conditioning, negative reinforcement refers to:", opts: ["Applying an aversive stimulus to decrease behavior","Removing a positive stimulus, decreasing behavior","Removing a negative stimulus, which INCREASES behavior","Adding a positive stimulus to increase behavior"], c: 2, exp: "Negative reinforcement = removal of something unpleasant → INCREASES behavior. A client who exercises to relieve back pain is being negatively reinforced — pain removal drives the habit." },
+  { q: "In operant conditioning, extinction occurs when:", opts: ["An aversive stimulus is added following a behavior","A positive stimulus is removed, decreasing the behavior","A negative stimulus is removed, increasing the behavior","No stimulus follows a behavior indefinitely"], c: 1, exp: "Extinction = removing a positive stimulus → behavior decreases over time. Consistently stopping praise for punctuality will eventually reduce on-time arrival." },
+  { q: "Setting a phone alarm to leave work for the gym and packing a gym bag the night before are examples of:", opts: ["Positive reinforcement","Punishment","Stimulus control","Negative reinforcement"], c: 2, exp: "Stimulus control = manipulating antecedents (cues before the behavior) to make desired behavior easier to occur. Both strategies are classic stimulus control techniques." },
+  { q: "'I always quit everything — I'll never be able to stick with anything' BEST represents which cognitive distortion?", opts: ["All-or-nothing thinking","Overgeneralizing","Catastrophizing","Labeling"], c: 1, exp: "Overgeneralizing = treating a single setback as a never-ending pattern of failure. The words 'always' and 'never' are classic overgeneralization signals." },
+  { q: "'I missed one workout so my whole program is ruined — I might as well quit' BEST represents:", opts: ["Labeling","Overgeneralizing","All-or-nothing thinking","Jumping to conclusions"], c: 2, exp: "All-or-nothing thinking = black/white, no middle ground. One missed session is treated as complete failure with no acknowledgment of prior progress." },
+  { q: "Which of the following is the STRONGEST personal predictor of exercise adherence?", opts: ["Current age and gender","Socioeconomic status","Prior physical activity history","Distance from the gym"], c: 2, exp: "Prior PA history is the strongest personal predictor. People who have been active before are significantly more likely to become active again and maintain that behavior." },
+  { q: "According to research, which social factor is the MOST reliable predictor of exercise adherence?", opts: ["Having a workout partner from the same gym","Access to group fitness classes","Spousal or partner support","Social media fitness community involvement"], c: 2, exp: "Spousal/partner support is the most reliable social predictor of exercise adherence across research studies — far more consistent than other social factors." },
+  { q: "Research on willpower indicates that it is BEST described as:", opts: ["An unlimited personality trait that can be developed indefinitely","A strength that consistently grows with use","A biologically limited resource that depletes across tasks","Irrelevant when intrinsic motivation is sufficient"], c: 2, exp: "Willpower is a biological function — not a character trait. It depletes throughout the day across tasks. Habits, structure, and environment are more sustainable long-term strategies." },
+  { q: "In the TTM, a LAPSE is BEST defined as:", opts: ["A permanent return to pre-contemplation stage","Moving backward from Maintenance to Action","A brief, temporary return to old behavior (normal part of change)","A complete self-efficacy failure requiring starting over"], c: 2, exp: "A lapse is a brief, temporary return to old behavior — completely normal and expected in behavior change. Trainers should prepare clients for lapses in advance with recovery strategies." },
+  { q: "A client with an INTERNAL locus of control is MOST likely to:", opts: ["Attribute health outcomes primarily to luck or fate","Believe physicians are primarily responsible for their health","Believe their own effort and choices determine their health outcomes","Rely entirely on external motivation from the trainer"], c: 2, exp: "Internal LOC = belief that health outcomes are primarily determined by one's own effort and choices. These clients are more likely to initiate and sustain exercise behavior." }
+];
+
+// ── FIB DATA ──────────────────────────────────────────
+const FILLIN = [
+  { q: "The _______________ model of behavior change examines the relationship between antecedents, behaviors, and consequences to understand how exercise habits are formed and maintained.", a: "operant conditioning", hint: "Operant Conditioning" },
+  { q: "According to Self-Determination Theory, the three innate psychological needs are competence, autonomy, and _______________.", a: "relatedness", hint: "relatedness" },
+  { q: "The TTM component that refers to a person's internal evaluation of the pros and cons of adopting a physical-activity program is called _______________ balance.", a: "decisional", hint: "decisional" },
+  { q: "_______________ — defined as a person's belief in their own ability to successfully perform an exercise program — is the strongest psychological predictor of physical-activity behavior.", a: "self-efficacy", hint: "Self-efficacy" },
+  { q: "In the Transtheoretical Model, the _______________ stage is characterized by consistent physical activity for fewer than six months, during which habit formation is still underway.", a: "action", hint: "action" }
+];
+
+// ── T/F DATA ──────────────────────────────────────────
+const TRUEF = [
+  { q: "According to the Health Belief Model, a person who perceives high susceptibility and high seriousness will automatically begin an exercise program.", a: false, exp: "High perceived susceptibility and seriousness increase motivation, but action only occurs when perceived benefits outweigh barriers AND a cue to action is present — high susceptibility alone is not sufficient." },
+  { q: "Research consistently shows that ego-involving exercise climates are associated with higher anxiety and greater physical exhaustion compared to task-involving climates.", a: true, exp: "Ego climates consistently produce higher anxiety, greater exhaustion, and higher dropout rates in research. Task climates produce higher self-esteem, commitment, and longer participation." },
+  { q: "Willpower is an unlimited resource that strengthens with consistent use, making it the best long-term strategy for maintaining healthy behaviors.", a: false, exp: "Willpower is a biologically limited resource that depletes with use across tasks. Habits, structure, and environmental design are far more reliable long-term strategies for maintaining behavior." },
+  { q: "Self-efficacy functions as both a determinant AND an outcome of physical-activity behavior change.", a: true, exp: "Self-efficacy is circular: it predicts whether someone will attempt behavior change, AND it increases when they succeed — making early program success critical for building lasting SE." },
+  { q: "In operant conditioning, punishment refers specifically to receiving a critical verbal comment from a personal trainer.", a: false, exp: "Punishment is any aversive stimulus added following a behavior that decreases that behavior. It is not limited to verbal comments — it includes pain, soreness, embarrassment, or any unpleasant consequence." }
+];
+
+// ══════════════════════════════════════════════════════
+// ── CASE STUDY DATA ───────────────────────────────────
+// ══════════════════════════════════════════════════════
 const CASES = [
   {
     num: 1,
@@ -536,41 +640,208 @@ const CASES = [
   }
 ];
 
-const FILLIN = [
-  { q: "The _______________ model of behavior change examines the relationship between antecedents, behaviors, and consequences to understand how exercise habits are formed and maintained.", a: "operant conditioning" },
-  { q: "According to Self-Determination Theory, the three innate psychological needs are competence, autonomy, and _______________.", a: "relatedness" },
-  { q: "The TTM component that refers to a person's internal evaluation of the pros and cons of adopting a physical-activity program is called _______________ balance.", a: "decisional" },
-  { q: "_______________ — defined as a person's belief in their own ability to successfully perform an exercise program — is the strongest psychological predictor of physical-activity behavior.", a: "Self-efficacy" },
-  { q: "In the Transtheoretical Model, the _______________ stage is characterized by consistent physical activity for fewer than six months, during which habit formation is still underway.", a: "action" }
-];
+// ══════════════════════════════════════════════════════
+// ── STATE ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+let theoryMCQ    = {};
+let fibAnswers   = {};
+let tfAnswers    = {};
+let theoryGraded = false;
 
-const TRUEF = [
-  { q: "According to the Health Belief Model, a person who perceives high susceptibility and high seriousness will automatically begin an exercise program.", a: false },
-  { q: "Research consistently shows that ego-involving exercise climates are associated with higher anxiety and greater physical exhaustion compared to task-involving climates.", a: true },
-  { q: "Willpower is an unlimited resource that strengthens with consistent use, making it the best long-term strategy for maintaining healthy behaviors.", a: false },
-  { q: "Self-efficacy functions as both a determinant AND an outcome of physical-activity behavior change.", a: true },
-  { q: "In operant conditioning, punishment refers specifically to receiving a critical verbal comment from a personal trainer.", a: false }
-];
+let caseAnswers  = {};
+let caseGraded   = false;
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let mcqAnswers  = {};  // key: "c0q0", value: index 0-3
-let fibAnswers  = {};  // key: "fib0", value: string
-let tfAnswers   = {};  // key: "tf0", value: true/false
-let graded      = false;
-let globalQNum  = 0;
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function renderAll() {
-  globalQNum = 0;
-  renderMCQ();
-  renderFIB();
-  renderTF();
-  updateProgress();
+// ══════════════════════════════════════════════════════
+// ── THEORY QUIZ BUILD ─────────────────────────────────
+// ══════════════════════════════════════════════════════
+function buildTheoryQuiz() {
+  const sec = document.getElementById('theory-mcq-section');
+  sec.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  THEORY.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `tq-${qi}`;
+    card.innerHTML = `
+      <div class="q-num">Question ${qi + 1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options">
+        ${q.opts.map((o, oi) => `
+          <div class="q-option" onclick="pickTheory(${qi},${oi},this)">
+            <span class="opt-letter">${letters[oi]}</span>
+            <span>${o}</span>
+          </div>`).join('')}
+      </div>
+      <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+    `;
+    sec.appendChild(card);
+  });
 }
 
-function renderMCQ() {
-  const sec = document.getElementById('mcq-section');
+function buildFIB() {
+  const sec = document.getElementById('theory-fib-section');
   sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    const card = document.createElement('div');
+    card.className = 'fib-card';
+    card.innerHTML = `
+      <div class="q-num">Fill-in ${fi + 1}</div>
+      <div class="fib-q">${f.q}</div>
+      <div class="fib-input-wrap">
+        <input class="q-input" id="tfib-${fi}" type="text" placeholder="Your answer…" oninput="trackFIB(${fi})">
+        <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+      </div>
+      <div class="fib-hint" id="tfib-hint-${fi}">Hint: ${f.hint}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('theory-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    const card = document.createElement('div');
+    card.className = 'tf-card';
+    card.innerHTML = `
+      <div class="q-num">True / False ${ti + 1}</div>
+      <div class="tf-q">${t.q}</div>
+      <div class="q-tf">
+        <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">TRUE</button>
+        <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">FALSE</button>
+      </div>
+      <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+function pickTheory(qi, oi, el) {
+  if (theoryGraded) return;
+  const opts = el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  theoryMCQ[qi] = oi;
+  updateTheoryProgress();
+}
+
+function trackFIB(fi) {
+  fibAnswers[fi] = document.getElementById(`tfib-${fi}`).value.trim();
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).className = 'q-tf-btn' + (val === true  ? ' selected' : '');
+  document.getElementById(`ttf-${ti}-F`).className = 'q-tf-btn' + (val === false ? ' selected' : '');
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  const mcqDone = Object.keys(theoryMCQ).length;
+  const fibDone = Object.values(fibAnswers).filter(v => v.length > 0).length;
+  const tfDone  = Object.keys(tfAnswers).length;
+  const total   = mcqDone + fibDone + tfDone;
+  const pct = Math.round((total / 30) * 100);
+  document.getElementById('theory-progress-text').textContent = `${total} of 30 answered`;
+  document.getElementById('theory-progress-pct').textContent  = `${pct}%`;
+  document.getElementById('theory-prog-bar').style.width       = `${pct}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('theory-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`#tq-${qi} .q-option`);
+    opts.forEach(o => { o.style.pointerEvents = 'none'; });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      opts[sel].classList.add('correct-ans');
+      mcqC++;
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').toLowerCase().trim();
+    const ans = f.a.toLowerCase();
+    const ok  = val === ans || ans.includes(val) || val.includes(ans.split(' ')[0]);
+    if (val === '') {
+      document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+    } else if (ok) {
+      inp.classList.add('fib-correct');
+      document.getElementById(`tfib-fb-${fi}`).className = 'fib-feedback ok';
+      document.getElementById(`tfib-fb-${fi}`).textContent = '✓';
+      fibC++;
+    } else {
+      inp.classList.add('fib-wrong');
+      document.getElementById(`tfib-fb-${fi}`).className = 'fib-feedback bad';
+      document.getElementById(`tfib-fb-${fi}`).textContent = `✗ ${f.hint}`;
+      document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+    }
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    tBtn.disabled = true; fBtn.disabled = true;
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+      tfC++;
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (!sel ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  const pct   = Math.round((total / 30) * 100);
+  document.getElementById('theory-score-num').textContent = total;
+  document.getElementById('theory-score-pct').textContent = pct + '%';
+  document.getElementById('theory-rb-mcq').innerHTML = `Theory MCQ <span>${mcqC}/20</span>`;
+  document.getElementById('theory-rb-fi').innerHTML  = `Fill-in <span>${fibC}/5</span>`;
+  document.getElementById('theory-rb-tf').innerHTML  = `T/F <span>${tfC}/5</span>`;
+  const resultEl = document.getElementById('theory-result');
+  resultEl.style.display = 'block';
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {};
+  theoryGraded = false;
+  document.getElementById('theory-submit-btn').disabled = false;
+  document.getElementById('theory-result').style.display = 'none';
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+  document.getElementById('tab-quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ══════════════════════════════════════════════════════
+// ── CASE STUDIES BUILD ────────────────────────────────
+// ══════════════════════════════════════════════════════
+function buildCases() {
+  const sec = document.getElementById('case-mcq-section');
+  sec.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  let qn = 0;
   CASES.forEach((cs, ci) => {
     const block = document.createElement('div');
     block.className = 'case-block';
@@ -582,24 +853,21 @@ function renderMCQ() {
       <div class="scenario-box">${cs.scenario}</div>
     `;
     cs.qs.forEach((q, qi) => {
-      globalQNum++;
-      const key = 'c' + ci + 'q' + qi;
-      const qn  = globalQNum;
+      qn++;
       const card = document.createElement('div');
       card.className = 'q-card';
-      card.id = 'card-' + key;
+      card.id = `cq-${qn}`;
       card.innerHTML = `
-        <div class="q-num">Q${qn} &nbsp;·&nbsp; Case ${cs.num}: ${cs.topic}</div>
+        <div class="q-num">Question ${qn}</div>
         <div class="q-text">${q.q}</div>
-        <div class="q-options" id="opts-${key}">
-          ${q.opts.map((opt, oi) => `
-            <div class="q-option" id="opt-${key}-${oi}" onclick="selectMCQ('${key}',${oi},${ci},${qi})">
-              <div class="opt-letter">${['A','B','C','D'][oi]}</div>
-              <span>${opt}</span>
-            </div>
-          `).join('')}
+        <div class="q-options">
+          ${q.opts.map((o, oi) => `
+            <div class="q-option" onclick="pickCase(${ci},${qi},${oi},this)">
+              <span class="opt-letter">${letters[oi]}</span>
+              <span>${o}</span>
+            </div>`).join('')}
         </div>
-        <div class="answer-banner" id="banner-${key}"></div>
+        <div class="answer-banner" id="cbanner-${qn}"></div>
       `;
       block.appendChild(card);
     });
@@ -607,211 +875,98 @@ function renderMCQ() {
   });
 }
 
-function renderFIB() {
-  const sec = document.getElementById('fib-section');
-  sec.innerHTML = '';
-  FILLIN.forEach((item, i) => {
-    globalQNum++;
-    const qn = globalQNum;
-    const card = document.createElement('div');
-    card.className = 'fib-card';
-    card.innerHTML = `
-      <div class="q-num">Q${qn} &nbsp;·&nbsp; Fill in the Blank</div>
-      <div class="fib-q">${item.q}</div>
-      <div class="fib-input-wrap">
-        <input type="text" class="q-input" id="fib-input-${i}" placeholder="Type answer…"
-          oninput="fibAnswers['fib${i}']=this.value; updateProgress()"
-          autocomplete="off"/>
-        <span class="fib-feedback" id="fib-fb-${i}"></span>
-      </div>
-      <div class="answer-banner" id="fib-banner-${i}"></div>
-    `;
-    sec.appendChild(card);
-  });
+function pickCase(ci, qi, oi, el) {
+  if (caseGraded) return;
+  const opts = el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  caseAnswers[`${ci}-${qi}`] = oi;
+  updateCaseProgress();
 }
 
-function renderTF() {
-  const sec = document.getElementById('tf-section');
-  sec.innerHTML = '';
-  TRUEF.forEach((item, i) => {
-    globalQNum++;
-    const qn = globalQNum;
-    const card = document.createElement('div');
-    card.className = 'tf-card';
-    card.innerHTML = `
-      <div class="q-num">Q${qn} &nbsp;·&nbsp; True / False</div>
-      <div class="tf-q">${item.q}</div>
-      <div class="q-tf">
-        <button class="q-tf-btn" id="tf-${i}-true"  onclick="selectTF(${i},true)">True</button>
-        <button class="q-tf-btn" id="tf-${i}-false" onclick="selectTF(${i},false)">False</button>
-      </div>
-      <div class="answer-banner" id="tf-banner-${i}"></div>
-    `;
-    sec.appendChild(card);
-  });
+function updateCaseProgress() {
+  const done = Object.keys(caseAnswers).length;
+  const pct  = Math.round((done / 35) * 100);
+  document.getElementById('case-progress-text').textContent = `${done} of 35 answered`;
+  document.getElementById('case-progress-pct').textContent  = `${pct}%`;
+  document.getElementById('case-prog-bar').style.width       = `${pct}%`;
 }
 
-// ── INTERACTION ───────────────────────────────────────────────────────────────
-function selectMCQ(key, oi, ci, qi) {
-  if (graded) return;
-  document.querySelectorAll('#opts-' + key + ' .q-option').forEach(el => el.classList.remove('selected'));
-  const opt = document.getElementById('opt-' + key + '-' + oi);
-  if (opt) {
-    opt.classList.add('selected');
-    opt.querySelector('.opt-letter').style.background = 'var(--accent)';
-    opt.querySelector('.opt-letter').style.borderColor = 'var(--accent)';
-    opt.querySelector('.opt-letter').style.color = '#000';
-  }
-  mcqAnswers[key] = oi;
-  updateProgress();
-}
-
-function selectTF(i, val) {
-  if (graded) return;
-  document.getElementById('tf-' + i + '-true').classList.remove('selected');
-  document.getElementById('tf-' + i + '-false').classList.remove('selected');
-  document.getElementById('tf-' + i + '-' + (val ? 'true' : 'false')).classList.add('selected');
-  tfAnswers['tf' + i] = val;
-  updateProgress();
-}
-
-function updateProgress() {
-  const mcqDone = Object.keys(mcqAnswers).length;
-  const fibDone = Object.values(fibAnswers).filter(v => v && v.length > 0).length;
-  const tfDone  = Object.keys(tfAnswers).length;
-  const total   = mcqDone + fibDone + tfDone;
-  const pct     = Math.round((total / 45) * 100);
-  document.getElementById('progress-text').textContent = total + ' of 45 answered';
-  document.getElementById('progress-pct').textContent  = pct + '%';
-  document.getElementById('prog-bar').style.width = pct + '%';
-}
-
-// ── GRADING ───────────────────────────────────────────────────────────────────
-function submitQuiz() {
-  graded = true;
-  let correct = 0, wrong = 0;
-
-  // Grade MCQ
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('case-submit-btn').disabled = true;
+  const letters = ['A','B','C','D'];
+  let correct = 0, wrong = 0, skip = 0;
+  let qn = 0;
   CASES.forEach((cs, ci) => {
     cs.qs.forEach((q, qi) => {
-      const key    = 'c' + ci + 'q' + qi;
-      const chosen = mcqAnswers[key];
-      const opts   = document.querySelectorAll('#opts-' + key + ' .q-option');
-      opts.forEach(el => { el.style.cursor = 'default'; el.classList.remove('selected'); });
-      // Reset letter styles
-      opts.forEach(el => {
-        const letter = el.querySelector('.opt-letter');
-        if (letter) { letter.style.background = ''; letter.style.borderColor = ''; letter.style.color = ''; }
-      });
-      if (chosen === undefined || chosen === null) {
+      qn++;
+      const sel  = caseAnswers[`${ci}-${qi}`];
+      const opts = document.querySelectorAll(`#cq-${qn} .q-option`);
+      opts.forEach(o => { o.style.pointerEvents = 'none'; });
+      if (sel === undefined) {
+        opts[q.ans].classList.add('reveal-correct');
+        skip++;
+        showCaseBanner(qn, `Correct: ${letters[q.ans]}) ${q.opts[q.ans]}`);
+      } else if (sel === q.ans) {
+        opts[sel].classList.add('correct-ans');
+        correct++;
+      } else {
+        opts[sel].classList.add('wrong-ans');
         opts[q.ans].classList.add('reveal-correct');
         wrong++;
-        showBanner('banner-' + key, 'Correct answer: ' + ['A','B','C','D'][q.ans] + ') ' + q.opts[q.ans]);
-      } else {
-        if (chosen === q.ans) {
-          opts[chosen].classList.add('correct-ans');
-          correct++;
-        } else {
-          opts[chosen].classList.add('wrong-ans');
-          opts[q.ans].classList.add('reveal-correct');
-          wrong++;
-          showBanner('banner-' + key, 'Correct answer: ' + ['A','B','C','D'][q.ans] + ') ' + q.opts[q.ans]);
-        }
+        showCaseBanner(qn, `Correct: ${letters[q.ans]}) ${q.opts[q.ans]}`);
       }
     });
   });
+  showModal(correct, wrong, skip);
+}
 
-  // Grade Fill-in
-  FILLIN.forEach((item, i) => {
-    const input = document.getElementById('fib-input-' + i);
-    const val   = (fibAnswers['fib' + i] || '').toLowerCase().trim();
-    const ans   = item.a.toLowerCase().trim();
-    input.readOnly = true;
-    const isCorrect = val === ans || val.includes(ans) || ans.includes(val);
-    if (!val) {
-      input.classList.add('fib-wrong');
-      showBanner('fib-banner-' + i, 'Correct answer: ' + item.a);
-      wrong++;
-    } else if (isCorrect) {
-      input.classList.add('fib-correct');
-      document.getElementById('fib-fb-' + i).className = 'fib-feedback ok';
-      document.getElementById('fib-fb-' + i).textContent = '✓';
-      correct++;
-    } else {
-      input.classList.add('fib-wrong');
-      document.getElementById('fib-fb-' + i).className = 'fib-feedback bad';
-      document.getElementById('fib-fb-' + i).textContent = '✗';
-      showBanner('fib-banner-' + i, 'Correct answer: ' + item.a);
-      wrong++;
-    }
-  });
+function showCaseBanner(qn, msg) {
+  const el = document.getElementById(`cbanner-${qn}`);
+  if (el) { el.textContent = msg; el.classList.add('show'); }
+}
 
-  // Grade T/F
-  TRUEF.forEach((item, i) => {
-    const chosen   = tfAnswers['tf' + i];
-    const trueBtn  = document.getElementById('tf-' + i + '-true');
-    const falseBtn = document.getElementById('tf-' + i + '-false');
-    [trueBtn, falseBtn].forEach(b => { b.style.cursor = 'default'; b.classList.remove('selected'); });
-    if (chosen === undefined || chosen === null) {
-      (item.a ? trueBtn : falseBtn).classList.add('tf-reveal');
-      wrong++;
-      showBanner('tf-banner-' + i, 'Correct answer: ' + (item.a ? 'True' : 'False'));
-    } else {
-      if (chosen === item.a) {
-        (chosen ? trueBtn : falseBtn).classList.add('tf-correct');
-        correct++;
-      } else {
-        (chosen ? trueBtn : falseBtn).classList.add('tf-wrong');
-        (item.a ? trueBtn : falseBtn).classList.add('tf-reveal');
-        wrong++;
-        showBanner('tf-banner-' + i, 'Correct answer: ' + (item.a ? 'True' : 'False'));
-      }
-    }
-  });
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('case-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+  document.getElementById('tab-cases').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-  // Show modal
-  const pct   = Math.round((correct / 45) * 100);
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round((correct / 35) * 100);
   const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
   const bands = {
-    A: "Strong command of behavior change theory — ready to apply these models with clients.",
+    A: "Strong command of behavior change theory — ready to apply these models with real clients.",
     B: "Solid understanding. Review any missed questions and reinforce the weaker topics.",
     C: "Core concepts need more review. Revisit the Theory Guide and focus on missed areas.",
     D: "Return to the chapter material before retaking. Focus on the models you found hardest."
   };
-  const titles = { A:"Excellent Work!", B:"Good Work!", C:"Keep Studying", D:"More Review Needed" };
+  const titles = { A:"Excellent Work!", B:"Well Done!", C:"Good Effort!", D:"Keep Studying!" };
 
+  document.getElementById('modal-ring').className    = `modal-grade-ring grade-${grade}`;
   document.getElementById('modal-ring').textContent  = grade;
-  document.getElementById('modal-ring').className    = 'modal-grade-ring grade-' + grade;
   document.getElementById('modal-title').textContent = titles[grade];
   document.getElementById('modal-correct').textContent = correct;
   document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
   document.getElementById('modal-pct').textContent     = pct + '%';
   document.getElementById('modal-band').textContent    = bands[grade];
   document.getElementById('result-modal').classList.add('open');
 }
 
-function showBanner(id, msg) {
-  const el = document.getElementById(id);
-  if (el) { el.textContent = msg; el.classList.add('show'); }
-}
-
 function closeModal() {
   document.getElementById('result-modal').classList.remove('open');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function retakeQuiz() {
-  location.reload();
-}
-
-// ── MINDMAP & TABS ────────────────────────────────────────────────────────────
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-
+// ══════════════════════════════════════════════════════
+// ── MINDMAP ───────────────────────────────────────────
+// ══════════════════════════════════════════════════════
 function buildMindmap() {
   const grid = document.getElementById('mm-grid');
   grid.innerHTML = MINDMAP.branches.map((b, i) => `
@@ -839,9 +994,24 @@ function toggleBranch(i) {
   document.getElementById('mmb-' + i).classList.toggle('open');
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── TABS ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('glow'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════
+// ── INIT ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
 buildMindmap();
-renderAll();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
 </script>
 
 </Layout>
