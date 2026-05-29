@@ -20,7 +20,6 @@ import Layout from '../../layouts/Layout.astro';
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
 
-/* HERO */
 .hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
 .breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
 .breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
@@ -34,13 +33,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
 .stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
 
-/* TABS */
 .tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
 .tabs{display:flex;gap:0}
 .tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
 .tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
 
-/* CONTENT */
 .content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
@@ -66,7 +63,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
 .mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
 
-/* QUIZ HEADER */
+/* QUIZ SHARED */
 .quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
 .quiz-header h2{font-family:var(--font-head);font-size:24px}
 .quiz-header h2 em{font-style:italic;color:var(--accent)}
@@ -78,14 +75,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .section-label-line{flex:1;height:1px;background:var(--border)}
 .section-label-count{font-size:12px;color:var(--muted)}
 
-/* CASE STUDY BLOCKS */
-.case-block{margin-bottom:36px}
-.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
-.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
-.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
-
-/* QUESTION CARDS */
 .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
 .q-card:hover{border-color:var(--border2)}
 .q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
@@ -102,17 +91,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
 .q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
 .q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
-
-/* EXPLANATION REVEAL */
 .q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
 .q-exp.show{display:block}
 .q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
 
-/* FILL IN */
 .fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
 .fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
 .fib-input-wrap{display:flex;align-items:center;gap:10px}
-.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:340px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
 .q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
 .q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
 .q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
@@ -121,7 +107,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
 .fib-hint.show{display:block}
 
-/* TRUE / FALSE */
 .tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
 .tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
 .q-tf{display:flex;gap:10px}
@@ -135,7 +120,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .tf-exp.show{display:block}
 .tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
 
-/* QUIZ FOOTER */
 .quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
 .submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
 .submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
@@ -143,7 +127,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
 .reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
 
-/* RESULT MODAL */
+/* THEORY QUIZ INLINE RESULT */
+.result-hero{text-align:center;padding:36px 24px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);margin-bottom:32px}
+.score-display{margin-bottom:8px}
+.score-num{font-family:var(--font-head);font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-family:var(--font-head);font-size:32px;color:var(--muted)}
+.score-label{font-size:14px;color:var(--muted);margin-top:6px;margin-bottom:16px}
+.score-label span{color:var(--accent);font-weight:700}
+.rb-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:8px 18px;font-size:13px;color:var(--muted)}
+.rb-mcq span,.rb-fi span,.rb-tf span{font-weight:700;color:var(--text)}
+
+/* CASE STUDY BLOCKS */
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+/* RESULT MODAL (Case Studies) */
 #result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
 #result-modal.open{display:flex}
 .modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
@@ -182,10 +184,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .tag-up{background:rgba(197,241,53,.15);color:var(--accent)}
 .tag-dn{background:rgba(248,113,113,.15);color:var(--incorrect)}
 
-/* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
 
-/* ANIMATIONS */
 @keyframes breathe{
   0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
   50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
@@ -206,12 +206,12 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
 }
 </style>
 
-<!-- RESULT MODAL -->
+<!-- RESULT MODAL (Case Studies) -->
 <div id="result-modal">
   <div class="modal-box">
     <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
     <div class="modal-title" id="modal-title">Excellent Work!</div>
-    <div class="modal-subtitle">Chapter 4 — Effective Communication, Goal Setting & Teaching Techniques</div>
+    <div class="modal-subtitle">Chapter 4 — Case Studies (35 MCQ)</div>
     <div class="modal-stats">
       <div class="modal-stat">
         <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
@@ -233,7 +233,7 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
     <div class="modal-band" id="modal-band"></div>
     <div class="modal-actions">
       <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
-      <button class="modal-btn-secondary" onclick="retakeQuiz()">↺ Retake</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
     </div>
   </div>
 </div>
@@ -248,10 +248,9 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <h1>Effective <em>Communication</em>, Goal Setting &amp; Teaching</h1>
   <p>MI &amp; OARS, 4 Stages of the Client Relationship, SMART Goals, Locke &amp; Latham, Fitts &amp; Posner Motor Learning, VAK, Tell–Show–Do.</p>
   <div class="hero-stats">
-    <div class="stat-chip"><strong>35</strong><span>Case MCQ</span></div>
-    <div class="stat-chip"><strong>5</strong><span>Fill-in</span></div>
-    <div class="stat-chip"><strong>5</strong><span>True / False</span></div>
-    <div class="stat-chip"><strong>45</strong><span>Total</span></div>
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
   </div>
 </div>
 
@@ -259,13 +258,14 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
     <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
     <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
   </div>
 </div>
 
 <div class="content">
 
-<!-- MIND MAP -->
+<!-- ═══════════════════ MIND MAP ═══════════════════ -->
 <div class="tab-panel active" id="tab-mindmap">
   <p class="mm-title">Click any branch to expand. All Chapter 4 concepts mapped.</p>
   <div class="mm-center">
@@ -275,46 +275,87 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <div class="mm-grid" id="mm-grid"></div>
 </div>
 
-<!-- QUIZ -->
+<!-- ═══════════════════ THEORY QUIZ ═══════════════════ -->
 <div class="tab-panel" id="tab-quiz">
+
+  <div id="theory-result" style="display:none">
+    <div class="result-hero">
+      <div class="score-display">
+        <span class="score-num" id="theory-score-num">0</span><span class="score-denom">/30</span>
+      </div>
+      <div class="score-label">Score: <span id="theory-score-pct">0%</span></div>
+      <div class="rb-row">
+        <div class="rb-mcq" id="theory-rb-mcq">Theory MCQ <span>0/20</span></div>
+        <div class="rb-fi" id="theory-rb-fi">Fill-in <span>0/5</span></div>
+        <div class="rb-tf" id="theory-rb-tf">T/F <span>0/5</span></div>
+      </div>
+      <button class="reset-btn" style="margin-top:16px" onclick="resetTheory()">↺ Reset Theory Quiz</button>
+    </div>
+  </div>
+
   <div class="quiz-header">
-    <h2>Chapter 4 <em>Quiz</em></h2>
-    <button class="reset-btn" onclick="retakeQuiz()">↺ Reset</button>
+    <h2>Chapter 4 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
   </div>
   <div class="progress-label">
-    <span id="progress-text">0 of 45 answered</span>
-    <span id="progress-pct">0%</span>
+    <span id="theory-progress-text">0 of 30 answered</span>
+    <span id="theory-progress-pct">0%</span>
   </div>
-  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="theory-prog-bar"></div></div>
 
   <div class="section-label">
-    <div class="section-label-badge">Part A — Case Studies (Multiple Choice)</div>
+    <div class="section-label-badge">Part A — Theory (Multiple Choice)</div>
     <div class="section-label-line"></div>
-    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
   </div>
-  <div id="mcq-section"></div>
+  <div id="theory-mcq-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part B — Fill in the Blank</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="fib-section"></div>
+  <div id="theory-fib-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part C — True / False</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="tf-section"></div>
+  <div id="theory-tf-section"></div>
 
   <div class="quiz-footer">
-    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
-    <button class="submit-btn" id="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="theory-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
   </div>
 </div>
 
-<!-- QUICK REFERENCE -->
+<!-- ═══════════════════ CASE STUDIES ═══════════════════ -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 4 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="case-progress-text">0 of 35 answered</span>
+    <span id="case-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="case-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Study MCQ</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="case-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="case-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ QUICK REFERENCE ═══════════════════ -->
 <div class="tab-panel" id="tab-reference">
   <div class="ref-grid">
 
@@ -397,7 +438,9 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
 </footer>
 
 <script is:inline>
-// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── MINDMAP DATA ──────────────────────────────────────
+// ══════════════════════════════════════════════════════
 const MINDMAP = {branches:[
   {id:1,name:"4 STAGES OF RELATIONSHIP",color:"#22d3ee",subs:[
     {name:"Stage 1: Rapport",points:["First impressions formed instantly — appearance, confidence, attire","Research: time building rapport directly enhances adherence","Empathy evolves from good communication over time","All 4 stages may occur within a single session"]},
@@ -443,7 +486,53 @@ const MINDMAP = {branches:[
   ]}
 ]};
 
-// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── THEORY QUIZ DATA ──────────────────────────────────
+// ══════════════════════════════════════════════════════
+const THEORY = [
+  { q: "What are the four stages of the client–personal trainer relationship in the correct order?", opts: ["Investigation, Rapport, Planning, Action","Rapport, Planning, Investigation, Action","Rapport, Investigation, Planning, Action","Planning, Rapport, Action, Investigation"], c: 2, exp: "The four stages are Rapport → Investigation → Planning → Action. All four can occur within a single session and often overlap throughout the relationship." },
+  { q: "Cultural competence is BEST defined as:", opts: ["The ability to speak multiple languages fluently","Avoiding any discussion of cultural differences with clients","Treating all clients identically regardless of background","The ability to communicate effectively with people from different cultures"], c: 3, exp: "Cultural competence = communicating effectively across cultural differences. It requires avoiding stereotypes, acknowledging biases, and treating every client as an individual." },
+  { q: "When verbal and nonverbal communication conflict, research shows people tend to trust:", opts: ["The verbal content of the message","Tone of voice exclusively","Body language","Written follow-up messages"], c: 2, exp: "People instinctively trust nonverbal communication (body language, facial expressions) over spoken words when the two conflict." },
+  { q: "The MI spirit acronym CACE stands for Collaboration, Acceptance, Compassion, and:", opts: ["Empathy","Encouragement","Empowerment","Evocation"], c: 3, exp: "CACE = Collaboration, Acceptance, Compassion, Evocation. Evocation means drawing out the client's own motivations rather than installing them from outside." },
+  { q: "Which of the following is an OPEN question in the OARS framework?", opts: ["'Do you enjoy exercise?'","'Have you exercised in the past year?'","'What would a more active lifestyle look like for you?'","'Are you ready to start a fitness program?'"], c: 2, exp: "Open questions require more than a yes/no answer and invite the client to explore their own thoughts, motivations, and barriers." },
+  { q: "After a client rates the importance of change at 7 on the importance ruler, the trainer should ask:", opts: ["'Why not a 10?'","'Why not a lower number?'","'How can we get you to a 9?'","'What is stopping you from rating it higher?'"], c: 1, exp: "Asking 'Why not a lower number?' elicits the client's own arguments FOR change, which are more persuasive than trainer-provided reasons." },
+  { q: "The Righting Reflex in MI refers to the trainer's tendency to:", opts: ["Correct client exercise form immediately","Provide solutions and advice before the client is ready","Summarize client statements during conversations","Use goal-setting theory to direct the client"], c: 1, exp: "The Righting Reflex is the instinctive urge to fix problems by giving advice. In MI this is counterproductive — the trainer's job is to guide, not direct." },
+  { q: "Which component of SMART ensures a goal has a defined deadline?", opts: ["Specific","Measurable","Attainable","Time-bound"], c: 3, exp: "Time-bound = the goal has a deadline. Deadlines drive persistence and allow clients to monitor their progress toward achieving the goal." },
+  { q: "A goal of 'walk briskly for 30 minutes, 4 days per week for 8 weeks' is BEST classified as a:", opts: ["Performance goal","Outcome goal","Process goal","Long-term goal"], c: 2, exp: "Process goals focus on behaviors and actions (what you DO). They are highly controllable and especially effective in the early stages of a fitness program." },
+  { q: "According to Locke and Latham, which mechanism helps goal-directed clients push through difficulties longer?", opts: ["Directed attention","Mobilized effort","Persistence","Strategy development"], c: 2, exp: "Persistence = goal-directed clients sustain effort through difficulties longer. This is one of the four mechanisms by which goals affect behavior (with directed attention, effort, and strategy)." },
+  { q: "In Fitts and Posner's model, the COGNITIVE stage is characterized by:", opts: ["Automatic, effortless movement execution","Refining technique with fewer errors but not yet automatic","Conscious attention to each cue; inconsistent, jerky performance","Ability to perform the skill while multi-tasking"], c: 2, exp: "Cognitive stage = learner must consciously attend to each movement cue. Performance is jerky and inconsistent. Tell-Show-Do and frequent feedback are key at this stage." },
+  { q: "A client is refining their squat — making fewer errors but movement is not yet automatic. They are in which motor learning stage?", opts: ["Cognitive stage","Autonomous stage","Associative stage","Visual stage"], c: 2, exp: "Associative stage = practice and refinement. Errors decrease and movements become more consistent, but not yet fully automatic. Feedback should be specific but not overwhelming." },
+  { q: "A client who prefers visual demonstrations over verbal explanations is classified as which VAK type?", opts: ["Auditory","Kinesthetic","Visual","Cognitive-stage learner"], c: 2, exp: "Visual learners prefer seeing demonstrations. They often say 'Let me see that again' and respond best to longer demos with less verbal instruction." },
+  { q: "The 'Do' component of Tell-Show-Do refers to:", opts: ["The trainer providing a written explanation","The trainer demonstrating the movement","Focused client practice with trainer observation","Client self-evaluation using video review"], c: 2, exp: "Do = focused client practice time. The trainer observes carefully to prepare helpful feedback. Tell-Show-Do covers all three VAK learning preferences simultaneously." },
+  { q: "Which of the following is described as one of the strongest evidence-based strategies for long-term exercise adherence?", opts: ["Behavioral contracting alone","Self-monitoring","Verbal motivation from the trainer","Setting only performance goals"], c: 1, exp: "Self-monitoring — tracking exercise behaviors, food, mood, etc. — is consistently identified as one of the strongest evidence-based strategies for improving exercise adherence." },
+  { q: "Behavioral contracting is most effective when the rewards are:", opts: ["Selected by the trainer based on fitness progress","Identical for all clients to ensure consistency","Personally meaningful to the client","Focused exclusively on scale-weight outcomes"], c: 2, exp: "Contracts work best when rewards reflect the client's personal values and motivations. The contract supports accountability to the CLIENT's own goals, not just the trainer's." },
+  { q: "Which of the following BEST describes active listening?", opts: ["Formulating your response while the client is still speaking","Nonjudgmental, empathetic attention to the client's complete message","Taking verbatim notes on every word the client says","Focusing only on the factual content of what is said"], c: 1, exp: "Active listening = nonjudgmental, empathetic attention. Key barriers include formulating responses early, forming judgments, and daydreaming while the client speaks." },
+  { q: "In the associative stage of motor learning, the trainer should provide feedback that is:", opts: ["Very frequent on every observed error","Absent to preserve client autonomy","Specific and corrective but balanced to avoid overwhelming the learner","Replaced entirely by self-monitoring tools"], c: 2, exp: "In the associative stage, feedback should be specific and targeted — but the trainer must avoid overloading the learner. Quality of feedback matters more than quantity." },
+  { q: "Reflecting in the OARS framework means:", opts: ["Asking a question that mirrors the client's statement","Summarizing all key themes from the session","Mirroring the client's meaning back as a statement (not a question)","Affirming the client's strengths and past successes"], c: 2, exp: "Reflecting = mirroring the client's meaning back as a statement. It demonstrates understanding and prompts further exploration without the directive tone of a question." },
+  { q: "Which of the following body language signals MOST likely indicates a client is anxious to leave or end the session?", opts: ["Crossed arms","Feet pointed toward the exit","Repeatedly checking their watch","Biting their lip"], c: 1, exp: "Feet pointed toward the door indicate the person is mentally preparing to leave. Body language cues like this reveal emotional states that verbal communication may not." }
+];
+
+// ── FIB DATA ──────────────────────────────────────────
+const FILLIN = [
+  { q: "The four stages of the client-personal trainer relationship in order are: Rapport, ________, Planning, and Action.", a: "investigation", hint: "The stage focused on gathering health history and using active listening / MI." },
+  { q: "The MI spirit acronym CACE stands for Collaboration, Acceptance, Compassion, and ________.", a: "evocation", hint: "Drawing out the client's own motivations rather than instilling them from outside." },
+  { q: "The SMART acronym stands for Specific, Measurable, Attainable, Relevant, and ________.", a: "time-bound", hint: "This component provides a deadline and drives persistence." },
+  { q: "Fitts and Posner's three stages of motor learning in order are: Cognitive, ________, and Autonomous.", a: "associative", hint: "The middle stage where practice refines the movement and errors decrease." },
+  { q: "A trainer's instinctive urge to provide solutions and tell clients what to do, which MI discourages, is called the ________ Reflex.", a: "righting", hint: "In MI this impulse is recognized as counterproductive to client autonomy." }
+];
+
+// ── T/F DATA ──────────────────────────────────────────
+const TRUEF = [
+  { q: "Process goals focus on specific behaviors and actions rather than end outcomes, making them especially effective early in an exercise program.", a: true, exp: "Process goals are behavior-focused (what you do) and highly controllable, making them ideal for building early adherence and confidence." },
+  { q: "According to the ACE model, the four stages of the client-trainer relationship always progress in a strict, non-overlapping sequence.", a: false, exp: "The stages often overlap and recur. A trainer may move through multiple stages in a single session and may revisit earlier stages throughout the relationship." },
+  { q: "Self-monitoring — tracking one's own exercise behaviors — is one of the strongest evidence-based strategies for improving long-term exercise adherence.", a: true, exp: "Research consistently shows self-monitoring is among the most effective behavioral strategies for sustaining long-term exercise habits." },
+  { q: "In motivational interviewing, the trainer's role is to provide the client with the best arguments for why they should change their behavior.", a: false, exp: "In MI the trainer evokes the client's OWN reasons for change. The client's self-generated arguments are far more persuasive than trainer-provided ones." },
+  { q: "When teaching motor skills, it is appropriate to provide frequent augmented feedback to beginners in the cognitive stage of learning.", a: true, exp: "Beginners in the cognitive stage require frequent external feedback on key cues to build correct motor patterns. Frequency can be reduced as learners advance." }
+];
+
+// ══════════════════════════════════════════════════════
+// ── CASE STUDY DATA ───────────────────────────────────
+// ══════════════════════════════════════════════════════
 const CASES = [
   {
     num: 1,
@@ -531,41 +620,208 @@ const CASES = [
   }
 ];
 
-const FILLIN = [
-  { q: "The four stages of the client-personal trainer relationship in order are: Rapport, ________, Planning, and Action.", a: "investigation", hint: "The stage focused on gathering health history and using active listening / MI." },
-  { q: "The MI spirit acronym CACE stands for Collaboration, Acceptance, Compassion, and ________.", a: "evocation", hint: "Drawing out the client's own motivations rather than instilling them from outside." },
-  { q: "The SMART acronym stands for Specific, Measurable, Attainable, Relevant, and ________.", a: "time-bound", hint: "This component provides a deadline and drives persistence." },
-  { q: "Fitts and Posner's three stages of motor learning in order are: Cognitive, ________, and Autonomous.", a: "associative", hint: "The middle stage where practice refines the movement and errors decrease." },
-  { q: "A trainer's instinctive urge to provide solutions and tell clients what to do, which MI discourages, is called the ________ Reflex.", a: "righting", hint: "In MI this impulse is recognized as counterproductive to client autonomy." }
-];
+// ══════════════════════════════════════════════════════
+// ── STATE ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+let theoryMCQ    = {};
+let fibAnswers   = {};
+let tfAnswers    = {};
+let theoryGraded = false;
 
-const TRUEF = [
-  { q: "Process goals focus on specific behaviors and actions rather than end outcomes, making them especially effective early in an exercise program.", a: true, exp: "Process goals are behavior-focused (what you do) and highly controllable, making them ideal for building early adherence." },
-  { q: "According to the ACE model, the four stages of the client-trainer relationship always progress in a strict, non-overlapping sequence.", a: false, exp: "The stages often overlap and recur. A trainer may move through multiple stages in a single session and revisit earlier stages throughout the relationship." },
-  { q: "Self-monitoring — tracking one's own exercise behaviors — is one of the strongest evidence-based strategies for improving long-term exercise adherence.", a: true, exp: "Research consistently shows self-monitoring is among the most effective behavioral strategies for sustaining exercise habits." },
-  { q: "In motivational interviewing, the trainer's role is to provide the client with the best arguments for why they should change their behavior.", a: false, exp: "In MI the trainer evokes the client's own reasons for change. The client's self-generated arguments are far more persuasive than trainer-provided ones." },
-  { q: "When teaching motor skills, it is appropriate to provide frequent augmented feedback to beginners in the cognitive stage of learning.", a: true, exp: "Beginners require frequent external feedback on key cues to build correct motor patterns. Feedback frequency can be reduced as learners advance." }
-];
+let caseAnswers  = {};
+let caseGraded   = false;
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let mcqAnswers  = {};
-let fibAnswers  = {};
-let tfAnswers   = {};
-let graded      = false;
-let globalQNum  = 0;
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function renderAll() {
-  globalQNum = 0;
-  renderMCQ();
-  renderFIB();
-  renderTF();
-  updateProgress();
+// ══════════════════════════════════════════════════════
+// ── THEORY QUIZ BUILD ─────────────────────────────────
+// ══════════════════════════════════════════════════════
+function buildTheoryQuiz() {
+  const sec = document.getElementById('theory-mcq-section');
+  sec.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  THEORY.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `tq-${qi}`;
+    card.innerHTML = `
+      <div class="q-num">Question ${qi + 1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options">
+        ${q.opts.map((o, oi) => `
+          <div class="q-option" onclick="pickTheory(${qi},${oi},this)">
+            <span class="opt-letter">${letters[oi]}</span>
+            <span>${o}</span>
+          </div>`).join('')}
+      </div>
+      <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+    `;
+    sec.appendChild(card);
+  });
 }
 
-function renderMCQ() {
-  const sec = document.getElementById('mcq-section');
+function buildFIB() {
+  const sec = document.getElementById('theory-fib-section');
   sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    const card = document.createElement('div');
+    card.className = 'fib-card';
+    card.innerHTML = `
+      <div class="q-num">Fill-in ${fi + 1}</div>
+      <div class="fib-q">${f.q}</div>
+      <div class="fib-input-wrap">
+        <input class="q-input" id="tfib-${fi}" type="text" placeholder="Your answer…" oninput="trackFIB(${fi})">
+        <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+      </div>
+      <div class="fib-hint" id="tfib-hint-${fi}">Hint: ${f.hint}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('theory-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    const card = document.createElement('div');
+    card.className = 'tf-card';
+    card.innerHTML = `
+      <div class="q-num">True / False ${ti + 1}</div>
+      <div class="tf-q">${t.q}</div>
+      <div class="q-tf">
+        <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">TRUE</button>
+        <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">FALSE</button>
+      </div>
+      <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+function pickTheory(qi, oi, el) {
+  if (theoryGraded) return;
+  const opts = el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  theoryMCQ[qi] = oi;
+  updateTheoryProgress();
+}
+
+function trackFIB(fi) {
+  fibAnswers[fi] = document.getElementById(`tfib-${fi}`).value.trim();
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).className = 'q-tf-btn' + (val === true  ? ' selected' : '');
+  document.getElementById(`ttf-${ti}-F`).className = 'q-tf-btn' + (val === false ? ' selected' : '');
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  const mcqDone = Object.keys(theoryMCQ).length;
+  const fibDone = Object.values(fibAnswers).filter(v => v.length > 0).length;
+  const tfDone  = Object.keys(tfAnswers).length;
+  const total   = mcqDone + fibDone + tfDone;
+  const pct = Math.round((total / 30) * 100);
+  document.getElementById('theory-progress-text').textContent = `${total} of 30 answered`;
+  document.getElementById('theory-progress-pct').textContent  = `${pct}%`;
+  document.getElementById('theory-prog-bar').style.width       = `${pct}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('theory-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`#tq-${qi} .q-option`);
+    opts.forEach(o => { o.style.pointerEvents = 'none'; });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      opts[sel].classList.add('correct-ans');
+      mcqC++;
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').toLowerCase().trim();
+    const ans = f.a.toLowerCase();
+    const ok  = val === ans || ans.includes(val) || val.includes(ans.split(' ')[0]);
+    if (val === '') {
+      document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+    } else if (ok) {
+      inp.classList.add('fib-correct');
+      document.getElementById(`tfib-fb-${fi}`).className = 'fib-feedback ok';
+      document.getElementById(`tfib-fb-${fi}`).textContent = '✓';
+      fibC++;
+    } else {
+      inp.classList.add('fib-wrong');
+      document.getElementById(`tfib-fb-${fi}`).className = 'fib-feedback bad';
+      document.getElementById(`tfib-fb-${fi}`).textContent = `✗ ${f.hint}`;
+      document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+    }
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    tBtn.disabled = true; fBtn.disabled = true;
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+      tfC++;
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (!sel ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  const pct   = Math.round((total / 30) * 100);
+  document.getElementById('theory-score-num').textContent = total;
+  document.getElementById('theory-score-pct').textContent = pct + '%';
+  document.getElementById('theory-rb-mcq').innerHTML = `Theory MCQ <span>${mcqC}/20</span>`;
+  document.getElementById('theory-rb-fi').innerHTML  = `Fill-in <span>${fibC}/5</span>`;
+  document.getElementById('theory-rb-tf').innerHTML  = `T/F <span>${tfC}/5</span>`;
+  const resultEl = document.getElementById('theory-result');
+  resultEl.style.display = 'block';
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {};
+  theoryGraded = false;
+  document.getElementById('theory-submit-btn').disabled = false;
+  document.getElementById('theory-result').style.display = 'none';
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+  document.getElementById('tab-quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ══════════════════════════════════════════════════════
+// ── CASE STUDIES BUILD ────────────────────────────────
+// ══════════════════════════════════════════════════════
+function buildCases() {
+  const sec = document.getElementById('case-mcq-section');
+  sec.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  let qn = 0;
   CASES.forEach((cs, ci) => {
     const block = document.createElement('div');
     block.className = 'case-block';
@@ -577,186 +833,88 @@ function renderMCQ() {
       <div class="scenario-box">${cs.scenario}</div>
     `;
     cs.qs.forEach((q, qi) => {
-      globalQNum++;
-      const gNum = globalQNum;
-      const key  = `c${ci}q${qi}`;
-      const opts = q.opts.map((o, oi) =>
-        `<div class="q-option" data-key="${key}" data-idx="${oi}" onclick="pickMCQ('${key}',${oi},${q.ans})">
-          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
-        </div>`
-      ).join('');
-      block.insertAdjacentHTML('beforeend', `
-        <div class="q-card" id="card-${key}">
-          <div class="q-num">Q${gNum}</div>
-          <div class="q-text">${q.q}</div>
-          <div class="q-options" id="opts-${key}">${opts}</div>
-          <div class="q-exp" id="exp-${key}"><strong>Explanation</strong>${q.exp}</div>
+      qn++;
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = `cq-${qn}`;
+      card.innerHTML = `
+        <div class="q-num">Question ${qn}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">
+          ${q.opts.map((o, oi) => `
+            <div class="q-option" onclick="pickCase(${ci},${qi},${oi},this)">
+              <span class="opt-letter">${letters[oi]}</span>
+              <span>${o}</span>
+            </div>`).join('')}
         </div>
-      `);
+        <div class="q-exp" id="cexp-${qn}"><strong>Explanation</strong>${q.exp}</div>
+      `;
+      block.appendChild(card);
     });
     sec.appendChild(block);
   });
 }
 
-function renderFIB() {
-  const sec = document.getElementById('fib-section');
-  sec.innerHTML = '';
-  FILLIN.forEach((f, i) => {
-    globalQNum++;
-    const gNum = globalQNum;
-    sec.insertAdjacentHTML('beforeend', `
-      <div class="fib-card" id="fib-card-${i}">
-        <div class="q-num">Q${gNum}</div>
-        <div class="fib-q">${f.q}</div>
-        <div class="fib-input-wrap">
-          <input class="q-input" id="fib-input-${i}" type="text" placeholder="Type your answer…"
-            oninput="fibAnswers[${i}]=this.value;updateProgress()" autocomplete="off"/>
-          <span class="fib-feedback" id="fib-fb-${i}"></span>
-        </div>
-        <div class="fib-hint" id="fib-hint-${i}"><em>Hint:</em> ${f.hint}</div>
-      </div>
-    `);
-  });
+function pickCase(ci, qi, oi, el) {
+  if (caseGraded) return;
+  const opts = el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  caseAnswers[`${ci}-${qi}`] = oi;
+  updateCaseProgress();
 }
 
-function renderTF() {
-  const sec = document.getElementById('tf-section');
-  sec.innerHTML = '';
-  TRUEF.forEach((t, i) => {
-    globalQNum++;
-    const gNum = globalQNum;
-    sec.insertAdjacentHTML('beforeend', `
-      <div class="tf-card" id="tf-card-${i}">
-        <div class="q-num">Q${gNum}</div>
-        <div class="tf-q">${t.q}</div>
-        <div class="q-tf">
-          <button class="q-tf-btn" id="tf-${i}-T" onclick="pickTF(${i},true)">True</button>
-          <button class="q-tf-btn" id="tf-${i}-F" onclick="pickTF(${i},false)">False</button>
-        </div>
-        <div class="tf-exp" id="tf-exp-${i}"><strong>Explanation</strong>${t.exp}</div>
-      </div>
-    `);
-  });
+function updateCaseProgress() {
+  const done = Object.keys(caseAnswers).length;
+  const pct  = Math.round((done / 35) * 100);
+  document.getElementById('case-progress-text').textContent = `${done} of 35 answered`;
+  document.getElementById('case-progress-pct').textContent  = `${pct}%`;
+  document.getElementById('case-prog-bar').style.width       = `${pct}%`;
 }
 
-// ── INTERACTION ───────────────────────────────────────────────────────────────
-function pickMCQ(key, idx, ans) {
-  if (graded) return;
-  mcqAnswers[key] = idx;
-  document.querySelectorAll(`[data-key="${key}"]`).forEach((el,i) => {
-    el.classList.toggle('selected', i === idx);
-    el.querySelector('.opt-letter').style.background = (i === idx) ? 'var(--accent)' : '';
-    el.querySelector('.opt-letter').style.color = (i === idx) ? '#000' : '';
-    el.querySelector('.opt-letter').style.borderColor = (i === idx) ? 'var(--accent)' : '';
-  });
-  updateProgress();
-}
-
-function pickTF(i, val) {
-  if (graded) return;
-  tfAnswers[i] = val;
-  document.getElementById(`tf-${i}-T`).classList.toggle('selected', val === true);
-  document.getElementById(`tf-${i}-F`).classList.toggle('selected', val === false);
-  updateProgress();
-}
-
-// ── PROGRESS ──────────────────────────────────────────────────────────────────
-function countAnswered() {
-  let n = Object.keys(mcqAnswers).length;
-  FILLIN.forEach((_, i) => { if (fibAnswers[i] && fibAnswers[i].trim()) n++; });
-  TRUEF.forEach((_, i)  => { if (tfAnswers[i] !== undefined) n++; });
-  return n;
-}
-function updateProgress() {
-  const n = countAnswered();
-  document.getElementById('progress-text').textContent = `${n} of 45 answered`;
-  document.getElementById('progress-pct').textContent  = `${Math.round(n/45*100)}%`;
-  document.getElementById('prog-bar').style.width      = `${n/45*100}%`;
-}
-
-// ── SUBMIT ────────────────────────────────────────────────────────────────────
-function submitQuiz() {
-  if (graded) return;
-  graded = true;
-  document.getElementById('submit-btn').disabled = true;
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('case-submit-btn').disabled = true;
 
   let correct = 0, wrong = 0, skip = 0;
-
-  // Grade MCQ
+  let qn = 0;
   CASES.forEach((cs, ci) => {
     cs.qs.forEach((q, qi) => {
-      const key = `c${ci}q${qi}`;
-      const sel = mcqAnswers[key];
-      const opts = document.querySelectorAll(`[data-key="${key}"]`);
-      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      qn++;
+      const sel  = caseAnswers[`${ci}-${qi}`];
+      const opts = document.querySelectorAll(`#cq-${qn} .q-option`);
+      opts.forEach(o => { o.style.pointerEvents = 'none'; });
       if (sel === undefined) {
-        skip++;
         opts[q.ans].classList.add('reveal-correct');
+        skip++;
       } else if (sel === q.ans) {
-        correct++;
         opts[sel].classList.add('correct-ans');
+        correct++;
       } else {
-        wrong++;
         opts[sel].classList.add('wrong-ans');
         opts[q.ans].classList.add('reveal-correct');
+        wrong++;
       }
-      document.getElementById(`exp-${key}`).classList.add('show');
+      document.getElementById(`cexp-${qn}`).classList.add('show');
     });
   });
 
-  // Grade FIB
-  FILLIN.forEach((f, i) => {
-    const inp = document.getElementById(`fib-input-${i}`);
-    inp.disabled = true;
-    const val = (fibAnswers[i] || '').trim().toLowerCase();
-    const ans = f.a.toLowerCase();
-    const fb  = document.getElementById(`fib-fb-${i}`);
-    if (!val) {
-      skip++;
-      inp.classList.add('fib-wrong');
-      fb.textContent = `Answer: ${f.a}`;
-      fb.className = 'fib-feedback bad';
-    } else if (val === ans || ans.includes(val) || val.includes(ans)) {
-      correct++;
-      inp.classList.add('fib-correct');
-      fb.textContent = '✓';
-      fb.className = 'fib-feedback ok';
-    } else {
-      wrong++;
-      inp.classList.add('fib-wrong');
-      fb.textContent = `Answer: ${f.a}`;
-      fb.className = 'fib-feedback bad';
-    }
-    document.getElementById(`fib-hint-${i}`).classList.add('show');
-  });
-
-  // Grade T/F
-  TRUEF.forEach((t, i) => {
-    const tBtn = document.getElementById(`tf-${i}-T`);
-    const fBtn = document.getElementById(`tf-${i}-F`);
-    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
-    const sel = tfAnswers[i];
-    if (sel === undefined) {
-      skip++;
-      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
-    } else if (sel === t.a) {
-      correct++;
-      (sel ? tBtn : fBtn).classList.add('tf-correct');
-    } else {
-      wrong++;
-      (sel ? tBtn : fBtn).classList.add('tf-wrong');
-      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
-    }
-    document.getElementById(`tf-exp-${i}`).classList.add('show');
-  });
-
-  // Show modal after short delay
-  setTimeout(() => showModal(correct, wrong, skip), 350);
+  showModal(correct, wrong, skip);
 }
 
-// ── MODAL ─────────────────────────────────────────────────────────────────────
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('case-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+  document.getElementById('tab-cases').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function showModal(correct, wrong, skip) {
-  const pct   = Math.round(correct / 45 * 100);
+  const pct   = Math.round((correct / 35) * 100);
   const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
   const bands = {
     A: 'Excellent! Strong command of communication, MI, goal-setting, and teaching techniques.',
@@ -764,18 +922,16 @@ function showModal(correct, wrong, skip) {
     C: 'Passing, but worth another review — especially MI spirit, SMART goals, and motor learning.',
     D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
   };
-  const colors = { A:'var(--accent)', B:'var(--blue)', C:'var(--warn)', D:'var(--incorrect)' };
-  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+  const titles = { A:'Excellent Work!', B:'Well Done!', C:'Good Effort!', D:'Keep Studying!' };
 
-  const ring = document.getElementById('modal-ring');
-  ring.textContent = grade;
-  ring.className = `modal-grade-ring grade-${grade}`;
-  document.getElementById('modal-title').textContent    = titles[grade];
-  document.getElementById('modal-correct').textContent  = correct;
-  document.getElementById('modal-wrong').textContent    = wrong;
-  document.getElementById('modal-skip').textContent     = skip;
-  document.getElementById('modal-pct').textContent      = `${pct}%`;
-  document.getElementById('modal-band').textContent     = bands[grade];
+  document.getElementById('modal-ring').className    = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-ring').textContent  = grade;
+  document.getElementById('modal-title').textContent = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = pct + '%';
+  document.getElementById('modal-band').textContent    = bands[grade];
   document.getElementById('result-modal').classList.add('open');
 }
 
@@ -783,22 +939,9 @@ function closeModal() {
   document.getElementById('result-modal').classList.remove('open');
 }
 
-function retakeQuiz() {
-  mcqAnswers = {}; fibAnswers = {}; tfAnswers = {}; graded = false;
-  document.getElementById('result-modal').classList.remove('open');
-  document.getElementById('submit-btn').disabled = false;
-  renderAll();
-}
-
-// ── TABS ─────────────────────────────────────────────────────────────────────
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ── MINDMAP ───────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── MINDMAP ───────────────────────────────────────────
+// ══════════════════════════════════════════════════════
 function buildMindmap() {
   const grid = document.getElementById('mm-grid');
   MINDMAP.branches.forEach(branch => {
@@ -808,7 +951,7 @@ function buildMindmap() {
       <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
         <div class="mm-branch-dot" style="background:${branch.color}"></div>
         <div class="mm-branch-name">${branch.name}</div>
-        <div class="mm-branch-arrow">▶</div>
+        <div class="mm-branch-arrow">›</div>
       </div>
       <div class="mm-branch-body">
         <div class="mm-subs">
@@ -831,9 +974,24 @@ function toggleBranch(branch) {
   branch.classList.toggle('open');
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ── TABS ──────────────────────────════════════════════
+// ══════════════════════════════════════════════════════
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('glow'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════
+// ── INIT ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
 buildMindmap();
-renderAll();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
 </script>
 
 </Layout>
