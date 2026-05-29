@@ -1,0 +1,681 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Role & Scope of Practice — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering the NCD epidemic, ACE certification, scope of practice, real-world scenarios, HIPAA ethics, healthcare continuum, NCCA/USREPS recognition, and career development for ACE-CPT Chapter 1.">
+
+<style is:global>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #1a1a2e;
+  background: #ffffff;
+}
+.blog-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #0d1f35 0%, #0a1a28 50%, #0f2028 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 56px 48px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 280px; height: 280px;
+  background: rgba(197,241,53,0.06);
+  border-radius: 50%;
+}
+.hero-tag {
+  display: inline-block;
+  background: #c5f135;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+.hero p {
+  color: rgba(255,255,255,0.65);
+  font-size: 15px;
+  max-width: 560px;
+  margin-bottom: 24px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c5f135;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* ── TOC BAR ── */
+.toc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 48px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.toc-inner {
+  display: inline-flex;
+  padding: 0 4px;
+}
+.toc-link {
+  display: inline-block;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.toc-link:hover { color: #111; border-bottom-color: #c5f135; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 64px; }
+.section-tag {
+  display: inline-block;
+  background: #c5f135;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.section-tag.teal   { background: #22d3ee; color: #000; }
+.section-tag.blue   { background: #3b82f6; color: #fff; }
+.section-tag.purple { background: #a855f7; color: #fff; }
+.section-tag.orange { background: #f97316; color: #fff; }
+.section-tag.green  { background: #10b981; color: #fff; }
+.section-tag.red    { background: #ef4444; color: #fff; }
+.section h2 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+.section p {
+  color: #374151;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+.section p strong { color: #111827; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: #e5e7eb; margin: 56px 0; }
+
+/* ── CALLOUT ── */
+.callout {
+  background: #f9fafb;
+  border-left: 4px solid #c5f135;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+.callout.teal   { border-left-color: #22d3ee; }
+.callout.blue   { border-left-color: #3b82f6; }
+.callout.purple { border-left-color: #a855f7; }
+.callout.orange { border-left-color: #f97316; }
+.callout.green  { border-left-color: #10b981; }
+.callout.red    { border-left-color: #ef4444; }
+.callout p { font-size: 14px; margin: 0 0 6px; color: #374151; line-height: 1.65; }
+.callout p:last-child { margin-bottom: 0; }
+.callout strong { color: #111; }
+.callout ul { padding-left: 18px; margin-top: 6px; }
+.callout li { font-size: 14px; color: #374151; margin-bottom: 4px; line-height: 1.55; }
+
+/* ── CARD GRID ── */
+.card-grid { display: grid; gap: 14px; margin: 24px 0; }
+.card-grid-2 { grid-template-columns: 1fr 1fr; }
+.card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+  border-left: 3px solid #c5f135;
+}
+.card.teal   { border-left-color: #22d3ee; }
+.card.blue   { border-left-color: #3b82f6; }
+.card.purple { border-left-color: #a855f7; }
+.card.orange { border-left-color: #f97316; }
+.card.green  { border-left-color: #10b981; }
+.card.red    { border-left-color: #ef4444; }
+.card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  color: #111;
+}
+.card p { font-size: 13px; color: #374151; margin: 0; line-height: 1.6; }
+.card ul { padding-left: 16px; margin-top: 4px; }
+.card li { font-size: 13px; color: #374151; margin-bottom: 4px; line-height: 1.5; }
+
+/* ── SCOPE BOX ── */
+.scope-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 24px 0;
+}
+.scope-col { padding: 20px; }
+.scope-col:first-child { border-right: 1px solid #e5e7eb; }
+.scope-col h4 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.scope-col.within h4 { color: #16a34a; }
+.scope-col.outside h4 { color: #dc2626; }
+.scope-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.scope-list li {
+  padding-left: 20px;
+  position: relative;
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+}
+.scope-col.within .scope-list li::before { content: "✓"; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+.scope-col.outside .scope-list li::before { content: "✗"; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
+
+/* ── SCENARIO TABLE ── */
+.scenario-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+.scenario-table th, .scenario-table td {
+  padding: 11px 14px;
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+.scenario-table th { background: #f3f4f6; color: #6b7280; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.scenario-table tr:hover td { background: #f9fafb; }
+.tag-out { color: #dc2626; font-weight: 600; }
+.tag-in  { color: #16a34a; font-weight: 600; }
+
+/* ── CONTINUUM ── */
+.continuum-row {
+  display: flex;
+  gap: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 24px 0;
+}
+.cont-item {
+  flex: 1;
+  padding: 16px 12px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #e2e8f0;
+}
+.cont-item.highlight {
+  border: 2px solid #c5f135;
+  color: #c5f135;
+}
+
+/* ── NUMBER STATS ── */
+.stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+.stat-box {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 18px;
+  text-align: center;
+  min-width: 100px;
+}
+.stat-val { font-size: 24px; font-weight: 900; color: #111827; line-height: 1; margin-bottom: 4px; }
+.stat-lbl { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── RECOGNITION CARDS ── */
+.rec-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 24px 0; }
+.rec-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+}
+.rec-card h4 { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+.rec-card p  { font-size: 13px; color: #374151; margin: 0; line-height: 1.6; }
+
+/* ── KEY TAKEAWAYS ── */
+.takeaways {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 32px;
+  margin: 48px 0;
+}
+.takeaways h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #16a34a;
+  margin-bottom: 20px;
+}
+.takeaway-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid #d1fae5;
+}
+.takeaway-item:last-child { border: none; }
+.tick { color: #16a34a; font-size: 14px; margin-top: 3px; flex-shrink: 0; }
+.takeaway-item p { font-size: 14px; color: #374151; margin: 0; line-height: 1.55; }
+
+/* ── BACK FOOTER ── */
+.page-footer {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 32px 24px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 64px;
+}
+.page-footer a { color: #374151; font-weight: 600; text-decoration: none; }
+.page-footer a:hover { color: #000; }
+
+@media (max-width: 680px) {
+  .hero { padding: 36px 24px; }
+  .card-grid-2, .card-grid-3, .rec-grid, .scope-split { grid-template-columns: 1fr; }
+  .scope-col:first-child { border-right: none; border-bottom: 1px solid #e5e7eb; }
+  .continuum-row { flex-direction: column; }
+}
+</style>
+
+<div class="blog-container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">ACE-CPT · Chapter 1 · Theory Guide</div>
+    <h1>Role &amp; Scope of Practice for Personal Trainers</h1>
+    <p>Who is an ACE Certified Personal Trainer, what can they legally do, and how do they fit into the broader healthcare continuum?</p>
+    <a href="/ace-prep/chapter-1" class="back-link">← Back to Chapter 1 Hub</a>
+  </div>
+
+  <!-- TOC BAR -->
+  <nav class="toc-bar">
+    <div class="toc-inner">
+      <a href="#inactivity"    class="toc-link">01 Inactivity Crisis</a>
+      <a href="#certification" class="toc-link">02 ACE Cert</a>
+      <a href="#scope"         class="toc-link">03 Scope</a>
+      <a href="#scenarios"     class="toc-link">04 Scenarios</a>
+      <a href="#ethics"        class="toc-link">05 Ethics</a>
+      <a href="#continuum"     class="toc-link">06 Continuum</a>
+      <a href="#recognition"   class="toc-link">07 Recognition</a>
+      <a href="#career"        class="toc-link">08 Career</a>
+      <a href="#takeaways"     class="toc-link">09 Takeaways</a>
+    </div>
+  </nav>
+
+  <!-- ── 01 INACTIVITY CRISIS ── -->
+  <div class="section" id="inactivity">
+    <span class="section-tag red">Public Health Context</span>
+    <h2>The Physical Inactivity Crisis</h2>
+    <p>The evidence is overwhelming: regular physical activity delivers life-altering health benefits across every demographic. Yet global participation rates have barely moved in two decades — creating an urgent need for skilled exercise professionals.</p>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-val">41M</div><div class="stat-lbl">NCD deaths/year</div></div>
+      <div class="stat-box"><div class="stat-val">71%</div><div class="stat-lbl">of all global deaths</div></div>
+      <div class="stat-box"><div class="stat-val">1%</div><div class="stat-lbl">PA change 2001–2016</div></div>
+      <div class="stat-box"><div class="stat-val">10%</div><div class="stat-lbl">WHO 2025 target</div></div>
+      <div class="stat-box"><div class="stat-val">+5.2%</div><div class="stat-lbl">High-income PA decline</div></div>
+    </div>
+
+    <p>Non-communicable diseases (NCDs) — cardiovascular disease, cancer, diabetes, chronic respiratory diseases — kill an estimated <strong>41 million people annually</strong>, accounting for 71% of all deaths globally. Physical inactivity, tobacco use, poor diet, and excessive alcohol are the four primary modifiable risk factors.</p>
+
+    <div class="callout orange">
+      <p><strong>WHO 2018 Analysis:</strong> A study of 358 surveys across 168 countries found only a 1% change in insufficient physical activity from 2001 (28.5%) to 2016 (27.5%). In high-income countries, insufficient physical activity actually <em>increased</em> by 5.2% — from 31.6% to 36.8%. The 2025 global target of a 10% relative reduction will not be met at current trends.</p>
+    </div>
+
+    <div class="card-grid card-grid-2">
+      <div class="card blue">
+        <h4>Children &amp; Adolescents (Ages 3–17)</h4>
+        <ul>
+          <li>Improved bone health and weight status</li>
+          <li>Improved cardiorespiratory &amp; muscular fitness</li>
+          <li>Improved cardiometabolic health</li>
+          <li>Improved cognition (ages 6–13)</li>
+          <li>Reduced risk of depression</li>
+        </ul>
+      </div>
+      <div class="card teal">
+        <h4>Adults &amp; Older Adults</h4>
+        <ul>
+          <li>Lower risk of CVD, stroke, T2DM, hypertension</li>
+          <li>Lower risk of 8+ cancers (colon, breast, lung…)</li>
+          <li>Improved cognition; reduced dementia risk</li>
+          <li>Reduced anxiety &amp; depression</li>
+          <li>Improved sleep, bone health, physical function</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 02 ACE CERTIFICATION ── -->
+  <div class="section" id="certification">
+    <span class="section-tag green">The Credential</span>
+    <h2>The ACE Personal Trainer Certification</h2>
+    <p>The ACE CPT assesses <strong>minimum competency</strong> — the threshold a professional must meet to work safely and effectively with minimal supervision. Passing means the professional can develop and deliver safe, effective exercise programs for apparently healthy individuals or those with medical clearance, both individually and in small groups.</p>
+
+    <div class="callout teal">
+      <p><strong>What "minimum competency" means:</strong> Passing the ACE CPT exam is not mastery of everything — it is the threshold required to begin working in the profession safely. This protects clients from harm. It does not guarantee error-free programming or grant access to other healthcare professions.</p>
+    </div>
+
+    <div class="card-grid card-grid-2">
+      <div class="card blue">
+        <h4>🏛 NCCA Accreditation</h4>
+        <p>The ACE CPT is accredited by the <strong>National Commission for Certifying Agencies (NCCA)</strong> — the gold standard for certification program accreditation in healthcare, fitness, finance, and other industries. All four ACE professional certifications hold this accreditation, placing exercise professionals alongside nursing, RDs, and athletic trainers.</p>
+      </div>
+      <div class="card purple">
+        <h4>📋 Exam Content Outline</h4>
+        <p>Every <strong>5 years</strong>, subject matter experts perform a job analysis to define the critical tasks, knowledge, skills, and abilities (KSAs) required of a competent personal trainer. The Exam Content Outline is published publicly and serves as the blueprint for both study and the certification exam.</p>
+      </div>
+    </div>
+
+    <div class="card green" style="margin-top:14px;">
+      <h4>🔄 Certification Renewal</h4>
+      <p>ACE certifications are valid for <strong>2 years</strong> (expire on the last day of the month earned). Renewal requires a minimum of <strong>20 hours of ACE-approved continuing education credits (CECs)</strong> per cycle, including CPR/AED recertification. The Bureau of Labor Statistics (2018) projected <strong>10% employment growth</strong> for fitness trainers from 2016–2026 — faster than the 7% average across all occupations.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 03 SCOPE OF PRACTICE ── -->
+  <div class="section" id="scope">
+    <span class="section-tag orange">Legal Boundaries</span>
+    <h2>Defining Scope of Practice</h2>
+    <p>A scope of practice defines the <strong>legal range of services</strong> a professional can provide, the settings where they can provide them, and the parameters that must be followed. Scope is shaped by education, licensure/certification requirements, governing laws (which vary by state), and professional organization standards.</p>
+
+    <div class="scope-split">
+      <div class="scope-col within">
+        <h4>✓ Within Scope</h4>
+        <ul class="scope-list">
+          <li>Implement client-centered, evidence-based exercise programs</li>
+          <li>Conduct health history interviews and preparticipation screening</li>
+          <li>Administer fitness assessments (cardiorespiratory, muscular)</li>
+          <li>Coach clients toward realistic health/fitness goals</li>
+          <li>Teach exercise methods through demo, cueing, and spotting</li>
+          <li>Follow evidence-based guidelines for diseases/disorders</li>
+          <li>Share federal dietary guidelines (MyPlate, Dietary Guidelines)</li>
+          <li>Educate on supplement risks; refer to RD or physician</li>
+          <li>Recognize limits and refer to appropriate healthcare professionals</li>
+          <li>Protect client confidentiality per HIPAA</li>
+          <li>Follow physician's medical release form restrictions</li>
+        </ul>
+      </div>
+      <div class="scope-col outside">
+        <h4>✗ Outside Scope</h4>
+        <ul class="scope-list">
+          <li>Diagnosing illness or disease</li>
+          <li>Prescribing diets, meal plans, or nutritional supplements</li>
+          <li>Treating injury or disease</li>
+          <li>Rehabilitating clients following injury</li>
+          <li>Monitoring clinical progress for medically referred clients</li>
+          <li>Counseling clients (therapeutic or psychological)</li>
+          <li>Performing massage therapy without licensure</li>
+          <li>Performing manual therapeutic manipulation</li>
+          <li>Providing services in another profession's legal domain</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout red">
+      <p><strong>Legal Consequence:</strong> ACE Certified Professionals offering services within the legal domain of another healthcare profession (medicine, dietetics, physical therapy, massage, etc.) violate the ACE Code of Ethics and face potential prosecution for practicing without appropriate credentials.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 04 REAL-WORLD SCENARIOS ── -->
+  <div class="section" id="scenarios">
+    <span class="section-tag blue">Table 1-3</span>
+    <h2>Scope of Practice: Real-World Scenarios</h2>
+    <p>These four scenarios from ACE Table 1-3 are a common exam reference — know the distinction between what <em>seems</em> reasonable and what is actually within scope.</p>
+
+    <table class="scenario-table">
+      <thead>
+        <tr>
+          <th>Client Scenario</th>
+          <th class="tag-out">Inappropriate ✗</th>
+          <th class="tag-in">Appropriate ✓</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Client has exaggerated lordotic posture</td>
+          <td>Diagnosing the cause of the lordosis</td>
+          <td>Core conditioning program to improve hip/spine muscle imbalances</td>
+        </tr>
+        <tr>
+          <td>Client wants to lose weight using the latest commercial diet</td>
+          <td>Helping client implement the commercial diet</td>
+          <td>Using Dietary Guidelines &amp; MyPlate to support healthful choices</td>
+        </tr>
+        <tr>
+          <td>Client cleared for exercise after PT for rotator cuff impingement</td>
+          <td>Continuing PT exercises to treat shoulder impingement</td>
+          <td>Implementing shoulder stability exercises that build on PT work</td>
+        </tr>
+        <tr>
+          <td>Client asks about supplement for fat loss</td>
+          <td>Recommending or prescribing a supplement</td>
+          <td>Educating on supplement risks; referring to RD or physician</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout orange">
+      <p><strong>Supplements Rule:</strong> Unlike drugs, supplements are deemed safe until proven unsafe — the FDA does not evaluate them before going to market. Personal trainers cannot recommend supplements regardless of their personal knowledge. If a client insists, refer to an RD or physician. This applies even to trainers with extensive supplement expertise.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 05 ETHICS & HIPAA ── -->
+  <div class="section" id="ethics">
+    <span class="section-tag purple">Professional Obligations</span>
+    <h2>Professional Responsibilities &amp; Ethics</h2>
+
+    <div class="card-grid card-grid-2">
+      <div class="card purple">
+        <h4>ACE Code of Ethics</h4>
+        <p>Violations include: material misrepresentation or fraud, physical/mental/emotional conditions impairing professional performance, negligent or intentional misconduct (including <strong>unauthorized release of confidential information</strong>), and felony/misdemeanor convictions related to public health. ACE uses a <strong>3-tiered disciplinary process</strong>: Review → Hearing → Appeals.</p>
+      </div>
+      <div class="card teal">
+        <h4>HIPAA &amp; Client Privacy</h4>
+        <p>ACE Certified Professionals must adhere to the <strong>Health Insurance Portability and Accountability Act (HIPAA)</strong>. Client health records must be kept confidential. <strong>Written permission from the client is required</strong> before communicating with physicians, sharing progress updates, or contacting any third party. Unauthorized disclosure = Code of Ethics violation.</p>
+      </div>
+    </div>
+
+    <div class="card blue" style="margin-top:14px;">
+      <h4>📅 Certification Renewal Details</h4>
+      <p>ACE certifications are valid for <strong>2 years</strong> (expire on the last day of the month in which they were earned). Renewal requires a minimum of <strong>20 hours of ACE-approved continuing education credits</strong> per cycle, including CPR/AED recertification. This ensures certified professionals stay current with evolving research and industry standards. CECs should reflect career objectives, current client base, and areas of interest.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 06 HEALTHCARE CONTINUUM ── -->
+  <div class="section" id="continuum">
+    <span class="section-tag teal">Allied Health Team</span>
+    <h2>The Healthcare Continuum</h2>
+    <p>Personal trainers occupy a unique and essential position within the allied healthcare team — focused on prevention and fitness, complementing (not replacing) licensed clinical professionals. Understanding every role prevents scope violations and builds referral networks.</p>
+
+    <div class="continuum-row">
+      <div class="cont-item" style="background:#0d2040;">🏥<br>Physicians<br>&amp; Nurses</div>
+      <div class="cont-item" style="background:#0f2850;">🦴<br>Physical<br>Therapists</div>
+      <div class="cont-item" style="background:#112050;">🥗<br>Registered<br>Dietitians</div>
+      <div class="cont-item" style="background:#0d2040;">🧠<br>Mental Health<br>Professionals</div>
+      <div class="cont-item highlight" style="background:#061830;">💪<br>Personal<br>Trainers</div>
+    </div>
+
+    <div class="card-grid card-grid-2">
+      <div class="card teal">
+        <h4>Key Allied Health Professionals</h4>
+        <ul>
+          <li><strong>Athletic Trainers (ATC):</strong> injury prevention, emergency care, rehabilitation; primarily athletes; regulated in most states</li>
+          <li><strong>Registered Dietitians (RD/RDN):</strong> meal planning, specialized diets; nutrition referral destination</li>
+          <li><strong>Physical Therapists (PT/DPT):</strong> doctorate-level; treat injury, restore movement; PTs cannot continue their exercises</li>
+          <li><strong>Exercise Physiologists:</strong> work with chronic diseases (CV, pulmonary, metabolic); academic degree required</li>
+          <li><strong>Health Coaches:</strong> behavior-change specialists</li>
+          <li><strong>Massage Therapists:</strong> soft tissue; require licensure</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <h4>Physician Collaboration Rules</h4>
+        <ul>
+          <li>Follow ALL exercise intensity, modality, and restrictions in the medical release form</li>
+          <li>Contact physician's office ONLY with client's <strong>written permission</strong></li>
+          <li>Provide agreed-upon frequency of regular progress updates</li>
+          <li>Maintain confidential records of program, progress, and health history</li>
+          <li>Any deviation from physician guidelines must be physician-approved</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 07 RECOGNITION ── -->
+  <div class="section" id="recognition">
+    <span class="section-tag orange">Credentialing Ecosystem</span>
+    <h2>Professional Recognition &amp; Accreditation</h2>
+
+    <div class="rec-grid">
+      <div class="rec-card">
+        <h4>🏛 NCCA</h4>
+        <p>National Commission for Certifying Agencies — gold standard for certification program accreditation. ACE holds NCCA accreditation for CPT, Group Fitness, Health Coach, and Medical Exercise Specialist. NCCA accreditation covers nursing specialties, RDs, athletic trainers, pharmacists, and more — placing personal trainers alongside established healthcare professions.</p>
+      </div>
+      <div class="rec-card">
+        <h4>📋 USREPS</h4>
+        <p>The <strong>United States Registry of Exercise Professionals</strong> is maintained by CREP (Coalition for the Registration of Exercise Professionals) and lists 175,000+ registered professionals who hold current NCCA-accredited certifications. Recognized internationally through ICREPs (International Confederation of Registers for Exercise Professionals) for global portability.</p>
+      </div>
+      <div class="rec-card">
+        <h4>🎓 CAAHEP / CoAES</h4>
+        <p>The <strong>Commission on Accreditation of Allied Health Education Programs</strong> — largest programmatic accreditor in health sciences — accredits exercise science degree programs via CoAES. Student performance on NCCA-accredited exams is a key outcome measure. ACE CPT certification helps universities earn CAAHEP accreditation.</p>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      <p><strong>Medical Fitness Association (2013):</strong> Mandated that medically integrated health and fitness facilities hire exercise professionals with <strong>NCCA-accredited certifications</strong>. This standard, combined with USREPS and CAAHEP recognition, positions ACE Certified Professionals as legitimate members of the allied healthcare team.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 08 CAREER DEVELOPMENT ── -->
+  <div class="section" id="career">
+    <span class="section-tag green">Growth &amp; Advancement</span>
+    <h2>Career Development</h2>
+
+    <div class="card-grid card-grid-2">
+      <div class="card green">
+        <h4>Continuing Education (CECs)</h4>
+        <p>ACE Certified Professionals should select CECs based on career objectives, current client base, and areas of interest. At least 20 ACE-approved hours per 2-year renewal cycle. College coursework in fitness/health-related subjects can count toward CECs.</p>
+      </div>
+      <div class="card orange">
+        <h4>Specialization Rules</h4>
+        <p>Specialization areas must fall <em>within</em> or be <em>complementary</em> to the personal trainer scope of practice. Working with older adults, athletes, or individuals with obesity is within scope. <strong>Manual therapeutic manipulation</strong> techniques would fall outside scope regardless of the education received.</p>
+      </div>
+    </div>
+
+    <div class="card blue" style="margin-top:14px;">
+      <h4>Expanding Into Another Allied Health Field</h4>
+      <p>To expand into another area of allied healthcare (massage therapy, dietetics, physical therapy, medicine), personal trainers must earn the <em>appropriate credential for that specific profession</em>. Continuing education hours do <strong>not</strong> extend the personal trainer's scope of practice into another profession's legal domain. A bachelor's degree is not required to earn ACE CPT certification, but degrees in exercise science, nutrition, or business help with career advancement into management or medical fitness.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── 09 KEY TAKEAWAYS ── -->
+  <div class="takeaways" id="takeaways">
+    <h3>Key Takeaways — Chapter 1</h3>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>NCDs kill 41M people/year — physical inactivity is a primary modifiable risk factor, making personal trainers essential for public health. Global PA rates have barely changed in 20 years; high-income countries are getting worse.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>The ACE CPT assesses <strong>minimum competency</strong> — the threshold required to work safely with minimal supervision. Passing doesn't mean mastery of everything; it means the client is protected from harm.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Scope of practice is a <strong>legal boundary</strong>. Providing services in another healthcare profession's domain (dietetics, PT, massage) risks prosecution and ACE Code of Ethics violations — regardless of the trainer's knowledge level.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Personal trainers cannot prescribe diets, meal plans, or supplements — even with extensive knowledge. They <em>can</em> share federal dietary guidelines (MyPlate, Dietary Guidelines for Americans). Refer all specific nutrition programming to an RD.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>HIPAA applies. Client health information is confidential and may only be shared with <strong>written client permission</strong>. This includes communication with the referring physician.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>NCCA accreditation is the gold standard that distinguishes qualified exercise professionals from unverified practitioners and establishes recognition within the healthcare community. USREPS is maintained by CREP and requires a current NCCA-accredited certification.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>When clients have physician referrals or medical release forms, follow <strong>all outlined restrictions</strong> and communicate with the physician only with the client's written permission.</p>
+    </div>
+    <div class="takeaway-item">
+      <span class="tick">✓</span>
+      <p>Advancing into another allied health field requires earning the <strong>specific credential for that profession</strong>. Scope of practice cannot be extended through continuing education alone.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <a href="/ace-prep/chapter-1">← Back to Chapter 1 Hub</a>
+  &nbsp;·&nbsp; Lifelong Athletics &nbsp;·&nbsp; ACE-CPT Chapter 1: Role &amp; Scope of Practice for Personal Trainers
+</div>
+
+</Layout>

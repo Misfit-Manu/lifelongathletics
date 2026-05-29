@@ -1,0 +1,818 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 1 — Role & Scope of Practice | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-in{color:var(--correct);font-weight:600}
+.tag-out{color:var(--incorrect);font-weight:600}
+.number-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.num-chip{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;text-align:center}
+.num-chip .val{display:block;font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--accent)}
+.num-chip .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 1 — Role &amp; Scope of Practice</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeQuiz()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 1</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 1</div>
+  <h1>Role &amp; <em>Scope of Practice</em></h1>
+  <p>Who is an ACE Certified Personal Trainer, what can they legally do, and how do they fit into the broader healthcare continuum?</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>35</strong><span>Case MCQ</span></div>
+    <div class="stat-chip"><strong>5</strong><span>Fill-in</span></div>
+    <div class="stat-chip"><strong>5</strong><span>True / False</span></div>
+    <div class="stat-chip"><strong>45</strong><span>Total</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 1 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-1-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Scope of Practice · NCD Crisis · NCCA · Healthcare Continuum · HIPAA</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="tab-panel" id="tab-quiz">
+  <div class="quiz-header">
+    <h2>Chapter 1 <em>Quiz</em></h2>
+    <button class="reset-btn" onclick="retakeQuiz()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="progress-text">0 of 45 answered</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Scope of Practice — <em>Within vs. Outside</em></h3>
+      <table class="ref-table">
+        <tr><th style="width:50%">✓ Within Scope</th><th>✗ Outside Scope</th></tr>
+        <tr><td class="tag-in">Following evidence-based exercise guidelines for diseases/disorders</td><td class="tag-out">Diagnosing illness or disease</td></tr>
+        <tr><td class="tag-in">Assessing for exercise limitations; identifying risk factors via health screening</td><td class="tag-out">Prescribing diets, meal plans, or nutritional supplements</td></tr>
+        <tr><td class="tag-in">Referring to appropriate healthcare professionals when warranted</td><td class="tag-out">Treating injury or disease; rehabilitating clients post-injury</td></tr>
+        <tr><td class="tag-in">Following physician's medical release form restrictions</td><td class="tag-out">Counseling clients (therapeutic/psychological)</td></tr>
+        <tr><td class="tag-in">Sharing federal dietary guidelines: MyPlate, Dietary Guidelines for Americans</td><td class="tag-out">Performing massage therapy without licensure</td></tr>
+        <tr><td class="tag-in">Educating clients on supplement risks; referring to RD or physician</td><td class="tag-out">Providing services in another profession's legal domain</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3><em>Key Numbers</em></h3>
+      <div class="number-chips">
+        <div class="num-chip"><span class="val">2 yr</span><span class="lbl">ACE cert validity</span></div>
+        <div class="num-chip"><span class="val">20</span><span class="lbl">CECs per renewal</span></div>
+        <div class="num-chip"><span class="val">175K+</span><span class="lbl">USREPS members</span></div>
+        <div class="num-chip"><span class="val">41M</span><span class="lbl">NCD deaths/year</span></div>
+        <div class="num-chip"><span class="val">71%</span><span class="lbl">of deaths from NCDs</span></div>
+        <div class="num-chip"><span class="val">1%</span><span class="lbl">PA change 2001–2016</span></div>
+        <div class="num-chip"><span class="val">10%</span><span class="lbl">BLS job growth</span></div>
+        <div class="num-chip"><span class="val">5yr</span><span class="lbl">exam content review cycle</span></div>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Healthcare <em>Continuum</em></h3>
+      <table class="ref-table">
+        <tr><th>Professional</th><th>Scope / Role</th></tr>
+        <tr><td>Athletic Trainers (ATC)</td><td>Injury prevention, emergency care, rehabilitation — primarily athletes; regulated in most states</td></tr>
+        <tr><td>Registered Dietitians (RD/RDN)</td><td>Meal planning, specialized diets, medical nutrition therapy — nutrition referral destination</td></tr>
+        <tr><td>Physical Therapists (PT/DPT)</td><td>Doctorate-level; treat injury, restore movement; PTs cannot continue their exercises</td></tr>
+        <tr><td>Exercise Physiologists</td><td>Academic degree; work with chronic diseases where exercise has therapeutic benefit</td></tr>
+        <tr><td>Health Coaches</td><td>Behavior-change specialists; help clients achieve desired health-behavior changes</td></tr>
+        <tr><td>Personal Trainers</td><td>Prevention &amp; fitness focus; fills the gap clinical professionals cannot fully address</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Professional <em>Recognition</em></h3>
+      <div class="key-term"><strong>NCCA</strong><span>National Commission for Certifying Agencies — gold standard for certification accreditation. Covers nursing, RDs, athletic trainers, pharmacists, and personal trainers.</span></div>
+      <div class="key-term"><strong>USREPS</strong><span>United States Registry of Exercise Professionals — maintained by CREP. Must hold current NCCA-accredited certification. Recognized via ICREPs internationally.</span></div>
+      <div class="key-term"><strong>CAAHEP / CoAES</strong><span>Largest programmatic accreditor in health sciences. ACE CPT certification helps universities earn CAAHEP accreditation through CoAES.</span></div>
+      <div class="key-term"><strong>Medical Fitness Association</strong><span>2013 mandate: medically integrated facilities must hire exercise professionals with NCCA-accredited certifications.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>HIPAA &amp; <em>Ethics</em></h3>
+      <div class="key-term"><strong>Written Permission Required</strong><span>Client health information is confidential. Written client permission required before sharing with physicians, providing progress updates, or any third-party communication.</span></div>
+      <div class="key-term"><strong>ACE Code of Ethics Violations</strong><span>Material misrepresentation or fraud · Conditions impairing professional performance · Unauthorized release of confidential information · Negligent or intentional misconduct · Felony/misdemeanor conviction</span></div>
+      <div class="key-term"><strong>Disciplinary Process</strong><span>Three-tiered: Review → Hearing → Appeals</span></div>
+      <div class="key-term"><strong>Scope Violation Consequence</strong><span>Providing services in another healthcare profession's legal domain = ACE Code of Ethics violation + risk of prosecution for practicing without license</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 1: Role &amp; Scope of Practice for Personal Trainers
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"PHYSICAL INACTIVITY CRISIS",color:"#f87171",subs:[
+    {name:"NCD Epidemic",points:["NCDs kill ~41 million people/year (71% of all deaths globally)","4 primary modifiable risk factors: physical inactivity, tobacco, poor diet, alcohol","WHO, 2018: deaths from chronic diseases now surpass communicable diseases","Personal trainers are on the public health frontline"]},
+    {name:"Global PA Statistics",points:["2018 WHO analysis: 358 surveys across 168 countries","Only 1% change from 2001 (28.5%) to 2016 (27.5%) — virtually no progress","2025 WHO target: 10% relative reduction in insufficient physical activity","Target will NOT be met at current trends"]},
+    {name:"High-Income Country Trends",points:["Insufficient PA in high-income countries INCREASED by 5.2%","From 31.6% (2001) to 36.8% (2016) — worsening","More than twice the rate seen in low-income countries","Greatest opportunity for personal trainers is in high-income markets"]},
+    {name:"Health Benefits (Table 1-1)",points:["Children: improved bone health, weight status, cardiorespiratory fitness","Adults: ↓ CVD, stroke, T2DM, hypertension, 8+ cancers","Adults: improved cognition, sleep, bone health, physical function","Reduced anxiety, depression, and risk of dementia"]}
+  ]},
+  {id:2,name:"ACE CERTIFICATION & NCCA",color:"#fb923c",subs:[
+    {name:"What the ACE CPT Certifies",points:["Assesses MINIMUM COMPETENCY — threshold to work safely with minimal supervision","Passing = can develop safe, effective programs for apparently healthy individuals","Also covers those with medical clearance, individually and in small groups","NOT mastery of everything — the threshold to begin professional practice"]},
+    {name:"NCCA Accreditation",points:["National Commission for Certifying Agencies = gold standard","Applies to all 4 ACE professional certifications (CPT, GFI, HC, MES)","Places exercise professionals alongside nursing, RDs, athletic trainers, pharmacists","CAAHEP uses ACE CPT performance as outcome measure for university accreditation"]},
+    {name:"Exam Content Outline",points:["Every 5 years: subject matter experts conduct a job analysis","Defines critical tasks, KSAs required of a competent PT","Published publicly — blueprint for both study and the exam","Ensures exam reflects real-world demands, not outdated knowledge"]},
+    {name:"Certification Renewal",points:["Valid for 2 years (expires last day of month earned)","Minimum 20 hours of ACE-approved continuing education credits (CECs)","Must include CPR/AED recertification each cycle","CECs should reflect career objectives, current clients, areas of interest"]}
+  ]},
+  {id:3,name:"SCOPE OF PRACTICE — WITHIN",color:"#4ade80",subs:[
+    {name:"Core Exercise Services",points:["Implement client-centered, evidence-based exercise programs","Conduct health history interviews and preparticipation health screening","Administer cardiorespiratory and muscular fitness assessments","Design structured programs: one-on-one and small-group training"]},
+    {name:"Coaching & Education",points:["Coach clients in setting and achieving realistic health/fitness goals","Teach correct exercise methods through demonstration, cueing, and spotting","Empower adherence via motivation and relapse-prevention strategies","Share Dietary Guidelines for Americans and MyPlate recommendations"]},
+    {name:"Referral & Collaboration",points:["Recognize scope limits and refer to appropriate healthcare professionals","When physician referral exists: follow ALL outlined restrictions","Contact physician with client's WRITTEN permission only","Follow evidence-based exercise guidelines for diseases/disorders"]},
+    {name:"Permitted Nutrition Guidance",points:["Share MyPlate recommendations at myplate.gov","Reference Dietary Guidelines for Americans (federal guidelines)","Educate clients that goals are achievable without supplements","Educate on supplement risks — then refer to RD or physician"]}
+  ]},
+  {id:4,name:"SCOPE OF PRACTICE — OUTSIDE",color:"#f87171",subs:[
+    {name:"Diagnosis & Treatment",points:["Cannot diagnose illness, injury, or disease","Cannot treat illness, injury, or disease","Cannot rehabilitate clients following injury","Cannot identify the cause of postural deviations (e.g., lordosis)"]},
+    {name:"Nutrition Counseling",points:["Cannot prescribe diets, meal plans, or calorie/macro targets","Cannot continue a commercial diet protocol with a client","Cannot recommend meal plans based on client's goals","Refer ALL specific nutrition programming to a Registered Dietitian"]},
+    {name:"Supplement Rules",points:["Cannot recommend supplements regardless of personal knowledge","Cannot prescribe supplement dosing or stacking protocols","Supplements deemed safe until proven unsafe — FDA does not pre-approve","If client insists: refer to RD or physician — personal knowledge is irrelevant"]},
+    {name:"Other Professions' Domains",points:["Cannot perform massage therapy without a massage therapy license","Cannot provide therapeutic counseling or psychological services","Cannot perform manual therapeutic manipulation techniques","Must earn the specific credential to expand into any allied health field"]}
+  ]},
+  {id:5,name:"PROFESSIONAL ETHICS & HIPAA",color:"#a78bfa",subs:[
+    {name:"ACE Code of Ethics",points:["Material misrepresentation or fraud","Physical/mental/emotional conditions impairing professional performance","Negligent or intentional misconduct in the profession","Unauthorized release of confidential client information"]},
+    {name:"HIPAA Compliance",points:["Client health records are strictly confidential","Written client permission required before communicating with physicians","Written permission required before sharing progress updates with anyone","Unauthorized disclosure = Code of Ethics violation + legal liability"]},
+    {name:"Scope Violation Consequences",points:["Providing services in another profession's legal domain = ethics violation","Risk of prosecution for practicing without appropriate credentials","Applies regardless of client consent or personal knowledge level","Applies regardless of which profession's domain you've entered"]},
+    {name:"Disciplinary Process",points:["ACE uses a 3-tiered disciplinary process","Tier 1: Review (initial investigation)","Tier 2: Hearing (formal review)","Tier 3: Appeals (final determination)"]}
+  ]},
+  {id:6,name:"HEALTHCARE CONTINUUM",color:"#22d3ee",subs:[
+    {name:"Personal Trainer's Unique Role",points:["Prevention and fitness focus — not clinical","Fills the gap physicians, PTs, and RDs cannot fully address","Helps clients sustain physical activity long-term","Closest to the client in day-to-day exercise behavior"]},
+    {name:"Allied Health Professionals",points:["Athletic Trainers (ATC): injury, emergency care, rehabilitation; primarily athletes","Registered Dietitians (RD/RDN): meal plans, medical nutrition therapy","Physical Therapists (PT/DPT): doctorate; treat injury, restore movement","Exercise Physiologists: chronic diseases where exercise = therapeutic (academic degree)","Health Coaches: behavior change specialists","Massage Therapists: soft tissue; require licensure — PTs cannot legally perform massage"]},
+    {name:"Physician Collaboration",points:["Medical release form: follow ALL intensity, modality, and exercise restrictions","Contact physician ONLY with client's written permission","Provide agreed-upon frequency of regular progress updates","Maintain confidential records of program, progress, and health history"]},
+    {name:"Medical Fitness Settings",points:["Medical Fitness Association (2013): NCCA-accredited certification required","Medically integrated facilities need credentialed exercise professionals","More collaborative with physicians, PTs, and RDs in these settings","USREPS listing recognized internationally through ICREPs"]}
+  ]},
+  {id:7,name:"CAREER DEVELOPMENT & RECOGNITION",color:"#fbbf24",subs:[
+    {name:"NCCA / USREPS / CAAHEP",points:["NCCA = National Commission for Certifying Agencies: gold standard","USREPS = maintained by CREP; 175,000+ listed; requires current NCCA cert","ICREPs = International Confederation for Registers of Exercise Professionals (global portability)","CAAHEP/CoAES = accredits exercise science degree programs; ACE CPT used as outcome measure"]},
+    {name:"Specialization Rules",points:["Select specialization based on career objectives, client base, and interests","Specialization MUST fall within or be complementary to the PT scope","Example: sports performance specialty for trainers working with athletes","Manual therapeutic manipulation = outside scope regardless of specialty education"]},
+    {name:"CECs & Career Advancement",points:["20 hours minimum per 2-year renewal cycle","College coursework in fitness/health-related subjects can count toward CECs","Specialization certificates can serve dual purpose (CEC + advanced practice)","A bachelor's degree is not required for ACE CPT — but helps for advancement"]},
+    {name:"Expanding Into Other Fields",points:["Want to do massage therapy? Earn the state massage therapy license","Want to do dietetics? Earn the RD/RDN credential","Want to do PT? Earn the Doctor of Physical Therapy degree","Scope CANNOT be extended through CECs alone — must earn the specific credential"]}
+  ]}
+]};
+
+// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+const CASES = [
+  {
+    num: 1,
+    topic: "Marcus — Scope Boundaries",
+    scenario: "Marcus is a newly ACE Certified Personal Trainer working at a commercial gym. A client tells him she wants to lose 30 lbs and asks him to create a personalized 1,200-calorie meal plan with macro targets. She also mentions experiencing low-back pain and asks Marcus to diagnose what is causing it and treat it with massage.",
+    qs: [
+      { q: "Which of Marcus's client requests falls WITHIN his scope of practice?", opts: ["Creating a personalized 1,200-calorie meal plan","Diagnosing the cause of her low-back pain","Designing a core conditioning program to address muscle imbalances","Performing hands-on massage to treat her low-back pain"], ans: 2, exp: "Designing exercise programs including core conditioning to address muscle imbalances is within the ACE CPT scope of practice." },
+      { q: "When Marcus is asked to create a specific meal plan, what is the MOST appropriate response?", opts: ["Create the plan since he has studied nutrition extensively","Refer the client to a Registered Dietitian for specific meal planning","Provide the plan with a disclaimer that it is not medical advice","Refer the client to her primary care physician for all nutrition guidance"], ans: 1, exp: "Specific meal plans are outside the ACE CPT scope of practice. Registered Dietitians are the appropriate referral for personalized nutritional programming." },
+      { q: "If Marcus performs hands-on massage therapy on his client without a massage therapy license, which of the following is TRUE?", opts: ["It is acceptable if the client signs a liability waiver","It is acceptable since he has a fitness certification","He violates the ACE Code of Ethics and risks prosecution for unlicensed massage practice","It is acceptable as long as he only addresses muscles related to exercise performance"], ans: 2, exp: "Providing services within the legal domain of another healthcare profession constitutes an ACE Code of Ethics violation and risks legal prosecution." },
+      { q: "What is the primary purpose of a professional certification such as the ACE CPT?", opts: ["To prove the professional knows everything about personal training","To protect the public from harm by assessing minimum competency","To guarantee that the professional will never make exercise programming errors","To allow the professional to work across all allied healthcare domains"], ans: 1, exp: "The primary purpose of any professional certification is to protect the public from harm by assessing the minimum competency required to work in the profession safely and effectively." },
+      { q: "Marcus's client asks about a fat-loss supplement she saw advertised online. Which action is MOST appropriate?", opts: ["Recommend the supplement if Marcus has researched it personally","Advise against all supplements categorically without explanation","Educate the client on supplement risks and refer her to an RD or physician","Provide written information about supplement dosing with a disclaimer"], ans: 2, exp: "Personal trainers can educate clients that fitness goals are achievable without supplements and that supplements carry risks, then refer to an RD or physician for specific guidance." }
+    ]
+  },
+  {
+    num: 2,
+    topic: "Sofia — Certification & Career",
+    scenario: "Sofia recently passed her ACE Personal Trainer Certification exam and is planning her career. She wants to understand her certification's standing in the healthcare community, plan her continuing education, and explore specialization in working with older adults. She has also been approached to provide nutrition counseling sessions.",
+    qs: [
+      { q: "What does it mean for the ACE Personal Trainer Certification to be NCCA-accredited?", opts: ["The program is endorsed by the U.S. Department of Health & Human Services","The certification meets the gold standard for certification program accreditation in healthcare and fitness","The certification qualifies Sofia to work in clinical healthcare settings without additional credentials","Sofia is guaranteed employment at any medical fitness facility in the United States"], ans: 1, exp: "NCCA accreditation is the gold standard for certification program accreditation, establishing ACE CPT holders as credible exercise professionals." },
+      { q: "ACE certifications are valid for how long, and what is the minimum continuing education requirement for renewal?", opts: ["1 year; 10 CECs","3 years; 30 CECs","2 years; 20 CECs","2 years; 40 CECs"], ans: 2, exp: "ACE certifications are valid for 2 years. Renewal requires a minimum of 20 hours of ACE-approved continuing education credits." },
+      { q: "Sofia wants to specialize in working with older adults. What should guide her specialization selection?", opts: ["The specialization most likely to generate the highest income","The specialization that falls within or is complementary to her personal training scope of practice","Whatever specialization her gym's management prefers","She should earn a physical therapy degree before specializing with older adults"], ans: 1, exp: "Specialization should fall within or be complementary to the personal trainer's scope of practice. Working with older adults through exercise programming is within scope." },
+      { q: "Sofia is offered the opportunity to provide formal nutrition counseling sessions. What should she do?", opts: ["Accept if she completes 10 hours of nutrition continuing education","Accept because nutrition coaching is within the ACE CPT scope of practice","Decline, as nutrition counseling is outside the ACE CPT scope of practice","Accept if clients sign informed consent forms acknowledging her qualifications"], ans: 2, exp: "Nutrition counseling — providing individualized dietary advice beyond federal guidelines — is outside the ACE CPT scope of practice and in the legal domain of Registered Dietitians." },
+      { q: "Which organization maintains the United States Registry of Exercise Professionals (USREPS), and what is the primary requirement for being listed?", opts: ["NCCA; passing the ACE CPT exam","CREP; holding a current NCCA-accredited exercise professional certification","CAAHEP; holding a 4-year degree in exercise science","ACE; paying an annual registry membership fee"], ans: 1, exp: "USREPS is maintained by the Coalition for the Registration of Exercise Professionals (CREP). Exercise professionals must hold a current NCCA-accredited certification to be listed." }
+    ]
+  },
+  {
+    num: 3,
+    topic: "Derek — The Healthcare Continuum",
+    scenario: "Derek is a personal trainer at a medically integrated fitness facility. He works alongside physical therapists, registered dietitians, and athletic trainers. A physician refers a client (post-cardiac event) to Derek for an exercise program. Another client is finishing physical therapy for a shoulder injury and transitions to Derek for continued conditioning.",
+    qs: [
+      { q: "When Derek receives a physician's medical release form for the post-cardiac client, what must he do?", opts: ["Use his own exercise judgment since he knows fitness best","Follow all exercise intensity, modality, and exercise restrictions outlined by the physician","Request a new form every two weeks to stay current","Contact the physician only if the client experiences an adverse event"], ans: 1, exp: "When a physician provides a medical release form, the personal trainer must adhere to all exercise intensity, modality, and exercise restrictions outlined in that form." },
+      { q: "Derek needs clarification on the physician's exercise guidelines. What is required before he can contact the physician?", opts: ["Approval from the facility's medical director","The client's written permission","A 48-hour waiting period before reaching out","No special requirement — Derek can contact the physician as a healthcare partner"], ans: 1, exp: "The client's written permission is required before a personal trainer shares health information or communicates with a physician (HIPAA)." },
+      { q: "The shoulder PT client asks Derek to continue the specific physical therapy shoulder exercises her PT had prescribed. How should Derek respond?", opts: ["Continue the PT exercises as they were designed by a licensed professional","Implement exercises to improve shoulder stability that build on, but don't replicate, the PT exercises","Refuse any shoulder exercises until the client returns to physical therapy","Modify the PT exercises slightly to make them his own programming"], ans: 1, exp: "Personal trainers should implement exercises that build on PT work — not continue PT exercises, which constitutes treating an injury outside their scope." },
+      { q: "Which of the following best describes the unique position of personal trainers on the healthcare continuum?", opts: ["Personal trainers have the highest level of education among allied health professionals","Personal trainers focus on prevention and fitness, filling the gap that clinical professionals cannot fully address","Personal trainers can provide all services of exercise physiologists and athletic trainers","Personal trainers occupy the clinical end of the healthcare continuum"], ans: 1, exp: "Personal trainers occupy a unique prevention-focused role, coaching clients toward sustained physical activity — a role that physicians, PTs, and RDs cannot fully provide." },
+      { q: "Derek's facility is a Medical Fitness Association member. What credential standard does this mandate for its exercise professionals?", opts: ["A 4-year degree in exercise science","At least 5 years of personal training experience","An NCCA-accredited certification","Dual certification in both fitness and nutrition"], ans: 2, exp: "The Medical Fitness Association mandated (2013) that medically integrated health and fitness facilities hire exercise professionals who hold NCCA-accredited certifications." }
+    ]
+  },
+  {
+    num: 4,
+    topic: "Aaliyah — Professional Boundaries & Ethics",
+    scenario: "Aaliyah is an ACE Certified Personal Trainer who has been certified for 3 years. A client with a rotator cuff impingement history (cleared by PT) asks Aaliyah to assess and diagnose whether the impingement has returned. A prospective client mentions he's a chiropractor and asks Aaliyah about treatment techniques. Aaliyah is also considering whether to sell supplements at her training studio.",
+    qs: [
+      { q: "The cleared client asks Aaliyah to diagnose whether her rotator cuff impingement has returned. What is the appropriate response?", opts: ["Perform a functional movement screen and provide a diagnosis","Diagnose based on movement patterns since the client has already been treated by a PT","Decline to diagnose — refer the client back to her physical therapist or physician","Provide a provisional diagnosis with a disclaimer"], ans: 2, exp: "Diagnosing conditions is outside the ACE CPT scope of practice. Aaliyah should refer the client back to her physical therapist or physician for evaluation." },
+      { q: "The chiropractor client asks about manual manipulation techniques for shoulder treatment. What should Aaliyah explain?", opts: ["That she can perform manipulations since the client is a licensed professional who can supervise","That manual therapeutic manipulation is outside her scope of practice regardless of who is asking","That she can perform light manipulation if the chiropractor provides written authorization","That she can teach manipulation techniques but cannot perform them in a session"], ans: 1, exp: "Manual therapeutic manipulation is outside the personal trainer scope of practice. This remains true regardless of the client's professional background." },
+      { q: "Aaliyah is considering selling protein supplements at her studio. Which statement is MOST accurate?", opts: ["It is legal and appropriate since Aaliyah can educate clients about proper use","It is legal to sell supplements but irresponsible to recommend them without qualified nutrition staff","It is illegal for personal training studios to sell nutritional supplements","It is appropriate if Aaliyah provides a written disclaimer with each purchase"], ans: 1, exp: "It is not illegal to sell commercial supplements, but irresponsible to provide recommendations without qualified staff (RD or physician). Selling without such staff creates liability risk." },
+      { q: "Which of the following behaviors would constitute a violation of the ACE Code of Ethics?", opts: ["Referring a client with disordered eating to a registered dietitian","Sharing a client's health history with their new physician without the client's written permission","Contacting a physician's office to clarify exercise restrictions with client permission","Recommending general physical activity guidelines from the USDHHS"], ans: 1, exp: "Sharing a client's health information without written permission violates HIPAA and the ACE Code of Ethics (unauthorized release of confidential information)." },
+      { q: "Aaliyah wants to expand her services to include licensed massage therapy. What must she do?", opts: ["Complete an advanced ACE specialty certification in massage","Earn the appropriate massage therapy license required by her state","Take 10 continuing education hours in massage and obtain client consent forms","Work under the supervision of a licensed massage therapist for 6 months"], ans: 1, exp: "To expand into another allied health field such as massage therapy, a personal trainer must earn the specific credential (state massage therapy license) for that profession." }
+    ]
+  },
+  {
+    num: 5,
+    topic: "James & Priya — Scope Scenarios",
+    scenario: "James has exaggerated lordotic posture and wants to know what's causing it. Priya recently completed a commercial weight-loss program and asks her personal trainer for meal planning support to maintain her results. Another client asks for specific dosing recommendations for a fat-loss supplement stack.",
+    qs: [
+      { q: "A client with exaggerated lordotic posture asks the trainer to identify what is causing it. What is the appropriate action?", opts: ["Diagnose the cause using postural assessment knowledge","Decline to diagnose — implement a core conditioning program targeting hip/spine muscle imbalances","Refer immediately to a physician before beginning any exercise","Diagnose provisionally while waiting for a physician's evaluation"], ans: 1, exp: "Diagnosing the cause of posture deviations is outside scope. The appropriate action is implementing a core conditioning program to address muscle imbalances." },
+      { q: "Priya wants meal planning support to maintain her weight-loss results. Which response is WITHIN scope?", opts: ["Create a customized meal plan using the principles of her commercial diet","Provide macronutrient targets and calorie counts to support her existing diet","Help her use MyPlate and Dietary Guidelines for Americans to make healthful choices","Prescribe a maintenance diet based on her current weight and activity level"], ans: 2, exp: "Sharing federal dietary guidelines (MyPlate, Dietary Guidelines for Americans) is within scope. Creating specific meal plans or macro targets is outside the ACE CPT scope." },
+      { q: "A client requests specific fat-loss supplement dosing recommendations. The trainer has researched this supplement extensively. What should the trainer do?", opts: ["Provide recommendations since personal knowledge fills the gap","Decline and refer to an RD or physician; personal knowledge does not extend scope","Provide recommendations with a verbal disclaimer","Provide recommendations only if the client's physician approves verbally"], ans: 1, exp: "Supplement recommendations are outside scope regardless of the trainer's personal knowledge. Always refer to an RD or physician." },
+      { q: "Which document primarily defines the legal range of services a personal trainer can provide?", opts: ["The ACE Personal Trainer Certification Exam Content Outline","The scope of practice as defined by professional certification organizations and state laws","The client's signed liability waiver","The NCCA certification accreditation standards"], ans: 1, exp: "A scope of practice defines the legal range of services, settings, and parameters. It is shaped by education, certification requirements, state laws, and professional governing bodies." },
+      { q: "Which of the following is a federal dietary resource that personal trainers are permitted to share with clients?", opts: ["A customized meal plan based on the Dietary Guidelines for Americans","A macro-tracking spreadsheet designed by the trainer","The MyPlate recommendations at www.myplate.gov","Supplement stacking protocols endorsed by the American College of Sports Medicine"], ans: 2, exp: "Personal trainers are permitted to share dietary advice endorsed by the federal government, including the Dietary Guidelines for Americans and MyPlate recommendations." }
+    ]
+  },
+  {
+    num: 6,
+    topic: "The Fitness Professional Continuum",
+    scenario: "A fitness facility manager is reviewing hiring standards. She needs to understand the difference between exercise physiologists, health coaches, athletic trainers, and personal trainers. She is also evaluating whether her facility should require NCCA-accredited certifications and considering USREPS registration for her staff.",
+    qs: [
+      { q: "How does an exercise physiologist's role differ from that of a personal trainer?", opts: ["Exercise physiologists primarily work with athletes, while personal trainers work with the general public","Exercise physiologists hold academic degrees and are trained to work with individuals with chronic diseases where exercise is therapeutic","Exercise physiologists can prescribe medications and create medical treatment plans","There is no meaningful difference — the titles are interchangeable"], ans: 1, exp: "Exercise physiologists hold academic degrees and are trained to work with individuals with chronic diseases (CV, pulmonary, metabolic) where exercise has therapeutic benefit." },
+      { q: "Which professional is MOST appropriately suited to create a client's individualized meal plan?", opts: ["A personal trainer with a nutrition specialty certificate","An exercise physiologist","A Registered Dietitian (RD or RDN)","A health coach"], ans: 2, exp: "Registered Dietitians (RD/RDN) are the qualified professionals for individualized meal planning and medical nutrition therapy." },
+      { q: "Why should the facility manager require NCCA-accredited certifications for exercise professionals?", opts: ["NCCA accreditation guarantees the professional will never make a programming error","NCCA accreditation is legally required in all U.S. states to work as a personal trainer","NCCA accreditation establishes professionals as legitimate allied healthcare team members and demonstrates third-party competency validation","NCCA accreditation allows professionals to practice physical therapy under physician supervision"], ans: 2, exp: "NCCA accreditation is the gold standard demonstrating third-party validation of competency. It establishes exercise professionals as credible allied healthcare team members." },
+      { q: "An Athletic Trainer (ATC) and a Personal Trainer are both working at the same facility. Which is primarily within the ATC's scope but outside the personal trainer's scope?", opts: ["Designing progressive resistance training programs","Teaching clients proper exercise technique","Therapeutic intervention and rehabilitation of injured athletes","Conducting preparticipation health screenings"], ans: 2, exp: "Athletic trainers are credentialed for therapeutic intervention and rehabilitation following athletic injury — outside the personal trainer's scope." },
+      { q: "To be listed on USREPS, an exercise professional must:", opts: ["Hold a 4-year exercise science degree","Have at least 2 years of verified professional experience","Hold a current NCCA-accredited certification from a CREP member organization","Pass the USREPS national competency exam"], ans: 2, exp: "To be listed on USREPS, exercise professionals must maintain a current NCCA-accredited certification from a CREP member organization." }
+    ]
+  },
+  {
+    num: 7,
+    topic: "Renata — Physical Inactivity & the PT's Public Health Role",
+    scenario: "Renata is an ACE CPT passionate about understanding the public health context of her work. She wants to understand the global physical inactivity crisis, how it drives demand for personal trainers, and how the ACE IFT Model helps her navigate client relationships.",
+    qs: [
+      { q: "According to WHO data, what percentage change occurred in global insufficient physical activity from 2001 to 2016?", opts: ["Decreased by 10%","Decreased by 1%","Increased by 5%","No change"], ans: 1, exp: "WHO data found only a nonsignificant 1% change in global insufficient physical activity levels from 2001 (28.5%) to 2016 (27.5%)." },
+      { q: "Which of the following is a driver of the projected 10% employment growth for fitness trainers (2016–2026) per the Bureau of Labor Statistics?", opts: ["Declining participation in organized sports","Baby boomers remaining active to prevent injuries, illness, and chronic disease","Reduction in private health insurance coverage for exercise","Decrease in medical fitness facility openings"], ans: 1, exp: "BLS cited baby boomers staying active, employer wellness programs, obesity epidemic focus, and older adults seeking low-impact exercise as growth drivers." },
+      { q: "The ACE Integrated Fitness Training (IFT) Model is designed to help personal trainers:", opts: ["Follow a rigid script for every client interaction","Navigate the complete process of working with clients from initial meeting through the ongoing relationship","Expand their scope of practice to include clinical services","Evaluate clients for medical clearance without physician referral"], ans: 1, exp: "The ACE IFT Model helps personal trainers competently navigate the complete process of working with clients from initial meeting through the ongoing relationship." },
+      { q: "What is the 2025 global target for physical activity improvement set by the WHO?", opts: ["25% relative reduction in insufficient physical activity","15% reduction in NCD mortality","10% relative reduction in insufficient physical activity","Elimination of physical inactivity as a modifiable risk factor"], ans: 2, exp: "The WHO set a 2025 global target of a 10% relative reduction in insufficient physical activity. Researchers reported this target will not be met at current trends." },
+      { q: "In high-income countries, what happened to insufficient physical activity levels from 2001 to 2016?", opts: ["Decreased by 5.2%","Remained unchanged","Increased by 5.2% (from 31.6% to 36.8%)","Increased by 10%"], ans: 2, exp: "In high-income countries, insufficient physical activity increased by 5.2% from 2001 (31.6%) to 2016 (36.8%) — more than twice the rate seen in low-income countries." }
+    ]
+  }
+];
+
+const FILLIN = [
+  { q: "The _______ is the accreditation body that provides the gold standard for certification program accreditation in healthcare, fitness, and other industries.", a: "ncca", hint: "National Commission for Certifying Agencies" },
+  { q: "A scope of practice defines the _______ range of services a professional can provide in their field.", a: "legal", hint: "legal" },
+  { q: "The _______ maintains a registry of 175,000+ exercise professionals who hold current NCCA-accredited certifications.", a: "usreps", hint: "United States Registry of Exercise Professionals" },
+  { q: "ACE certifications require a minimum of _______ hours of ACE-approved continuing education credits for renewal every two years.", a: "20", hint: "20" },
+  { q: "Personal trainers may share dietary advice endorsed by the federal government, such as the _______ recommendations, which is within their scope of practice.", a: "myplate", hint: "MyPlate" }
+];
+
+const TRUEF = [
+  { q: "A personal trainer with extensive personal knowledge about supplements may recommend specific supplements to clients if the trainer believes the supplement is safe.", a: false, exp: "Supplement recommendations are outside scope regardless of the trainer's personal knowledge. Clients must be referred to an RD or physician." },
+  { q: "The primary purpose of a professional certification such as the ACE CPT is to prove that the professional has mastered everything there is to know about personal training.", a: false, exp: "The primary purpose is to protect the public from harm by assessing minimum competency — the threshold required to work safely with minimal supervision." },
+  { q: "Written client permission is required before a personal trainer can share a client's health information with the client's physician.", a: true, exp: "HIPAA and the ACE Code of Ethics require written client permission before sharing health information with any third party, including the referring physician." },
+  { q: "A personal trainer who earns a specialty certificate in manual therapeutic manipulation may legally perform those techniques on clients.", a: false, exp: "Manual manipulation falls in the legal domain of other licensed professions. Additional CECs do not extend the personal trainer scope into another profession's legal domain." },
+  { q: "The Medical Fitness Association (2013) established the standard that medically integrated health and fitness facilities should hire exercise professionals who hold NCCA-accredited certifications.", a: true, exp: "The Medical Fitness Association mandated NCCA-accredited certifications as the standard for hiring exercise professionals at medical fitness facilities." }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let mcqAnswers = {};
+let fibAnswers = {};
+let tfAnswers  = {};
+let graded     = false;
+let globalQNum = 0;
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderAll() {
+  globalQNum = 0;
+  renderMCQ();
+  renderFIB();
+  renderTF();
+  updateProgress();
+}
+
+function renderMCQ() {
+  const sec = document.getElementById('mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      globalQNum++;
+      const qn = globalQNum;
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = `q-${qn}`;
+      const letters = ['A','B','C','D'];
+      card.innerHTML = `
+        <div class="q-num">Question ${qn}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">
+          ${q.opts.map((o, oi) => `
+            <div class="q-option" data-ci="${ci}" data-qi="${qi}" data-oi="${oi}" onclick="pickMCQ(${ci},${qi},${oi},this)">
+              <span class="opt-letter">${letters[oi]}</span>
+              <span>${o}</span>
+            </div>`).join('')}
+        </div>
+        <div class="q-exp" id="exp-${qn}"><strong>Explanation</strong>${q.exp}</div>
+      `;
+      block.appendChild(card);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function renderFIB() {
+  const sec = document.getElementById('fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    globalQNum++;
+    const qn = globalQNum;
+    const card = document.createElement('div');
+    card.className = 'fib-card';
+    card.id = `q-${qn}`;
+    card.innerHTML = `
+      <div class="q-num">Question ${qn}</div>
+      <div class="fib-q">${f.q}</div>
+      <div class="fib-input-wrap">
+        <input class="q-input" id="fib-${fi}" type="text" placeholder="Your answer…" oninput="trackFIB(${fi})">
+        <span class="fib-feedback" id="fib-fb-${fi}"></span>
+      </div>
+      <div class="fib-hint" id="fib-hint-${fi}">Hint: ${f.hint}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+function renderTF() {
+  const sec = document.getElementById('tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    globalQNum++;
+    const qn = globalQNum;
+    const card = document.createElement('div');
+    card.className = 'tf-card';
+    card.id = `q-${qn}`;
+    card.innerHTML = `
+      <div class="q-num">Question ${qn}</div>
+      <div class="tf-q">${t.q}</div>
+      <div class="q-tf">
+        <button class="q-tf-btn" id="tf-${ti}-T" onclick="pickTF(${ti},true)">TRUE</button>
+        <button class="q-tf-btn" id="tf-${ti}-F" onclick="pickTF(${ti},false)">FALSE</button>
+      </div>
+      <div class="tf-exp" id="tf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+    `;
+    sec.appendChild(card);
+  });
+}
+
+// ── INTERACTIONS ──────────────────────────────────────────────────────────────
+function pickMCQ(ci, qi, oi, el) {
+  if (graded) return;
+  const opts = el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  mcqAnswers[`${ci}-${qi}`] = oi;
+  updateProgress();
+}
+
+function trackFIB(fi) {
+  fibAnswers[fi] = document.getElementById(`fib-${fi}`).value.trim();
+  updateProgress();
+}
+
+function pickTF(ti, val) {
+  if (graded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`tf-${ti}-T`).className = 'q-tf-btn' + (val === true  ? ' selected' : '');
+  document.getElementById(`tf-${ti}-F`).className = 'q-tf-btn' + (val === false ? ' selected' : '');
+  updateProgress();
+}
+
+function updateProgress() {
+  const mcqDone = Object.keys(mcqAnswers).length;
+  const fibDone = Object.values(fibAnswers).filter(v => v.length > 0).length;
+  const tfDone  = Object.keys(tfAnswers).length;
+  const total   = mcqDone + fibDone + tfDone;
+  const pct = Math.round((total / 45) * 100);
+  document.getElementById('progress-text').textContent = `${total} of 45 answered`;
+  document.getElementById('progress-pct').textContent  = `${pct}%`;
+  document.getElementById('prog-bar').style.width       = `${pct}%`;
+}
+
+// ── GRADE ─────────────────────────────────────────────────────────────────────
+function submitQuiz() {
+  if (graded) return;
+  graded = true;
+  document.getElementById('submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  // MCQ
+  let qn = 0;
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      qn++;
+      const sel = mcqAnswers[`${ci}-${qi}`];
+      const opts = document.querySelectorAll(`#q-${qn} .q-option`);
+      opts.forEach(o => { o.style.pointerEvents = 'none'; });
+      if (sel === undefined) {
+        opts[q.ans].classList.add('reveal-correct');
+        skip++;
+      } else if (sel === q.ans) {
+        opts[sel].classList.add('correct-ans');
+        correct++;
+      } else {
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+        wrong++;
+      }
+      document.getElementById(`exp-${qn}`).classList.add('show');
+    });
+  });
+
+  // FIB
+  FILLIN.forEach((f, fi) => {
+    qn++;
+    const inp = document.getElementById(`fib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').toLowerCase().trim();
+    const ans = f.a.toLowerCase();
+    const ok  = val === ans || ans.includes(val) || val.includes(ans.split(' ')[0]);
+    if (val === '') {
+      skip++;
+      document.getElementById(`fib-hint-${fi}`).classList.add('show');
+    } else if (ok) {
+      inp.classList.add('fib-correct');
+      document.getElementById(`fib-fb-${fi}`).className = 'fib-feedback ok';
+      document.getElementById(`fib-fb-${fi}`).textContent = '✓';
+      correct++;
+    } else {
+      inp.classList.add('fib-wrong');
+      document.getElementById(`fib-fb-${fi}`).className = 'fib-feedback bad';
+      document.getElementById(`fib-fb-${fi}`).textContent = `✗ ${f.hint}`;
+      document.getElementById(`fib-hint-${fi}`).classList.add('show');
+      wrong++;
+    }
+  });
+
+  // T/F
+  TRUEF.forEach((t, ti) => {
+    qn++;
+    const tBtn = document.getElementById(`tf-${ti}-T`);
+    const fBtn = document.getElementById(`tf-${ti}-F`);
+    tBtn.disabled = true; fBtn.disabled = true;
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+      skip++;
+    } else if (sel === t.a) {
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+      correct++;
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (!sel ? tBtn : fBtn).classList.add('tf-reveal');
+      wrong++;
+    }
+    document.getElementById(`tf-exp-${ti}`).classList.add('show');
+  });
+
+  showModal(correct, wrong, skip);
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round((correct / 45) * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: "Outstanding! Near-perfect command of scope of practice, certifications, and the healthcare continuum.",
+    B: "Great work! Strong grasp of the key concepts. Review any missed questions on scope boundaries.",
+    C: "Solid foundation. Focus on supplement rules, HIPAA requirements, and within/outside scope scenarios.",
+    D: "Keep studying. Prioritize the scope of practice table and real-world scenarios before your exam."
+  };
+  const titles = { A:"Excellent Work!", B:"Well Done!", C:"Good Effort!", D:"Keep Studying!" };
+
+  document.getElementById('modal-ring').className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-ring').textContent  = grade;
+  document.getElementById('modal-title').textContent = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = pct + '%';
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+function retakeQuiz() {
+  mcqAnswers = {}; fibAnswers = {}; tfAnswers = {};
+  graded = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('submit-btn').disabled = false;
+  renderAll();
+  window.scrollTo({ top: document.getElementById('tab-quiz').offsetTop - 80, behavior: 'smooth' });
+}
+
+// ── MINDMAP ───────────────────────────────────────────────────────────────────
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  grid.innerHTML = '';
+  MINDMAP.branches.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this)">
+        <span class="mm-branch-dot" style="background:${b.color}"></span>
+        <span class="mm-branch-name">${b.name}</span>
+        <span class="mm-branch-arrow">›</span>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${b.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>`).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(header) {
+  header.closest('.mm-branch').classList.toggle('open');
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('glow'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+renderAll();
+</script>
+
+</Layout>
