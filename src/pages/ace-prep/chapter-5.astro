@@ -63,7 +63,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
 .mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
 
-/* QUIZ */
+/* QUIZ SHARED */
 .quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
 .quiz-header h2{font-family:var(--font-head);font-size:24px}
 .quiz-header h2 em{font-style:italic;color:var(--accent)}
@@ -134,6 +134,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
 .reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
 
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
 #result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
 #result-modal.open{display:flex}
 .modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
@@ -197,12 +208,12 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
 }
 </style>
 
-<!-- RESULT MODAL -->
+<!-- RESULT MODAL (Case Studies) -->
 <div id="result-modal">
   <div class="modal-box">
     <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
     <div class="modal-title" id="modal-title">Excellent Work!</div>
-    <div class="modal-subtitle">Chapter 5 — Preparticipation Health Screening</div>
+    <div class="modal-subtitle">Chapter 5 — Case Studies (35 MCQ)</div>
     <div class="modal-stats">
       <div class="modal-stat">
         <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
@@ -224,7 +235,7 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
     <div class="modal-band" id="modal-band"></div>
     <div class="modal-actions">
       <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
-      <button class="modal-btn-secondary" onclick="retakeQuiz()">↺ Retake</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
     </div>
   </div>
 </div>
@@ -239,17 +250,17 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <h1>Preparticipation <em>Health Screening</em></h1>
   <p>ACSM Algorithm, 3-Step Checklist, PAR-Q+, Signs &amp; Symptoms, Medications &amp; Exercise Heart Rate — before the first rep, know the risks.</p>
   <div class="hero-stats">
-    <div class="stat-chip"><strong>35</strong><span>Case MCQ</span></div>
-    <div class="stat-chip"><strong>5</strong><span>Fill-in</span></div>
-    <div class="stat-chip"><strong>5</strong><span>True / False</span></div>
-    <div class="stat-chip"><strong>45</strong><span>Total</span></div>
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
   </div>
 </div>
 
 <div class="tab-bar">
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
-    <button class="tab-btn glow" onclick="switchTab('quiz',this)">📝 Quiz</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
     <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
   </div>
 </div>
@@ -266,42 +277,78 @@ a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
   <div class="mm-grid" id="mm-grid"></div>
 </div>
 
-<!-- QUIZ -->
-<div class="tab-panel" id="tab-quiz">
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
   <div class="quiz-header">
-    <h2>Chapter 5 <em>Quiz</em></h2>
-    <button class="reset-btn" onclick="retakeQuiz()">↺ Reset</button>
+    <h2>Chapter 5 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
   </div>
   <div class="progress-label">
-    <span id="progress-text">0 of 45 answered</span>
-    <span id="progress-pct">0%</span>
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
   </div>
-  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
 
   <div class="section-label">
-    <div class="section-label-badge">Part A — Case Studies (Multiple Choice)</div>
+    <div class="section-label-badge">Part A — Multiple Choice</div>
     <div class="section-label-line"></div>
-    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
   </div>
-  <div id="mcq-section"></div>
+  <div id="t-mcq-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part B — Fill in the Blank</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="fib-section"></div>
+  <div id="t-fib-section"></div>
 
   <div class="section-label">
     <div class="section-label-badge">Part C — True / False</div>
     <div class="section-label-line"></div>
     <div class="section-label-count">5 Questions · 1 pt each</div>
   </div>
-  <div id="tf-section"></div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 5 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
 
   <div class="quiz-footer">
     <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
-    <button class="submit-btn" id="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
   </div>
 </div>
 
@@ -442,7 +489,149 @@ const MINDMAP = {branches:[
   ]}
 ]};
 
-// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  {
+    q: "Which of the following is NOT one of the three ACSM risk modulators used in the preparticipation health-screening algorithm?",
+    opts: ["Current level of physical activity","Age and sex","Desired exercise intensity","Diagnosed CVD, metabolic, or renal disease and/or signs/symptoms"],
+    c: 1,
+    exp: "The three ACSM risk modulators are: (1) current level of physical activity, (2) desired exercise intensity, and (3) presence of known CVD/metabolic/renal disease and/or signs/symptoms. Age and sex are not part of the algorithm."
+  },
+  {
+    q: "To be classified as 'currently exercising regularly,' a client must perform at least __ minutes of moderate-intensity exercise, __ days per week, for at least __ months.",
+    opts: ["20 / 3 / 6","30 / 3 / 3","30 / 5 / 6","45 / 3 / 3"],
+    c: 1,
+    exp: "All four criteria must be met: ≥30 minutes of moderate-intensity exercise, ≥3 days per week, for ≥3 consecutive months. Missing any single criterion means the client does not qualify as 'regularly exercising.'"
+  },
+  {
+    q: "A client with NO known disease, NO symptoms, who is NOT currently exercising regularly wishes to start a light-to-moderate exercise program. Medical clearance is:",
+    opts: ["Required before any exercise begins","Recommended but not required","Not necessary","Required only if the client is over age 45"],
+    c: 2,
+    exp: "ACSM algorithm: no disease + no symptoms + not regularly exercising → medical clearance NOT necessary. The client may begin light-to-moderate exercise and progress gradually without clearance."
+  },
+  {
+    q: "A client with known cardiovascular disease who is currently exercising regularly develops chest discomfort during a training session. The ACSM algorithm requires the trainer to:",
+    opts: ["Reduce exercise intensity and monitor for 10 minutes","Discontinue exercise immediately and direct the client to seek medical clearance","Continue the session if the symptom resolves within 5 minutes","Switch to low-impact activity only for the remainder of the session"],
+    c: 1,
+    exp: "ACSM algorithm: known disease + exercising regularly + symptoms → DISCONTINUE exercise immediately. The client may only return after obtaining medical clearance. Symptoms always override all other considerations."
+  },
+  {
+    q: "In the 3-step preparticipation health-screening checklist, if a client answers YES to ANY item in Step 1, the trainer should:",
+    opts: ["Proceed to Step 2 before making a decision","Recommend completing the PAR-Q+ as a follow-up","Stop and require medical clearance before the client exercises","Allow light-intensity activity only, pending medical evaluation"],
+    c: 2,
+    exp: "Step 1 screens for symptoms (chest discomfort, breathlessness, dizziness, ankle swelling, palpitations, claudication). A YES to any symptom = STOP immediately and require medical clearance before any exercise."
+  },
+  {
+    q: "Which of the following is NOT one of the 9 medical conditions listed in Step 3 of the 3-step preparticipation checklist?",
+    opts: ["Heart failure","Congenital heart disease","Hypertension","Renal disease"],
+    c: 2,
+    exp: "Step 3's 9 conditions: heart attack, heart surgery/cath/angioplasty, pacemaker/ICD/rhythm disturbance, heart valve disease, heart failure, heart transplantation, congenital heart disease, diabetes, and renal disease. Hypertension is a classic exam trap — it is NOT on the list."
+  },
+  {
+    q: "On the PAR-Q+, a client answers NO to all 7 general health questions on Page 1. The correct outcome is:",
+    opts: ["Complete Pages 2–3 before clearance can be granted","Cleared — no need to complete Pages 2–3","Complete the ePARmed-X+ online screening","Seek guidance from a qualified exercise professional before starting"],
+    c: 1,
+    exp: "If a person answers NO to all 7 general health questions on PAR-Q+ Page 1, they are immediately cleared for physical activity and do not need to complete Pages 2–3."
+  },
+  {
+    q: "A client answers YES to a general question on PAR-Q+ Page 1 but NO to ALL follow-up questions on Pages 2–3. The correct outcome is:",
+    opts: ["Complete the ePARmed-X+ before exercising","Cleared for physical activity — start slowly and build gradually","Require immediate physician-supervised medical clearance","Exercise only in a medically supervised facility"],
+    c: 1,
+    exp: "YES on Page 1 but NO on all follow-up questions = cleared for physical activity with caution. The recommendation is to start slowly and progress gradually. No ePARmed-X+ is needed."
+  },
+  {
+    q: "The PAR-Q+ is valid for a maximum of how long from the date of completion?",
+    opts: ["3 months","6 months","12 months","24 months"],
+    c: 2,
+    exp: "The PAR-Q+ is valid for 12 months (one year). It becomes invalid sooner if the person's health condition changes before that period expires. Pregnant individuals and the temporarily ill have special guidance."
+  },
+  {
+    q: "Beta blockers reduce exercise heart rate by:",
+    opts: ["Stimulating the sympathetic nervous system to increase cardiac output","Blocking adrenergic receptors, preventing sympathetic increases in HR","Directly dilating coronary arteries to reduce cardiac workload","Increasing parasympathetic tone at rest but not during exercise"],
+    c: 1,
+    exp: "Beta blockers bind to beta-adrenergic receptors and prevent catecholamines from increasing heart rate. This blunts resting HR, exercise HR, and maximal HR — making all target HR prescriptions invalid."
+  },
+  {
+    q: "When a client takes beta blockers, the MOST appropriate cardiorespiratory exercise intensity prescription method is:",
+    opts: ["Target HR using HRR (Karvonen formula)","Percentage of age-predicted maximal HR (220 − age)","RPE or the talk test","VO₂ reserve percentage combined with HR reserve"],
+    c: 2,
+    exp: "Beta blockers blunt HR response, making all heart-rate-based methods invalid. RPE (Rating of Perceived Exertion) and the talk test gauge effort independently of heart rate — the only valid alternatives."
+  },
+  {
+    q: "ACE inhibitors lower blood pressure by blocking the enzyme that produces angiotensin II. Their expected effect on exercise heart rate is:",
+    opts: ["Significant decrease in exercise HR","Significant increase in exercise HR","No significant effect on HR — BP decreases at rest and during exercise","Unpredictable effect that varies with dose"],
+    c: 2,
+    exp: "ACE inhibitors prevent formation of angiotensin II, causing vasodilation and BP reduction. They do NOT significantly affect HR. Target HR prescriptions remain valid for clients on ACE inhibitors."
+  },
+  {
+    q: "The PRIMARY exercise-related risk for a client taking diuretics is:",
+    opts: ["Elevated maximal heart rate during exercise","Blunted rating of perceived exertion at high intensities","Dehydration and electrolyte imbalance leading to cardiac arrhythmias","Reduced VO₂max adaptation to aerobic training"],
+    c: 2,
+    exp: "Diuretics increase water excretion. Combined with sweat losses during exercise — especially in heat — this can cause dangerous electrolyte imbalances (especially potassium) that may trigger cardiac arrhythmias."
+  },
+  {
+    q: "Intermittent claudication, one of the 9 preparticipation red-flag signs/symptoms, is best described as:",
+    opts: ["Forceful or irregular heartbeat awareness during exercise","Burning or cramping in the lower legs during walking short distances","Shortness of breath that occurs when lying flat (orthopnea)","Sudden awareness of rapid heart rate at rest"],
+    c: 1,
+    exp: "Intermittent claudication is burning or cramping in the lower legs during exercise (typically walking), caused by inadequate blood supply to the working muscles — a vascular red flag requiring medical evaluation."
+  },
+  {
+    q: "Ankle edema in the preparticipation screening context is specifically concerning as a potential indicator of:",
+    opts: ["Inadequate hydration during exercise","Normal aging changes in sedentary adults","Possible cardiac or circulatory dysfunction","Overtraining syndrome"],
+    c: 2,
+    exp: "Ankle edema is one of the 9 preparticipation red flags because it may indicate cardiac or circulatory dysfunction. It is not to be dismissed as a benign finding when conducting preparticipation screening."
+  },
+  {
+    q: "Which group is at the HIGHEST risk for exercise-associated AMI (acute myocardial infarction) or SCD (sudden cardiac death)?",
+    opts: ["Healthy adults performing moderate exercise daily","Individuals with underlying CVD performing unaccustomed vigorous activity","Older adults who have been exercising regularly for many years","Sedentary healthy adults beginning a light walking program"],
+    c: 1,
+    exp: "ACSM identifies individuals with underlying CVD who perform activity to which they are NOT accustomed as being at highest risk for AMI and SCD during exercise. The combination of disease + unaccustomed intensity is the critical factor."
+  },
+  {
+    q: "As individuals become more physically active over time, their exercise-related cardiovascular risk:",
+    opts: ["Increases due to greater cardiovascular stress placed on the heart","Remains constant regardless of fitness level or activity history","Declines — regular exercise is protective over time","Increases significantly after age 50 regardless of fitness"],
+    c: 2,
+    exp: "A core ACSM principle: as people become more regularly active, their exercise-related cardiovascular risks decline. This is why unnecessary screening barriers that discourage activity are themselves a public health concern."
+  },
+  {
+    q: "Bronchodilators (e.g., albuterol) work primarily by:",
+    opts: ["Blocking beta-adrenergic receptors to slow heart rate","Stimulating the sympathetic nervous system to relax and open air passages","Blocking calcium channels to dilate pulmonary blood vessels","Suppressing histamine receptors to reduce airway inflammation"],
+    c: 1,
+    exp: "Bronchodilators stimulate the SNS to relax airway smooth muscle, opening air passages and improving air exchange. They significantly improve exercise capacity in persons with bronchoconstriction but have minimal HR/BP effect in healthy individuals."
+  },
+  {
+    q: "The medical release form sent to a client's physician serves primarily to:",
+    opts: ["Establish legal liability protection for the personal trainer","Document the client's fitness goals in the physician's records","Provide the trainer with medical information and obtain physical-activity guidelines or limitations","Replace the need for a lifestyle and health-history questionnaire"],
+    c: 2,
+    exp: "The medical release form is sent to the physician and returned with the client's medical information, including any specific physical-activity limitations or guidelines the trainer must follow. Any deviation from those guidelines requires physician approval."
+  },
+  {
+    q: "The informed consent / assumption of risk form serves what PRIMARY purpose?",
+    opts: ["Establishes the trainer's qualifications and professional credentials","Documents the client's complete medical history for program design","Explains the inherent risks of exercise and obtains the client's consent with full knowledge of those risks","Grants the trainer legal permission to contact the client's physician directly"],
+    c: 2,
+    exp: "The informed consent / assumption of risk form explains the risks associated with exercise participation and obtains the client's informed consent — a core liability protection document that must be reviewed by a local legal professional before use."
+  }
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q: "Under the ACSM preparticipation health-screening algorithm, the three risk modulators are: the individual's current level of physical activity, the desired exercise intensity, and ________.", a: "diagnosed cardiovascular, metabolic, or renal disease and/or presence of signs or symptoms", hint: "The disease/symptom status variable in the ACSM screening model." },
+  { q: "A trainer must STOP the preparticipation screening and refer a client for medical clearance if any positive response is marked in Step ________ of the 3-step questionnaire.", a: "1", hint: "The first step — symptoms such as chest discomfort, breathlessness, dizziness, and ankle swelling." },
+  { q: "When a client is taking a beta blocker, target HR training is NOT valid. The two alternative intensity methods are the talk test and ________.", a: "rpe", hint: "Rating of Perceived Exertion — the Borg 6-20 scale is most commonly referenced." },
+  { q: "The PAR-Q+ is valid for a maximum of ________ months from the date of completion.", a: "12", hint: "One full year from completion." },
+  { q: "Individuals with underlying cardiovascular disease performing unaccustomed vigorous activity are at the greatest risk for activity-associated AMI and ________.", a: "scd", hint: "Sudden Cardiac Death — the most serious acute exercise-related cardiovascular event." }
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q: "An individual with known cardiovascular disease who is currently exercising regularly should discontinue exercise immediately if they develop any signs or symptoms suggestive of cardiovascular, metabolic, or renal disease.", a: true, exp: "The ACSM algorithm for currently exercising individuals with known disease + symptoms states: Discontinue exercise and seek medical clearance. May return following clearance." },
+  { q: "The overall risk of an adverse cardiovascular event during vigorous exercise is moderate-to-high for asymptomatic individuals, requiring physician supervision before starting a vigorous exercise program.", a: false, exp: "The overall risk is extremely low for asymptomatic individuals. Unnecessary barriers to physical activity are themselves a public health concern — the ACSM guidelines specifically aim to remove them." },
+  { q: "Beta blockers reduce resting, exercise, and maximal heart rate, requiring trainers to use RPE or the talk test rather than target heart rate when prescribing cardiorespiratory exercise intensity.", a: true, exp: "Beta blockers blunt HR response by blocking adrenergic receptors. This renders target heart rate calculations invalid — RPE and talk test are the appropriate intensity tools." },
+  { q: "Diuretics directly increase exercise heart rate, making cardiorespiratory exercise especially challenging for clients taking these medications.", a: false, exp: "Diuretics have no direct effect on heart rate. Their primary exercise-related risks are dehydration and electrolyte imbalances (which can cause cardiac arrhythmias) — not elevated HR." },
+  { q: "The lifestyle and health-history questionnaire collects detailed information beyond preparticipation screening, including nutrition, sleep, stress, weight history, family medical history, and personal goals.", a: true, exp: "The lifestyle and health-history questionnaire is a comprehensive intake document covering medical history, family history, nutrition, substance habits, physical activity, work, sleep, stress, weight history, and goals." }
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
 const CASES = [
   {
     num: 1,
@@ -530,40 +719,188 @@ const CASES = [
   }
 ];
 
-const FILLIN = [
-  { q: "Under the ACSM preparticipation health-screening algorithm, the three risk modulators are: the individual's current level of physical activity, the desired exercise intensity, and ________.", a: "diagnosed cardiovascular, metabolic, or renal disease and/or presence of signs or symptoms", hint: "The disease/symptom status variable in the ACSM screening model." },
-  { q: "A trainer must STOP the preparticipation screening and refer a client for medical clearance if any positive response is marked in Step ________ of the 3-step questionnaire.", a: "1", hint: "The first step — symptoms such as chest discomfort, breathlessness, dizziness, and ankle swelling." },
-  { q: "When a client is taking a beta blocker, target HR training is NOT valid. The two alternative intensity methods are the talk test and ________.", a: "rpe", hint: "Rating of Perceived Exertion — the Borg 6-20 scale is most commonly referenced." },
-  { q: "The PAR-Q+ is valid for a maximum of ________ months from the date of completion.", a: "12", hint: "One full year from completion." },
-  { q: "Individuals with underlying cardiovascular disease performing unaccustomed vigorous activity are at the greatest risk for activity-associated AMI and ________.", a: "scd", hint: "Sudden Cardiac Death — the most serious acute exercise-related cardiovascular event." }
-];
-
-const TRUEF = [
-  { q: "An individual with known cardiovascular disease who is currently exercising regularly should discontinue exercise immediately if they develop any signs or symptoms suggestive of cardiovascular, metabolic, or renal disease.", a: true, exp: "The ACSM algorithm for currently exercising individuals with known disease + symptoms states: Discontinue exercise and seek medical clearance. May return following clearance." },
-  { q: "The overall risk of an adverse cardiovascular event during vigorous exercise is moderate-to-high for asymptomatic individuals, requiring physician supervision before starting a vigorous exercise program.", a: false, exp: "The overall risk is extremely low for asymptomatic individuals. Unnecessary barriers to physical activity are themselves a public health concern — the ACSM guidelines specifically aim to remove them." },
-  { q: "Beta blockers reduce resting, exercise, and maximal heart rate, requiring trainers to use RPE or the talk test rather than target heart rate when prescribing cardiorespiratory exercise intensity.", a: true, exp: "Beta blockers blunt HR response by blocking adrenergic receptors. This renders target heart rate calculations invalid — RPE and talk test are the appropriate intensity tools." },
-  { q: "Diuretics directly increase exercise heart rate, making cardiorespiratory exercise especially challenging for clients taking these medications.", a: false, exp: "Diuretics have no direct effect on heart rate. Their primary exercise-related risks are dehydration and electrolyte imbalances (which can cause cardiac arrhythmias) — not elevated HR." },
-  { q: "The lifestyle and health-history questionnaire collects detailed information beyond preparticipation screening, including nutrition, sleep, stress, weight history, family medical history, and personal goals.", a: true, exp: "The lifestyle and health-history questionnaire is a comprehensive intake document covering medical history, family history, nutrition, substance habits, physical activity, work, sleep, stress, weight history, and goals." }
-];
-
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let mcqAnswers = {};
-let fibAnswers = {};
-let tfAnswers  = {};
-let graded     = false;
-let globalQNum = 0;
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
 
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function renderAll() {
-  globalQNum = 0;
-  renderMCQ();
-  renderFIB();
-  renderTF();
-  updateProgress();
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
 }
 
-function renderMCQ() {
-  const sec = document.getElementById('mcq-section');
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
   sec.innerHTML = '';
   CASES.forEach((cs, ci) => {
     const block = document.createElement('div');
@@ -576,20 +913,18 @@ function renderMCQ() {
       <div class="scenario-box">${cs.scenario}</div>
     `;
     cs.qs.forEach((q, qi) => {
-      globalQNum++;
-      const gNum = globalQNum;
-      const key  = `c${ci}q${qi}`;
+      const key  = `${ci}-${qi}`;
       const opts = q.opts.map((o, oi) =>
-        `<div class="q-option" data-key="${key}" data-idx="${oi}" onclick="pickMCQ('${key}',${oi},${q.ans})">
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
           <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
         </div>`
       ).join('');
       block.insertAdjacentHTML('beforeend', `
-        <div class="q-card" id="card-${key}">
-          <div class="q-num">Q${gNum}</div>
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
           <div class="q-text">${q.q}</div>
-          <div class="q-options" id="opts-${key}">${opts}</div>
-          <div class="q-exp" id="exp-${key}"><strong>Explanation</strong>${q.exp}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
         </div>
       `);
     });
@@ -597,92 +932,37 @@ function renderMCQ() {
   });
 }
 
-function renderFIB() {
-  const sec = document.getElementById('fib-section');
-  sec.innerHTML = '';
-  FILLIN.forEach((f, i) => {
-    globalQNum++;
-    const gNum = globalQNum;
-    sec.insertAdjacentHTML('beforeend', `
-      <div class="fib-card" id="fib-card-${i}">
-        <div class="q-num">Q${gNum}</div>
-        <div class="fib-q">${f.q}</div>
-        <div class="fib-input-wrap">
-          <input class="q-input" id="fib-input-${i}" type="text" placeholder="Type your answer…"
-            oninput="fibAnswers[${i}]=this.value;updateProgress()" autocomplete="off"/>
-          <span class="fib-feedback" id="fib-fb-${i}"></span>
-        </div>
-        <div class="fib-hint" id="fib-hint-${i}"><em>Hint:</em> ${f.hint}</div>
-      </div>
-    `);
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
   });
+  updateCaseProgress();
 }
 
-function renderTF() {
-  const sec = document.getElementById('tf-section');
-  sec.innerHTML = '';
-  TRUEF.forEach((t, i) => {
-    globalQNum++;
-    const gNum = globalQNum;
-    sec.insertAdjacentHTML('beforeend', `
-      <div class="tf-card" id="tf-card-${i}">
-        <div class="q-num">Q${gNum}</div>
-        <div class="tf-q">${t.q}</div>
-        <div class="q-tf">
-          <button class="q-tf-btn" id="tf-${i}-T" onclick="pickTF(${i},true)">True</button>
-          <button class="q-tf-btn" id="tf-${i}-F" onclick="pickTF(${i},false)">False</button>
-        </div>
-        <div class="tf-exp" id="tf-exp-${i}"><strong>Explanation</strong>${t.exp}</div>
-      </div>
-    `);
-  });
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
 }
 
-function pickMCQ(key, idx, ans) {
-  if (graded) return;
-  mcqAnswers[key] = idx;
-  document.querySelectorAll(`[data-key="${key}"]`).forEach((el,i) => {
-    el.classList.toggle('selected', i === idx);
-    el.querySelector('.opt-letter').style.background   = (i === idx) ? 'var(--accent)' : '';
-    el.querySelector('.opt-letter').style.color        = (i === idx) ? '#000' : '';
-    el.querySelector('.opt-letter').style.borderColor  = (i === idx) ? 'var(--accent)' : '';
-  });
-  updateProgress();
-}
-
-function pickTF(i, val) {
-  if (graded) return;
-  tfAnswers[i] = val;
-  document.getElementById(`tf-${i}-T`).classList.toggle('selected', val === true);
-  document.getElementById(`tf-${i}-F`).classList.toggle('selected', val === false);
-  updateProgress();
-}
-
-function countAnswered() {
-  let n = Object.keys(mcqAnswers).length;
-  FILLIN.forEach((_, i) => { if (fibAnswers[i] && fibAnswers[i].trim()) n++; });
-  TRUEF.forEach((_, i)  => { if (tfAnswers[i] !== undefined) n++; });
-  return n;
-}
-function updateProgress() {
-  const n = countAnswered();
-  document.getElementById('progress-text').textContent = `${n} of 45 answered`;
-  document.getElementById('progress-pct').textContent  = `${Math.round(n/45*100)}%`;
-  document.getElementById('prog-bar').style.width      = `${n/45*100}%`;
-}
-
-function submitQuiz() {
-  if (graded) return;
-  graded = true;
-  document.getElementById('submit-btn').disabled = true;
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
 
   let correct = 0, wrong = 0, skip = 0;
 
   CASES.forEach((cs, ci) => {
     cs.qs.forEach((q, qi) => {
-      const key = `c${ci}q${qi}`;
-      const sel = mcqAnswers[key];
-      const opts = document.querySelectorAll(`[data-key="${key}"]`);
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
       opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
       if (sel === undefined) {
         skip++;
@@ -695,59 +975,24 @@ function submitQuiz() {
         opts[sel].classList.add('wrong-ans');
         opts[q.ans].classList.add('reveal-correct');
       }
-      document.getElementById(`exp-${key}`).classList.add('show');
+      document.getElementById(`cexp-${key}`).classList.add('show');
     });
-  });
-
-  FILLIN.forEach((f, i) => {
-    const inp = document.getElementById(`fib-input-${i}`);
-    inp.disabled = true;
-    const val = (fibAnswers[i] || '').trim().toLowerCase();
-    const ans = f.a.toLowerCase();
-    const fb  = document.getElementById(`fib-fb-${i}`);
-    if (!val) {
-      skip++;
-      inp.classList.add('fib-wrong');
-      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
-      fb.className = 'fib-feedback bad';
-    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
-      correct++;
-      inp.classList.add('fib-correct');
-      fb.textContent = '✓';
-      fb.className = 'fib-feedback ok';
-    } else {
-      wrong++;
-      inp.classList.add('fib-wrong');
-      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
-      fb.className = 'fib-feedback bad';
-    }
-    document.getElementById(`fib-hint-${i}`).classList.add('show');
-  });
-
-  TRUEF.forEach((t, i) => {
-    const tBtn = document.getElementById(`tf-${i}-T`);
-    const fBtn = document.getElementById(`tf-${i}-F`);
-    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
-    const sel = tfAnswers[i];
-    if (sel === undefined) {
-      skip++;
-      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
-    } else if (sel === t.a) {
-      correct++;
-      (sel ? tBtn : fBtn).classList.add('tf-correct');
-    } else {
-      wrong++;
-      (sel ? tBtn : fBtn).classList.add('tf-wrong');
-      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
-    }
-    document.getElementById(`tf-exp-${i}`).classList.add('show');
   });
 
   setTimeout(() => showModal(correct, wrong, skip), 350);
 }
 
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
 function showModal(correct, wrong, skip) {
-  const pct   = Math.round(correct / 45 * 100);
+  const pct   = Math.round(correct / 35 * 100);
   const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
   const bands = {
     A: 'Excellent! Strong command of health screening, ACSM algorithm, PAR-Q+, and medication effects.',
@@ -759,7 +1004,7 @@ function showModal(correct, wrong, skip) {
 
   const ring = document.getElementById('modal-ring');
   ring.textContent = grade;
-  ring.className = `modal-grade-ring grade-${grade}`;
+  ring.className   = `modal-grade-ring grade-${grade}`;
   document.getElementById('modal-title').textContent   = titles[grade];
   document.getElementById('modal-correct').textContent = correct;
   document.getElementById('modal-wrong').textContent   = wrong;
@@ -769,14 +1014,9 @@ function showModal(correct, wrong, skip) {
   document.getElementById('result-modal').classList.add('open');
 }
 
-function closeModal()  { document.getElementById('result-modal').classList.remove('open'); }
-function retakeQuiz()  {
-  mcqAnswers = {}; fibAnswers = {}; tfAnswers = {}; graded = false;
-  document.getElementById('result-modal').classList.remove('open');
-  document.getElementById('submit-btn').disabled = false;
-  renderAll();
-}
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
 
+// ── SHARED ────────────────────────────────────────────────────────────────────
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -814,8 +1054,12 @@ function buildMindmap() {
 
 function toggleBranch(branch) { branch.classList.toggle('open'); }
 
+// ── INIT ──────────────────────────────────────────────────────────────────────
 buildMindmap();
-renderAll();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
 </script>
 
 </Layout>
