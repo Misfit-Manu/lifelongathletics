@@ -37,12 +37,25 @@ const topics = [
 
   <div class="ace-banner-wrap">
     <a href="/ace-prep" class="ace-banner">
-      <div class="ace-banner-content">
-        <span class="ace-tag">New Structured Hub</span>
-        <h2>Chapterwise ACE Preparation</h2>
-        <p>17 chapters of theory, mindmaps, and interactive quizzes mapped directly to the latest ACE Personal Trainer exam.</p>
+      <span class="ace-banner-glow"></span>
+      <div class="ace-banner-top">
+        <span class="ace-tag">✦ The Complete ACE-CPT System</span>
+        <span class="ace-free-badge">100% Free</span>
       </div>
-      <div class="ace-banner-arrow">Enter Hub →</div>
+      <h2>Chapterwise <em>ACE</em> Preparation</h2>
+      <p class="ace-pain">Stop re-reading the 400-page manual. Master each chapter once — with mind maps, quizzes, and real exam-style case studies — then walk in knowing you'll pass.</p>
+      <div class="ace-features">
+        <span class="ace-feature"><span class="afi">🧠</span> Mind Maps</span>
+        <span class="ace-feature"><span class="afi">📝</span> Theory Quizzes</span>
+        <span class="ace-feature"><span class="afi">🩺</span> Case Studies</span>
+        <span class="ace-feature"><span class="afi">📋</span> Quick Reference</span>
+      </div>
+      <div class="ace-stats">
+        <div class="ace-stat"><strong>17</strong><span>Chapters</span></div>
+        <div class="ace-stat"><strong>1,000+</strong><span>Quiz Questions</span></div>
+        <div class="ace-stat"><strong>300+</strong><span>Case Studies</span></div>
+      </div>
+      <span class="ace-cta">Start Studying — Free <span class="ace-cta-arrow">→</span></span>
     </a>
   </div>
 
@@ -123,12 +136,38 @@ const topics = [
   .exam-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; font-style: italic; }
 
   .ace-banner-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 60px 0; opacity: 0; animation: fadeUp 0.8s ease 0.55s forwards; }
-  .ace-banner { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.02)); border: 1px solid rgba(201,168,76,0.3); border-radius: 4px; padding: 40px; text-decoration: none; transition: transform 0.3s, border-color 0.3s; }
-  .ace-banner:hover { transform: translateY(-4px); border-color: var(--gold); }
-  .ace-tag { display: inline-block; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; background: rgba(201,168,76,0.1); padding: 4px 8px; border-radius: 2px; }
-  .ace-banner h2 { font-family: var(--font-display); font-size: 2.2rem; color: var(--white); margin-bottom: 8px; line-height: 1.1; }
-  .ace-banner p { font-size: 0.9rem; color: var(--muted); max-width: 600px; line-height: 1.6; margin: 0; }
-  .ace-banner-arrow { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+  .ace-banner { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; background: linear-gradient(135deg, rgba(197,241,53,0.07), rgba(197,241,53,0.012) 60%); border: 1px solid rgba(197,241,53,0.28); border-radius: 12px; padding: 40px 44px; text-decoration: none; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; animation: aceGlow 3.6s ease-in-out 1.4s infinite; }
+  .ace-banner:hover { transform: translateY(-4px); border-color: #c5f135; box-shadow: 0 14px 50px rgba(197,241,53,0.16); animation-play-state: paused; }
+  .ace-banner > *:not(.ace-banner-glow) { position: relative; z-index: 1; }
+  .ace-banner-glow { position: absolute; top: -90px; right: -70px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(197,241,53,0.13), transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
+
+  .ace-banner-top { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 16px; }
+  .ace-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #c5f135; background: rgba(197,241,53,0.1); padding: 6px 13px; border-radius: 20px; font-weight: 600; }
+  .ace-free-badge { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: #080808; background: #c5f135; padding: 6px 14px; border-radius: 20px; white-space: nowrap; }
+
+  .ace-banner h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.9rem); color: var(--white); margin: 0; line-height: 1.05; font-weight: 400; }
+  .ace-banner h2 em { font-style: italic; color: #c5f135; }
+  .ace-pain { font-size: 0.98rem; color: rgba(245,240,232,0.62); max-width: 640px; line-height: 1.65; margin: -6px 0 0; }
+
+  .ace-features { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ace-feature { display: inline-flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 500; color: var(--white); background: rgba(255,255,255,0.03); border: 1px solid rgba(197,241,53,0.2); padding: 8px 15px; border-radius: 24px; transition: border-color 0.2s, background 0.2s; }
+  .ace-banner:hover .ace-feature { border-color: rgba(197,241,53,0.4); }
+  .ace-feature .afi { font-size: 0.95rem; line-height: 1; }
+
+  .ace-stats { display: flex; flex-wrap: wrap; gap: 40px; width: 100%; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .ace-stat { display: flex; flex-direction: column; gap: 3px; }
+  .ace-stat strong { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: #c5f135; line-height: 1; }
+  .ace-stat span { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  .ace-cta { display: inline-flex; align-items: center; gap: 10px; background: #c5f135; color: #080808; font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 15px 34px; border-radius: 30px; transition: gap 0.25s, box-shadow 0.3s; }
+  .ace-banner:hover .ace-cta { gap: 16px; box-shadow: 0 8px 24px rgba(197,241,53,0.32); }
+  .ace-cta-arrow { font-size: 1.05rem; }
+
+  @keyframes aceGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(197,241,53,0); border-color: rgba(197,241,53,0.28); }
+    50%      { box-shadow: 0 0 32px rgba(197,241,53,0.1); border-color: rgba(197,241,53,0.5); }
+  }
+  @media (prefers-reduced-motion: reduce) { .ace-banner { animation: none; } }
 
   .filter-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 60px 0; display: flex; gap: 8px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards; }
   .filter-btn { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: transparent; border: 1px solid var(--border); padding: 8px 20px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
@@ -171,8 +210,11 @@ const topics = [
     .page-hero { padding: 120px 24px 60px; }
     .exam-strip { padding: 32px 24px; }
     .ace-banner-wrap { padding: 32px 24px 0; }
-    .ace-banner { flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px; }
-    .ace-banner h2 { font-size: 1.6rem; }
+    .ace-banner { padding: 28px 24px; gap: 18px; }
+    .ace-banner h2 { font-size: 1.75rem; }
+    .ace-stats { gap: 22px; }
+    .ace-stat strong { font-size: 1.6rem; }
+    .ace-cta { width: 100%; justify-content: center; }
     .filter-wrap { padding: 32px 24px 0; }
     .topics-wrap { padding: 40px 24px 80px; }
     .cards-grid { grid-template-columns: 1fr; }
