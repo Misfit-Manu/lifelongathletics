@@ -1,0 +1,1001 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 6 — Nutrition for Health & Fitness | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+.scope-split{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.scope-col{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.scope-col.in{border-left:3px solid var(--correct)}
+.scope-col.out{border-left:3px solid var(--red)}
+.scope-col h4{font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.scope-col.in h4{color:var(--correct)}
+.scope-col.out h4{color:var(--red)}
+.scope-col ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.scope-col li{font-size:12px;color:var(--muted);padding-left:16px;position:relative;line-height:1.4}
+.scope-col.in li::before{content:'✓';position:absolute;left:0;color:var(--correct);font-weight:700}
+.scope-col.out li::before{content:'✗';position:absolute;left:0;color:var(--red);font-weight:700}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+  .scope-split{grid-template-columns:1fr}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 6 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 6</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 6</div>
+  <h1>Nutrition for <em>Health &amp; Fitness</em></h1>
+  <p>Scope of practice, Dietary Guidelines, DRIs &amp; AMDRs, food labels, sports nutrition, hydration, and supplements — the nutrition knowledge every ACE CPT needs.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 6 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-6-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Scope · Dietary Guidelines · Food Labels · Sports Nutrition · Hydration · Supplements</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 6 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 6 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Nutrition <em>Scope of Practice</em></h3>
+      <div class="scope-split">
+        <div class="scope-col in">
+          <h4>✓ Within Scope (All PTs)</h4>
+          <ul>
+            <li>Share federal Dietary Guidelines for Americans &amp; MyPlate</li>
+            <li>Discuss general nutrition topics covered by ACE</li>
+            <li>Distribute material developed by an RD or physician</li>
+            <li>Refer clients to RDs or health coaches</li>
+          </ul>
+        </div>
+        <div class="scope-col out">
+          <h4>✗ Outside Scope (All PTs)</h4>
+          <ul>
+            <li>Individualized meal plans / caloric &amp; macro targets</li>
+            <li>Nutritional assessment of needs/status</li>
+            <li>Counseling to prevent, treat, or cure disease</li>
+            <li>Prescribing supplements; medical nutrition therapy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <h3>DRIs <em>&amp; AMDRs</em></h3>
+      <table class="ref-table">
+        <tr><th>Term</th><th>Meaning</th></tr>
+        <tr><td><strong>EAR</strong></td><td>Adequate for 50% of group</td></tr>
+        <tr><td><strong>RDA</strong></td><td>Adequate for 97–98% of group</td></tr>
+        <tr><td><strong>UL</strong></td><td>Safe maximum (toxicity risk)</td></tr>
+        <tr><td><strong>AI</strong></td><td>Used when no EAR/RDA data</td></tr>
+      </table>
+      <table class="ref-table" style="margin-top:10px">
+        <tr><th>Macro</th><th>AMDR</th><th>RDA</th></tr>
+        <tr><td>Carbohydrate</td><td>45–65%</td><td>130 g/day</td></tr>
+        <tr><td>Protein</td><td>10–35%</td><td>0.8 g/kg/day</td></tr>
+        <tr><td>Total Fat</td><td>20–35%</td><td>—</td></tr>
+        <tr><td>Added Sugars</td><td>&lt;10%</td><td>—</td></tr>
+        <tr><td>Saturated Fat</td><td>&lt;10%</td><td>—</td></tr>
+        <tr><td>Sodium</td><td>—</td><td>&lt;2,300 mg</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Dietary <em>Guidelines &amp; Patterns</em></h3>
+      <div class="key-term"><strong>4 Key Guidelines</strong><span>1) Healthy pattern at every life stage · 2) Customize to preference/culture/budget · 3) Meet needs with nutrient-dense foods (~85% of cals) · 4) Limit added sugars, saturated fat, sodium, alcohol</span></div>
+      <div class="key-term"><strong>US-Style</strong><span>Typical American intake in nutrient-dense forms; higher dairy &amp; meat</span></div>
+      <div class="key-term"><strong>Mediterranean</strong><span>More fruit &amp; seafood, less dairy; ↓ CVD &amp; T2DM risk</span></div>
+      <div class="key-term"><strong>Vegetarian</strong><span>No meat/poultry/seafood; higher calcium &amp; fiber, lower vitamin D</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Food <em>Labels &amp; Claims</em></h3>
+      <div class="key-term"><strong>%DV Rule</strong><span>5% DV = low · 20% DV = high. Calories: 40 = low, 100 = moderate, 400+ = high</span></div>
+      <div class="key-term"><strong>Health Claim</strong><span>Food↔disease link. Requires FDA authorization / authoritative body</span></div>
+      <div class="key-term"><strong>Nutrient Content Claim</strong><span>"free," "high," "low," "lite." "Healthy" = FDA-defined fat/sat-fat/cholesterol/sodium levels</span></div>
+      <div class="key-term"><strong>Structure/Function Claim</strong><span>DSHEA-regulated. No FDA preapproval; must carry FDA disclaimer</span></div>
+      <div class="key-term"><strong>2016 Redesign</strong><span>Added sugars listed separately; vitamin D &amp; potassium required; calories enlarged</span></div>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Sports Nutrition <em>Timing</em></h3>
+      <table class="ref-table">
+        <tr><th>Phase</th><th>Carbohydrate</th><th>Key Points</th></tr>
+        <tr><td><strong>Pre (meal)</strong></td><td>1.0–4.5 g/kg</td><td>4–6 hrs before; high carb, low fat/fiber, moderate protein, 400–800 cal</td></tr>
+        <tr><td><strong>Pre (snack)</strong></td><td>~50 g + 5–10 g protein</td><td>30–60 min before; boosts late-workout glucose</td></tr>
+        <tr><td><strong>During</strong></td><td>30–60 g/hour</td><td>For exercise &gt;60 min; 15–20 min intervals; 6–8% CHO drink</td></tr>
+        <tr><td><strong>Post</strong></td><td>1.2 g/kg/hour</td><td>15–30 min intervals, first 4–6 hrs; add protein for repair</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Hydration <em>&amp; Risks</em></h3>
+      <table class="ref-table">
+        <tr><th>Phase</th><th>Recommendation</th></tr>
+        <tr><td><strong>Before</strong></td><td>5–7 mL/kg, ≥4 hrs prior (begin euhydrated)</td></tr>
+        <tr><td><strong>During</strong></td><td>Match sweat rate; prevent &gt;2% body-weight loss; 20–30 mEq/L Na</td></tr>
+        <tr><td><strong>After</strong></td><td>1.5 L per kg body weight lost if rapid recovery</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Dehydration</strong><span>Sweat loss &gt; fluid intake. Risk: heat, intensity, low intake → heat illness</span></div>
+      <div class="key-term"><strong>Hyponatremia</strong><span>Low blood sodium from EXCESS fluid. Risk: ≥4 hr events, weight gain during exercise</span></div>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Supplements <em>(DSHEA: safe until proven unsafe; not FDA pre-evaluated)</em></h3>
+      <table class="ref-table">
+        <tr><th>Evidence-Supported</th><th>Dose / Note</th><th>Little/No Evidence</th></tr>
+        <tr><td><strong>Creatine monohydrate</strong></td><td>Load 20 g/day ×5–7 d, then 3–5 g/day</td><td class="tag-flat">Glutamine</td></tr>
+        <tr><td><strong>Caffeine</strong></td><td>3–6 mg/kg, 30–60 min pre</td><td class="tag-flat">Arginine</td></tr>
+        <tr><td><strong>Post-exercise CHO</strong></td><td>1.2 g/kg/hr, 15–30 min intervals</td><td class="tag-flat">Carnitine</td></tr>
+        <tr><td><strong>Whey &amp; casein protein</strong></td><td>Whey fast / casein slow; combo = best strength</td><td>—</td></tr>
+        <tr><td><strong>Sodium bicarbonate</strong></td><td>0.2–0.4 g/kg, 60–120 min pre (GI risk)</td><td>—</td></tr>
+        <tr><td><strong>β-alanine</strong></td><td>3–6 g/day ×4–10 wks; benefits 60–240 s efforts</td><td>—</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>⚠ Always refer</strong><span>Recommending specific supplements is outside PT scope — refer to an RD or physician regardless of personal knowledge.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 6: Nutrition for Health &amp; Fitness
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"NUTRITION SCOPE OF PRACTICE",color:"#f87171",subs:[
+    {name:"Within Scope (All PTs)",points:["Share federal Dietary Guidelines for Americans","Disseminate MyPlate recommendations (myplate.gov)","Discuss general nutrition topics covered by ACE","Distribute material developed by an RD or physician"]},
+    {name:"Outside Scope (All PTs)",points:["Individualized meal plans beyond government guidelines","Nutritional assessment of needs/status","Specific nutrient/caloric targets or specialty diets","Prescribing supplements; medical nutrition therapy"]},
+    {name:"Collaboration & Referral",points:["Work with ACE Health Coaches (behavior change)","Refer to Registered Dietitians for individualized plans","Find-an-expert at eatright.org","RD referral when needs exceed PT scope"]},
+    {name:"ACE Position",points:["PTs not only CAN but SHOULD share general nutrition info","Exact scope varies by state, education, competency","Frame nutrition info as nonmedical and general","Always stay within evidence-based federal guidelines"]}
+  ]},
+  {id:2,name:"DIETARY REFERENCE INTAKES (DRIs)",color:"#60a5fa",subs:[
+    {name:"EAR & RDA",points:["EAR: adequate for 50% of an age/sex group","Below EAR = likely deficient","RDA: adequate for 97–98% of the group","Between EAR and RDA = likely sufficient"]},
+    {name:"UL & AI",points:["UL: maximum intake unlikely to cause harm","UL helps assess toxicity risk (esp. supplements)","AI: used when data insufficient to set EAR/RDA","At or above AI = likely sufficient"]},
+    {name:"AMDR (% of calories)",points:["Carbohydrate: 45–65%","Protein: 10–35%","Total fat: 20–35%","Added sugars & saturated fat: <10% each"]},
+    {name:"Macronutrient RDAs",points:["Carbohydrate RDA: 130 g/day","Protein RDA: 0.8 g/kg/day","Fiber: 14 g per 1,000 kcal","Sodium: <2,300 mg/day"]}
+  ]},
+  {id:3,name:"2020–2025 DIETARY GUIDELINES",color:"#fb923c",subs:[
+    {name:"The 4 Guidelines",points:["Follow a healthy pattern at every life stage","Customize to preferences, culture, and budget","Meet food-group needs with nutrient-dense foods","Limit added sugars, saturated fat, sodium, alcohol"]},
+    {name:"Nutrient Density",points:["~85% of calories needed for nutrient-dense foods","~15% remaining for sat fat, added sugar, alcohol","Updated every 5 years by expert panel","PTs are within scope to use and disseminate these"]},
+    {name:"3 Healthy Patterns",points:["US-Style: higher dairy & meat/poultry","Mediterranean: more fruit & seafood, less dairy","Vegetarian: more soy/legumes; higher calcium & fiber","All 3 reduce chronic disease risk"]},
+    {name:"Alcohol Limits",points:["≤1 drink/day for women","≤2 drinks/day for men","1 drink = 12 oz beer / 5 oz wine / 1.5 oz spirits","Less is better for health"]}
+  ]},
+  {id:4,name:"FOOD GROUPS & MYPLATE",color:"#22d3ee",subs:[
+    {name:"MyPlate Tool",points:["Visual: ¼ fruits, ¼ vegetables, ¼ grains, ¼ protein","Plus a serving of dairy/calcium-rich food","Goal: make half the plate vegetables & fruits","Free materials at myplate.gov"]},
+    {name:"Vegetables & Fruits",points:["5 vegetable subgroups — eat from all","Dark green (vit K), red/orange (vit A), starchy (K)","Whole fruits preferred over juice","Fiber, potassium, vitamin C"]},
+    {name:"Grains & Dairy",points:["At least half of grains should be whole grains","'Whole grain' = first or second ingredient","Dairy: 3 cups/day adults; calcium, vit D, B12","Plant 'milks' (except soy) NOT classified as dairy"]},
+    {name:"Protein & Oils",points:["Seafood, lean meat/poultry, eggs, nuts, soy, beans","Increase seafood; reduce red & processed meat","Oils liquid at room temp (~5 tsp/day)","Solid fats (butter, lard, coconut) not in oils group"]}
+  ]},
+  {id:5,name:"DIETARY LIMITS & DASH",color:"#f87171",subs:[
+    {name:"Added Sugars",points:["Limit to <10% of total calories (~50 g/2,000 cal)","Avg American: 266 kcal/day from added sugars","Sources: candy, desserts, sugar-sweetened beverages","20+ names on labels (corn syrup, dextrose, agave...)"]},
+    {name:"Saturated & Trans Fat",points:["Saturated fat: <10% of calories/day","Best to replace with mono-/polyunsaturated fats","Trans fat: as little as possible","Artificial trans fat (partially hydrogenated) banned"]},
+    {name:"Sodium",points:["Recommended: <2,300 mg/day","Avg American intake: 3,393 mg/day","Only 3% of males / 23% of females meet goal","Strategies: read labels, choose fresh, cook at home"]},
+    {name:"DASH Eating Plan",points:["Designed for hypertension; benefits everyone","Rich in potassium, magnesium, calcium, protein, fiber","Low saturated fat, cholesterol, sodium","Lowers SBP ~5–6 mmHg; reduces CVD risk"]}
+  ]},
+  {id:6,name:"FOOD LABELS & CLAIMS",color:"#a78bfa",subs:[
+    {name:"Nutrition Facts (2016)",points:["Larger, bolder Calories & Serving Size","Added sugars now listed separately (g + %DV)","Vitamin D & potassium now required","Calories-from-fat removed; vit A/C no longer required"]},
+    {name:"%DV & Serving Sizes",points:["5% DV = low; 20% DV = high","Serving sizes reflect actual consumption","1–2 serving packages labeled as 1 serving","40 cal = low, 100 = moderate, 400+ = high"]},
+    {name:"Label Claims",points:["Health claim: food↔disease; FDA-authorized","Nutrient content claim: 'free,' 'high,' 'low,' 'lite'","Structure/function: DSHEA, no FDA preapproval + disclaimer","'Healthy' = FDA-defined fat/sat-fat/cholesterol/sodium"]},
+    {name:"Ingredient List",points:["Listed most-to-least by weight","Partially hydrogenated oil = artificial trans fat","Refined grains often labeled 'enriched'","Allergens (milk, egg, soy, wheat, nuts...) must be labeled"]}
+  ]},
+  {id:7,name:"WEIGHT MANAGEMENT & SPORTS NUTRITION",color:"#fbbf24",subs:[
+    {name:"Caloric Deficit",points:["~3,500 kcal = 1 lb of fat","500–1,000 kcal/day deficit → 1–2 lbs/week","Rule less accurate as metabolism adapts","NIH Body Weight Planner for projections"]},
+    {name:"Exercise vs. Diet",points:["Both work; adherence matters most","Diet + exercise more efficient (66 vs 80 days for 5%)","Exercise reduces visceral fat, preserves muscle","Helps prevent weight regain"]},
+    {name:"Pre & During Exercise",points:["Meal 4–6 hrs before: high carb, low fat/fiber, 400–800 cal","Snack 30–60 min before: ~50 g CHO + 5–10 g protein","During >60 min: 30–60 g CHO/hour, 15–20 min intervals","6–8% carbohydrate concentration optimal"]},
+    {name:"Post-Exercise",points:["Glycogen window: rapid first 30–60 min","1.2 g/kg/hr CHO at 15–30 min intervals (4–6 hrs)","Add protein for muscle repair","Small frequent doses > one large bolus"]}
+  ]},
+  {id:8,name:"HYDRATION & SUPPLEMENTS",color:"#3b82f6",subs:[
+    {name:"Hydration Timing",points:["Before: 5–7 mL/kg, ≥4 hrs prior (euhydrated)","During: match sweat rate; prevent >2% loss","After: 1.5 L per kg body weight lost","Sodium aids fluid retention & thirst"]},
+    {name:"Dehydration vs Hyponatremia",points:["Dehydration: sweat loss > intake → heat illness","Hyponatremia: low blood Na from EXCESS fluid","Hyponatremia risk: ≥4 hr events, weight gain","Sports drinks: 20–30 mEq/L sodium for long events"]},
+    {name:"DSHEA Regulation",points:["Supplements safe until proven unsafe","NOT FDA-evaluated before market","Cannot claim to diagnose/treat/cure disease","PTs must refer supplement questions to RD/physician"]},
+    {name:"Evidence-Supported",points:["Creatine (load 20 g, maintain 3–5 g)","Caffeine (3–6 mg/kg, 30–60 min pre)","Whey/casein protein; sodium bicarbonate; β-alanine","Little/no evidence: glutamine, arginine, carnitine"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"Which Dietary Reference Intake (DRI) is set to meet the nutritional needs of 97–98% of healthy individuals in a given age and sex group?", opts:["Estimated Average Requirement (EAR)","Recommended Dietary Allowance (RDA)","Tolerable Upper Intake Level (UL)","Adequate Intake (AI)"], c:1, exp:"The RDA meets the requirements of 97–98% of healthy individuals. The EAR meets only 50%, the UL is the safe maximum, and the AI is used when data are insufficient to set an EAR/RDA." },
+  { q:"The Estimated Average Requirement (EAR) is defined as the intake that meets the needs of approximately:", opts:["10% of the population","50% of the age/sex group","75% of the population","97–98% of the group"], c:1, exp:"The EAR is adequate for 50% of an age/sex group. Intake below the EAR is likely inadequate; the RDA is derived from the EAR." },
+  { q:"The Tolerable Upper Intake Level (UL) is MOST useful for assessing:", opts:["Whether intake is adequate for athletes","Risk of nutrient toxicity or adverse effects","Daily calorie needs","Protein quality"], c:1, exp:"The UL is the highest intake unlikely to cause adverse effects, so it helps assess the risk of toxicity — especially relevant with supplement use." },
+  { q:"The Adequate Intake (AI) value is used when:", opts:["A nutrient already has a well-established RDA","There is insufficient scientific data to set an EAR or RDA","The nutrient is toxic at low doses","The nutrient is only needed by athletes"], c:1, exp:"An AI is established when evidence is insufficient to determine an EAR (and therefore an RDA). Intake at or above the AI is considered likely sufficient." },
+  { q:"The Acceptable Macronutrient Distribution Range (AMDR) for protein in adults is:", opts:["5–10% of total calories","10–35% of total calories","45–65% of total calories","20–35% of total calories"], c:1, exp:"Protein's AMDR is 10–35% of total daily calories. Carbohydrate is 45–65% and total fat is 20–35%." },
+  { q:"The AMDR for total fat in adults is:", opts:["10–20% of total calories","20–35% of total calories","35–50% of total calories","45–65% of total calories"], c:1, exp:"Total fat's AMDR is 20–35% of total daily calories, while saturated fat should be limited to less than 10%." },
+  { q:"The Recommended Dietary Allowance (RDA) for protein for the average adult is:", opts:["0.4 g/kg/day","0.8 g/kg/day","1.2 g/kg/day","2.0 g/kg/day"], c:1, exp:"The protein RDA is 0.8 g/kg of body weight per day for the general adult population; athletes often require more." },
+  { q:"According to ACE's position, which of the following is clearly WITHIN a personal trainer's nutrition scope of practice?", opts:["Designing an individualized 1,800-calorie meal plan","Sharing federal Dietary Guidelines and MyPlate recommendations","Performing a nutritional assessment to determine nutrient status","Prescribing a supplement regimen"], c:1, exp:"Sharing evidence-based federal guidelines (Dietary Guidelines for Americans, MyPlate) is within scope for all trainers. Individualized meal plans, nutritional assessment, and prescribing supplements are outside scope." },
+  { q:"Which action is OUTSIDE the nutrition scope of practice for all personal trainers?", opts:["Distributing nutrition material developed by a registered dietitian","Referring a client to an RD","Providing individualized meal plans and specific caloric targets","Discussing general nutrition topics covered by ACE certification"], c:2, exp:"Creating individualized meal plans, caloric targets, or specialty-diet prescriptions is outside scope regardless of the trainer's knowledge — those require a registered dietitian." },
+  { q:"Among the three healthy dietary patterns, which contains the MOST fruit and seafood and the LEAST dairy?", opts:["Healthy U.S.-Style","Healthy Mediterranean-Style","Healthy Vegetarian","DASH pattern"], c:1, exp:"The Mediterranean-Style pattern has more fruits and seafood and less dairy, meat, and poultry than the U.S.-Style pattern, and is associated with reduced CVD and type 2 diabetes risk." },
+  { q:"Approximately what percentage of total daily calories should come from nutrient-dense foods to meet nutrient needs?", opts:["About 50%","About 65%","About 85%","About 95%"], c:2, exp:"Roughly 85% of calories are needed for nutrient-dense foods to meet requirements, leaving about 15% for added sugars, saturated fat, and alcohol." },
+  { q:"The Dietary Guidelines recommend that whole grains make up at least:", opts:["One-quarter of total grains","Half of total grains","Two-thirds of total grains","All grains consumed"], c:1, exp:"At least half of all grains consumed should be whole grains. On a label, 'whole grain' should be the first or second ingredient." },
+  { q:"Why are coconut, almond, and rice 'milks' NOT classified as dairy by the Dietary Guidelines?", opts:["They contain no calories","Their overall nutritional value is not similar to dairy milk","They are always unfortified","They contain animal protein"], c:1, exp:"Plant 'milks' (except fortified soy) are not classified as dairy because their overall nutrient profile differs from dairy milk." },
+  { q:"On the Nutrition Facts panel, a nutrient providing 20% Daily Value (%DV) per serving is generally considered:", opts:["Low","Moderate","High","Negligible"], c:2, exp:"The general rule is that 5% DV or less is low and 20% DV or more is high — a quick way to judge a food's contribution of a nutrient." },
+  { q:"Which type of food-label claim must be FDA-authorized or based on an authoritative scientific body's statement?", opts:["Structure/function claim","Nutrient content claim","Health claim","Serving-size statement"], c:2, exp:"Health claims link a food/component to disease prevention and require FDA authorization. Structure/function claims need no preapproval but carry an FDA disclaimer." },
+  { q:"A key change in the 2016 Nutrition Facts label redesign was:", opts:["Adding 'calories from fat'","Listing added sugars separately with a %DV","Removing serving sizes entirely","Requiring vitamins A and C"], c:1, exp:"The redesign added 'added sugars' (grams + %DV), enlarged calories/serving size, required vitamin D and potassium, removed 'calories from fat,' and dropped the vitamin A/C requirement." },
+  { q:"Under DSHEA, dietary supplements are:", opts:["Tested by the FDA for safety and efficacy before sale","Considered safe until proven unsafe — not FDA-evaluated before going to market","Banned unless proven effective","Regulated identically to prescription drugs"], c:1, exp:"DSHEA treats supplements as safe until proven unsafe; the FDA does not evaluate them before they reach the market. Trainers must refer supplement questions to an RD or physician." },
+  { q:"The DASH eating plan was developed primarily to manage which condition, and lowers systolic blood pressure by roughly:", opts:["Diabetes; 10–15 mmHg","Hypertension; 5–6 mmHg","Obesity; 8–10 mmHg","High cholesterol; 2–3 mmHg"], c:1, exp:"DASH targets hypertension and lowers systolic BP by about 5–6 mmHg. It is rich in potassium, magnesium, calcium, protein, and fiber and low in saturated fat and sodium." },
+  { q:"For optimal glycogen replenishment after prolonged endurance exercise, the recommended carbohydrate intake is:", opts:["0.3 g/kg/hour","1.2 g/kg/hour in 15–30 min intervals","3.5 g/kg in one large meal","5 g/kg/hour"], c:1, exp:"About 1.2 g/kg/hour at 15–30 minute intervals during the first 4–6 hours post-exercise optimizes glycogen resynthesis; small frequent doses beat one large bolus." },
+  { q:"Which supplement has robust evidence as an ergogenic aid at a dose of 3–6 mg/kg taken 30–60 minutes pre-exercise?", opts:["Glutamine","Arginine","Caffeine","Carnitine"], c:2, exp:"Caffeine (3–6 mg/kg, 30–60 min pre-exercise) has strong evidence for aerobic and anaerobic performance. Glutamine, arginine, and carnitine lack consistent ergogenic support." },
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"The AMDR for carbohydrate is ________ percent of total daily calories.", a:"45 to 65", hint:"Two numbers — e.g. '45 to 65'." },
+  { q:"The recommended sodium intake for most adults is less than ________ milligrams per day.", a:"2300", hint:"Type without a comma: 2300 mg." },
+  { q:"The post-exercise carbohydrate dose for optimal glycogen replenishment is ________ grams per kilogram body weight per hour.", a:"1.2", hint:"A decimal between 1 and 1.5." },
+  { q:"The evidence-based caffeine dose for ergogenic effects is ________ mg/kg body weight, taken 30–60 minutes before exercise.", a:"3 to 6", hint:"A range — e.g. '3 to 6'." },
+  { q:"The ________ eating plan was developed to lower blood pressure and is rich in potassium, magnesium, calcium, protein, and fiber.", a:"DASH", hint:"Four-letter acronym." },
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"A personal trainer with advanced nutrition knowledge is permitted to create individualized meal plans and caloric targets for clients.", a:false, exp:"False. Individualized meal plans, caloric targets, and nutritional programming are outside the ACE CPT scope regardless of knowledge — they require a registered dietitian." },
+  { q:"The 2020–2025 Dietary Guidelines recommend that at least half of all grains consumed be whole grains.", a:true, exp:"True. At least half of grain intake should be whole grains; 'whole grain' should appear as the first or second ingredient on the label." },
+  { q:"Consuming 30–60 grams of carbohydrate per hour is recommended for exercise sessions lasting more than 60 minutes.", a:true, exp:"True. For prolonged moderate-to-vigorous exercise over 60 minutes, consume 30–60 g carbohydrate per hour in 15–20 minute intervals." },
+  { q:"Hyponatremia results from drinking too little fluid during prolonged exercise and is the same as dehydration.", a:false, exp:"False. Hyponatremia is low blood sodium from EXCESSIVE fluid intake (beyond sweat losses) — the opposite mechanism from dehydration." },
+  { q:"Structure/function claims on supplement labels must be preapproved by the FDA before they can be used.", a:false, exp:"False. Structure/function claims do not require FDA preapproval, but they must carry a disclaimer that the FDA has not evaluated the claim." },
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  {
+    num: 1,
+    topic: "Nutrition Scope Boundaries — Rena",
+    scenario: "Rena is an ACE CPT whose client asks her to: (1) create a 1,500-calorie meal plan with specific macro targets, (2) recommend supplements for weight loss, and (3) share information about the DASH eating plan for his recently diagnosed hypertension. Rena also wants to use the MyPlate resources at myplate.gov to help the client understand food groups.",
+    qs: [
+      { q:"Which of Rena's client requests is WITHIN her scope of practice?", opts:["Creating a 1,500-calorie meal plan with specific macro targets","Recommending specific weight-loss supplements","Sharing information about the DASH eating plan using federal government resources","Prescribing a caloric deficit based on the client's body weight"], ans:2, exp:"Sharing the DASH eating plan from federal government resources is within scope. Meal plans, supplement recommendations, and prescribing caloric deficits are outside the ACE CPT scope." },
+      { q:"Which action is appropriate when the client asks for specific supplement recommendations for weight loss?", opts:["Recommend supplements if Rena has personally researched them","Decline to recommend; educate on general supplement safety and refer to RD or physician","Provide a list of commonly used weight-loss supplements with a disclaimer","Recommend supplements endorsed by the American Council on Exercise"], ans:1, exp:"Recommending specific supplements is outside the ACE CPT scope regardless of personal knowledge. Educate on safety and refer to an RD or physician." },
+      { q:"The AMDR for carbohydrate intake for adults is:", opts:["10–35% of daily calories","20–35% of daily calories","45–65% of daily calories","50–70% of daily calories"], ans:2, exp:"The Acceptable Macronutrient Distribution Range (AMDR) for carbohydrates is 45–65% of total daily calories for adults." },
+      { q:"What is the recommended dairy intake per day for most adults according to the Dietary Guidelines?", opts:["1 cup per day","2 cups per day","3 cups per day","4 cups per day"], ans:2, exp:"The Dietary Guidelines recommend 3 cups per day of dairy or fortified soy products for most adults." },
+      { q:"The DASH eating plan primarily benefits which condition, and by approximately how much does it lower systolic blood pressure?", opts:["Type 2 diabetes; lowers SBP by 10–15 mmHg","Hypertension; lowers SBP by approximately 5–6 mmHg","High LDL cholesterol; lowers SBP by 3–4 mmHg","Obesity; lowers SBP by 8–10 mmHg"], ans:1, exp:"The DASH eating plan was developed for hypertension management. It lowers systolic blood pressure by approximately 5–6 mmHg and also reduces cardiovascular disease risk." }
+    ]
+  },
+  {
+    num: 2,
+    topic: "Dietary Guidelines & Food Groups — Marcus",
+    scenario: "Marcus is working with a client who wants to improve their overall diet quality. The client asks about the 2020–2025 Dietary Guidelines, MyPlate, and which foods are most important to add to their diet. They also ask about the difference between whole grains and refined grains and how to identify them on food labels.",
+    qs: [
+      { q:"What percentage of daily calories should come from added sugars according to the 2020–2025 Dietary Guidelines?", opts:["Less than 5%","Less than 10%","Less than 15%","Less than 20%"], ans:1, exp:"The 2020–2025 Dietary Guidelines recommend limiting added sugars to less than 10% of total daily calories." },
+      { q:"How should a client identify a whole grain product on a food label?", opts:["The word 'wheat' appears anywhere in the ingredient list","'Whole grain' is listed as the first or second ingredient","The product contains more than 5 grams of fiber per serving","The package displays the 'Made with Whole Grains' claim"], ans:1, exp:"For a product to be considered a whole grain product, 'whole grain' should be the first or second ingredient on the label." },
+      { q:"Which dietary pattern contains the most fruit and seafood and the least dairy compared to the others?", opts:["Healthy U.S.-Style Dietary Pattern","Healthy Vegetarian Dietary Pattern","Healthy Mediterranean-Style Dietary Pattern","Healthy DASH Dietary Pattern"], ans:2, exp:"The Healthy Mediterranean-Style Dietary Pattern contains more fruits and seafood and less dairy, meats, and poultry compared to the Healthy U.S.-Style Dietary Pattern." },
+      { q:"What percentage of a 2,000-calorie diet is needed to meet nutrient requirements in nutrient-dense forms?", opts:["70%","75%","85%","95%"], ans:2, exp:"Approximately 85% of total daily calories are needed to meet nutrient recommendations from nutrient-dense forms, leaving about 15% for discretionary use." },
+      { q:"Which statement about coconut, almond, and rice 'milks' is TRUE per the Dietary Guidelines?", opts:["They are classified as dairy equivalents if fortified with calcium","They are NOT classified as dairy because their overall nutritional value is not similar to dairy milk","They count as 1 cup of dairy if calcium content is equivalent","They are equivalent to dairy milk for all nutrients except vitamin D"], ans:1, exp:"The Dietary Guidelines do not consider plant 'milks' as dairy because their overall nutritional value is not similar to dairy milk and fortified soy beverages." }
+    ]
+  },
+  {
+    num: 3,
+    topic: "Food Labels & Claims — DeShawn",
+    scenario: "DeShawn helps clients shop smarter at the grocery store. He conducts grocery store tours and teaches food label reading. A client asks about health claims on supplement labels, how to identify added sugars, and how to interpret percent daily values on the Nutrition Facts panel.",
+    qs: [
+      { q:"On a food label, a percent daily value (%DV) of 5% is considered:", opts:["High","Moderate","Low","Excessive"], ans:2, exp:"The general rule is that 5% DV or less is considered low, while 20% DV or more is considered high." },
+      { q:"Which type of food label claim requires FDA preapproval or authorization from an authoritative scientific body?", opts:["Structure/function claims","Nutrient content claims","Health claims","Front-of-package claims"], ans:2, exp:"Health claims — describing a relationship between a food/component and disease prevention — must be FDA-authorized or based on an authoritative statement of a federal scientific body." },
+      { q:"A supplement label states: 'Supports healthy immune function.' This is an example of which type of claim?", opts:["Health claim","Qualified health claim","Structure/function claim","Nutrient content claim"], ans:2, exp:"Structure/function claims describe a nutrient's role in normal body function. They do not require FDA preapproval but must include a disclaimer that FDA has not evaluated the claim." },
+      { q:"Which is a significant change in the 2016 Nutrition Facts label redesign?", opts:["Calories from fat are now required on all labels","Vitamins A and C are now required additions","Added sugars are now listed separately with a percent daily value","Serving sizes are now based on recommended amounts, not typical consumption"], ans:2, exp:"The 2016 redesign added 'added sugars' to the label. Calories from fat were removed, vitamins A and C are no longer required, and serving sizes reflect typical consumption." },
+      { q:"If a client picks up a product listing 'partially hydrogenated soybean oil' in the ingredient list, what does this indicate?", opts:["The product is high in polyunsaturated fats","The product contains artificial trans fat","The product contains healthy unsaturated fats","The product is free of saturated fat"], ans:1, exp:"'Partially hydrogenated oils' is the primary source of artificial trans fat. The FDA no longer recognizes artificial trans fats as safe and they have been banned from food production." }
+    ]
+  },
+  {
+    num: 4,
+    topic: "Pre- & During-Exercise Nutrition — Priya",
+    scenario: "Priya is preparing a client — a recreational triathlete — for an Olympic-distance triathlon (~2 hours of racing). They need guidance on pre-race fueling strategy, what to consume during the event, and how to experiment with nutrition in training.",
+    qs: [
+      { q:"How many hours before a long-duration event should the pre-race meal be eaten?", opts:["1–2 hours","2–3 hours","4–6 hours","6–8 hours"], ans:2, exp:"Athletes should eat their pre-exercise meal about 4–6 hours before exercise to minimize GI distress and optimize glycogen stores." },
+      { q:"What is the recommended carbohydrate intake per hour during exercise lasting more than 60 minutes?", opts:["10–20 grams per hour","30–60 grams per hour","60–90 grams per hour","100–120 grams per hour"], ans:1, exp:"Athletes should consume 30–60 grams of carbohydrate per hour during prolonged moderate-to-vigorous exercise lasting more than 60 minutes." },
+      { q:"Why should carbohydrates during exercise be consumed in 15–20 minute intervals rather than as a single large bolus?", opts:["Large boluses cause excessive insulin release that impairs performance","Smaller frequent amounts are more effective at maintaining blood glucose","The digestive system cannot absorb more than 15 grams at a time","Smaller amounts reduce the risk of hyponatremia during prolonged events"], ans:1, exp:"Carbohydrate consumption is more effective in small amounts at 15–20 minute intervals rather than as a large bolus, better maintaining steady blood glucose." },
+      { q:"The optimal carbohydrate concentration in sports drinks for gastric emptying is:", opts:["2–4%","6–8%","10–12%","15–20%"], ans:1, exp:"A carbohydrate concentration of approximately 6–8% has little effect on gastric emptying speed, making this the optimal range for fluid and carbohydrate delivery." },
+      { q:"What is the recommended carbohydrate range per kg body weight for a pre-exercise meal?", opts:["0.5–1.0 g/kg","1.0–4.5 g/kg","5.0–8.0 g/kg","8.0–10.0 g/kg"], ans:1, exp:"Most credible sources recommend 1.0–4.5 grams of carbohydrate per kilogram of body weight for the pre-exercise meal, depending on food type and timing." }
+    ]
+  },
+  {
+    num: 5,
+    topic: "Post-Exercise Recovery & Hydration — Kenji",
+    scenario: "Kenji coaches endurance athletes and wants to build an optimal post-exercise recovery protocol. One athlete completed a 3-hour marathon training run. Another is concerned about hydration, having heard about both dehydration and hyponatremia among marathon runners.",
+    qs: [
+      { q:"What is the recommended post-exercise carbohydrate dose for optimal glycogen replenishment?", opts:["0.5 g/kg/hour","0.8 g/kg/hour","1.2 g/kg/hour","2.0 g/kg/hour"], ans:2, exp:"It is recommended to ingest 1.2 grams/kg/hour of carbohydrate at 15–30 minute intervals immediately post-exercise to optimize muscle glycogen repletion." },
+      { q:"Which post-exercise carbohydrate approach produces the BEST glycogen replenishment?", opts:["One large carbohydrate meal 2–3 hours after exercise","Small frequent carbohydrate doses at 15–30 minute intervals in the first 4–6 hours","Protein-only meals immediately post-exercise, followed by carbohydrates the next day","Fasting for 1 hour post-exercise then eating a large balanced meal"], ans:1, exp:"Eating carbohydrates in smaller amounts more frequently is more effective at restoring muscle glycogen than infrequent large boluses." },
+      { q:"What volume of fluid should be consumed after exercise if rapid rehydration is needed?", opts:["0.5 L per kg body weight lost","1.0 L per kg body weight lost","1.5 L per kg body weight lost","2.0 L per kg body weight lost"], ans:2, exp:"If rapid recovery is needed, athletes should drink 1.5 L of fluid per kg (23 oz per lb) of body weight lost." },
+      { q:"What was the greatest predictor of hyponatremia in the Boston Marathon study?", opts:["Female sex","High exercise intensity","Weight gain during the race from excessive fluid intake","Finishing in under 4 hours"], ans:2, exp:"Weight gain during the run — attributed to excessive fluid intake exceeding sweat losses — was the greatest predictor of hyponatremia." },
+      { q:"How much fluid should athletes consume before exercise, and how far in advance?", opts:["2–4 mL/kg, 1 hour before","5–7 mL/kg, at least 4 hours before exercise","10–14 mL/kg, at least 6 hours before exercise","15–20 mL/kg, 2 hours before exercise"], ans:1, exp:"Athletes should drink 5–7 mL/kg at least 4 hours before exercise (approximately 12–17 oz for a 154-lb individual) to begin exercise euhydrated." }
+    ]
+  },
+  {
+    num: 6,
+    topic: "Supplement Safety & Evidence — Amara",
+    scenario: "Amara is an ACE CPT whose clients frequently ask about nutritional supplements. One client asks about creatine for strength training, another wants to know about caffeine for endurance performance, and a third asks about glutamine for recovery.",
+    qs: [
+      { q:"What is the standard creatine loading dose and duration?", opts:["5g/day for 7 days","10g/day for 3 days","20g/day (4 doses of 5g) for 5–7 days, then 3–5g/day maintenance","30g/day for 10 days, then 10g/day maintenance"], ans:2, exp:"The standard creatine loading protocol is 20g/day (4×5g doses) for 5–7 days, followed by a maintenance dose of 3–5g/day." },
+      { q:"What is the evidence-based recommended caffeine dose and timing for ergogenic effects?", opts:["1–2 mg/kg body weight, 15–30 minutes before exercise","3–6 mg/kg body weight, 30–60 minutes before exercise","8–10 mg/kg body weight, 60–90 minutes before exercise","10–15 mg/kg body weight, 2 hours before exercise"], ans:1, exp:"The recommended caffeine dose is ~3–6 mg/kg body weight ingested 30–60 minutes prior to exercise." },
+      { q:"When a client asks Amara to recommend a specific creatine brand and dose, what should she do?", opts:["Recommend the brand and dose since creatine is evidence-based","Recommend the dose only, not the brand","Decline to recommend a specific supplement and refer the client to an RD or physician","Recommend only if the client has been training for at least 6 months"], ans:2, exp:"Even for evidence-based supplements like creatine, recommending specific supplements is outside the ACE CPT scope of practice. Refer to an RD or physician." },
+      { q:"Which statement about glutamine supplementation is MOST accurate based on current research?", opts:["Glutamine significantly increases lean body mass in most athletes","Glutamine is the most effective supplement for post-exercise recovery","There is insufficient scientific evidence to support glutamine for lean mass or muscular performance","Glutamine works best when combined with creatine for strength gains"], ans:2, exp:"Research found insufficient scientific evidence to support glutamine supplementation for increases in lean body mass or muscular performance." },
+      { q:"β-Alanine supplementation primarily benefits which type of exercise?", opts:["Low-intensity endurance exercise lasting more than 4 hours","High-intensity exercise lasting between 60 and 240 seconds","Sprint intervals of less than 30 seconds","Steady-state aerobic exercise at 60–70% VO₂max"], ans:1, exp:"In a meta-analysis, β-alanine supplementation benefited performance of high-intensity exercise lasting between 60 and 240 seconds via carnosine-mediated pH regulation." }
+    ]
+  },
+  {
+    num: 7,
+    topic: "Weight Management & Application — Coach Leon",
+    scenario: "Coach Leon works with a diverse adult population focused on weight management and general health. He uses the NIH Body Weight Planner, MyPlate food group checklists, and grocery store tours. One client has a limited budget and cultural food preferences that don't align with typical Dietary Guidelines recommendations.",
+    qs: [
+      { q:"Approximately how many calories are in one pound of fat, and what daily deficit leads to 1–2 lbs/week weight loss?", opts:["2,500 calories; 250–500 cal/day deficit","3,000 calories; 375–750 cal/day deficit","3,500 calories; 500–1,000 cal/day deficit","4,000 calories; 600–1,200 cal/day deficit"], ans:2, exp:"There are approximately 3,500 calories in a pound of fat. A 500–1,000 calorie/day deficit leads to approximately 1–2 pounds of weight loss per week." },
+      { q:"Which is a key advantage of combining exercise with dietary restriction for weight loss versus diet only?", opts:["Exercise eliminates the need for caloric restriction","Combined diet + exercise reaches a 5% weight reduction faster (66 days vs. 80 days in one RCT) and preserves muscle mass","Exercise alone is more effective than diet alone for long-term weight loss","Combining exercise with diet restriction always doubles the rate of weight loss"], ans:1, exp:"A combined diet + exercise approach achieved 5% weight reduction in 66 days vs. 80 days for diet only. Exercise also helps reduce visceral fat, preserve muscle mass, and prevent weight regain." },
+      { q:"A client with a limited food budget asks about eating healthfully without overspending. Which response is WITHIN scope?", opts:["Prescribe a specific weekly meal plan optimized for the client's budget","Recommend a caloric deficit of exactly 400 calories/day based on height and weight","Share Dietary Guidelines strategies: varied produce forms, buying seasonal, planning ahead","Refer the client to a financial advisor before providing any nutrition guidance"], ans:2, exp:"Sharing strategies from federal guidelines (varied produce forms, seasonal buying, planning ahead) to support healthy eating on a budget is within scope." },
+      { q:"Which free government tool creates a personalized eating plan based on age, height, weight, and activity level?", opts:["The NIH Body Weight Planner at nhlbi.nih.gov","MyPlate Plan at myplate.gov/myplate-plan","The DRI Interactive Calculator at nal.usda.gov","The ACE Nutrition Scope Calculator at ACEfitness.org"], ans:1, exp:"MyPlate Plan at myplate.gov/myplate-plan allows users to enter their stats to get personalized serving targets across all five food groups." },
+      { q:"A client's cultural food preferences differ from typical Dietary Guidelines recommendations. Which response is MOST appropriate?", opts:["Tell the client their traditional diet is incompatible with good nutrition","Ignore cultural preferences and focus solely on the US-Style Dietary Pattern","Acknowledge that the Guidelines are a flexible framework customizable to include cultural foods","Refer immediately to a cultural dietitian — this is outside a trainer's scope"], ans:2, exp:"The Dietary Guidelines are designed as a flexible framework that can accommodate cultural traditions, personal preferences, and individual food choices." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Excellent! Strong command of nutrition scope, dietary guidelines, sports nutrition, and supplements.',
+    B: 'Good work. Review any wrong answers — check scope boundaries and supplement evidence.',
+    C: 'Passing, but worth another review — especially AMDR values, hydration, and sports-nutrition timing.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>
