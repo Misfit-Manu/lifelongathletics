@@ -1,0 +1,960 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 2 — The ACE Integrated Fitness Training Model | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 2 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 2</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 2</div>
+  <h1>The ACE <em>Integrated Fitness Training®</em> Model</h1>
+  <p>A systematic approach to designing, implementing, and modifying personalized exercise programs — two independent components, six phases, one client-centered foundation.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 2 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-2-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Continuum · IFT Structure · Mover Method · Cardiorespiratory &amp; Muscular Phases</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 2 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 2 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>The Two Components &amp; <em>Six Phases</em></h3>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px">The components are <strong style="color:var(--text)">independent</strong> — any cardiorespiratory phase can be combined with any muscular phase.</p>
+      <table class="ref-table">
+        <tr><th>🫀 Cardiorespiratory Training</th><th>💪 Muscular Training</th></tr>
+        <tr><td><strong>Base</strong> — build aerobic base (below VT1)</td><td><strong>Functional</strong> — postural stability &amp; kinetic chain mobility</td></tr>
+        <tr><td><strong>Fitness</strong> — efficiency (at/above VT1 to below VT2)</td><td><strong>Movement</strong> — 5 primary movement patterns</td></tr>
+        <tr><td><strong>Performance</strong> — events (intervals at/above VT2)</td><td><strong>Load/Speed</strong> — external load, force, power</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Cardiorespiratory <em>Phases</em></h3>
+      <table class="ref-table">
+        <tr><th>Phase</th><th>Intensity</th><th>RPE (0–10)</th></tr>
+        <tr><td>Base</td><td>Below VT1 (talk test)</td><td>3–4</td></tr>
+        <tr><td>Fitness</td><td>At/above VT1 → below VT2</td><td>5–6</td></tr>
+        <tr><td>Performance</td><td>Intervals at/above VT2</td><td>7–10</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>VT1</strong><span>First ventilatory threshold — talk becomes noticeably harder (talk-test point)</span></div>
+      <div class="key-term"><strong>VT2</strong><span>Second ventilatory threshold — speech not possible during exercise</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Muscular <em>Phases</em></h3>
+      <div class="key-term"><strong>Functional Training</strong><span>Establish postural stability &amp; kinetic chain mobility. Body-weight, balance, core, COG control.</span></div>
+      <div class="key-term"><strong>Movement Training</strong><span>Develop the 5 primary movement patterns without compromising stability. COG control through full ROM.</span></div>
+      <div class="key-term"><strong>Load/Speed Training</strong><span>Apply external loads for force production, hypertrophy, power, speed/agility. Requires a strength foundation first.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>5 Primary <em>Movement Patterns</em></h3>
+      <div class="key-term"><strong>Bend-and-Lift</strong><span>Sit, stand, squat, lift from floor</span></div>
+      <div class="key-term"><strong>Single-Leg</strong><span>Walking, stairs, lunging</span></div>
+      <div class="key-term"><strong>Pushing</strong><span>Forward, overhead, lateral, downward</span></div>
+      <div class="key-term"><strong>Pulling</strong><span>Rows, pull-ups, opening doors</span></div>
+      <div class="key-term"><strong>Rotational</strong><span>Torso rotation, throwing, golf, dance</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>ACE Mover Method™ &amp; <em>ABC Approach</em></h3>
+      <div class="key-term"><strong>Mover Method</strong><span>Client-centered; clients are foremost experts on themselves; open-ended questions + active listening; clients are resourceful and capable of change.</span></div>
+      <div class="key-term"><strong>A — Ask</strong><span>Open-ended questions to identify goals and enjoyed activities</span></div>
+      <div class="key-term"><strong>B — Break down barriers</strong><span>What to start / stop doing to reach goals</span></div>
+      <div class="key-term"><strong>C — Collaborate</strong><span>Set SMART goals; let the client lead progress monitoring</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Foundations &amp; <em>Assessments</em></h3>
+      <div class="key-term"><strong>Foundation</strong><span>The client–trainer relationship (rapport, trust, empathy). The trainer is a coach.</span></div>
+      <div class="key-term"><strong>Goal of every session</strong><span>The client wanting to return for the next session</span></div>
+      <div class="key-term"><strong>Fitness assessments</strong><span>NOT mandatory for many clients — early sessions can serve as assessments</span></div>
+      <div class="key-term"><strong>Health screening</strong><span>REQUIRED for all clients (see Chapter 5)</span></div>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Continuum &amp; <em>Research Evidence</em></h3>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px"><strong style="color:var(--text)">Function → Health → Fitness → Performance.</strong> Clients move along this continuum based on lifecycle and lifestyle factors. Meet clients where they are.</p>
+      <table class="ref-table">
+        <tr><th>Outcome (% responders)</th><th>Standardized</th><th>ACE IFT Model</th></tr>
+        <tr><td>Systolic blood pressure</td><td class="tag-flat">42.9%</td><td class="tag-dn">100%</td></tr>
+        <tr><td>HDL cholesterol</td><td class="tag-flat">50.0%</td><td class="tag-dn">100%</td></tr>
+        <tr><td>Blood glucose</td><td class="tag-flat">42.9%</td><td class="tag-dn">92.9%</td></tr>
+        <tr><td>Percent body fat</td><td class="tag-flat">78.6%</td><td class="tag-dn">100%</td></tr>
+        <tr><td>5-RM bench press</td><td class="tag-flat">64.3%</td><td class="tag-dn">100%</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Non-responders</strong><span>35.7% of the standardized group were non-responders to cardiorespiratory training — vs. far fewer with personalized ACE IFT programming.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 2: The ACE Integrated Fitness Training® Model
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"TRADITIONAL VS CONTEMPORARY TRAINING",color:"#22d3ee",subs:[
+    {name:"Traditional Parameters",points:["Cardiorespiratory (aerobic) fitness","Muscular endurance","Muscular strength","Flexibility"]},
+    {name:"Contemporary Additions",points:["Health-behavior change","Metabolic markers (ventilatory thresholds)","Postural stability / kinetic chain mobility","Movement efficiency; core conditioning"]},
+    {name:"Why It Evolved",points:["Population is aging, inactive, overweight","Training now serves the full health spectrum","Client-centered, not just fitness-focused","Balance, agility, coordination, reaction time added"]},
+    {name:"Cardiorespiratory Update",points:["Now includes aerobic AND anaerobic fitness","Intensity by ventilatory thresholds (VT1/VT2)","Not just %HRmax or %VO₂max","Personalized to each client's physiology"]}
+  ]},
+  {id:2,name:"FUNCTION–HEALTH–FITNESS–PERFORMANCE CONTINUUM",color:"#3b82f6",subs:[
+    {name:"The Continuum",points:["Function — ADLs, basic movement","Health — reduce chronic disease risk","Fitness — cardiorespiratory & muscular","Performance — athletic goals"]},
+    {name:"It's a Spectrum",points:["Fitness is not a fixed state","Clients ebb and flow along the continuum","Meet clients where they are","Program from their current position"]},
+    {name:"Lifecycle Factors",points:["Infant/child development","Adolescent growth spurts","Adulthood and pregnancy","Aging — natural regression"]},
+    {name:"Lifestyle Factors (Regression)",points:["Smoking, excessive alcohol","Poor nutrition","Inadequate sleep","Insufficient physical activity"]}
+  ]},
+  {id:3,name:"ACE IFT MODEL — STRUCTURE",color:"#fb923c",subs:[
+    {name:"Two Components",points:["Cardiorespiratory Training (3 phases)","Muscular Training (3 phases)","Each based on different goals","Organizes exercise science + behavior research"]},
+    {name:"Independence",points:["Components are independent of each other","Any CR phase + any Muscular phase","Endurance athlete may need Functional (Muscular)","Weight lifter may need Base (Cardiorespiratory)"]},
+    {name:"Cardiorespiratory Phases",points:["Base — build aerobic base","Fitness — enhance aerobic efficiency","Performance — events/competition","Intensity via VT1 & VT2"]},
+    {name:"Muscular Phases",points:["Functional — stability & mobility","Movement — 5 movement patterns","Load/Speed — load, force, power","Functional work continues throughout"]}
+  ]},
+  {id:4,name:"CLIENT-CENTERED APPROACH",color:"#a78bfa",subs:[
+    {name:"The Foundation",points:["Client–trainer relationship is the foundation","Built on rapport, trust, empathy","Trainer is a 'coach,' not a director","The client comes first"]},
+    {name:"Goal of Every Session",points:["Client wanting to return for the next session","Adequate yet achievable challenge","Progress matched to gains since last session","Build positive exercise experiences"]},
+    {name:"Assessments Not Always Mandatory",points:["Fitness assessments not required for many clients","Health screening IS required for all (Ch5)","Ask: is it necessary? Is the client interested?","Early sessions can serve as assessments"]},
+    {name:"Early Sessions = Data",points:["Observe postural stability & joint mobility","Observe functional movement","Gauge cardiorespiratory & muscular fitness","Get clients moving right away"]}
+  ]},
+  {id:5,name:"ACE MOVER METHOD & ABC APPROACH",color:"#06b6d4",subs:[
+    {name:"Mover Method — 3 Tenets",points:["Each interaction is client-centered","Clients are the foremost experts on themselves","Open-ended questions + active listening every session","Clients are resourceful and capable of change"]},
+    {name:"A — Ask",points:["Open-ended questions","Identify what the client hopes to accomplish","Discover enjoyed physical activities","Position the client as an active partner"]},
+    {name:"B — Break Down Barriers",points:["Discover barriers to specific goals","'What do you need to START doing?'","'What do you need to STOP doing?'","Identify goals and options for change"]},
+    {name:"C — Collaborate",points:["Set SMART goals together","Establish specific action steps","Let the client lead progress monitoring","Empower ownership of the journey"]}
+  ]},
+  {id:6,name:"CARDIORESPIRATORY TRAINING — 3 PHASES",color:"#10b981",subs:[
+    {name:"Base Training",points:["For clients not doing ≥20 min, ≥3 days/week","Build initial aerobic base; positive experiences","Moderate intensity below VT1 (RPE 3–4)","No CR assessments; monitor with talk test"]},
+    {name:"Fitness Training",points:["Enhance aerobic efficiency","Integrate exercise at/above VT1 to below VT2","RPE 5–6 intervals blended with moderate","Progress duration and frequency"]},
+    {name:"Performance Training",points:["For event/competition goals beyond finishing","High-intensity intervals at/above VT2 (RPE 7–10)","Periodized training plans","More moderate volume as total volume rises"]},
+    {name:"Progression Trigger",points:["Base → Fitness: ≥20 min below talk test, ≥3 days/wk","Talk test identifies VT1","VT2 = speech not possible","Thresholds replace %HRmax/%VO₂max"]}
+  ]},
+  {id:7,name:"MUSCULAR TRAINING — 3 PHASES",color:"#fb923c",subs:[
+    {name:"Functional Training",points:["Establish postural stability & kinetic chain mobility","Body-weight resistance; static/dynamic balance","Control center of gravity (COG)","Continues in later phases as warm-up/progression"]},
+    {name:"Movement Training",points:["Develop good movement patterns","No compromise to postural/joint stability","Proper sequencing; COG control through ROM","All 5 patterns in varied planes"]},
+    {name:"Load/Speed Training",points:["Apply external loads → increased force","Strength, endurance, hypertrophy, body comp","Athletic: speed, agility, quickness, power","Requires stability + movement + strength base"]},
+    {name:"5 Primary Movement Patterns",points:["Bend-and-lift (squat/lift)","Single-leg (walk, stairs, lunge)","Pushing & Pulling","Rotational (throwing, golf, dance)"]}
+  ]},
+  {id:8,name:"BEHAVIOR CHANGE & RESEARCH EVIDENCE",color:"#059669",subs:[
+    {name:"Key Behavior-Change Steps",points:["Build rapport; identify stage of change","Create supportive, motivating climate","Build self-efficacy via positive experiences","Implement relapse-prevention strategies"]},
+    {name:"Motivation & Goals",points:["Transition extrinsic → intrinsic motivation","Set realistic short- and long-term goals","Foster self-reliance and ownership","Factor external stressors into total fatigue"]},
+    {name:"Research: IFT vs Standardized",points:["IFT produced more responders across all outcomes","Blood glucose: 42.9% vs 92.9% responders","Body fat & 5-RM lifts: up to 100% responders","35.7% of standardized group were non-responders"]},
+    {name:"Bottom Line",points:["Personalized programming beats one-size-fits-all","Validated across cardiometabolic outcomes","Validated across anthropometric measures","Validated across muscular/neuromotor measures"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"The ACE IFT Model is organized into two independent components. They are:", opts:["Aerobic Training and Anaerobic Training","Cardiorespiratory Training and Muscular Training","Assessment and Programming","Functional Training and Performance Training"], c:1, exp:"The ACE IFT Model has two independent components — Cardiorespiratory Training and Muscular Training — each with three phases, allowing any cardiorespiratory phase to be combined with any muscular phase." },
+  { q:"According to the ACE IFT Model, what is the FOUNDATION of successful personal training?", opts:["A comprehensive fitness assessment","The client–trainer relationship built on rapport, trust, and empathy","The latest evidence-based exercise protocols","Maximizing caloric expenditure each session"], c:1, exp:"The client–personal-trainer relationship is the foundation of the ACE IFT Model. It is built on rapport, trust, and empathy, with the trainer serving as a coach throughout the client's journey." },
+  { q:"Which of the following is a TRADITIONAL training parameter (not one of the contemporary additions)?", opts:["Postural stability / kinetic chain mobility","Health-behavior change","Flexibility","Core conditioning"], c:2, exp:"Traditional parameters were cardiorespiratory fitness, muscular endurance, muscular strength, and flexibility. Postural stability, health-behavior change, and core conditioning are contemporary additions." },
+  { q:"The function–health–fitness–performance continuum is best described as:", opts:["A fixed classification a client keeps for life","A spectrum clients move along based on lifecycle and lifestyle factors","A mandatory testing sequence","A ranking of which clients deserve training"], c:1, exp:"The continuum is a spectrum, not a fixed state. Clients ebb and flow along it based on lifecycle and lifestyle factors, so trainers must meet clients where they are." },
+  { q:"Which of these is a LIFESTYLE factor that can cause regression along the continuum?", opts:["Adolescent growth spurts","Pregnancy","Insufficient physical activity","Normal childhood development"], c:2, exp:"Lifestyle factors that can cause regression include insufficient physical activity, smoking, excessive alcohol, poor nutrition, and inadequate sleep. Growth spurts, pregnancy, and childhood development are lifecycle factors." },
+  { q:"A core tenet of the ACE Mover Method™ is that:", opts:["The trainer is the expert who directs the client","Clients are the foremost experts on themselves","Clients must be told exactly what to do","Programming should follow the trainer's personal philosophy"], c:1, exp:"The ACE Mover Method is client-centered: clients are the foremost experts on themselves, are viewed as resourceful and capable of change, and are engaged with open-ended questions and active listening." },
+  { q:"In the ACE ABC Approach, the 'A' step is to:", opts:["Assess fitness", "Ask open-ended questions", "Advance the program", "Assign homework"], c:1, exp:"'A' stands for Ask open-ended questions — to identify what the client hopes to accomplish and what activities they enjoy, positioning the client as an active partner." },
+  { q:"In the ACE ABC Approach, 'Break down barriers' involves asking questions such as:", opts:["'What is your max heart rate?'","'What do you need to start — and stop — doing to reach your goals?'","'Which supplements are you taking?'","'How many sessions can you afford?'"], c:1, exp:"The 'B' step uncovers barriers with questions like 'What do you need to start doing?' and 'What do you need to stop doing that will enable you to reach your goals?'" },
+  { q:"During the 'Collaborate' step of the ABC Approach, who should lead the discussion of how to monitor and measure progress?", opts:["The trainer alone","The client — to empower ownership of the behavior-change journey","The client's physician","Whoever designed the assessment"], c:1, exp:"In the Collaborate step, the trainer and client set SMART goals together, and the client is allowed to lead the discussion of how to monitor progress — empowering ownership of the journey." },
+  { q:"What should be the PRIMARY goal of every personal-training session?", opts:["Maximize caloric burn","Complete a full assessment battery","Have the client wanting to return for the next session","Reach a new personal record"], c:2, exp:"The primary goal of every session is to have the client wanting to return for the next session — achieved by providing an adequate yet achievable level of challenge." },
+  { q:"Regarding assessments and screening in the ACE IFT Model, which statement is correct?", opts:["Both fitness assessments and health screening are optional","Fitness assessments are mandatory; health screening is optional","Fitness assessments are NOT mandatory for many clients, but health screening IS required for all","Neither is needed if the client has trained before"], c:2, exp:"Fitness assessments are not required for many clients — early sessions can serve as assessments. However, health screening (Chapter 5) is required for all clients." },
+  { q:"A client is not consistently performing ≥20 minutes of moderate cardiorespiratory exercise on ≥3 days/week. Which cardiorespiratory phase should they begin in?", opts:["Base Training","Fitness Training","Performance Training","No cardiorespiratory training yet"], c:0, exp:"Base Training is for clients not yet consistently performing ≥20 minutes of moderate-intensity cardiorespiratory exercise on ≥3 days/week. The goal is to build an aerobic base with positive experiences." },
+  { q:"During Cardiorespiratory Base Training, intensity is monitored using:", opts:["VO₂max testing","The talk test (keeping exercise below VT1)","75% of max heart rate","A 1-RM test"], c:1, exp:"Base Training keeps exercise below VT1 at moderate intensity (RPE 3–4). The talk test is the monitoring method — if the client can talk comfortably, they are below VT1. No formal CR assessments are used in this phase." },
+  { q:"The first ventilatory threshold (VT1) and second ventilatory threshold (VT2) are best described as:", opts:["VT1 = speech impossible; VT2 = talking easy","VT1 = talk becomes noticeably harder; VT2 = speech not possible during exercise","Both are measured only in a lab with blood lactate","VT1 and VT2 are the same threshold"], c:1, exp:"VT1 is the intensity where talking becomes noticeably harder (identified with the talk test). VT2 is the intensity where speech is not possible. These thresholds personalize intensity rather than %HRmax/%VO₂max." },
+  { q:"The progression trigger from Base Training to Fitness Training is when the client can:", opts:["Run a 5K without stopping","Complete ≥20 min below the talk-test threshold on ≥3 days/week","Bench press their body weight","Lower their resting heart rate by 10 bpm"], c:1, exp:"The trigger is the ability to complete at least 20 minutes of cardiorespiratory exercise below the talk-test threshold (below VT1) on at least 3 days per week." },
+  { q:"Cardiorespiratory Fitness Training is characterized by:", opts:["Keeping all exercise below VT1","Integrating intervals at/above VT1 to just below VT2 (RPE 5–6)","Only maximal-effort intervals at/above VT2","Eliminating all moderate-intensity work"], c:1, exp:"Fitness Training enhances aerobic efficiency by integrating moderate-to-vigorous intervals at/above VT1 to just below VT2 (RPE 5–6), blended with moderate-intensity work below VT1." },
+  { q:"The three phases of Muscular Training, in order, are:", opts:["Base → Fitness → Performance","Functional → Movement → Load/Speed","Stability → Strength → Hypertrophy","Endurance → Power → Speed"], c:1, exp:"Muscular Training progresses Functional (postural stability & kinetic chain mobility) → Movement (5 movement patterns) → Load/Speed (external load, force production, power)." },
+  { q:"The focus of the Functional Training phase (Muscular) is to:", opts:["Maximize external load and power","Establish/reestablish postural stability and kinetic chain mobility","Train only the five movement patterns under heavy load","Prepare for competition"], c:1, exp:"Functional Training establishes postural stability and kinetic chain mobility using primarily body-weight resistance, balance, core function, and control of the center of gravity." },
+  { q:"Which list correctly names the five primary movement patterns?", opts:["Squat, deadlift, bench, pull-up, plank","Bend-and-lift, single-leg, pushing, pulling, rotational","Push, pull, hinge, carry, lunge","Anterior, posterior, lateral, rotational, diagonal"], c:1, exp:"The five primary movement patterns trained in Movement Training are bend-and-lift, single-leg, pushing, pulling, and rotational." },
+  { q:"Research comparing the ACE IFT Model to standardized training found that:", opts:["There was no meaningful difference between groups","The standardized group had more responders","The personalized ACE IFT group had significantly more responders across cardiometabolic and muscular outcomes","Only flexibility improved with the IFT Model"], c:2, exp:"The ACE IFT Model group produced significantly more responders across cardiometabolic, anthropometric, and muscular/neuromotor outcomes — while 35.7% of the standardized group were non-responders to cardiorespiratory training." },
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"In the ACE IFT Model, any ________ Training phase can be integrated with any Muscular Training phase to meet each client's needs.", a:"cardiorespiratory", hint:"The component focused on aerobic/anaerobic fitness." },
+  { q:"The three steps of the ACE ABC Approach are: Ask open-ended questions, Break down barriers, and ________.", a:"collaborate", hint:"The 'C' step — set SMART goals together." },
+  { q:"During Cardiorespiratory Base Training, the recommended intensity-monitoring method is the ________ test.", a:"talk", hint:"If the client can speak comfortably, they're below VT1." },
+  { q:"The progression trigger from Base to Fitness Training is completing at least ________ minutes below the talk-test threshold on at least 3 days per week.", a:"20", hint:"A round number of minutes." },
+  { q:"The five primary movement patterns are bend-and-lift, single-leg, pushing, pulling, and ________.", a:"rotational", hint:"Torso rotation — throwing, golf, dance." },
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"The ACE IFT Model requires personal trainers to always conduct formal fitness assessments before starting exercise programming.", a:false, exp:"False. Fitness assessments are NOT required for many clients — early training sessions can serve as assessments while getting clients moving immediately. Health screening (Ch5), however, IS required for all clients." },
+  { q:"In the ACE IFT Model, the Cardiorespiratory and Muscular Training components are independent — any phase from one can be combined with any phase from the other.", a:true, exp:"True. The components are independent, allowing any Cardiorespiratory phase to be integrated with any Muscular phase based on each client's personalized needs." },
+  { q:"During Cardiorespiratory Base Training, exercise should be performed at and above the first ventilatory threshold (VT1).", a:false, exp:"False. Base Training keeps all exercise BELOW VT1 (below the talk-test threshold), at moderate intensity (RPE 3–4). Exercise at/above VT1 is introduced in Fitness Training." },
+  { q:"Before advancing to athletic performance goals in Load/Speed Training, a client must demonstrate good postural stability, kinetic chain mobility, good movement patterns, and a muscular strength foundation.", a:true, exp:"True. These prerequisites must be consistently demonstrated before progressing to power, speed, agility, and plyometric work in Load/Speed Training." },
+  { q:"Research comparing personalized ACE IFT training to standardized training found no significant difference in responder rates across cardiometabolic outcomes.", a:false, exp:"False. The ACE IFT group had significantly MORE responders across all outcomes — e.g., blood glucose responders 42.9% (standardized) vs. 92.9% (ACE IFT)." },
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  {
+    num: 1,
+    topic: "Function–Health–Fitness–Performance — Marcus",
+    scenario: "Marcus is a newly certified personal trainer meeting his first client — a 52-year-old man who has been sedentary for 8 years following a desk job promotion. The client reports he struggles with stairs, gets winded easily, and has been told by his doctor to increase his physical activity. He has no acute medical issues and has been cleared for exercise.",
+    qs: [
+      { q:"Based on the continuum, where does this client most likely currently sit?", opts:["Performance — needs advanced athletic training","Fitness — ready for cardiorespiratory endurance programming","Function or Health — needs basic movement and health before fitness","Health — only cardiorespiratory programming is appropriate"], ans:2, exp:"A client who struggles with stairs, gets winded, and has been sedentary 8 years is in the Function or Health zone. Programming should address basic functional movements and health improvement before advancing to fitness." },
+      { q:"What is the PRIMARY goal Marcus should have for his client's first few training sessions?", opts:["Complete a full fitness assessment battery to establish baseline data","Maximize caloric expenditure to begin weight loss immediately","Have the client wanting to return for the next session","Advance the client to Fitness Training as quickly as possible"], ans:2, exp:"The primary goal of every personal-training session should be to have the client wanting to return for the next session. Starting with positive, achievable experiences is foundational to the ACE IFT Model." },
+      { q:"Is it mandatory that Marcus conduct formal fitness assessments before beginning exercise programming?", opts:["Yes — fitness assessments must always precede exercise programming","No — fitness assessments are not required for many clients; early sessions can serve as assessments","Yes — assessments are required because the client has health concerns","No — assessments are only needed for athletic clients"], ans:1, exp:"Fitness assessments are NOT required for many clients. Early training sessions can incorporate exercise programming that provides both training and assessment information about the client's current status." },
+      { q:"Which combination of ACE IFT Model phases is appropriate for this client's initial program?", opts:["Only Cardiorespiratory Training — functional issues resolve naturally","Only Muscular Training — cardiovascular exercise is too risky initially","Both Cardiorespiratory Training (Base phase) and Muscular Training (Functional phase)","Muscular Training (Load/Speed) and Cardiorespiratory Training (Performance)"], ans:2, exp:"The client is insufficiently active (Base Training) with functional movement difficulties (Functional Training). The two components are independent and combined based on each client's needs in each domain." },
+      { q:"Which lifestyle factors may have contributed to this client's regression along the continuum?", opts:["Only age — lifecycle factors always explain regression","Lifestyle factors: physical inactivity and possibly poor nutrition, inadequate sleep","Only genetics — lifestyle has minimal impact on functional capacity","Performance history — he was never an athlete so he cannot progress"], ans:1, exp:"Lifestyle factors including physical inactivity (8 years sedentary), and potentially poor nutrition and inadequate sleep, can cause regression along the function-health-fitness-performance continuum." }
+    ]
+  },
+  {
+    num: 2,
+    topic: "ACE Mover Method & ABC — Sofia",
+    scenario: "Sofia is an ACE CPT conducting her first session with a new client — a 35-year-old woman who wants to 'get in shape' but has never enjoyed working out. During the intake, Sofia aims to use the ACE Mover Method and ABC Approach to build rapport and identify the client's true goals and barriers.",
+    qs: [
+      { q:"Which best reflects the core philosophy of the ACE Mover Method?", opts:["The personal trainer is the expert who directs the client's fitness journey","Each interaction is client-centered, with the client as the foremost expert on themselves","Clients must be told exactly what to do to achieve results","The trainer's fitness philosophy should guide all programming decisions"], ans:1, exp:"The ACE Mover Method is founded on the tenet that each professional interaction is client-centered, with recognition that clients are the foremost experts on themselves — viewed as resourceful and capable of change." },
+      { q:"Sofia asks: 'What would be the best possible outcome for you from working with a personal trainer?' This exemplifies which ABC step?", opts:["B — Break down barriers","C — Collaborate","A — Ask open-ended questions","None — this is a closed-ended question"], ans:2, exp:"Step A (Ask) uses powerful open-ended questions to identify what the client hopes to accomplish. 'What would be the best possible outcome' is an open-ended question designed to spark discussion about goals." },
+      { q:"After identifying goals, Sofia asks: 'What obstacles might get in the way of reaching those goals?' This represents which ABC step?", opts:["A — Ask open-ended questions","B — Break down barriers","C — Collaborate","This question is inappropriate for a personal trainer"], ans:1, exp:"Step B (Break down barriers) involves asking questions to discover potential barriers, such as 'What do you need to stop doing that will enable you to reach your goals?'" },
+      { q:"Which question best exemplifies the 'Collaborate' step of the ABC Approach?", opts:["'What do you hope to achieve by working with a trainer?'","'What might get in the way of your exercise goals?'","'Which specific action can you take this week toward your goals?'","'I've designed a program that will help you reach your goals in 12 weeks.'"], ans:2, exp:"The Collaborate step involves working together on SMART goals and action steps — letting the client lead the discussion about monitoring progress to empower ownership of their behavior-change journey." },
+      { q:"What distinguishes the ACE Mover Method from a full health coaching certification?", opts:["No distinction — the ACE Mover Method equals a health coaching certification","The ACE Mover Method is for group fitness only","The ACE Mover Method provides foundational coaching skills but is NOT equivalent to a health coaching certification","Health coaching certifications are less rigorous than the ACE Mover Method"], ans:2, exp:"The ACE Mover Method provides foundational communication and coaching skills, but is not equivalent to a health coaching certification. Personal trainers should work with health coaches and other allied health professionals when appropriate." }
+    ]
+  },
+  {
+    num: 3,
+    topic: "Cardiorespiratory Base Training — Derek",
+    scenario: "Derek is beginning to work with a 45-year-old client who has been physically inactive for 3 years. She occasionally walks but has not performed any structured cardiorespiratory exercise consistently. She gets winded going up two flights of stairs. Derek is deciding which cardiorespiratory training phase to start with.",
+    qs: [
+      { q:"Which Cardiorespiratory Training phase should Derek begin with?", opts:["Performance Training — intervals at VT2","Fitness Training — integrate vigorous-intensity intervals","Base Training — build initial aerobic base below VT1","Base Training is not appropriate — she occasionally walks, so she's past that phase"], ans:2, exp:"Any client not consistently performing moderate-intensity cardiorespiratory exercise for ≥20 min on ≥3 days/week should begin with Base Training. Occasional walking does not meet this criterion." },
+      { q:"What is the recommended method for monitoring exercise intensity during Base Training?", opts:["Heart rate monitor — maintain 70–85% of max heart rate","Talk test — if the client can talk comfortably, they are likely below VT1","VO₂max testing — begin exercise at 60% VO₂max","Borg RPE scale — maintain RPE of 6–8 on a 6–20 scale"], ans:1, exp:"The talk test is the recommended method for monitoring intensity during Base Training. If the client can perform exercise and talk comfortably, they are likely below VT1 (moderate intensity, RPE 3–4 on 0–10 scale)." },
+      { q:"At what RPE (0–10 scale) should Derek's client exercise during Base Training?", opts:["RPE 1–2 (very light)","RPE 3–4 (moderate)","RPE 5–6 (moderate-to-vigorous)","RPE 7–10 (vigorous-to-maximal)"], ans:1, exp:"During Base Training, clients exercise at moderate intensity — RPE 3 to 4 on the 0 to 10 scale — which corresponds to exercising below VT1." },
+      { q:"Are formal cardiorespiratory assessments recommended during Base Training?", opts:["Yes — a VO₂max test should be performed at the start","Yes — sub-maximal tests are required to set training zones","No — no cardiorespiratory assessments are recommended during Base Training","Only if the client has been inactive for more than one year"], ans:2, exp:"No cardiorespiratory assessments are recommended during Base Training, since many clients starting here will be unfit and may have difficulty completing formal assessments. Training sessions serve as the assessment vehicle." },
+      { q:"What is the progression criterion to advance from Base Training to Fitness Training?", opts:["The client loses 5% body weight","Client can complete ≥20 min below talk-test threshold on ≥3 days/week","The client has been in Base Training for a minimum of 8 weeks","The client's resting heart rate decreases by 10 bpm"], ans:1, exp:"The progression trigger from Base to Fitness Training is when the client can complete at least 20 minutes of cardiorespiratory exercise below the talk-test threshold on at least 3 days per week." }
+    ]
+  },
+  {
+    num: 4,
+    topic: "CR Fitness & Performance — Aaliyah",
+    scenario: "Aaliyah works with two clients. Client A has completed Base Training and wants to run a 5K. Client B is an experienced recreational cyclist preparing for a century ride (100 miles) in 6 months. Aaliyah needs to design appropriate cardiorespiratory training for both.",
+    qs: [
+      { q:"What distinguishes Fitness Training from Base Training in the ACE IFT Model?", opts:["Fitness Training uses a heart rate monitor; Base Training uses the talk test","Fitness Training integrates exercise at and above VT1; Base Training keeps all exercise below VT1","Fitness Training is exclusively high-intensity interval training","Fitness Training is only appropriate for clients under 40 years old"], ans:1, exp:"Fitness Training enhances aerobic efficiency by integrating exercise at/above VT1 (to just below VT2, RPE 5–6), while Base Training keeps all exercise below VT1." },
+      { q:"For Client A (5K training), what is the appropriate Fitness Training interval intensity range?", opts:["Below VT1 (RPE 3–4)","At/above VT1 to just below VT2 (RPE 5–6)","At/above VT2 (RPE 7–10)","Maximum effort only (RPE 10)"], ans:1, exp:"Fitness Training integrates moderate-to-vigorous intensity exercise at/above VT1 to just below VT2 (RPE 5–6), blended with moderate-intensity exercise below VT1." },
+      { q:"Client B (century ride preparation) is in Performance Training. What is a key characteristic?", opts:["All training is at maximum intensity","No moderate-intensity training — only high-intensity intervals","Periodized training plans that manipulate volume, and intervals both between VT1-VT2 and at/above VT2","Performance Training is only for competitive athletes, not recreational cyclists"], ans:2, exp:"Performance Training uses periodized training plans with each day focused on specific variables (distance, recovery, speed, power), manipulating intervals between VT1-VT2 and at/above VT2." },
+      { q:"As Client B's total weekly training volume increases in Performance Training, what happens to moderate-intensity time?", opts:["Moderate intensity decreases — more time at high intensity","Moderate intensity increases — to accommodate volume and allow recovery from high-intensity sessions","Moderate intensity remains constant regardless of total volume","Moderate intensity is eliminated in Performance Training"], ans:1, exp:"As total weekly training time increases, a greater percentage of training is at moderate intensities to accommodate increased volume and allow recovery from high-intensity interval training sessions." },
+      { q:"What is the RPE range (0–10 scale) for intervals at or above VT2 in Performance Training?", opts:["RPE 3–4","RPE 5–6","RPE 5–7","RPE 7–10"], ans:3, exp:"Performance Training intervals at/above VT2 are at RPE 7 to 10 on the 0 to 10 scale — vigorous-to-maximal intensity — and are of short duration." }
+    ]
+  },
+  {
+    num: 5,
+    topic: "Muscular Training Phases — James",
+    scenario: "James works with three clients: Client A — previously inactive 60-year-old who never exercised consistently. Client B — 30-year-old recreational runner with poor movement mechanics but decent cardiovascular fitness. Client C — competitive powerlifter wanting to add explosive athletic training.",
+    qs: [
+      { q:"For Client A (previously inactive 60-year-old), which Muscular Training phase is most appropriate?", opts:["Load/Speed Training — needs to build muscle mass quickly","Movement Training — learning proper movement patterns is the priority","Functional Training — establish postural stability and kinetic chain mobility first","Skip Muscular Training — focus only on cardiorespiratory exercise"], ans:2, exp:"Functional Training focuses on establishing postural stability and kinetic chain mobility — the foundation of all muscular training. This is the appropriate starting phase for previously inactive clients." },
+      { q:"Client B (runner with poor movement mechanics) should begin which Muscular Training phase?", opts:["Functional Training — postural stability must be established first","Movement Training — develop good movement patterns in all five primary patterns","Load/Speed Training — cardiorespiratory fitness is adequate so load can be added","Performance Training — competitive athletes always use performance-level training"], ans:1, exp:"Client B has decent fitness but poor movement mechanics. Movement Training focuses on developing good movement patterns without compromising postural or joint stability, in all five primary movement patterns." },
+      { q:"What are the five primary movement patterns in Movement Training?", opts:["Squat, deadlift, bench press, pull-up, plank","Bend-and-lift, single-leg, pushing, pulling, rotational","Anterior, posterior, lateral, rotational, diagonal","Push, pull, hinge, squat, carry"], ans:1, exp:"The five primary movement patterns are: bend-and-lift, single-leg, pushing, pulling, and rotational." },
+      { q:"Before Client C advances to athletic performance goals in Load/Speed Training, what must be consistently demonstrated?", opts:["A specific VO₂max score and body fat percentage","Good postural stability, kinetic chain mobility, good movement patterns, and a muscular strength foundation","Completion of at least 12 weeks of Movement Training","Only muscular strength — movement quality is not a prerequisite"], ans:1, exp:"Before advancing to athletic performance goals, clients must consistently exhibit good postural stability, kinetic chain mobility, good movement patterns, and a muscular strength foundation to produce and control force." },
+      { q:"As Client A progresses to Movement Training, what happens to Functional Training exercises?", opts:["They are completely eliminated once the client progresses","They continue as warm-up, cool-down, or progressions with added resistance/balance challenge","They become the primary focus of every workout","Functional Training exercises are only for Functional Training phase clients"], ans:1, exp:"As clients progress to later phases, Functional Training exercises continue as part of warm-up/cool-down, or as progressions with increased resistance or balance challenges to maintain postural stability and kinetic chain mobility." }
+    ]
+  },
+  {
+    num: 6,
+    topic: "Integrating Both Components — Priya",
+    scenario: "Priya works with Client X — a marathon runner with excellent cardiovascular fitness but significant postural instability and limited hip mobility. Client Y is an experienced bodybuilder with impressive muscular development but very poor cardiovascular fitness (gets winded on stairs).",
+    qs: [
+      { q:"For Client X (marathon runner with postural instability), which ACE IFT phase combination is MOST appropriate?", opts:["Base Training (CR) + Functional Training (Muscular)","Performance Training (CR) + Functional Training (Muscular)","Fitness Training (CR) + Movement Training (Muscular)","Base Training (CR) + Load/Speed Training (Muscular)"], ans:1, exp:"Client X has excellent CR fitness (Performance Training is appropriate) with postural instability (Functional Training for Muscular). The components are independent and can be mixed based on each domain's needs." },
+      { q:"For Client Y (bodybuilder with poor cardiovascular fitness), which phase combination is MOST appropriate?", opts:["Base Training (CR) + Load/Speed Training (Muscular)","Performance Training (CR) + Functional Training (Muscular)","Fitness Training (CR) + Movement Training (Muscular)","Base Training (CR) + Functional Training (Muscular)"], ans:0, exp:"Client Y's poor CR fitness means Base Training (CR). His experienced weight-lifting background indicates Load/Speed Training (Muscular) is appropriate. Any CR phase can be combined with any Muscular phase." },
+      { q:"What structural feature of the ACE IFT Model allows Priya to create these different combinations?", opts:["The model requires all clients to start in the same phase","The two components (Cardiorespiratory and Muscular) are independent of each other","The model only has one set of phases for all training domains","Phases must always be matched — same phase number for both components"], ans:1, exp:"The ACE IFT Model's cardiorespiratory and muscular components are independent — allowing any cardiorespiratory phase to be integrated with any muscular phase for personalized programming." },
+      { q:"What is the relationship between the function-health-fitness-performance continuum and the ACE IFT Model?", opts:["They are the same thing — the continuum IS the ACE IFT Model","The continuum is a conceptual tool for understanding where clients are; the ACE IFT Model provides the programming framework","The continuum replaces the need for the ACE IFT Model","The continuum only applies to clients with chronic disease"], ans:1, exp:"The continuum is NOT a training method — it's a conceptual tool to understand where clients are. The ACE IFT Model provides the comprehensive programming framework applied based on where clients sit on the continuum." },
+      { q:"In the research comparing ACE IFT to standardized training, what percentage of the standardized group were classified as non-responders to cardiorespiratory training?", opts:["10%","25%","35.7%","50%"], ans:2, exp:"35.7% of individuals in the standardized training group were classified as non-responders to cardiorespiratory exercise training, demonstrating the value of personalized ACE IFT programming." }
+    ]
+  },
+  {
+    num: 7,
+    topic: "Program Design & Behavior Change — Coach Leon",
+    scenario: "Coach Leon is working with a client who has tried and quit multiple exercise programs in the past, citing lack of enjoyment and feeling overwhelmed. He wants to use the ACE IFT Model's behavior change principles to facilitate long-term adherence.",
+    qs: [
+      { q:"What does the ACE IFT Model identify as the FOUNDATION of successful personal training?", opts:["Comprehensive fitness assessments conducted before every program","The client-personal trainer relationship built on rapport, trust, and empathy","Performing the latest evidence-based exercise protocols","Prioritizing caloric expenditure in every session"], ans:1, exp:"The client-personal trainer relationship is the FOUNDATION of the ACE IFT Model, built upon rapport, trust, and empathy. The personal trainer serves as a coach throughout the client's behavior-change journey." },
+      { q:"For a client who has repeatedly quit exercise programs, which early strategy is MOST important?", opts:["Push the client hard to maximize early results","Conduct comprehensive fitness assessments to identify all deficiencies","Create positive exercise experiences that build self-efficacy and foster adherence","Immediately advance to vigorous-intensity training to challenge the client"], ans:2, exp:"Fostering exercise adherence by creating positive exercise experiences that build self-efficacy is a key step in facilitating behavior change — especially for clients with a history of quitting exercise programs." },
+      { q:"What role do external stressors play in programming decisions according to the ACE IFT behavior change approach?", opts:["External stressors are irrelevant to exercise programming","External stressors should be factored into total fatigue to avoid training plateaus and prevent overtraining","External stressors indicate the client needs more intense exercise to manage stress","Only physical stressors matter — psychological stressors do not affect training"], ans:1, exp:"Factoring a client's external stressors into total fatigue to avoid training plateaus and prevent overtraining is one of the key steps that facilitate fitness-related health-behavior change." },
+      { q:"What is the appropriate approach to exercise progression in the ACE IFT Model?", opts:["Maximum progressive overload in every session — always push beyond last session","Fixed progressions predetermined before the program begins","Progressions matched to the gains the client has made since the last session","Progressions only made after 4-week assessment periods"], ans:2, exp:"Progressions should be appropriately matched to the gains the client has made since the last session — providing adequate yet achievable challenge, not maximal or predetermined progression." },
+      { q:"What is the key difference between fitness assessments and health screening in the ACE IFT Model?", opts:["Both are optional depending on client preference","Both are mandatory before beginning any exercise program","Health screening is required for all clients (Ch5); fitness assessments are not mandatory for many clients","Fitness assessments are mandatory; health screening is optional for low-risk clients"], ans:2, exp:"Health screening is required for all clients to determine exercise limitations or need for medical clearance. Fitness assessments are NOT required for many clients — early sessions can provide the needed programming information." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Outstanding! Thorough command of the ACE IFT Model, its phases, and client-centered application.',
+    B: 'Great work. Review any wrong answers — check phase progressions and the ABC Approach.',
+    C: 'Passing, but worth another review — especially the cardiorespiratory intensity zones and muscular prerequisites.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>
