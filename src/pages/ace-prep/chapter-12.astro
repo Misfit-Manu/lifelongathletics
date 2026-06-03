@@ -1,0 +1,940 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 12 — Considerations for Clients with Obesity | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 12 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 12</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 12</div>
+  <h1>Considerations for Clients with <em>Obesity</em></h1>
+  <p>How obesity develops, why energy balance is complex, and how trainers design safe nutrition, exercise, and behavior-change programs to help clients lose weight and keep it off.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 12 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-12-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Energy Balance · Causes · Hormones · Nutrition · Training · Goals · Behavior</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 12 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 12 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Mifflin-St. Jeor <em>REE</em> (most testable formula)</h3>
+      <table class="ref-table">
+        <tr><th>Sex</th><th>Equation (kcal/day)</th></tr>
+        <tr><td><strong>Males</strong></td><td>(10 × kg) + (6.25 × cm) − (5 × age) <strong style="color:var(--accent)">+ 5</strong></td></tr>
+        <tr><td><strong>Females</strong></td><td>(10 × kg) + (6.25 × cm) − (5 × age) <strong style="color:var(--accent)">− 161</strong></td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Conversions &amp; context</strong><span>lb → kg ÷ 2.2 · in → cm × 2.54 · REE ≈ 75% of total energy expenditure (TEE)</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Cardiorespiratory <em>FITT</em></h3>
+      <table class="ref-table">
+        <tr><th>F</th><td>≥3–5 days/week</td></tr>
+        <tr><th>I</th><td>Moderate, below VT1 (talk test; RPE 12–13 / 20, 3–4 / 10)</td></tr>
+        <tr><th>T</th><td>30–60 min/day (shorter bouts OK)</td></tr>
+        <tr><th>T</th><td>Low-impact, rhythmic, large-muscle</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Muscular <em>FITT</em></h3>
+      <table class="ref-table">
+        <tr><th>F</th><td>2–3 days/week, rest day between</td></tr>
+        <tr><th>I</th><td>60–70% 1-RM, 8–12 reps, 2–4 sets</td></tr>
+        <tr><th>T</th><td>20–30 min full body</td></tr>
+        <tr><th>T</th><td>All major groups; free weights/machines</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Activity <em>Dose–Response</em></h3>
+      <table class="ref-table">
+        <tr><th>Goal</th><th>Amount</th></tr>
+        <tr><td>Prevent weight gain / modest loss</td><td>150–250 min/week</td></tr>
+        <tr><td>Clinically significant loss</td><td>250–300 min/week (~2,000 kcal/wk) ≈ 20 mi/wk</td></tr>
+        <tr><td>~150 min/week (no diet change)</td><td>4.4–6.6 lb (2.0–3.0 kg) loss</td></tr>
+        <tr><td>225–420 min/week</td><td>11–16.5 lb (5.0–7.5 kg) loss (12–18 wks)</td></tr>
+        <tr><td>Maintain reduced weight</td><td>&gt;300 min/week; ACSM ~60 min/day</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Pharmacology &amp; <em>Surgery</em></h3>
+      <table class="ref-table">
+        <tr><td>Pharmacotherapy</td><td>BMI ≥30, or ≥27 + ≥1 comorbidity</td></tr>
+        <tr><td>Phentermine</td><td>Short-term only, &lt;3 months</td></tr>
+        <tr><td>FDA discontinue</td><td>&lt;5% loss after 16 weeks</td></tr>
+        <tr><td>Bariatric surgery</td><td>BMI ≥40, or ≥35 + ≥1 comorbidity</td></tr>
+        <tr><td>Surgery regain</td><td>~5–20% regain weight</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Key <em>Numbers</em></h3>
+      <div class="key-term"><strong>Energy balance</strong><span>~3,500 kcal per 1 lb fat; 500 kcal/day deficit ≈ 1 lb/week; ADA: 500–1,000 kcal/day deficit → 1–2 lb/week</span></div>
+      <div class="key-term"><strong>Weight stability</strong><span>&lt;3% change = stable; ≥5% = clinically significant</span></div>
+      <div class="key-term"><strong>Realistic goal</strong><span>5–15% loss (5–10% improves comorbidities); ~2–3 lb/month</span></div>
+      <div class="key-term"><strong>Protein RDA</strong><span>46–56 g/day, or 10–35% of calories</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Hormones &amp; <em>Causes</em></h3>
+      <div class="key-term"><strong>Ghrelin</strong><span>Stomach "hunger hormone" — stimulates appetite</span></div>
+      <div class="key-term"><strong>Peptide YY / CCK / GLP-1</strong><span>Gut hormones that produce satiety (reduce appetite)</span></div>
+      <div class="key-term"><strong>BMI heritability</strong><span>40–70%; genes &lt;5% of variation; activity cuts genetic risk ~40%</span></div>
+      <div class="key-term"><strong>OSA</strong><span>58% of moderate-to-severe cases due to obesity</span></div>
+      <div class="key-term"><strong>NEAT</strong><span>Non-exercise activity thermogenesis; excess sitting = +100 kcal/day</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 12: Considerations for Clients with Obesity
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"ENERGY BALANCE",color:"#22d3ee",subs:[
+    {name:"Core Equation",points:["Obesity = EI greater than EE","Positive balance stores fat","EI up or EE down both cause gain","Environment + genes + behavior interact"]},
+    {name:"Calorie Math",points:["~3,500 kcal per 1 lb (0.45 kg) fat","500 kcal/day deficit = ~1 lb/7 days","Early loss is water, glycogen, lean tissue","Hill 2012: ~2,208 kcal/lb first 4 weeks"]},
+    {name:"Dynamic, Not Fixed",points:["kcal per lb changes over time","Depends on diet length and type","Exercise alters composition lost","Manore 2015 — prediction is imprecise"]},
+    {name:"Sitting Cost",points:["Sitting = +100 kcal/day positive balance","Drives the obesity epidemic (Hill 2003)","NEAT offsets it","Lifestyle activity adds up"]}
+  ]},
+  {id:2,name:"CAUSES",color:"#fb923c",subs:[
+    {name:"Environment",points:["Food availability and energy density","Labor-saving devices","More sitting time","Probably the major factor"]},
+    {name:"Stress",points:["Acute stress suppresses intake","Chronic stress stimulates hunger","Drives palatable high-calorie food","Exercise reduces stress"]},
+    {name:"Sleep",points:["Inadequate quantity and quality","Linked to appetite and inflammation","58% of mod-severe OSA from obesity","OSA can cause rapid weight gain"]},
+    {name:"Genetics",points:["BMI heritability 40 to 70%","Genes under 5% of variation","Activity cuts genetic risk ~40%","Rare disorders need physician care"]}
+  ]},
+  {id:3,name:"HORMONES",color:"#a78bfa",subs:[
+    {name:"Fat as Endocrine Organ",points:["Adipocytes secrete hormones","Functions like a gland","Regulates energy reserve","Influences appetite signaling"]},
+    {name:"Hunger Signal",points:["Ghrelin = hunger hormone","Secreted by the stomach","Stimulates appetite","Linked to obesity"]},
+    {name:"Satiety Signals",points:["Peptide YY from intestines","Cholecystokinin","Glucagon-like peptide-1","Stimulated by lipids and carbs"]},
+    {name:"Application",points:["Gut hormones signal the CNS","Produce feeling of satiety","Research on hormone treatment","Help regulate intake"]}
+  ]},
+  {id:4,name:"NUTRITION",color:"#3b82f6",subs:[
+    {name:"Caloric Deficit",points:["ADA: cut 500 to 1,000 kcal/day","Target 1 to 2 lb (0.45-0.9 kg)/week","Reduce fat and/or carbs","Portion control"]},
+    {name:"REE & Mifflin",points:["REE is ~75% of TEE","Mifflin-St. Jeor most accurate","Males: +5 constant","Females: -161 constant"]},
+    {name:"Protein",points:["RDA 46 to 56 g/day","10 to 35% of calories","Preserves lean tissue","Increases satiety"]},
+    {name:"Energy Density",points:["Low-density = fruits, veg, water","Fewer kcal per gram","Greater food volume, more full","Exercise above 60% VO2max curbs appetite 2-10 hr"]}
+  ]},
+  {id:5,name:"CARDIO TRAINING",color:"#10b981",subs:[
+    {name:"FITT",points:["Frequency 3 to 5 days/week","Intensity moderate below VT1","Time 30 to 60 min/day","Type low-impact rhythmic"]},
+    {name:"Intensity Tools",points:["Talk test for VT1","RPE 12-13 on 6-20 scale","RPE 3-4 on 0-10 scale","Somewhat hard feel"]},
+    {name:"Dose",points:["150-250 min/week modest loss","250-300 min/week (~2,000 kcal) significant","~20 miles/week or 3 miles/day","Progress frequency/duration first"]},
+    {name:"Distance Over Speed",points:["Total distance sets total EE","Running EE ~10% above walking","Short bouts = same EE as one long","Faster pace improves VO2max more"]}
+  ]},
+  {id:6,name:"MUSCULAR TRAINING",color:"#f87171",subs:[
+    {name:"FITT",points:["Frequency 2 to 3 days/week","Intensity 60-70% 1-RM","8-12 reps, 2-4 sets","Time 20-30 min full body"]},
+    {name:"Benefits",points:["Improves body composition","Shifts fat-to-lean ratio","Builds muscle, raises 24-hr EE","Aids functional tasks"]},
+    {name:"Type",points:["All major muscle groups","Free weights and/or machines","Choice by preference and goals","Day of rest between sessions"]},
+    {name:"Biomechanics",points:["Seated options for balance issues","Narrow benches risk falls","Care with supine breathing","Limit heavy lunge/squat early"]}
+  ]},
+  {id:7,name:"GOALS & MAINTENANCE",color:"#fbbf24",subs:[
+    {name:"Realistic Goals",points:["Aim 5 to 15% loss","5-10% improves comorbidities","2-3 lb (0.9-1.4 kg)/month","NIH Body Weight Planner"]},
+    {name:"Stability Defined",points:["Stable = under 3% change","5%+ is clinically significant","Maintain via >300 min/week","~60 min/day moderate activity"]},
+    {name:"Fitness vs Fatness",points:["Gaesser & Blair: fitness matters","Fit-obese ~ fit-normal risk","DPP: 50% more met PA goal","Jakicic: weight loss still matters"]},
+    {name:"MHO",points:["~93 million U.S. adults obese","MHO resists cardiometabolic harm","MHO mortality 57%/76% lower","Exercise transitions MAO to MHO"]}
+  ]},
+  {id:8,name:"BEHAVIOR & OTHER APPROACHES",color:"#94a3b8",subs:[
+    {name:"Behavioral Program",points:["Calorie reduction 500-1,000 kcal","Build activity 50 to 300 min/week","Self-monitoring and stimulus control","SMART goals"]},
+    {name:"NWCR Habits",points:["98% modified food intake","90% exercised ~1 hr/day","78% ate breakfast daily","75% weighed weekly"]},
+    {name:"Pharmacology",points:["BMI >=30, or >=27 with comorbidity","Phentermine <3 months","Stop if <5% loss at 16 weeks","Best combined with lifestyle"]},
+    {name:"Bariatric Surgery",points:["BMI >=40, or >=35 with comorbidity","More effective, greater risk","5-20% regain weight","Not a cure"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"Simplistically, obesity is the result of which condition?", opts:["A negative energy balance over time","An imbalance where energy intake exceeds energy expenditure","Reduced resting metabolic rate alone","Excess protein intake"], c:1, exp:"The chapter states obesity results from an imbalance: increased EI with no change in EE, or decreased EE with no change in EI, producing a positive energy balance." },
+  { q:"According to the chapter, which factor is probably the MAJOR contributor to obesity?", opts:["Genetics","Hormonal disorders","Environmental factors","Inadequate sleep"], c:2, exp:"Nguyen and El-Serag (2010) describe an interaction of environment, genetics, and behavior, with environmental factors probably the major contributor." },
+  { q:"Twin, family, and adoption studies show the heritability of BMI ranges from approximately:", opts:["10 to 25%","40 to 70%","75 to 90%","5 to 15%"], c:1, exp:"The chapter cites a BMI heritability range of 40 to 70% (Bray et al.)." },
+  { q:"Genes associated with BMI and body fat account for what proportion of the total variation?", opts:["Less than 5%","About 25%","About 40%","More than 70%"], c:0, exp:"Llewellyn et al. (2016) found genes account for less than 5% of the total variation — genetics matters but lifestyle matters more for most people." },
+  { q:"Which hormone is referred to as the 'hunger hormone' and is secreted by the stomach?", opts:["Peptide YY","Cholecystokinin","Ghrelin","Glucagon-like peptide-1"], c:2, exp:"Ghrelin, secreted by the stomach, stimulates appetite and is called the hunger hormone." },
+  { q:"Approximately what percentage of moderate-to-severe obstructive sleep apnea is estimated to be due to obesity?", opts:["28%","42%","58%","76%"], c:2, exp:"Newman et al. (2005) estimated 58% of moderate-to-severe OSA is due to obesity." },
+  { q:"About how many kilocalories are commonly cited as being in 1 pound (0.45 kg) of fat?", opts:["1,500 kcal","2,208 kcal","3,500 kcal","5,000 kcal"], c:2, exp:"Manore (2015) notes the common figure of about 3,500 kcal in 1 pound of fat, though the true number varies." },
+  { q:"The Mifflin-St. Jeor equation estimates which value?", opts:["Total energy expenditure (TEE)","Resting energy expenditure (REE)","Thermic effect of food","VO2max"], c:1, exp:"The Mifflin-St. Jeor equation is the most accurate estimate of REE, which is about 75% of TEE." },
+  { q:"Resting energy expenditure (REE) represents approximately what share of total energy expenditure (TEE)?", opts:["About 25%","About 50%","About 75%","About 90%"], c:2, exp:"REE is a major part of TEE — about 75% (Wang et al., 2000)." },
+  { q:"The current RDA for protein cited in the chapter is:", opts:["20 to 30 g/day","46 to 56 g/day","70 to 90 g/day","100 to 120 g/day"], c:1, exp:"The chapter cites an RDA of 46 to 56 g/day, or 10 to 35% of total caloric intake." },
+  { q:"The ADA recommends a daily caloric deficit of what range for weight loss of 1 to 2 lb per week?", opts:["250 to 500 kcal/day","500 to 1,000 kcal/day","1,000 to 1,500 kcal/day","100 to 250 kcal/day"], c:1, exp:"The ADA (2009) recommends a 500 to 1,000 kcal/day deficit for a loss of 1 to 2 lb (0.45 to 0.9 kg) per week." },
+  { q:"On the 6-to-20 RPE scale, an intensity that feels 'somewhat hard' (around VT1) corresponds to:", opts:["8 to 9","12 to 13","15 to 16","18 to 19"], c:1, exp:"'Somewhat hard' is 12 to 13 on the 6-20 scale and 3 to 4 on the 0-10 scale, near VT1." },
+  { q:"Compared with walking, the energy expenditure of running is about how much higher?", opts:["The same","About 10% higher","About 25% higher","About 50% higher"], c:1, exp:"Running EE is about 10% higher than walking because in running both feet leave the ground." },
+  { q:"For muscular training in clients with obesity, the recommended intensity is:", opts:["40 to 50% of 1-RM","60 to 70% of 1-RM","80 to 90% of 1-RM","Maximal effort"], c:1, exp:"ACSM (2018): 60 to 70% of 1-RM for 8 to 12 reps, 2 to 4 sets, 2 to 3 days/week." },
+  { q:"Weight stability is defined in the chapter as a change in body weight of:", opts:["Less than 3%","Less than 5%","Less than 7%","Less than 10%"], c:0, exp:"Stevens et al. (2006) defined weight stability as less than a 3% change; 5% or more is clinically significant." },
+  { q:"A realistic weight-loss goal for clients with overweight/obesity is approximately:", opts:["20 to 30%","5 to 15%","30 to 40%","Less than 1%"], c:1, exp:"A realistic goal is 5 to 15%; a 5 to 10% loss significantly improves comorbidities. Many clients unrealistically target 20 to 30%." },
+  { q:"Pharmacotherapy may be considered when a client retains a BMI of at least:", opts:["25 kg/m2, or 23 with comorbidity","30 kg/m2, or 27 with at least one comorbidity","35 kg/m2, or 30 with comorbidity","40 kg/m2 only"], c:1, exp:"ACC/AHA (2014): pharmacotherapy if BMI >=30, or >=27 with at least one obesity-related comorbidity, after intensive lifestyle intervention." },
+  { q:"The FDA recommends discontinuing a long-term obesity medication if weight loss is less than what amount after 16 weeks?", opts:["3%","5%","10%","15%"], c:1, exp:"The FDA recommends discontinuation if there is less than 5% weight loss after 16 weeks." },
+  { q:"The ACC/AHA Task Force recommends bariatric surgery for patients with a BMI of at least:", opts:["30 kg/m2, or 27 with comorbidity","35 kg/m2 only","40 kg/m2, or 35 with at least one obesity-related comorbidity","45 kg/m2, or 40 with comorbidity"], c:2, exp:"Surgery is recommended at BMI >=40 kg/m2, or >=35 kg/m2 with at least one obesity-related comorbidity." },
+  { q:"Clients tend to misjudge self-monitoring by underestimating intake by about 30 to 50% and:", opts:["Underestimating their physical activity","Overestimating their physical activity","Accurately tracking activity","Overestimating their caloric intake"], c:1, exp:"Clients underestimate food intake by ~30 to 50% and overestimate physical activity (Fabricatore & Wadden; Dowd et al., 2018)." }
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"There are about ________ kcal in 1 pound (0.45 kg) of fat.", a:"3500", hint:"3,500 kcal per pound of fat" },
+  { q:"Resting energy expenditure (REE) is approximately ________ percent of total energy expenditure.", a:"75", hint:"About 75% of TEE" },
+  { q:"Weight stability is defined as a body-weight change of less than ________ percent.", a:"3", hint:"Less than 3% change" },
+  { q:"For muscular training, clients with obesity should work at ________ to 70% of one-repetition maximum.", a:"60", hint:"60 to 70% of 1-RM" },
+  { q:"Phentermine is approved only for short-term use of less than ________ months.", a:"3", hint:"Less than 3 months" }
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"Total distance covered, not speed, determines the total energy expenditure of walking or running.", a:true, exp:"True. The chapter stresses that total distance determines total EE; faster pace uses more kcal/min but fewer minutes, so 10-min bouts can equal one 30-min walk over the same distance." },
+  { q:"Increasing exercise intensity should always be the first program component to progress for clients with obesity.", a:false, exp:"False. Frequency and duration should be increased first; raising intensity too much or too soon increases musculoskeletal injury risk (Skinner, 2005)." },
+  { q:"Bariatric surgery is considered a permanent cure that eliminates the need for behavior change.", a:false, exp:"False. Surgery is not a cure; clients must continue a behavior-change program, and about 5 to 20% regain weight (LABS Consortium, 2009)." },
+  { q:"Excessive sitting can produce a positive energy balance of about 100 kcal per day.", a:true, exp:"True. Hill et al. (2003) noted excessive sitting yields a positive energy balance of about 100 kcal/day, a likely contributor to the obesity epidemic." },
+  { q:"Genetics fully determine weight outcomes, so physical activity cannot reduce genetic predisposition to obesity.", a:false, exp:"False. Li et al. (2010) found the genetic predisposition to obesity can be reduced by about 40% by being physically active." }
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  { num:1, topic:"REE Estimation — Barbara", scenario:"Barbara is a 35-year-old woman who is 5 feet 3 inches tall (160.0 cm) and weighs 175 pounds (79.5 kg). She wants a starting estimate of her resting energy expenditure so you can design a sensible calorie target. You have no indirect calorimetry available.",
+    qs:[
+      { q:"Which equation should you use to estimate Barbara's REE?", opts:["Karvonen formula","Mifflin-St. Jeor equation","Harris-Benedict only","Heart-rate reserve method"], ans:1, exp:"Without indirect calorimetry, the Mifflin-St. Jeor equation is the most accurate REE estimate for people with overweight/obesity." },
+      { q:"Using the female equation, what is Barbara's estimated REE?", opts:["1,135 kcal/day","1,459 kcal/day","1,795 kcal/day","2,008 kcal/day"], ans:1, exp:"REE = (10 x 79.5) + (6.25 x 160.0) - (5 x 35) - 161 = 795 + 1,000 - 175 - 161 = 1,459 kcal/day." },
+      { q:"Barbara's REE represents roughly what fraction of her total energy expenditure?", opts:["About 25%","About 50%","About 75%","About 95%"], ans:2, exp:"REE is about 75% of TEE." },
+      { q:"To lose 1 to 2 lb per week per ADA guidance, what daily caloric deficit should you target?", opts:["100 to 250 kcal/day","250 to 500 kcal/day","500 to 1,000 kcal/day","1,000 to 1,500 kcal/day"], ans:2, exp:"ADA (2009) recommends a 500 to 1,000 kcal/day deficit for 1 to 2 lb (0.45 to 0.9 kg)/week." },
+      { q:"To convert her height of 63 inches to centimeters, you multiply by:", opts:["2.2","2.54","0.45","1.6"], ans:1, exp:"Inches to centimeters: multiply by 2.54 (63 x 2.54 = 160.0 cm); pounds to kg divide by 2.2." }
+    ]
+  },
+  { num:2, topic:"Cardio FITT — Marcus", scenario:"Marcus has obesity and has been physically inactive. He can currently walk only short distances and has not done structured cardio in years. You are setting up his cardiorespiratory program using the ACE IFT Model.",
+    qs:[
+      { q:"In which cardiorespiratory training phase should Marcus begin?", opts:["Base Training","Fitness Training","Performance Training","Power Training"], ans:0, exp:"Anyone not consistently doing moderate cardio at least 3 days/week for 20-30 min begins in the Base Training phase." },
+      { q:"What intensity method best fits an inactive beginner with obesity?", opts:["Push to maximal heart rate","Use the talk test to stay around or below VT1","Train only above VT2","Ignore intensity entirely"], ans:1, exp:"The talk test identifies VT1; comfortable talking means moderate intensity below VT1, appropriate for beginners." },
+      { q:"What total daily time range should you target for his cardio sessions?", opts:["5 to 10 minutes","30 to 60 minutes, in one session or shorter bouts","90 to 120 minutes continuous","Exactly 45 minutes"], ans:1, exp:"Time recommendation is 30 to 60 minutes per day, which may be accumulated in shorter bouts." },
+      { q:"Which exercise type is most appropriate for Marcus?", opts:["High-impact plyometrics","Sprint intervals","Low-impact, rhythmic, large-muscle-group activity","Heavy single-rep lifts"], ans:2, exp:"Type should be low-impact, rhythmic, large-muscle-group exercise (e.g., brisk walking or cycling)." },
+      { q:"Telling Marcus that three 10-minute walks can equal one 30-minute walk relies on which principle?", opts:["Faster speed always burns far more total energy","Total distance covered determines total EE","Only continuous exercise counts","Intensity is the sole driver of EE"], ans:1, exp:"Total distance determines total EE, so accumulated short bouts over the same distance produce similar EE." }
+    ]
+  },
+  { num:3, topic:"Muscular Training — Renee", scenario:"Renee has obesity and some balance limitations. She wants to add resistance training to improve strength for everyday tasks like rising from a chair. You apply the ACE IFT Model and FITT recommendations.",
+    qs:[
+      { q:"How many days per week of muscular training do you recommend?", opts:["1 day/week","2 to 3 days/week with a rest day between","5 to 6 days/week","Every day"], ans:1, exp:"ACSM (2018): 2 to 3 days/week with a day of rest between sessions." },
+      { q:"What set-and-rep prescription fits a moderate intensity goal for Renee?", opts:["1 to 3 reps, 5 to 6 sets","8 to 12 reps, 2 to 4 sets at 60-70% 1-RM","15 to 20 reps at 30% 1-RM, 1 set","20+ reps to failure, 6 sets"], ans:1, exp:"Moderate intensity is 60 to 70% of 1-RM for 8 to 12 reps, 2 to 4 sets." },
+      { q:"Roughly how long should her full-body program take?", opts:["5 to 10 minutes","20 to 30 minutes","45 to 60 minutes","90 minutes"], ans:1, exp:"A full-body muscular-training program should require 20 to 30 minutes." },
+      { q:"Given Renee's balance limitations, which adaptation is most appropriate?", opts:["Heavy barbell back squats on day one","Seated exercise options that build basic strength","Unstable-surface body-weight work","Standing on one leg for all lifts"], ans:1, exp:"Seated exercise is a good option for individuals with balance challenges and builds basic strength safely." },
+      { q:"What is the chief benefit of muscular training you should explain to Renee?", opts:["It is the largest single driver of scale-weight loss","It improves body composition and strength for functional tasks","It replaces the need for any cardio","It eliminates the need for a caloric deficit"], ans:1, exp:"Muscular training's main value is improved body composition, strength, and functional capacity, not large scale-weight loss." }
+    ]
+  },
+  { num:4, topic:"Goal Setting — Bill", scenario:"Bill wants to lose 45 pounds (20.5 kg) and feels overwhelmed by how long it will take, even though he has already lost 15 pounds (6.8 kg) over five months. He says he would love to lose 10 to 15 pounds (4.5 to 6.8 kg) per month.",
+    qs:[
+      { q:"What is a safe, evidence-based rate of weight loss to set with Bill?", opts:["1 to 2 lb (0.45 to 0.9 kg) per week","5 to 6 lb (2.3 to 2.7 kg) per week","10 lb (4.5 kg) per week","As fast as possible"], ans:0, exp:"Safe weight loss is about 1 to 2 lb (0.45 to 0.9 kg) per week, far below Bill's hoped-for rate." },
+      { q:"Which reframing helps Bill stay motivated?", opts:["Focus only on the 45-lb end goal","Set small, attainable process and short-term goals","Tell him faster is always better","Stop tracking progress"], ans:1, exp:"The trainer shifts focus from the long-term goal to small, realistic, attainable short-term process and performance goals." },
+      { q:"A realistic monthly weight-loss target you might collaborate on is:", opts:["2 to 3 lb (0.9 to 1.4 kg) per month","10 lb (4.5 kg) per month","20 lb (9.1 kg) per month","No target at all"], ans:0, exp:"The chapter suggests small goals such as reducing weight by 2 to 3 lb (0.9 to 1.4 kg) in one month." },
+      { q:"Bill's already-lost 15 lb reflects which healthy target range?", opts:["A 5 to 10% loss range that improves comorbidities","A 30 to 40% loss range","An unhealthy crash loss","Irrelevant to health outcomes"], ans:0, exp:"A 5 to 10% weight loss significantly improves obesity-related comorbidities, making realistic targets meaningful." },
+      { q:"Which ACE framework is used to collaboratively reset Bill's goals?", opts:["The ACE Mover Method and ACE ABC Approach","The FITT-only method","A prescriptive diet handout","Maximal intensity testing"], ans:0, exp:"The chapter applies the ACE Mover Method and ACE ABC Approach (Ask, Break down barriers, Collaborate)." }
+    ]
+  },
+  { num:5, topic:"Weight Maintenance — Dana", scenario:"Dana has successfully lost a significant amount of weight and now wants to keep it off long-term. She asks how much activity maintenance really requires.",
+    qs:[
+      { q:"To maintain a significantly reduced body weight, the chapter suggests possibly more than:", opts:["100 min/week","150 min/week","300 min/week of moderate activity","60 min/week"], ans:2, exp:"Maintaining a significantly reduced weight may require more than 300 minutes/week of moderate activity." },
+      { q:"ACSM links weight maintenance to roughly how much daily moderate activity?", opts:["~10 minutes/day","~60 minutes/day","~120 minutes/day","~5 minutes/day"], ans:1, exp:"ACSM states weight maintenance is likely associated with about 60 minutes/day of moderate activity (4-5 mph walking)." },
+      { q:"A 5% change in body weight for a 200-lb (90.1-kg) person equals about:", opts:["2 lb (0.9 kg)","10 lb (4.5 kg)","20 lb (9.1 kg)","30 lb (13.6 kg)"], ans:1, exp:"5% of 200 lb is a 10-lb (4.5-kg) change, the threshold for clinically significant change." },
+      { q:"Which additional training helps preserve lean mass during weight loss?", opts:["Only steady-state cardio","Muscular (resistance) training","Complete rest","Stretching alone"], ans:1, exp:"Muscular training may help maintain lean body mass during periods of weight loss." },
+      { q:"Which NWCR habit is most strongly associated with successful maintenance?", opts:["Watching TV more than 10 hr/week","Skipping breakfast","Exercising on average about 1 hour/day","Avoiding all self-weighing"], ans:2, exp:"NWCR members averaged about 1 hour/day of exercise; 78% ate breakfast daily and 75% weighed weekly." }
+    ]
+  },
+  { num:6, topic:"Pharmacology & Surgery — Hector", scenario:"Hector has done intensive lifestyle intervention but still cannot reach his goals and retains a BMI of 32 kg/m2 with type 2 diabetes. He asks about medication and surgery options his physician might consider.",
+    qs:[
+      { q:"Does Hector meet the BMI criteria for considering pharmacotherapy?", opts:["No, his BMI is too low","Yes, BMI >=30, or >=27 with a comorbidity","Only if BMI >=40","Only if BMI <25"], ans:1, exp:"Pharmacotherapy may be considered at BMI >=30, or >=27 with at least one obesity-related comorbidity; Hector qualifies." },
+      { q:"Which drug is approved only for SHORT-term use (under 3 months)?", opts:["Orlistat","Liraglutide 3.0 mg","Phentermine","Naltrexone-bupropion"], ans:2, exp:"Phentermine is approved for short-term use (<3 months); the five long-term options include orlistat, lorcaserin, phentermine-topiramate, naltrexone-bupropion, and liraglutide 3.0 mg." },
+      { q:"When should a long-term obesity medication be discontinued per the FDA?", opts:["If less than 5% weight loss after 16 weeks","If any weight is regained in week 1","After exactly 3 months regardless of results","Only if side effects occur"], ans:0, exp:"The FDA recommends discontinuation if there is less than 5% weight loss after 16 weeks." },
+      { q:"Wadden et al. found the GREATEST weight loss came from which approach over 52 weeks?", opts:["Pharmacotherapy alone (~11 lb / 5.0 kg)","Lifestyle alone (~15 lb / 6.8 kg)","Combined pharmacotherapy and lifestyle (~26 lb / 11.8 kg)","No intervention"], ans:2, exp:"Combined pharmacotherapy plus lifestyle produced the greatest loss, about 26 lb (11.8 kg)." },
+      { q:"If Hector later considered bariatric surgery, the ACC/AHA threshold with his comorbidity would be a BMI of at least:", opts:["27 kg/m2","30 kg/m2","35 kg/m2 with an obesity-related comorbidity","45 kg/m2"], ans:2, exp:"Surgery is recommended at BMI >=40, or >=35 with at least one obesity-related comorbidity." }
+    ]
+  },
+  { num:7, topic:"Behavior & Self-monitoring — Sally", scenario:"Sally keeps a journal of activity, food, weight, and feelings. She notes she drank two sugary beverages per day (14/week), each about 140 calories, and that she is less active on busy, stressful workdays.",
+    qs:[
+      { q:"Cutting from 14 sugary drinks/week to 7 by swapping one daily for water reflects which behavioral strategy?", opts:["Contingency management","Behavioral substitution / stimulus control","Maximal-intensity training","Pharmacotherapy"], ans:1, exp:"Replacing a sugary drink with water is behavioral substitution combined with controlling the stimulus, both CBT strategies in the program." },
+      { q:"Sally likely faces which common self-monitoring error?", opts:["Overestimating intake and underestimating activity","Underestimating intake (by ~30-50%) and overestimating activity","Perfectly accurate tracking","Tracking only weight"], ans:1, exp:"Clients tend to underestimate intake by about 30 to 50% and overestimate physical activity." },
+      { q:"Her plan to walk 15 minutes during each of two work breaks is an example of:", opts:["High-intensity interval training","Accumulating activity in shorter bouts to reach daily totals","Bariatric preparation","A reason total distance does not matter"], ans:1, exp:"Accumulating activity in shorter bouts is encouraged because total distance/time drives EE and fits busy schedules." },
+      { q:"Which approach should the trainer use to keep Sally as the expert in her own goals?", opts:["Prescribe a strict meal plan","Use the ACE Mover Method and ABC Approach with open-ended questions","Tell her exactly what to eat","Avoid discussing her journal"], ans:1, exp:"The trainer uses the ACE Mover Method/ABC Approach, asking open-ended questions so the client sets goals within scope of practice." },
+      { q:"Self-monitoring with a food diary has been shown to be effective primarily for:", opts:["Short-term water weight only","Long-term weight loss","Increasing appetite","Replacing exercise"], ans:1, exp:"Keeping a food diary is a self-monitoring strategy shown effective for long-term weight loss (Peterson et al., 2014)." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Outstanding! Strong command of energy balance, nutrition, training FITT, goals, and behavior change.',
+    B: 'Great work. Review any wrong answers — check the dose-response numbers and pharmacology/surgery thresholds.',
+    C: 'Passing, but worth another review — especially REE, deficit targets, and weight-stability definitions.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>
