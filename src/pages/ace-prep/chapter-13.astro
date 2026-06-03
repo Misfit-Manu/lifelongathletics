@@ -1,0 +1,971 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 13 — Considerations for Clients with Chronic Disease | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 13 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 13</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 13</div>
+  <h1>Clients with <em>Chronic Disease</em></h1>
+  <p>General principles plus disease-specific exercise guidelines and modifications for 10+ conditions — from CAD and hypertension to diabetes, cancer, osteoporosis, and arthritis.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 13 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-13-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">General Principles · CAD · Hypertension · Diabetes · Asthma · Cancer · Osteoporosis · Arthritis</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 13 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 13 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>General <em>Principles</em></h3>
+      <div class="key-term"><strong>ACE IFT Model still applies</strong><span>Follow IFT guidelines but modify by disease characteristics, restrictions, severity, safety, activities to emphasize/avoid. Low-to-moderate intensity, gradual progression.</span></div>
+      <div class="key-term"><strong>Medical clearance first</strong><span>Obtain physician approval after screening; follow restrictions; communicate with the healthcare team.</span></div>
+      <div class="key-term"><strong>SOAP notes</strong><span><strong style="color:var(--text)">S</strong>ubjective (client report) · <strong style="color:var(--text)">O</strong>bjective (HR, BP, assessments, logs) · <strong style="color:var(--text)">A</strong>ssessment (status summary) · <strong style="color:var(--text)">P</strong>lan (next steps)</span></div>
+      <div class="key-term"><strong>Multidisciplinary team</strong><span>Physician, PT, exercise pro, RD, mental-health pro — more effective than any single intervention.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>CAD <em>(Low-Risk + Exercise)</em></h3>
+      <div class="key-term"><strong>Low-risk criteria</strong><span>Uncomplicated course · no ischemia · ≥7 METs (3 wks post-event) · ejection fraction &gt;50% · no significant arrhythmias</span></div>
+      <table class="ref-table">
+        <tr><th>Variable</th><th>Guideline</th></tr>
+        <tr><td>Frequency</td><td>≥3, preferably ≥5 days/wk</td></tr>
+        <tr><td>Intensity</td><td>40–80% HRR; RPE 12–16; ≥10 bpm below ischemic threshold</td></tr>
+        <tr><td>Time</td><td>20–60 min + 5–10 min warm-up/cool-down</td></tr>
+        <tr><td>Muscular</td><td>2–3×/wk; RPE ≤12–13; <strong>avoid Valsalva</strong></td></tr>
+        <tr><td>Progression</td><td>↑ volume 2–10% after 1–2 reps beyond target ×2 sessions</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Hypertension <em>(&gt;130/80)</em></h3>
+      <table class="ref-table">
+        <tr><th>Category</th><th>SBP / DBP</th></tr>
+        <tr><td>Normal</td><td>&lt;120 / &lt;80</td></tr>
+        <tr><td>Elevated</td><td>120–129 / &lt;80</td></tr>
+        <tr><td>Stage 1</td><td>130–139 / 80–89</td></tr>
+        <tr><td>Stage 2</td><td>≥140 / ≥90</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Exercise</strong><span>Most/all days; 40–59% HRR, RPE 12–13, below VT1; ≥30 min. Avoid Valsalva.</span></div>
+      <div class="key-term"><strong>Medications</strong><span>Beta blockers/CCBs blunt HR → use RPE. Diuretics → dehydration. All → slow position changes, prolonged cool-down.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Diabetes <em>(Blood Glucose Rules)</em></h3>
+      <table class="ref-table">
+        <tr><th>Glucose</th><th>Action</th></tr>
+        <tr><td class="tag-up">&lt;70 mg/dL</td><td>Relative contraindication — treat first</td></tr>
+        <tr><td>&lt;100 mg/dL</td><td>Most insulin users eat carbs before exercise</td></tr>
+        <tr><td class="tag-up">≥300 + ketones</td><td>Do NOT exercise</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Frequency</strong><span>No 2 consecutive days off (benefits lost 24–48 h). 150 min/wk moderate. Check glucose before AND after.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Dyslipidemia <em>Lipid Values</em></h3>
+      <table class="ref-table">
+        <tr><th>Lipid</th><th>Target</th></tr>
+        <tr><td>LDL</td><td>&lt;100 optimal; ≥160 high</td></tr>
+        <tr><td>HDL</td><td>&lt;40 low (bad); ≥60 high (good)</td></tr>
+        <tr><td>Triglycerides</td><td>&lt;150 normal; ≥200 high</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Exercise</strong><span>Volume (frequency + duration) raises HDL more than intensity. ≥5 days/wk; 50–60 min/day min for weight loss. Muscular training: no effect on TG.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Asthma · COPD · PAD</h3>
+      <div class="key-term"><strong>Asthma / EIB</strong><span>~80% of asthmatics get EIB. <strong style="color:var(--text)">10–15 min vigorous warm-up</strong> → refractory period. Rescue inhaler always present; avoid cold/dry air.</span></div>
+      <div class="key-term"><strong>COPD</strong><span>Exercise improves function &amp; reduces dyspnea but won't change the disease. Muscular training is critical.</span></div>
+      <div class="key-term"><strong>PAD</strong><span>Walking is the choice. Walk to claudication pain 3–4/4, rest, repeat. "Intensity" = pain level, NOT %VO₂max.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Cancer</h3>
+      <div class="key-term"><strong>Safe &amp; beneficial during treatment</strong><span>Reduces fatigue, nausea, anxiety, depression; improves QoL. Avoid inactivity.</span></div>
+      <table class="ref-table">
+        <tr><th>Variable</th><th>Guideline</th></tr>
+        <tr><td>CR</td><td>3–5 days/wk; 150 min/wk moderate or 75 min vigorous</td></tr>
+        <tr><td>Muscular</td><td>Start &lt;30% 1-RM, progress ~5%; ≥1 set of 8–12</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Osteoporosis &amp; <em>Arthritis</em></h3>
+      <div class="key-term"><strong>Osteoporosis</strong><span>BMD &gt;2.5 SD below mean. AVOID spinal flexion/twisting/compression &amp; jarring moves. Emphasize weight-bearing + impact. Calcium 1,000–1,200 mg/day + vitamin D.</span></div>
+      <div class="key-term"><strong>Osteoarthritis</strong><span>Low-impact only (walk, cycle, swim); no running. Weight loss reduces joint load. All work in pain-free ROM.</span></div>
+      <div class="key-term"><strong>Rheumatoid arthritis</strong><span>Autoimmune; isometric exercise + limited ROM to avoid joint loading. Mediterranean (anti-inflammatory) diet.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 13: Considerations for Clients with Chronic Disease
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"GENERAL PRINCIPLES",color:"#22d3ee",subs:[
+    {name:"ACE IFT Model Applies",points:["Same principles as apparently healthy persons","Modify with best professional judgment","Factors: disease characteristics, severity, safety","Low-to-moderate intensity, gradual progression"]},
+    {name:"Medical Clearance",points:["Obtain physician approval after screening","Follow all guidelines and restrictions","Maintain close communication with healthcare team","Personalize to specific characteristics"]},
+    {name:"SOAP Notes",points:["Subjective — client's status, symptoms, progress","Objective — HR, BP, weight, assessments, logs","Assessment — current status summary","Plan — next steps based on assessment"]},
+    {name:"Multidisciplinary Team",points:["Physician, PT, exercise pro, RD, mental-health pro","More effective than medication or single intervention","Recommend team members after physician clearance","Many clients have comorbidities affecting design"]}
+  ]},
+  {id:2,name:"CORONARY ARTERY DISEASE (CAD)",color:"#f87171",subs:[
+    {name:"What It Is",points:["Atherosclerotic narrowing of coronary arteries","Inflammatory response → lipid-rich plaque","Leading cause of death in the U.S.","Risk: MI (heart attack)"]},
+    {name:"Risk Factors",points:["Smoking, hypertension, dyslipidemia","Elevated blood glucose, physical inactivity","Poor diet (saturated fat, sugar)","Age, family history"]},
+    {name:"Low-Risk Criteria",points:["Uncomplicated clinical course in hospital","No resting/exercise-induced ischemia","Functional capacity ≥7 METs (3 wks post-event)","Ejection fraction >50%; no significant arrhythmias"]},
+    {name:"Exercise Guidelines",points:["≥3 (preferably ≥5) days/wk; 40–80% HRR; RPE 12–16","≥10 bpm below ischemic threshold if known","Avoid the Valsalva maneuver in resistance training","Progress volume 2–10% after exceeding target ×2"]}
+  ]},
+  {id:3,name:"HYPERTENSION & STROKE",color:"#fb923c",subs:[
+    {name:"BP Categories (2017)",points:["Normal <120/<80; Elevated 120–129/<80","Stage 1: 130–139/80–89","Stage 2: ≥140/≥90","Hypertension defined as >130/80 mmHg"]},
+    {name:"Lifestyle Modifications",points:["Weight loss: 5–20 mmHg per 10 kg","DASH eating plan: 8–14 mmHg","Sodium reduction: 2–8 mmHg","Regular aerobic activity: 4–9 mmHg"]},
+    {name:"HTN Exercise & Meds",points:["Most/all days; 40–59% HRR; RPE 12–13; below VT1","Beta blockers/CCBs blunt HR → use RPE","Diuretics → dehydration risk","Change positions slowly (orthostatic hypotension)"]},
+    {name:"Stroke",points:["Ischemic or hemorrhagic; FAST warning signs","3–5 days/wk; 40–70% HRR; RPE 11–14","Muscular: 2 days, 50–70% 1-RM, 8–15 reps","Modify equipment for neurological deficits"]}
+  ]},
+  {id:4,name:"PERIPHERAL ARTERIAL DISEASE (PAD)",color:"#94a3b8",subs:[
+    {name:"What It Is",points:["Atherosclerosis of lower-extremity arteries","Claudication — cramping pain with walking","Inadequate blood supply to leg muscles","Proper foot care is essential"]},
+    {name:"Walking Protocol",points:["Walking is the exercise of choice","Walk to moderate pain (3–4/4), rest, repeat","Stimulates collateral circulation","Initial workload causes claudication in 2–6 min"]},
+    {name:"Intensity = Pain",points:["'Intensity' refers to pain level, not %VO₂max","Do not exceed 3/4 on claudication scale","Initial goal 30–45 min (excluding rest)","Progress toward 60 min"]},
+    {name:"Why Walking Works",points:["Uses lower-leg muscles producing ischemia","Ischemia stimulates collateral vessel growth","Rest until pain subsides, then repeat","Improves pain-free walking distance over time"]}
+  ]},
+  {id:5,name:"METABOLIC: DYSLIPIDEMIA & DIABETES",color:"#3b82f6",subs:[
+    {name:"Dyslipidemia",points:["LDL <100 optimal; ≥160 high","HDL <40 low (bad); ≥60 high (good)","Exercise volume raises HDL > intensity","Muscular training has no effect on TG"]},
+    {name:"Diabetes Glucose Rules",points:["<70 mg/dL: relative contraindication","<100 mg/dL: insulin users eat carbs first","≥300 + ketones: do NOT exercise","Check glucose before AND after each session"]},
+    {name:"Diabetes Programming",points:["No 2 consecutive days off (benefits lost 24–48 h)","150 min/wk moderate (Type 1 & 2)","Muscular: 2–3 days, 50–85% 1-RM, 8–10 exercises","Type 1: reduce insulin, carbs before/during"]},
+    {name:"Metabolic Syndrome",points:["≥3 of 5: waist, TG, HDL, BP, fasting glucose","Treatment = lifestyle interventions","≥5 days/wk, 40–59% HRR, 30–60 min","50–60 min for weight loss"]}
+  ]},
+  {id:6,name:"PULMONARY: ASTHMA & COPD",color:"#a78bfa",subs:[
+    {name:"Asthma & EIB",points:["~80% of asthmatics get exercise-induced bronchoconstriction","Triggered by cold, dry air","10–15 min vigorous warm-up → refractory period","Reduce intensity if symptoms begin"]},
+    {name:"Asthma Safety",points:["Rescue inhaler with client at ALL times","Hydrate before, during, after","Avoid triggers (cold air, pollen, pollution)","Face mask in cold weather; prolonged warm-up/cool-down"]},
+    {name:"Asthma Guidelines",points:["3–5 days/wk; initially below VT1 (40–59% HRR)","Progress to 60–70% HRR after ~1 month","30–40 min/session","Swim in nonchlorinated pool"]},
+    {name:"COPD",points:["Chronic bronchitis + emphysema","Exercise improves function, reduces dyspnea","Will NOT change the disease process","Muscular training critical for weakness/balance"]}
+  ]},
+  {id:7,name:"CANCER",color:"#ef4444",subs:[
+    {name:"Exercise Is Safe",points:["Safe AND beneficial during treatment","Improves fatigue, anxiety, depression, QoL","2nd leading cause of worldwide mortality","15.5 million survivors in the U.S."]},
+    {name:"Benefits",points:["Preserves muscular strength & endurance","Improves balance and coordination","Reduces nausea, fatigue, anxiety","Decreases osteoporosis & diabetes risk"]},
+    {name:"Goals",points:["Maintain cardiovascular conditioning","Achieve/maintain healthy weight","Reduce symptoms; improve mental health","Avoid inactivity — return to normal ASAP"]},
+    {name:"Guidelines",points:["CR: 3–5 days/wk; 150 min/wk mod or 75 vigorous","Muscular: START <30% 1-RM, progress ~5%","At least 1 set of 8–12 reps","Free weights, machines, functional tasks"]}
+  ]},
+  {id:8,name:"OSTEOPOROSIS & ARTHRITIS",color:"#10b981",subs:[
+    {name:"Osteoporosis",points:["BMD >2.5 SD below young-adult mean","Osteopenia = 1.0–2.5 SD below","1 in 2 women / 1 in 4 men >50 will fracture","Near menopause: bone loss 2–6.5%/year"]},
+    {name:"Osteoporosis Exercise",points:["AVOID spinal flexion, twisting, compression","Avoid quick jarring movements","Emphasize weight-bearing + impact (jumping)","Calcium 1,000–1,200 mg/day + vitamin D"]},
+    {name:"Osteoarthritis (OA)",points:["Degenerative cartilage breakdown (most common)","Leading cause of disability in U.S.","Low-impact only; NO running (lower-extremity OA)","Exercise + weight loss = optimal management"]},
+    {name:"Rheumatoid Arthritis (RA)",points:["Autoimmune; erosion of cartilage & bone","Isometric exercise to avoid joint loading","Low-impact, limited ROM","All exercise within pain-free ROM; Mediterranean diet"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"In SOAP notes, which information belongs in the 'Objective' (O) section?", opts:["The client's self-reported symptoms and how they feel","Measurable data such as heart rate, blood pressure, and assessment results","A summary of the client's overall current status","The plan for the next training session"], c:1, exp:"Objective data are measurable: HR, BP, height, weight, assessment results, and exercise logs. Subjective is the client's report; Assessment summarizes status; Plan outlines next steps." },
+  { q:"For a personal trainer to work with a client who has CAD, the client should meet low-risk criteria including a functional capacity of at least:", opts:["3 METs","5 METs","7 METs","10 METs"], c:2, exp:"Low-risk CAD criteria include functional capacity ≥7 METs (3 weeks post-event), ejection fraction >50%, no ischemia, and no significant arrhythmias." },
+  { q:"A normal left ventricular ejection fraction — part of the low-risk CAD criteria — is defined as:", opts:["Greater than 30%","Greater than 40%","Greater than 50%","Greater than 70%"], c:2, exp:"An ejection fraction greater than 50% reflects normal ventricular function and is one of the low-risk CAD criteria for working with a personal trainer." },
+  { q:"During resistance training with cardiac or hypertensive clients, trainers should specifically avoid:", opts:["Machine-based exercises","The Valsalva maneuver","Exercises for large muscle groups","Any resistance above body weight"], c:1, exp:"The Valsalva maneuver (breath-holding against a closed glottis) causes sharp blood-pressure spikes and must be avoided with cardiac and hypertensive clients." },
+  { q:"If a client's ischemic threshold is known, exercise heart rate should be kept at least how far below it?", opts:["5 bpm below","10 bpm below","20 bpm below","At the ischemic threshold"], c:1, exp:"For CAD clients with a known ischemic threshold, exercise intensity should remain at least 10 bpm below that threshold to maintain a safe margin." },
+  { q:"Under the 2017 AHA/ACC guidelines, Stage 1 hypertension is defined as:", opts:["120–129 / <80 mmHg","130–139 / 80–89 mmHg","≥140 / ≥90 mmHg","≥120 / ≥70 mmHg"], c:1, exp:"Stage 1 hypertension is 130–139 systolic or 80–89 diastolic. Elevated is 120–129/<80, and Stage 2 is ≥140/≥90." },
+  { q:"A client takes a beta blocker for hypertension. How should the trainer monitor exercise intensity?", opts:["Target heart rate using the Karvonen formula","Percentage of max heart rate (220 − age)","Rating of Perceived Exertion (RPE)","Resting heart rate only"], c:2, exp:"Beta blockers (and calcium channel blockers) blunt the heart-rate response, making HR-based methods invalid. Use RPE to monitor intensity." },
+  { q:"A client on diuretics for hypertension should be monitored primarily for:", opts:["Elevated maximal heart rate","Increased dehydration risk, especially in heat","Reduced perceived exertion","Spikes in blood glucose"], c:1, exp:"Diuretics increase fluid loss, raising dehydration and electrolyte-imbalance risk — particularly in hot environments." },
+  { q:"Because many blood-pressure medications increase the risk of orthostatic hypotension, trainers should:", opts:["Have clients change positions slowly and use a prolonged cool-down","Eliminate all standing exercises","Avoid any cardiorespiratory exercise","Stop exercise if BP drops at all"], c:0, exp:"To manage orthostatic hypotension risk, have clients change positions slowly, avoid sudden position changes, and use a prolonged cool-down." },
+  { q:"A blood glucose reading below which value is considered a relative contraindication to exercise for a client with diabetes?", opts:["70 mg/dL","100 mg/dL","150 mg/dL","200 mg/dL"], c:0, exp:"A blood glucose below 70 mg/dL is a relative contraindication to exercise. Below 100 mg/dL, most insulin users should eat carbohydrate first." },
+  { q:"A client with diabetes has a blood glucose of ≥300 mg/dL. Exercise should be avoided if:", opts:["The client has eaten recently","Ketones are present","The client took insulin that morning","Blood pressure is normal"], c:1, exp:"With blood glucose ≥300 mg/dL, the client should NOT exercise if ketones are present, as this indicates inadequate insulin and risk of ketoacidosis." },
+  { q:"Because the glucose-lowering benefits of exercise are lost after 24–48 hours, clients with diabetes should exercise:", opts:["Once per week","At minimum every other day (no 2 consecutive days off)","Only on weekends","Once every 3–4 days"], c:1, exp:"To sustain improved insulin sensitivity, clients should exercise at least every other day — no more than 2 consecutive days without exercise." },
+  { q:"Which exercise variable most effectively raises HDL ('good') cholesterol?", opts:["Intensity above VT2","Exercise volume (frequency and duration)","One-repetition-maximum strength","Static stretching"], c:1, exp:"Exercise volume — greater frequency and duration — raises HDL more than intensity does. Muscular training has no effect on triglycerides." },
+  { q:"An LDL cholesterol level below which value is classified as 'optimal'?", opts:["100 mg/dL","130 mg/dL","160 mg/dL","190 mg/dL"], c:0, exp:"LDL <100 mg/dL is optimal. 130–159 is borderline high, 160–189 is high, and ≥190 is very high." },
+  { q:"Metabolic syndrome is diagnosed when a client has at least how many of the five risk components?", opts:["2 of 5","3 of 5","4 of 5","All 5"], c:1, exp:"Metabolic syndrome requires ≥3 of 5: elevated waist circumference, elevated triglycerides, reduced HDL, elevated blood pressure, and elevated fasting glucose." },
+  { q:"What is the recommended strategy to reduce exercise-induced bronchoconstriction (EIB) in clients with asthma?", opts:["Skip the warm-up to conserve airway capacity","Perform a 10–15 minute vigorous warm-up to induce a refractory period","Exercise only in cold, dry air","Avoid all cardiorespiratory exercise"], c:1, exp:"A 10–15 minute vigorous warm-up induces a refractory period that attenuates the EIB response during the main exercise session." },
+  { q:"For clients with peripheral arterial disease (PAD), exercise 'intensity' is defined by:", opts:["Percentage of VO₂max","The level of claudication (leg) pain, typically 3–4 on the claudication scale","Heart rate reserve","Met-minutes per week"], c:1, exp:"In PAD, intensity refers to claudication pain level (3–4 of 4), not %VO₂max. Clients walk to moderate pain, rest until it subsides, then repeat." },
+  { q:"Which statement about exercise during cancer treatment is correct?", opts:["Exercise should be avoided until treatment ends","Exercise is safe and improves fatigue, mood, and quality of life","Only stretching is permitted during chemotherapy","Exercise cures most cancers"], c:1, exp:"Exercise is safe during cancer treatment and improves common side effects such as fatigue, anxiety, and depression, while enhancing quality of life." },
+  { q:"When beginning muscular training with a client undergoing cancer treatment, the recommended starting intensity is:", opts:["Less than 30% of 1-RM, progressing in ~5% increments","60–80% of 1-RM","85% of 1-RM for strength","Bodyweight only, never adding load"], c:0, exp:"Start cancer clients below 30% of 1-RM and progress in roughly 5% increments, performing at least one set of 8–12 reps." },
+  { q:"For a client with osteoporosis, which exercises should be AVOIDED?", opts:["Weight-bearing activities like walking","Spinal flexion, twisting, and compression movements","Balance and functional exercises","Impact activities like low-level jumping"], c:1, exp:"Osteoporosis clients should avoid spinal flexion, twisting, and compression (and quick jarring moves), while emphasizing weight-bearing and impact activities to stimulate bone. Daily calcium of 1,000–1,200 mg plus vitamin D supports bone health." },
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"To work with a personal trainer, a low-risk CAD client should have a functional capacity of at least ________ METs (measured ~3 weeks post-event).", a:"7", hint:"A single digit." },
+  { q:"A blood glucose level below ________ mg/dL is considered a relative contraindication to exercise for clients with diabetes.", a:"70", hint:"Two digits." },
+  { q:"For clients with asthma, a ________-to-15 minute vigorous warm-up induces a refractory period that reduces exercise-induced bronchoconstriction.", a:"10", hint:"The lower bound of the warm-up range, in minutes." },
+  { q:"Under the 2017 AHA/ACC guidelines, hypertension is defined as a blood pressure greater than ________/80 mmHg.", a:"130", hint:"The systolic threshold." },
+  { q:"Osteoporosis is defined as bone mineral density more than ________ standard deviations below the young-adult mean.", a:"2.5", hint:"A decimal value." },
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"Exercise is unsafe during cancer treatment and should be postponed until all treatment is complete.", a:false, exp:"False. Exercise is safe AND beneficial during cancer treatment — it reduces fatigue, nausea, anxiety, and depression and improves quality of life. Avoiding inactivity is a key goal." },
+  { q:"The Valsalva maneuver should be avoided during resistance training with cardiac and hypertensive clients.", a:true, exp:"True. The Valsalva maneuver causes sharp spikes in blood pressure and is contraindicated for cardiac and hypertensive clients during resistance training." },
+  { q:"For clients with peripheral arterial disease, exercise intensity should be based on percentage of VO₂max rather than claudication pain.", a:false, exp:"False. In PAD, 'intensity' refers to the level of claudication (leg) pain (3–4 of 4), not %VO₂max. Clients walk to moderate pain, rest, and repeat." },
+  { q:"Beta blockers blunt the heart-rate response to exercise, so RPE should be used to monitor intensity instead of target heart rate.", a:true, exp:"True. Beta blockers (and calcium channel blockers) reduce the HR response, making heart-rate-based intensity invalid — RPE is the appropriate tool." },
+  { q:"For clients with osteoporosis, exercises involving spinal flexion, twisting, and compression should be emphasized to build bone.", a:false, exp:"False. Those movements should be AVOIDED in osteoporosis. Instead, emphasize weight-bearing and impact activities, with all exercise in safe ranges." },
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  {
+    num: 1,
+    topic: "Coronary Artery Disease — Robert",
+    scenario: "Robert, 58, completed cardiac rehabilitation after a myocardial infarction 4 weeks ago. His hospital course was uncomplicated. Testing shows a functional capacity of 8 METs, an ejection fraction of 55%, and no resting or exercise-induced ischemia or significant arrhythmias. His cardiologist has cleared him to work with a personal trainer.",
+    qs: [
+      { q:"Does Robert meet the low-risk CAD criteria for working with a personal trainer?", opts:["No — any history of MI excludes personal-trainer supervision","Yes — uncomplicated course, ≥7 METs, EF >50%, and no ischemia/arrhythmias","No — his ejection fraction is too low","Only if his functional capacity exceeds 12 METs"], ans:1, exp:"Robert meets all low-risk criteria: uncomplicated clinical course, functional capacity ≥7 METs (he has 8), ejection fraction >50% (55%), and no significant ischemia or arrhythmias." },
+      { q:"Which cardiorespiratory intensity range is appropriate for Robert?", opts:["85–95% HRR, RPE 18–20","40–80% HRR, RPE 12–16, at least 10 bpm below any ischemic threshold","Maximal effort intervals only","Below 20% HRR at all times"], ans:1, exp:"CAD guidelines call for 40–80% HRR (RPE 12–16), keeping intensity at least 10 bpm below a known ischemic threshold." },
+      { q:"During Robert's resistance training, the trainer must ensure he avoids:", opts:["Using weight machines","The Valsalva maneuver","Exercising large muscle groups","More than one set per exercise"], ans:1, exp:"The Valsalva maneuver causes dangerous blood-pressure spikes and must be avoided. Light weights and machines with controlled breathing are appropriate." },
+      { q:"When is it appropriate to progress Robert's resistance-training volume?", opts:["Every session regardless of performance","Increase 2–10% once he comfortably completes 1–2 reps beyond the target range on 2 consecutive sessions","Only after a new physician stress test each month","Double the load weekly"], ans:1, exp:"Volume can increase by 2–10% once the client comfortably completes 1–2 reps beyond the target range on two consecutive sessions." },
+      { q:"What cardiorespiratory frequency is recommended for Robert?", opts:["1 day per week","2 days per week maximum","≥3, preferably ≥5 days per week","Only on alternating weeks"], ans:2, exp:"CAD exercise guidelines recommend ≥3 and preferably ≥5 days per week; clients with very limited capacity can do short 1–10 minute sessions daily." }
+    ]
+  },
+  {
+    num: 2,
+    topic: "Hypertension — Denise",
+    scenario: "Denise, 50, has a resting blood pressure of 136/86 mmHg measured on multiple occasions. She takes a beta blocker and a diuretic. She wants to begin a structured exercise program and lose weight. It is mid-summer and she plans to train outdoors.",
+    qs: [
+      { q:"Based on the 2017 AHA/ACC categories, Denise's blood pressure of 136/86 is classified as:", opts:["Elevated","Stage 1 hypertension","Stage 2 hypertension","Normal"], ans:1, exp:"136/86 falls in Stage 1 hypertension (SBP 130–139 or DBP 80–89)." },
+      { q:"Because Denise takes a beta blocker, the trainer should monitor her exercise intensity using:", opts:["Target heart rate from 220 − age","Rating of Perceived Exertion (RPE)","Maximal heart rate testing","Her pre-exercise resting heart rate"], ans:1, exp:"Beta blockers blunt the heart-rate response, so RPE (not heart rate) should guide intensity." },
+      { q:"What is an appropriate cardiorespiratory intensity for Denise?", opts:["40–59% HRR, RPE 12–13, below VT1 (able to talk comfortably)","75–90% HRR with frequent maximal intervals","Below 20% HRR only","Whatever keeps her HR at exactly 85% of max"], ans:0, exp:"Hypertension guidelines recommend 40–59% HRR, RPE 12–13, below VT1 — most or all days of the week." },
+      { q:"Given Denise's diuretic use and summer training, the trainer's PRIMARY concern is:", opts:["Excessively high maximal heart rate","Dehydration and electrolyte imbalance","Elevated blood glucose","Bone density loss"], ans:1, exp:"Diuretics increase fluid loss; combined with heat, this raises dehydration and electrolyte-imbalance risk. Hydration and environmental caution are essential." },
+      { q:"Which lifestyle modification offers the LARGEST potential reduction in systolic blood pressure?", opts:["Alcohol moderation (2–4 mmHg)","Dietary sodium reduction (2–8 mmHg)","Weight loss toward a healthy BMI (5–20 mmHg per 10 kg)","Regular aerobic activity (4–9 mmHg)"], ans:2, exp:"Weight loss offers the greatest potential reduction — roughly 5–20 mmHg per 10 kg lost — exceeding DASH, sodium reduction, aerobic activity, and alcohol moderation." }
+    ]
+  },
+  {
+    num: 3,
+    topic: "Diabetes Mellitus — Marcus",
+    scenario: "Marcus, 42, has Type 2 diabetes managed with insulin. He checks his blood glucose before each training session. Over three sessions his pre-exercise readings are: (Session 1) 65 mg/dL, (Session 2) 95 mg/dL, and (Session 3) 320 mg/dL with ketones present.",
+    qs: [
+      { q:"At Session 1 (65 mg/dL), the appropriate action is:", opts:["Proceed with vigorous exercise to lower glucose further","Treat the low glucose before exercising — it is a relative contraindication","Begin resistance training only","Skip the session for the entire week"], ans:1, exp:"A glucose below 70 mg/dL is a relative contraindication; Marcus should consume carbohydrate and confirm a safe level before exercising." },
+      { q:"At Session 2 (95 mg/dL), as an insulin user, Marcus should:", opts:["Exercise immediately with no adjustment","Eat carbohydrate before exercising","Take additional insulin first","Postpone exercise for 24 hours"], ans:1, exp:"Below 100 mg/dL, most insulin users should consume carbohydrate before exercising to prevent hypoglycemia." },
+      { q:"At Session 3 (320 mg/dL with ketones), Marcus should:", opts:["Exercise at high intensity to reduce glucose","NOT exercise — elevated glucose with ketones is contraindicated","Do only flexibility work","Exercise but cut the session in half"], ans:1, exp:"With glucose ≥300 mg/dL AND ketones present, the client should not exercise, as this signals insufficient insulin and risk of ketoacidosis." },
+      { q:"To maintain the glucose-control benefits of exercise, Marcus should train:", opts:["Once a week","With no more than 2 consecutive days without exercise","Only when glucose is above 200","Every third day"], ans:1, exp:"Because the benefits on insulin sensitivity are lost after 24–48 hours, he should avoid going more than 2 consecutive days without exercise." },
+      { q:"When should Marcus check his blood glucose relative to training?", opts:["Only before exercise","Only after exercise","Both before AND after each session","Once a week is sufficient"], ans:2, exp:"Clients with diabetes should check blood glucose both before and after each session to manage hypo-/hyperglycemia risk." }
+    ]
+  },
+  {
+    num: 4,
+    topic: "Dyslipidemia & Metabolic Syndrome — Sofia",
+    scenario: "Sofia, 48, has a lipid panel showing LDL 165 mg/dL, HDL 38 mg/dL, and triglycerides 210 mg/dL. She also has an elevated waist circumference, blood pressure of 132/85 mmHg, and a fasting blood glucose of 105 mg/dL. She wants to improve her cholesterol and lose weight.",
+    qs: [
+      { q:"Sofia's LDL of 165 mg/dL is classified as:", opts:["Optimal","Borderline high","High","Very high"], ans:2, exp:"LDL of 160–189 mg/dL is classified as 'High.' Optimal is <100, borderline high is 130–159, and very high is ≥190." },
+      { q:"How many metabolic syndrome criteria does Sofia meet?", opts:["1 of 5 — she does not have metabolic syndrome","2 of 5 — borderline","At least 3 of 5 — she meets the criteria for metabolic syndrome","None — her values are all normal"], ans:2, exp:"Sofia has elevated waist circumference, high triglycerides (≥150), low HDL (<40), elevated BP, and elevated fasting glucose — meeting all 5 (well beyond the ≥3 threshold)." },
+      { q:"Which exercise approach is most effective for raising Sofia's HDL?", opts:["High-load resistance training","Higher exercise volume — greater frequency and duration","Brief maximal sprints only","Static stretching"], ans:1, exp:"Exercise volume (frequency and duration) raises HDL more than intensity. Muscular training, by contrast, has no effect on triglycerides." },
+      { q:"What minimum daily cardiorespiratory duration supports weight loss/maintenance for dyslipidemia clients?", opts:["10–15 min/day","20–25 min/day","50–60 min/day","90+ min/day"], ans:2, exp:"Dyslipidemia guidelines recommend 30–60 min/session, with a minimum of 50–60 min/day for weight loss or maintenance." },
+      { q:"What effect does muscular (resistance) training have on triglyceride levels?", opts:["It substantially lowers triglycerides","It has no effect on triglycerides","It raises triglycerides","It only lowers triglycerides in men"], ans:1, exp:"Muscular training has no effect on triglycerides; triglycerides can, however, be used as fuel during moderate-to-vigorous aerobic exercise." }
+    ]
+  },
+  {
+    num: 5,
+    topic: "Asthma & Pulmonary — Aisha",
+    scenario: "Aisha, 29, has asthma with a history of exercise-induced bronchoconstriction (EIB). She wants to start running outdoors during the winter. The trainer is designing a safe program and reviewing precautions. A second client, Tomas, has early-stage COPD.",
+    qs: [
+      { q:"Which warm-up strategy best reduces Aisha's EIB?", opts:["Skip the warm-up to save airway capacity","A 10–15 minute vigorous warm-up to induce a refractory period","A single 30-second sprint","Static stretching only"], ans:1, exp:"A 10–15 minute vigorous warm-up induces a refractory period that attenuates the EIB response during the main session." },
+      { q:"What is an essential safety requirement for every session with Aisha?", opts:["A heart-rate monitor","Her rescue inhaler must be with her at all times","A spotter for all exercises","A blood-glucose meter"], ans:1, exp:"The rescue inhaler must be present at all times. Clients should also hydrate well and reduce intensity if symptoms begin." },
+      { q:"Given the cold winter air, what is an appropriate recommendation for Aisha?", opts:["Cold, dry air is ideal for asthma and should be sought out","Consider a face mask and be cautious of cold-air triggers","Only exercise outdoors when it is coldest","Avoid warm-ups in winter"], ans:1, exp:"Cold, dry air triggers EIB. A face mask in cold weather warms/humidifies inhaled air, and known triggers (cold air, pollen, pollution) should be avoided." },
+      { q:"What is an appropriate INITIAL cardiorespiratory intensity for Aisha?", opts:["Below VT1 (40–59% HRR), progressing to 60–70% HRR after about a month","Maximal-effort intervals from day one","Above VT2 immediately","No cardiorespiratory exercise is safe"], ans:0, exp:"Start below VT1 (40–59% HRR) and, if well tolerated, progress to 60–70% HRR after roughly one month." },
+      { q:"For Tomas (early-stage COPD), what should the trainer understand about exercise?", opts:["Exercise will reverse the underlying disease","Exercise improves function and reduces dyspnea but won't change the disease process; muscular training is critical","Only cardiorespiratory exercise should be used","COPD clients cannot exercise safely"], ans:1, exp:"In COPD, exercise improves task performance and reduces dyspnea but does not alter the disease process. Muscular training is critical for muscle weakness and balance." }
+    ]
+  },
+  {
+    num: 6,
+    topic: "Cancer — Linda",
+    scenario: "Linda, 55, is undergoing chemotherapy for breast cancer. She reports significant fatigue and has been told by friends to 'rest and avoid exercise.' Her oncologist has cleared her for physical activity. She is anxious about whether exercise is safe.",
+    qs: [
+      { q:"What should the trainer tell Linda about exercising during chemotherapy?", opts:["She should avoid all exercise until treatment ends","Exercise is safe and can reduce fatigue and improve quality of life","Only bed rest is appropriate during treatment","Exercise will interfere with her chemotherapy"], ans:1, exp:"Exercise is safe during cancer treatment and improves side effects including fatigue, anxiety, and depression — and enhances quality of life." },
+      { q:"What starting intensity is recommended for Linda's muscular training?", opts:["Begin below 30% of 1-RM and progress in ~5% increments","Begin at 60–80% of 1-RM","Begin at 85% of 1-RM for strength","Avoid resistance training entirely"], ans:0, exp:"Cancer clients should start muscular training below 30% of 1-RM, progressing in roughly 5% increments, with at least one set of 8–12 reps." },
+      { q:"What is an appropriate cardiorespiratory target for Linda?", opts:["300 min/week of vigorous exercise","150 min/week moderate or 75 min/week vigorous (or an equivalent combination)","10 min/week total","Only high-intensity intervals"], ans:1, exp:"Cancer exercise guidelines target 150 min/week of moderate or 75 min/week of vigorous cardiorespiratory exercise (or a combination), 3–5 days/week." },
+      { q:"Regarding activity level, a key goal for Linda during treatment is to:", opts:["Maximize bed rest between sessions","Avoid inactivity and return to normal activities as soon as possible","Train only once every two weeks","Eliminate all daily activity to conserve energy"], ans:1, exp:"A central goal is to avoid inactivity and help the client return to normal activities as soon as possible, while reducing symptoms and maintaining conditioning." },
+      { q:"Which is a well-documented benefit of exercise during cancer treatment?", opts:["It cures the cancer","It reduces fatigue, nausea, anxiety, and depression","It eliminates the need for medical treatment","It guarantees no muscle loss"], ans:1, exp:"Exercise reduces fatigue, nausea, anxiety, and depression, preserves strength and endurance, and improves quality of life — but it is an adjunct to, not a replacement for, medical treatment." }
+    ]
+  },
+  {
+    num: 7,
+    topic: "Osteoporosis & Arthritis — Margaret",
+    scenario: "Margaret, 67, has osteoporosis (T-score −2.8) and osteoarthritis in both knees. She wants to improve her strength and reduce her fall risk. The trainer is designing a program that is both bone-loading and joint-friendly.",
+    qs: [
+      { q:"Which movements should Margaret AVOID due to her osteoporosis?", opts:["Weight-bearing walking","Spinal flexion, twisting, and compression movements","Balance exercises","Standing hip and trunk strengthening"], ans:1, exp:"Osteoporosis clients should avoid spinal flexion, twisting, and compression, plus quick jarring movements, to reduce vertebral fracture risk." },
+      { q:"To stimulate bone, which exercise emphasis is MOST effective for Margaret?", opts:["Non-weight-bearing cycling only","Weight-bearing and (tolerated) impact activities","Seated upper-body machines only","Aquatic exercise exclusively"], ans:1, exp:"Weight-bearing and impact activities (e.g., walking, stair climbing, low-level jumping where tolerated) are most effective at stimulating bone formation." },
+      { q:"What is the recommended daily calcium intake for a woman of Margaret's age (≥51)?", opts:["600 mg/day","800 mg/day","1,200 mg/day","2,000 mg/day"], ans:2, exp:"Women ≥51 (and men ≥71) should get 1,200 mg/day of calcium, along with adequate vitamin D for absorption and fall-risk reduction." },
+      { q:"For Margaret's knee osteoarthritis, exercise should be:", opts:["High-impact running to strengthen the joints","Within a pain-free range of motion, using low-impact modes (walking, cycling, swimming)","Performed only to the point of sharp pain","Avoided entirely"], ans:1, exp:"OA exercise should stay within a pain-free range of motion and use low-impact modalities — no high-impact running for lower-extremity arthritis. Weight loss also reduces joint load." },
+      { q:"If Margaret instead had rheumatoid arthritis, which approach would be recommended?", opts:["Heavy loading through full range to 'work through' joint pain","Isometric exercises and limited range of motion to avoid excess joint loading","Only high-impact plyometrics","No exercise of any kind"], ans:1, exp:"RA management often uses isometric exercises and limited ROM low-impact work to avoid excess joint loading, paired with an anti-inflammatory Mediterranean-style diet." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Outstanding! Strong command of chronic-disease modifications, exercise guidelines, and safety.',
+    B: 'Great work. Review any wrong answers — check disease-specific intensity zones and medication effects.',
+    C: 'Passing, but worth another review — especially glucose rules, BP categories, and contraindications.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>

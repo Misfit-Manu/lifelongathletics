@@ -1,0 +1,488 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Considerations for Clients with Chronic Disease — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering general principles for chronic-disease clients, plus disease-specific exercise guidelines for CAD, hypertension, stroke, PAD, dyslipidemia, diabetes, metabolic syndrome, asthma, COPD, cancer, osteoporosis, and arthritis for ACE-CPT Chapter 13.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family:'DM Sans',system-ui,sans-serif; font-size:16px; line-height:1.75; color:#c4c2bc; background:#0e0e0e; }
+.blog-container { max-width:880px; margin:0 auto; padding:40px 24px 80px; background:#0e0e0e; }
+
+/* HERO */
+.hero { background:linear-gradient(135deg,#1a0d10 0%,#140b14 50%,#0b1520 100%); border:1px solid #2e1620; border-radius:16px; padding:48px 44px; margin-bottom:36px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-40px; right:-40px; width:280px; height:280px; background:rgba(197,241,53,0.07); border-radius:50%; }
+.hero-tag { display:inline-block; background:#c5f135; color:#000; font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:18px; }
+.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(26px,4vw,40px); font-weight:700; line-height:1.15; margin-bottom:14px; color:#f4f2ee; max-width:660px; }
+.hero p { color:#9a988f; font-size:15px; max-width:600px; margin-bottom:22px; }
+.back-link { display:inline-flex; align-items:center; gap:6px; color:#c5f135; font-size:13px; font-weight:600; text-decoration:none; }
+.back-link:hover { text-decoration:underline; }
+
+/* TOC */
+.toc-bar { position:static; display:block; padding:0; background:#0e0e0e; border-bottom:1px solid #2a2828; margin-bottom:40px; overflow-x:auto; white-space:nowrap; scrollbar-width:none; -ms-overflow-style:none; }
+.toc-bar::-webkit-scrollbar { display:none; }
+.toc-inner { display:inline-flex; padding:0 2px; }
+.toc-link { display:inline-block; padding:14px 16px; font-size:12px; font-weight:600; color:#888; text-decoration:none; text-transform:uppercase; letter-spacing:0.06em; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; white-space:nowrap; }
+.toc-link:hover { color:#f0eeea; border-bottom-color:#c5f135; }
+
+/* SECTION */
+.section { margin-bottom:60px; }
+.section-tag { display:inline-block; background:#c5f135; color:#000; font-size:11px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-bottom:16px; }
+.section-tag.teal{background:#22d3ee;color:#000} .section-tag.blue{background:#3b82f6;color:#fff} .section-tag.purple{background:#a855f7;color:#fff} .section-tag.orange{background:#f97316;color:#fff} .section-tag.green{background:#10b981;color:#fff} .section-tag.red{background:#ef4444;color:#fff}
+.section h2 { font-family:'Playfair Display',serif; font-size:clamp(22px,3vw,30px); font-weight:700; color:#f4f2ee; margin-bottom:16px; line-height:1.25; }
+.section p { color:#c4c2bc; margin-bottom:18px; font-size:16px; }
+.section p strong { color:#f0eeea; }
+.section em { color:#9bbf28; font-style:italic; }
+h3 { font-size:1.1rem; font-weight:700; color:#e2e0db; margin:26px 0 10px; }
+h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.05em; }
+
+/* DISEASE HEADER */
+.disease-header { background:#161616; border-left:4px solid #22d3ee; border-radius:0 8px 8px 0; padding:12px 16px; margin:26px 0 14px; }
+.disease-header h3 { font-size:1.05rem; font-weight:800; color:#22d3ee; margin:0; }
+.disease-header p { font-size:.82rem; color:#888; margin:3px 0 0; }
+
+/* DIVIDER */
+.divider { height:1px; background:#2a2828; margin:48px 0; }
+
+/* CALLOUT */
+.callout { background:#141414; border-left:4px solid #c5f135; border-radius:0 8px 8px 0; padding:16px 20px; margin:22px 0; }
+.callout.teal{border-left-color:#22d3ee} .callout.blue{border-left-color:#3b82f6} .callout.purple{border-left-color:#a855f7} .callout.orange{border-left-color:#f97316} .callout.green{border-left-color:#10b981} .callout.red{border-left-color:#ef4444}
+.callout p { font-size:14px; margin:0; color:#c4c2bc; line-height:1.65; }
+.callout p strong { color:#f0eeea; }
+
+/* CARD GRID */
+.card-grid { display:grid; gap:14px; margin:22px 0; }
+.card-grid-2 { grid-template-columns:1fr 1fr; }
+.card { background:#171717; border:1px solid #2a2828; border-radius:10px; padding:18px; border-left:3px solid #c5f135; }
+.card.teal{border-left-color:#22d3ee} .card.blue{border-left-color:#3b82f6} .card.purple{border-left-color:#a855f7} .card.orange{border-left-color:#f97316} .card.green{border-left-color:#10b981} .card.red{border-left-color:#ef4444} .card.muted{border-left-color:#64748b}
+.card h4 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; margin:0 0 8px; color:#f0eeea; }
+.card.green h4{color:#34d399} .card.red h4{color:#f87171} .card.orange h4{color:#fb923c} .card.blue h4{color:#60a5fa} .card.purple h4{color:#a78bfa} .card.teal h4{color:#22d3ee} .card.muted h4{color:#94a3b8}
+.card p { font-size:13px; color:#c4c2bc; margin:0; line-height:1.6; }
+.card ul { padding-left:0; margin-top:6px; list-style:none; display:flex; flex-direction:column; gap:6px; }
+.card li { font-size:13px; color:#c4c2bc; line-height:1.5; padding-left:18px; position:relative; }
+.card li::before { content:'✓'; position:absolute; left:0; color:#34d399; font-weight:700; }
+.card ul.xmark li::before { content:'✗'; color:#f87171; }
+
+/* TABLE */
+.data-table { width:100%; border-collapse:collapse; font-size:13px; margin:8px 0; }
+.data-table th { background:#1c1c1c; color:#9bbf28; text-align:left; padding:9px 12px; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid #2a2828; }
+.data-table td { padding:8px 12px; border-bottom:1px solid #222; color:#c4c2bc; vertical-align:top; }
+.data-table td:first-child { font-weight:600; color:#f0eeea; }
+.data-table tr:hover td { background:#161616; }
+
+/* EXERCISE TABLE */
+.ex-table { background:#141414; border:1px solid #2a2828; border-radius:10px; overflow:hidden; margin:14px 0; }
+.ex-head { background:#1c1c1c; padding:9px 14px; font-size:.76rem; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:#9bbf28; }
+.ex-row { display:grid; grid-template-columns:120px 1fr; border-bottom:1px solid #222; }
+.ex-row:last-child { border-bottom:none; }
+.ex-row .label { padding:9px 14px; font-size:.76rem; font-weight:700; color:#888; border-right:1px solid #222; }
+.ex-row .val { padding:9px 14px; font-size:.82rem; color:#c4c2bc; line-height:1.5; }
+
+/* TAKEAWAYS */
+.takeaways { background:#0d160f; border:1px solid #1a3020; border-radius:12px; padding:30px; margin:44px 0; }
+.takeaways h3 { font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#34d399; margin-bottom:18px; }
+.takeaway-item { display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #15281b; }
+.takeaway-item:last-child { border:none; }
+.tnum { width:24px; height:24px; border-radius:50%; background:#c5f135; color:#000; font-size:.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.takeaway-item p { font-size:14px; color:#c4c2bc; margin:0; line-height:1.55; }
+
+/* FOOTER */
+.page-footer { text-align:center; color:#666; font-size:13px; padding:30px 24px; border-top:1px solid #2a2828; margin-top:56px; }
+.page-footer a { color:#888; font-weight:600; text-decoration:none; }
+.page-footer a:hover { color:#e2e0db; }
+
+@media (max-width:680px) {
+  .hero { padding:32px 22px; }
+  .card-grid-2 { grid-template-columns:1fr; }
+  .ex-row { grid-template-columns:1fr; }
+  .ex-row .label { border-right:none; border-bottom:1px solid #222; }
+}
+</style>
+
+<div class="blog-container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">ACE-CPT · Chapter 13 · Theory Guide</div>
+    <h1>Considerations for Clients with Chronic Disease</h1>
+    <p>General principles, disease-specific exercise guidelines, and modifications for 10+ chronic conditions — from CAD and hypertension to diabetes, cancer, osteoporosis, and arthritis.</p>
+    <a href="/ace-prep/chapter-13" class="back-link">← Back to Chapter 13 Hub</a>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc-bar">
+    <div class="toc-inner">
+      <a href="#general" class="toc-link">01 General Principles</a>
+      <a href="#cad"      class="toc-link">02 CAD &amp; Vascular</a>
+      <a href="#metabolic" class="toc-link">03 Metabolic</a>
+      <a href="#pulmonary" class="toc-link">04 Pulmonary</a>
+      <a href="#cancer"   class="toc-link">05 Cancer</a>
+      <a href="#osteo"    class="toc-link">06 Osteoporosis</a>
+      <a href="#arthritis" class="toc-link">07 Arthritis</a>
+      <a href="#takeaways" class="toc-link">08 Takeaways</a>
+    </div>
+  </nav>
+
+  <!-- 01 GENERAL -->
+  <div class="section" id="general">
+    <span class="section-tag teal">General Principles</span>
+    <h2>Programming for Chronic Disease Clients</h2>
+    <div class="card-grid card-grid-2">
+      <div class="card teal">
+        <h4>ACE IFT Model Still Applies</h4>
+        <p>The same exercise-programming principles apply to apparently healthy persons AND those with many chronic diseases. Follow ACE IFT guidelines, but modify them using best professional judgment — for CAD, hypertension, dyslipidemia, diabetes, metabolic syndrome, asthma, cancer, and osteoarthritis.</p>
+      </div>
+      <div class="card blue">
+        <h4>Modification Factors</h4>
+        <ul>
+          <li>Characteristics of the disease</li>
+          <li>Restrictions on the exercise response</li>
+          <li>Disease severity and safety concerns</li>
+          <li>Activities to emphasize — and to avoid</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <h4>Medical Clearance Process</h4>
+        <p>Once conditions are identified during preparticipation screening, obtain physician approval before assessments, program design, and participation. Follow all restrictions and maintain close communication with the healthcare team.</p>
+      </div>
+      <div class="card purple">
+        <h4>Multidisciplinary Team</h4>
+        <p>A team approach — physician, patient, physical therapist, exercise professional, RD, and mental-health professional — is more effective than medication alone or any single intervention. Recommend team members after physician clearance.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <p><strong>SOAP Notes:</strong> <em>Subjective</em> (client's status, symptoms, progress) → <em>Objective</em> (HR, BP, height, weight, assessments, exercise logs) → <em>Assessment</em> (current status summary) → <em>Plan</em> (next steps). Use to document progress and communicate with healthcare professionals.</p>
+    </div>
+    <div class="callout green">
+      <p><strong>General programming:</strong> Low-to-moderate intensity that progresses gradually, personalized to each client's characteristics. Many clients have comorbidities (e.g., heart disease + diabetes + overweight) that affect program design.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 02 CAD & VASCULAR -->
+  <div class="section" id="cad">
+    <span class="section-tag red">Cardiovascular &amp; Cerebrovascular</span>
+    <h2>CAD, Hypertension, Stroke &amp; PAD</h2>
+
+    <div class="disease-header" style="border-left-color:#f87171"><h3 style="color:#f87171">Coronary Artery Disease (CAD)</h3><p>Atherosclerotic narrowing of the coronary arteries — leading cause of death in the U.S.</p></div>
+    <p>CAD results from an inflammatory response within arterial walls — deposition of lipid-rich plaque narrows arteries and raises the risk of myocardial infarction. An estimated 121.5 million Americans have one or more types of CVD.</p>
+    <div class="card-grid card-grid-2">
+      <div class="card red">
+        <h4>Risk Factors</h4>
+        <ul>
+          <li>Smoking; hypertension; dyslipidemia (elevated LDL)</li>
+          <li>Elevated blood glucose; physical inactivity</li>
+          <li>Poor diet (high saturated fat, sugar)</li>
+          <li>Age; family history</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <h4>Low-Risk Criteria (Trainers Work With)</h4>
+        <ul>
+          <li>Uncomplicated clinical course in hospital</li>
+          <li>No resting or exercise-induced ischemia</li>
+          <li>Functional capacity ≥7 METs (3 weeks post-event)</li>
+          <li>Ejection fraction &gt;50%; no significant arrhythmias</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head">CAD Exercise Guidelines (Table 13-1)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">≥3, preferably ≥5 days/week; limited capacity → short 1–10 min sessions daily</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">40–80% HRR or VO₂R; RPE 12–16; ≥10 bpm below ischemic threshold if known</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">20–60 min; 5–10 min warm-up and cool-down each session</div></div>
+      <div class="ex-row"><div class="label">Muscular</div><div class="val">2–3×/week; 1–3 sets, 10–15 reps, 8–10 exercises; RPE ≤12–13; <strong>avoid Valsalva</strong></div></div>
+      <div class="ex-row"><div class="label">Progression</div><div class="val">↑ volume 2–10% once client exceeds target by 1–2 reps on 2 consecutive sessions</div></div>
+    </div>
+
+    <div class="disease-header" style="border-left-color:#fb923c"><h3 style="color:#fb923c">Hypertension</h3><p>BP &gt;130/80 mmHg (2017 AHA/ACC) — affects ~46% of the population (~103 million Americans)</p></div>
+    <div class="card-grid card-grid-2">
+      <div class="card orange">
+        <h4>BP Categories (Table 13-2)</h4>
+        <table class="data-table">
+          <thead><tr><th>Category</th><th>SBP</th><th>DBP</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td>&lt;120</td><td>&lt;80</td></tr>
+            <tr><td>Elevated</td><td>120–129</td><td>&lt;80</td></tr>
+            <tr><td>Stage 1</td><td>130–139</td><td>80–89</td></tr>
+            <tr><td>Stage 2</td><td>≥140</td><td>≥90</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card blue">
+        <h4>Lifestyle Modifications (Table 13-3)</h4>
+        <table class="data-table">
+          <thead><tr><th>Modification</th><th>BP Reduction</th></tr></thead>
+          <tbody>
+            <tr><td>Weight loss</td><td>5–20 mmHg/10 kg</td></tr>
+            <tr><td>DASH eating plan</td><td>8–14 mmHg</td></tr>
+            <tr><td>Sodium reduction</td><td>2–8 mmHg</td></tr>
+            <tr><td>Aerobic activity</td><td>4–9 mmHg</td></tr>
+            <tr><td>Alcohol moderation</td><td>2–4 mmHg</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head" style="color:#fb923c">Hypertension Exercise Guidelines (Table 13-4)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">Most, preferably all, days of the week</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">40–59% HRR or VO₂R; RPE 12–13; below VT1 (can talk comfortably)</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">≥30 min continuous or accumulated; intermittent 10-min bouts if limited</div></div>
+      <div class="ex-row"><div class="label">Muscular</div><div class="val">Machine or free weights to supplement CR training; AVOID the Valsalva maneuver</div></div>
+    </div>
+    <div class="callout orange">
+      <p><strong>Medications:</strong> Beta blockers and calcium channel blockers blunt the HR response → use RPE. Diuretics → increased dehydration risk, especially in heat. All medications → change positions slowly, use a prolonged cool-down, and avoid sudden position changes (orthostatic hypotension risk).</p>
+    </div>
+
+    <div class="disease-header" style="border-left-color:#a855f7"><h3 style="color:#a855f7">Stroke</h3><p>795,000 Americans/year; ischemic (blood supply compromised) or hemorrhagic (vessel rupture)</p></div>
+    <div class="card purple">
+      <h4>Warning Signs (FAST)</h4>
+      <p>Sudden numbness/weakness of face, arms, or legs; sudden confusion or trouble speaking; sudden vision trouble; sudden severe headache. Respond immediately. Exercise: 3–5 days/week, 40–70% HRR, RPE 11–14; muscular 2 nonconsecutive days at 50–70% 1-RM. Modify equipment for neurological deficits.</p>
+    </div>
+
+    <div class="disease-header" style="border-left-color:#94a3b8"><h3 style="color:#94a3b8">Peripheral Arterial Disease (PAD)</h3><p>Atherosclerosis of lower-extremity arteries; claudication (cramping pain) with walking</p></div>
+    <div class="card muted">
+      <h4>PAD Exercise Specifics</h4>
+      <p>Walking is the exercise of choice — it produces ischemia that stimulates collateral circulation. Walk to moderate pain (3–4 on the claudication scale), rest until pain subsides, then repeat. <strong>"Intensity" refers to pain level (3–4/4), NOT %VO₂max</strong> — do not exceed 3/4. Initial goal 30–45 min (excluding rest); progress to 60 min. Proper foot care is essential.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 03 METABOLIC -->
+  <div class="section" id="metabolic">
+    <span class="section-tag blue">Metabolic Disorders</span>
+    <h2>Dyslipidemia, Diabetes &amp; Metabolic Syndrome</h2>
+
+    <div class="disease-header" style="border-left-color:#22d3ee"><h3 style="color:#22d3ee">Dyslipidemia</h3><p>Undesirable blood lipid levels — strongly associated with atherosclerosis and CAD</p></div>
+    <div class="card-grid card-grid-2">
+      <div class="card teal">
+        <h4>LDL Classification</h4>
+        <table class="data-table">
+          <thead><tr><th>LDL (mg/dL)</th><th>Classification</th></tr></thead>
+          <tbody>
+            <tr><td>&lt;100</td><td>Optimal</td></tr>
+            <tr><td>100–129</td><td>Near/Above Optimal</td></tr>
+            <tr><td>130–159</td><td>Borderline High</td></tr>
+            <tr><td>160–189</td><td>High</td></tr>
+            <tr><td>≥190</td><td>Very High</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card orange">
+        <h4>HDL &amp; Triglycerides</h4>
+        <p><strong>HDL ("good"):</strong> inversely correlated to CAD risk. &lt;40 = low (bad); ≥60 = high (good). Exercise <em>volume</em> (frequency &amp; duration) raises HDL more than intensity.</p>
+        <p style="margin-top:8px"><strong>Triglycerides:</strong> &lt;150 normal; 150–199 borderline; 200–499 high; ≥500 very high. Used as fuel during moderate-to-vigorous exercise. Muscular training has no effect on TG.</p>
+      </div>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head" style="color:#22d3ee">Dyslipidemia Exercise Guidelines (Table 13-9)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">≥5 days/week</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">Below, at, and above VT1 but below VT2; 40–75% HRR</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">30–60 min/session; MINIMUM 50–60 min/day for weight loss or maintenance</div></div>
+      <div class="ex-row"><div class="label">Muscular</div><div class="val">2–3 days/week; 50–85% 1-RM (strength) or &lt;50% (endurance); 2–4 sets</div></div>
+    </div>
+
+    <div class="disease-header" style="border-left-color:#3b82f6"><h3 style="color:#3b82f6">Diabetes Mellitus (Type 1 &amp; Type 2)</h3><p>Type 1: autoimmune beta-cell destruction (requires insulin). Type 2: insulin resistance (&gt;90% of cases)</p></div>
+    <div class="card blue">
+      <h4>Blood Glucose Guidelines for Exercise</h4>
+      <ul>
+        <li><strong>&lt;70 mg/dL:</strong> relative contraindication to exercise</li>
+        <li><strong>&lt;100 mg/dL:</strong> most insulin users should eat carbohydrate before exercising</li>
+        <li><strong>≥300 mg/dL:</strong> should NOT exercise if ketones present</li>
+        <li>Check blood glucose BEFORE and AFTER each session</li>
+        <li>Benefits lost after 24–48 hours → exercise at minimum every other day (no 2 consecutive days off)</li>
+      </ul>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head" style="color:#3b82f6">Diabetes Exercise Guidelines (Table 13-11)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">3–7 days/week; no 2 consecutive days without exercise</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">Moderate: below VT1, 40–59% HRR; Vigorous: VT1 to below VT2, 60–89% HRR</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">150 min/week moderate (or 75 min vigorous for Type 1)</div></div>
+      <div class="ex-row"><div class="label">Muscular</div><div class="val">≥2 (preferably 3) nonconsecutive days; 50–85% 1-RM; 8–10 exercises to near fatigue</div></div>
+    </div>
+
+    <div class="disease-header" style="border-left-color:#10b981"><h3 style="color:#10b981">Metabolic Syndrome (MetS)</h3><p>Cluster increasing CVD and type 2 diabetes risk — 30.3% of men, 35.6% of women</p></div>
+    <div class="card green">
+      <h4>Diagnostic Criteria (≥3 of 5)</h4>
+      <ul>
+        <li>Elevated waist circumference</li>
+        <li>Elevated triglycerides (or on treatment)</li>
+        <li>Reduced HDL cholesterol (or on treatment)</li>
+        <li>Elevated blood pressure (or on treatment)</li>
+        <li>Elevated fasting blood glucose (or on treatment)</li>
+      </ul>
+    </div>
+    <p>Primary treatment is lifestyle intervention — weight loss, increased physical activity, healthy eating, tobacco cessation. Exercise guidelines mirror obesity/overweight clients: ≥5 days/week, 40–59% HRR, 30–60 min (50–60 for weight loss).</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 04 PULMONARY -->
+  <div class="section" id="pulmonary">
+    <span class="section-tag purple">Pulmonary Disorders</span>
+    <h2>Asthma &amp; COPD</h2>
+
+    <div class="disease-header" style="border-left-color:#a855f7"><h3 style="color:#a855f7">Asthma</h3><p>Chronic inflammatory airway disorder — 25+ million Americans; ~80% experience EIB</p></div>
+    <div class="card-grid card-grid-2">
+      <div class="card purple">
+        <h4>Exercise-Induced Bronchoconstriction (EIB)</h4>
+        <p>Occurs in ~80% of people with asthma during/after moderate-to-vigorous exercise, triggered by large quantities of cold, dry air. Key strategy: a <strong>10–15 min vigorous warm-up</strong> induces a refractory period that attenuates the EIB response.</p>
+      </div>
+      <div class="card teal">
+        <h4>Exercise Management Rules</h4>
+        <ul>
+          <li>Rescue inhaler with the client at ALL times</li>
+          <li>Hydrate before, during, and after exercise</li>
+          <li>Avoid triggers (cold air, high pollen, pollution)</li>
+          <li>Face mask in cold weather; prolonged warm-up &amp; cool-down</li>
+          <li>Start low intensity; reduce intensity if symptoms begin</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head" style="color:#a855f7">Asthma Exercise Guidelines (Table 13-13)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">3–5 days/week</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">Initially below VT1 (40–59% HRR); progress to 60–70% HRR after ~1 month</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">Progress to 30–40 min/session</div></div>
+      <div class="ex-row"><div class="label">CR Type</div><div class="val">Walking, running, cycling, swimming in a nonchlorinated pool</div></div>
+    </div>
+
+    <div class="disease-header" style="border-left-color:#94a3b8"><h3 style="color:#94a3b8">Chronic Bronchitis &amp; Emphysema (COPD)</h3><p>Airway inflammation + alveolar destruction; trainers typically work only with early-stage cases</p></div>
+    <p>Exercise improves the ability to perform tasks and reduces dyspnea but <strong>will not affect the disease process itself</strong>. Muscular training is critical to address muscle weakness and balance problems. Guidelines: 3–5 days/week (ideally daily), moderate-to-vigorous, RPE 4–6 (0–10 scale), 50–80% peak work rate; muscular 2–3 days at 60–80% 1-RM.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 05 CANCER -->
+  <div class="section" id="cancer">
+    <span class="section-tag red">Cancer</span>
+    <h2>Exercise During &amp; After Cancer Treatment</h2>
+    <p>Cancer is the 2nd leading cause of worldwide morbidity and mortality; there are 15.5 million survivors in the U.S. Exercise is <strong>not only safe during treatment</strong> — it improves common side effects including fatigue, anxiety, depression, and quality of life.</p>
+    <div class="card-grid card-grid-2">
+      <div class="card red">
+        <h4>Benefits During Treatment</h4>
+        <ul>
+          <li>Preserves/improves muscular strength &amp; endurance</li>
+          <li>Improves balance and coordination</li>
+          <li>Reduces fatigue, nausea, anxiety, depression</li>
+          <li>Improves quality of life; maintains CR fitness</li>
+          <li>Decreases osteoporosis and diabetes risk</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <h4>Exercise Goals</h4>
+        <ul>
+          <li>Maintain/improve cardiovascular conditioning</li>
+          <li>Achieve/maintain a healthy weight</li>
+          <li>Prevent musculoskeletal deterioration</li>
+          <li>Reduce symptoms; improve mental health</li>
+          <li>Avoid inactivity — return to normal activities ASAP</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head" style="color:#f87171">Cancer Exercise Guidelines (Table 13-15)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">3–5 days/week</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">Moderate: 40–59% HRR, below VT1; may progress to vigorous (60–89% HRR)</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">75 min/week vigorous or 150 min/week moderate (or equivalent)</div></div>
+      <div class="ex-row"><div class="label">Muscular</div><div class="val">2–3 days/week; START &lt;30% 1-RM, progress ~5%; ≥1 set of 8–12 reps</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 06 OSTEOPOROSIS -->
+  <div class="section" id="osteo">
+    <span class="section-tag orange">Osteoporosis</span>
+    <h2>Bone Health &amp; Exercise</h2>
+    <p>Osteoporosis is bone mineral density &gt;2.5 SD below the young-adult mean. It affects 54 million Americans — 1 in 2 women and 1 in 4 men over 50 will break a bone. Osteopenia (1.0–2.5 SD below) is intermediate risk.</p>
+    <div class="card-grid card-grid-2">
+      <div class="card orange">
+        <h4>Exercise Considerations</h4>
+        <ul class="xmark">
+          <li>Avoid excessive forward flexion, twisting, spinal compression</li>
+          <li>Avoid quick jarring movements</li>
+          <li>Avoid slick surfaces or tripping hazards</li>
+        </ul>
+        <ul style="margin-top:8px">
+          <li>Weight-bearing exercise (walking, jogging, stair stepping)</li>
+          <li>Impact activities (jumping) — most effective at stimulating bone</li>
+          <li>Balance + trunk/hip/lower-extremity strength</li>
+        </ul>
+      </div>
+      <div class="card teal">
+        <h4>Nutrition for Bone Health</h4>
+        <ul>
+          <li>Calcium: 1,000 mg/day (men 50–70); 1,200 mg/day (women ≥51, men ≥71)</li>
+          <li>Vitamin D: critical for calcium absorption and fall-risk reduction</li>
+          <li>Adequate protein (lean meats, low-fat dairy)</li>
+          <li>Near menopause: estrogen decline accelerates bone loss to 2–6.5%/year</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head" style="color:#fb923c">Osteoporosis Exercise Guidelines (Table 13-16)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">4–5 days/week</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">Moderate (40–59% HRR); some clients tolerate more</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">Begin 20 min → progress to 30–45 min (max 60)</div></div>
+      <div class="ex-row"><div class="label">CR Type</div><div class="val">Weight-bearing: walking, stair climbing/descending</div></div>
+      <div class="ex-row"><div class="label">Muscular</div><div class="val">1–2 → 2–3 days/week; 1 set of 8–12 reps → 2 sets; emphasize bone-loading &amp; balance</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 07 ARTHRITIS -->
+  <div class="section" id="arthritis">
+    <span class="section-tag blue">Arthritis</span>
+    <h2>Osteoarthritis (OA) &amp; Rheumatoid Arthritis (RA)</h2>
+    <div class="card-grid card-grid-2">
+      <div class="card blue">
+        <h4>Osteoarthritis (OA)</h4>
+        <p>Degenerative cartilage breakdown — most common form; affects 27 million Americans and is the leading cause of disability in the U.S. Cartilage wears → bones rub → joint damage. Risk factors: age, female sex, overweight/obesity. Exercise + weight loss = optimal management.</p>
+      </div>
+      <div class="card purple">
+        <h4>Rheumatoid Arthritis (RA)</h4>
+        <p>Autoimmune disease — most crippling form; attacks synovial tissue → erosion of cartilage and bone. Common in hands, wrists, feet. Increases CVD risk, fatigue, depression, and muscle loss. Isometric exercise and limited ROM help avoid excess joint loading.</p>
+      </div>
+    </div>
+    <div class="callout green">
+      <p><strong>Nutrition for arthritis:</strong> A Mediterranean-style eating plan — fish, olive oil, fruits, vegetables, nuts/seeds, beans. Anti-inflammatory omega-3 fatty acids and oleocanthal (olive oil) reduce joint cartilage damage. Weight loss is essential for OA — every pound lost reduces joint load.</p>
+    </div>
+    <div class="ex-table">
+      <div class="ex-head" style="color:#3b82f6">Arthritis Exercise Guidelines (Table 13-17)</div>
+      <div class="ex-row"><div class="label">CR Frequency</div><div class="val">3–5 days/week</div></div>
+      <div class="ex-row"><div class="label">CR Intensity</div><div class="val">Below VT1; moderate 40–59% HRR to vigorous ≥60%; light (30–39%) for deconditioned</div></div>
+      <div class="ex-row"><div class="label">CR Time</div><div class="val">As tolerated; target ≥150 min/week moderate, 75 min vigorous, or a combination</div></div>
+      <div class="ex-row"><div class="label">CR Type</div><div class="val">Low-impact (walking, cycling, swimming); NO high-impact (running) for lower-extremity arthritis</div></div>
+      <div class="ex-row"><div class="label">Muscular</div><div class="val">2–3 days/week; 50–80% 1-RM with lower initial loads; ALL exercises within pain-free ROM</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 08 TAKEAWAYS -->
+  <div class="section" id="takeaways">
+    <div class="takeaways">
+      <h3>★ Key Takeaways</h3>
+      <div class="takeaway-item"><div class="tnum">1</div><p>The ACE IFT Model applies to chronic-disease clients — modify by disease characteristics, severity, and safety. Always obtain medical clearance and follow physician restrictions. Document with SOAP notes.</p></div>
+      <div class="takeaway-item"><div class="tnum">2</div><p>Low-risk CAD: ≥7 METs functional capacity, ejection fraction &gt;50%, no ischemia/arrhythmias. Avoid Valsalva. Use RPE/VT1 for intensity; progress volume 2–10% per qualifying session.</p></div>
+      <div class="takeaway-item"><div class="tnum">3</div><p>Hypertension meds: beta blockers/CCBs blunt HR → use RPE. Diuretics → dehydration risk. All → change positions slowly, prolonged cool-down (orthostatic hypotension).</p></div>
+      <div class="takeaway-item"><div class="tnum">4</div><p>Diabetes: check glucose before/after. &lt;70 = relative contraindication; &lt;100 = eat carbs first; ≥300 with ketones = don't exercise. No 2 consecutive days off.</p></div>
+      <div class="takeaway-item"><div class="tnum">5</div><p>PAD: walk to claudication pain 3–4/4, rest, repeat. "Intensity" = pain level, not %VO₂max. Progress 30–45 → 60 min (excluding rest).</p></div>
+      <div class="takeaway-item"><div class="tnum">6</div><p>Asthma: a 10–15 min vigorous warm-up induces a refractory period that reduces EIB. Rescue inhaler always present; avoid cold/dry air.</p></div>
+      <div class="takeaway-item"><div class="tnum">7</div><p>Cancer: exercise is SAFE and BENEFICIAL during treatment. Start muscular training &lt;30% 1-RM. Avoid inactivity. 150 min/week moderate or 75 min vigorous.</p></div>
+      <div class="takeaway-item"><div class="tnum">8</div><p>Osteoporosis: avoid spinal flexion/twisting/compression; emphasize weight-bearing &amp; impact; calcium 1,000–1,200 mg/day + vitamin D. Arthritis: all exercise within pain-free ROM.</p></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <a href="/ace-prep/chapter-13">← Back to Chapter 13 Hub</a> &nbsp;·&nbsp; Lifelong Athletics · ACE-CPT Chapter 13
+  </div>
+
+</div>
+</Layout>
