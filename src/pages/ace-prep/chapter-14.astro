@@ -1,0 +1,936 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 14 — Exercise Considerations across the Lifespan | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 14 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 14</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 14</div>
+  <h1>Exercise Considerations across the <em>Lifespan</em></h1>
+  <p>How trainers safely adapt programming for three special populations — youth, women during pregnancy &amp; postpartum, and older adults — across the stages of life.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 14 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-14-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Youth · Pregnancy · Postpartum · Older Adults · ACE IFT Application</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 14 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 14 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>The Three <em>Populations</em></h3>
+      <table class="ref-table">
+        <tr><th>Population</th><th>Defining detail</th></tr>
+        <tr><td><strong>Youth</strong></td><td>≥60 min/day moderate-to-vigorous PA; bone-mass gains peak just before &amp; during puberty</td></tr>
+        <tr><td><strong>Pregnancy</strong></td><td>≥150 min/week moderate over ≥3 days; avoid supine after 20 weeks</td></tr>
+        <tr><td><strong>Older adult</strong></td><td>≥65 years; 150–300 min/week moderate or 75–150 vigorous</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Youth <em>FITT</em> (Table 14-2)</h3>
+      <table class="ref-table">
+        <tr><th></th><th>Aerobic</th><th>Resistance</th></tr>
+        <tr><td><strong>F</strong></td><td>Daily</td><td>≥3 d/wk</td></tr>
+        <tr><td><strong>I</strong></td><td>Mod→vig; vig ≥3 d/wk</td><td>Body wt or 8–15 submax reps</td></tr>
+        <tr><td><strong>T</strong></td><td colspan="2">All within ≥60 min/day total</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Bone strengthening</strong><span>≥3 days/week — running, jump rope, basketball, tennis, hopscotch. Greatest bone gains before/during puberty.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Pregnancy <em>FITT</em> (Table 14-3)</h3>
+      <table class="ref-table">
+        <tr><th></th><th>Aerobic</th><th>Resistance</th></tr>
+        <tr><td><strong>F</strong></td><td>≥3–5 d/wk</td><td>2–3 nonconsec d/wk</td></tr>
+        <tr><td><strong>I</strong></td><td>Mod 3–5.9 METs, RPE 12–13</td><td>8–10 / 12–15 submax reps</td></tr>
+        <tr><td><strong>T</strong></td><td>~30 min → ≥150 min/wk</td><td>1 set begin; 2–3 adv</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Intensity gauge</strong><span>Use the talk test (stay below VT1), not heart rate. PARmed-X for Pregnancy in screening.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Older Adult <em>FITT</em> (Table 14-4)</h3>
+      <table class="ref-table">
+        <tr><th></th><th>Aerobic</th><th>Resistance</th></tr>
+        <tr><td><strong>F</strong></td><td>≥5 d/wk mod; ≥3 vig</td><td>≥2 d/wk</td></tr>
+        <tr><td><strong>I</strong></td><td>0–10 scale: 5–6 mod, 7–8 vig</td><td>40–50% → 60–80% 1-RM</td></tr>
+        <tr><td><strong>T</strong></td><td>30–60 min mod (bouts ≥10 min)</td><td>8–10 exercises, 1–3 × 8–12</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Add balance training</strong><span>Improves proprioception &amp; reduces falls. Introduce early in the session.</span></div>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Pregnancy <em>Safety</em></h3>
+      <div class="key-term"><strong>⚠ STOP exercise (ACOG 2020)</strong><span>Vaginal bleeding · abdominal pain · regular painful contractions · amniotic fluid leakage · dyspnea before exertion · dizziness · headache · chest pain · muscle weakness affecting balance · calf pain or swelling</span></div>
+      <div class="key-term"><strong>✗ Contraindications</strong><span>Poorly controlled anemia · hypertension · seizure disorder · hyperthyroidism</span></div>
+      <div class="key-term"><strong>Supine rule</strong><span>Avoid lying on the back after 20 weeks — aortocaval compression → hypotension. Healthy gain 25–35 lb (11.4–15.9 kg).</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Youth &amp; <em>Bone</em></h3>
+      <div class="key-term"><strong>Physical literacy</strong><span>Ability, confidence &amp; desire to be active for life. Prioritize effort over performance.</span></div>
+      <div class="key-term"><strong>Strength is safe</strong><span>9-yr-old girls: BMD +6.2% vs +1.4% (4× more). No growth-plate damage with proper supervision.</span></div>
+      <div class="key-term"><strong>Growth plate</strong><span>Epiphyseal plate = cartilage, not fully formed. No single-max or explosive lifts. Free weights / body weight preferred.</span></div>
+      <div class="key-term"><strong>Wolff's Law</strong><span>Bone strengthens under unaccustomed forces.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Postpartum &amp; <em>Older Adults</em></h3>
+      <div class="key-term"><strong>Diastasis recti</strong><span>Rectus abdominis separation 1–2 in (2.5–5.1 cm); 45% in pregnancy, 33% at 12 mo. TA + pelvic-floor isometrics help.</span></div>
+      <div class="key-term"><strong>Postpartum return</strong><span>Duration → frequency → intensity. 10-min blocks. Pre-pregnancy intensity over 9–12 months. C-section needs MD protocol.</span></div>
+      <div class="key-term"><strong>Aging &amp; balance</strong><span>Visual, vestibular &amp; somatosensory systems all decline → fall risk. ~20% of hip-fracture elders die of complications.</span></div>
+      <div class="key-term"><strong>Cognition</strong><span>PA improves cognition over age 50 (Northey 2018). Arthritis affects 49.6% over 65 — assess posture/flexibility first.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 14: Exercise Considerations across the Lifespan
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"YOUTH FOUNDATIONS",color:"#22d3ee",subs:[
+    {name:"Physical Literacy",points:["Ability, confidence, desire to be active for life","Aspen Institute 2015 definition","Inactive parents ~6x inactive kids","Prioritize effort over performance"]},
+    {name:"Activity Guidelines",points:["60+ minutes/day moderate-to-vigorous","Cardio + muscle + bone work","Total weekly volume matters most","Bone gains greatest before/during puberty"]},
+    {name:"Make It Fun",points:["Match the child's interests","Avoid over-competitive pressure","Movement in all three planes","Teach postural stretches in cool-down"]},
+    {name:"Health Benefits",points:["Better cardiovascular profile","Improved body composition","Stronger bones, motor skills","Positive psychosocial outcomes"]}
+  ]},
+  {id:2,name:"YOUTH SAFETY",color:"#fb923c",subs:[
+    {name:"Muscular Training Myth",points:["Children CAN safely strength train","9-yr-old girls: BMD up 6.2% vs 1.4%","Bone density built 4x more","Better safety record than sports"]},
+    {name:"Growth Plate",points:["Epiphyseal plate is cartilage","Not fully formed in youth","Risk from improper form/torque","Repetitive impact a hazard"]},
+    {name:"Safe Technique",points:["Always supervise, proper form","Free weights/body weight preferred","No single maximal or explosive lifts","Teach breathing, hydrate"]},
+    {name:"Environment & Overuse",points:["Heat: higher surface-to-mass, less sweat","Cold: dehydration, hypothermia, asthma","Avoid early sport specialization","Apply periodization to youth"]}
+  ]},
+  {id:3,name:"PREGNANCY PHYSIOLOGY",color:"#a78bfa",subs:[
+    {name:"Weight & COG",points:["Healthy gain 25-35 lb (11.4-15.9 kg)","COG moves up and forward","Low-back discomfort, balance shift","Train posterior leg/trunk early"]},
+    {name:"Hormones",points:["Relaxin increases joint laxity","Widens pelvis/birth canal","Affects ALL joints","Old injuries may flare"]},
+    {name:"Cardiovascular",points:["Cardiac reserve reduced","HR, blood volume, CO rise","Avoid supine after 20 weeks","Aortocaval compression risk"]},
+    {name:"Thermoregulation",points:["Slightly improved heat dissipation","Check ambient temperature","No malformation link reported","Hydrate, avoid extreme heat"]}
+  ]},
+  {id:4,name:"PREGNANCY PROGRAMMING",color:"#3b82f6",subs:[
+    {name:"Guidelines",points:["150+ min over 3+ days/week moderate","PARmed-X for Pregnancy form","ACOG reviews and clearance","Talk test, stay below VT1"]},
+    {name:"Contraindications",points:["Poorly controlled anemia","Hypertension","Seizure disorder","Hyperthyroidism"]},
+    {name:"Warning Signs to Stop",points:["Vaginal bleeding, abdominal pain","Regular painful contractions","Dizziness, headache, chest pain","Calf pain or swelling"]},
+    {name:"Benefits",points:["Less preeclampsia, gestational diabetes","Fewer C-sections, low-back pain","Less anxiety, nausea, insomnia","Helps control weight gain"]}
+  ]},
+  {id:5,name:"POSTPARTUM",color:"#f87171",subs:[
+    {name:"Recovery",points:["Postpartum anemia common","C-section needs extra recovery","Physician return-to-activity protocol","Gradual increase as ready"]},
+    {name:"Program Goals",points:["Aim 150+ min/week moderate","Use 10-minute time blocks","Return to pre-pregnancy over 9-12 months","Encourage walking with child"]},
+    {name:"Diastasis Recti",points:["Rectus abdominis separation 1-2 in (2.5-5.1 cm)","45% during pregnancy, 33% at 12 mo","Exercise cut presence by 35%","TA and pelvic-floor isometrics help"]},
+    {name:"Loss & Empathy",points:["25% pregnancies miscarry","1% end in stillbirth","50% stillbirths from placenta","Show care, dispel guilt myths"]}
+  ]},
+  {id:6,name:"OLDER ADULTS — AGING",color:"#10b981",subs:[
+    {name:"Population",points:["Older adult = 65+ years","74 million Baby Boomers (2016)","Want independence and quality of life","Strong business opportunity"]},
+    {name:"Structural Change",points:["Muscle mass and strength decline","Bones fragile and porous","~20% hip-fracture deaths from complications","Body fat rises as lean mass falls"]},
+    {name:"Balance Systems",points:["Visual system declines","Vestibular system declines","Somatosensory system declines","Higher fall risk"]},
+    {name:"Bone Protection",points:["Weight-bearing exercise preferred","Muscular training maintains bone","Calcium loss lowers bone mass","Train throughout the lifespan"]}
+  ]},
+  {id:7,name:"OLDER ADULTS — PROGRAMMING",color:"#fbbf24",subs:[
+    {name:"Guidelines",points:["150-300 min/week moderate","75-150 min/week vigorous","Muscular training 2+ days/week","Add balance training"]},
+    {name:"Assessment",points:["Arthritis in 49.6% over 65","Posture/flexibility first","Unipedal stance before Y balance","Chair sit-stand vs squat for knees"]},
+    {name:"Session Design",points:["Thorough warm-up for ROM","Balance work early in session","Check floor-to-stand ability","Static stretch in cool-down"]},
+    {name:"Cognition",points:["PA improves cognition over age 50","Northey 2018 review of 43 studies","Eases depression and anxiety","Provides social interaction"]}
+  ]},
+  {id:8,name:"ACE IFT APPLICATION",color:"#94a3b8",subs:[
+    {name:"Youth",points:["Fun, noncritical assessments","Same assessments as adults","Vary equipment, three planes","Celebrate achievements"]},
+    {name:"Pregnancy",points:["Review updated ACOG guidelines","Connect with client's physician","Shorter sessions for new clients","Exercises supporting the COG"]},
+    {name:"Older Adults",points:["Modify movement assessments","Don't impose unnecessary limits","Weight-bearing when tolerated","Functional Training focus"]},
+    {name:"Cross-Cutting",points:["Get medical clearance when needed","Progress duration before intensity","Individualize and collaborate","Use ACE Mover Method/ABC Approach"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"Physical literacy is defined as the ability, confidence, and desire to:", opts:["Win competitive youth sports","Be physically active for life","Master a single sport early","Achieve elite performance"], c:1, exp:"The Aspen Institute (2015) defines physical literacy as the ability, confidence, and desire to be physically active for life." },
+  { q:"Youth should accumulate how much physical activity each day for substantial health benefits?", opts:["20 minutes or more","30 minutes or more","60 minutes or more","90 minutes or more"], c:2, exp:"HHS (2018) recommends 60 minutes or more of moderate-to-vigorous activity each day for youth." },
+  { q:"For children and young adolescents, the greatest gains in bone mass occur:", opts:["In early infancy","Just before and during puberty","After age 18","Only with vigorous running"], c:1, exp:"Bone-strengthening is especially critical because the greatest bone-mass gains occur just before and during puberty." },
+  { q:"The epiphyseal plate is best described as:", opts:["A fully ossified section of adult bone","A cartilaginous growth area not fully formed in youth","A type of muscle attachment","A ligament in the knee"], c:1, exp:"The epiphyseal (growth) plate is a cartilaginous area of bone not fully formed in youth, vulnerable to improper form, repetitive impact, and torque." },
+  { q:"Which principle states that bone strengthens when acted upon by forces to which it is unaccustomed?", opts:["Wolff's Law","Henneman's principle","Starling's Law","The SAID principle"], c:0, exp:"Wolff's Law states bone strengthening occurs when bones are acted upon by unaccustomed forces." },
+  { q:"Why may children be at greater risk of heat-related illness than adults?", opts:["Lower body surface area to mass ratio","Higher body surface area to mass ratio and diminished sweating capacity","Greater cardiac output at a given workload","Higher exercise economy"], c:1, exp:"Children have a higher body-surface-area-to-mass ratio, lower exercise economy, diminished sweating capacity, and lower cardiac output at a similar workload." },
+  { q:"Per ACOG, recommended exercise during a normal pregnancy is at least:", opts:["75 minutes over 2 days/week","150 minutes over a minimum of 3 days/week","300 minutes over 5 days/week","60 minutes once per week"], c:1, exp:"Recommendations support moderate-intensity exercise for at least 150 minutes over a minimum of 3 days/week during normal pregnancy." },
+  { q:"A healthy weight gain during pregnancy is generally:", opts:["10 to 15 lb (4.5 to 6.8 kg)","25 to 35 lb (11.4 to 15.9 kg)","40 to 50 lb (18.1 to 22.7 kg)","5 to 10 lb (2.3 to 4.5 kg)"], c:1, exp:"ACOG (2013) recommends a gain of 25 to 35 lb (11.4 to 15.9 kg) in a healthy pregnancy, adjusted for pre-pregnancy weight status." },
+  { q:"The hormone relaxin during pregnancy primarily:", opts:["Reduces blood volume","Increases joint laxity throughout the body","Lowers heart rate","Tightens the pelvic joints"], c:1, exp:"Relaxin increases joint laxity, widening the pelvis/birth canal but affecting all joints, raising instability and flare-up risk." },
+  { q:"After how many weeks of gestation should the supine position be avoided during exercise?", opts:["8 weeks","12 weeks","20 weeks","30 weeks"], c:2, exp:"After 20 weeks of gestation, the supine position can cause aortocaval compression and hypotension, so it should be avoided." },
+  { q:"Which of the following is a contraindication to exercise during pregnancy?", opts:["Mild seasonal allergies","Poorly controlled hypertension","Occasional heartburn","Mild leg cramps"], c:1, exp:"Poorly controlled anemia, hypertension, seizure disorder, and hyperthyroidism are contraindications to activity during pregnancy." },
+  { q:"Which is a recognized warning sign to stop exercising during pregnancy?", opts:["Mild thirst","Vaginal bleeding","Slight sweating","Feeling somewhat warm"], c:1, exp:"ACOG (2020) warning signs include vaginal bleeding, abdominal pain, regular painful contractions, amniotic fluid leakage, dyspnea before exertion, dizziness, headache, chest pain, muscle weakness affecting balance, and calf pain or swelling." },
+  { q:"Diastasis recti is the separation of the two muscle bellies of which muscle?", opts:["Transverse abdominis","Rectus abdominis","External oblique","Erector spinae"], c:1, exp:"Diastasis recti is the separation of the two muscle bellies of the rectus abdominis, up to 1 to 2 inches (2.5 to 5.1 cm) wide." },
+  { q:"Approximately what percentage of pregnancies are estimated to end in miscarriage?", opts:["5%","10%","25%","50%"], c:2, exp:"An estimated 25% of pregnancies end in miscarriage and 1% in stillbirth." },
+  { q:"Postpartum clients should generally aim to return to pre-pregnancy exercise intensity over the next:", opts:["2 to 4 weeks","1 to 2 months","9 to 12 months","3 to 5 years"], c:2, exp:"A realistic expectation is returning to pre-pregnancy exercise-intensity levels over the subsequent 9 to 12 months." },
+  { q:"An 'older adult' is defined in the chapter as an individual who is:", opts:["50 years of age or older","55 years of age or older","60 years of age or older","65 years of age or older"], c:3, exp:"Older adults are defined as individuals 65 years of age or older." },
+  { q:"Approximately what percentage of older individuals who sustain a hip fracture die of related complications?", opts:["5%","20%","40%","60%"], c:1, exp:"Approximately 20% of older individuals who sustain a hip fracture die of related complications (National Osteoporosis Foundation, 2019)." },
+  { q:"Recommended moderate-intensity cardiorespiratory activity for older adults is:", opts:["75 to 100 min/week","150 to 300 min/week","300 to 500 min/week","60 min/week"], c:1, exp:"HHS (2018): 150 to 300 min/week moderate, or 75 to 150 min/week vigorous, or an equivalent combination." },
+  { q:"Arthritis is prevalent in older adults, affecting about what share of those over 65?", opts:["10.2%","25.4%","49.6%","72.8%"], c:2, exp:"Arthritis affects 49.6% of those over 65 years of age (Barbour et al., 2017), so begin with posture/flexibility assessments." },
+  { q:"Which three sensory systems that maintain balance are negatively affected by aging?", opts:["Visual, vestibular, and somatosensory","Olfactory, gustatory, and auditory","Cardiac, renal, and hepatic","Endocrine, immune, and lymphatic"], c:0, exp:"The visual, vestibular, and somatosensory systems all decline with age, increasing fall risk." }
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"Youth should accumulate at least ________ minutes of moderate-to-vigorous physical activity each day.", a:"60", hint:"60 minutes or more per day" },
+  { q:"During pregnancy, the supine position should be avoided after ________ weeks of gestation due to aortocaval compression.", a:"20", hint:"After 20 weeks of gestation" },
+  { q:"Recommended exercise in a normal pregnancy is at least ________ minutes over a minimum of three days per week.", a:"150", hint:"At least 150 minutes/week" },
+  { q:"An older adult is defined as a person who is at least ________ years of age.", a:"65", hint:"65 years or older" },
+  { q:"Older adults should perform muscular training at least ________ times each week.", a:"2", hint:"At least twice per week" }
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"Properly supervised, evidence-based muscular training is unsafe for children and stunts their growth.", a:false, exp:"False. Evidence dispelled this myth; with qualified supervision and proper loads, there is no published evidence of growth-plate damage, and muscular training has a better safety record than other athletic activities." },
+  { q:"Exercise during a normal, uncomplicated pregnancy is considered safe and desirable.", a:true, exp:"True. Since the mid-1990s, research shows pregnant women can exercise safely; ACOG (2020) states the benefits far outweigh the risks." },
+  { q:"Early single-sport specialization in youth reduces the risk of overuse injury and burnout.", a:false, exp:"False. Sport specialization and year-round play increase overuse-injury and burnout risk; variety builds well-rounded athleticism." },
+  { q:"Weight-bearing and muscular-training exercises can help older adults maintain bone mass.", a:true, exp:"True. With age, calcium loss decreases bone mass, but weight-bearing and muscular-training exercise help maintain it." },
+  { q:"For older adults with knee arthritis, a maximal body-weight squat is the preferred initial movement assessment.", a:false, exp:"False. A chair sit-to-stand is preferred over a body-weight squat to evaluate form and strength while mitigating pain." }
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  { num:1, topic:"Youth Strength Safety — Tyler", scenario:"Tyler is a 10-year-old who wants to start resistance training. His parents worry it will stunt his growth. You design an age-appropriate program applying youth safety guidelines.",
+    qs:[
+      { q:"How should you respond to the parents' growth concern?", opts:["Agree and refuse to train him","Explain supervised, evidence-based training is safe and builds bone density","Recommend only single maximal lifts","Tell them to wait until age 18"], ans:1, exp:"Evidence shows properly supervised youth strength training is safe and is the most effective way for young people to build bone density." },
+      { q:"Which equipment choice is generally preferred for Tyler?", opts:["Adult weight machines for proper lever arm","Free weights or body-weight exercises","Maximal-load barbells","Only powerlifting gear"], ans:1, exp:"Traditional machines may not provide an appropriate lever arm for children, so free weights or body-weight exercises may be preferred." },
+      { q:"Which instruction violates youth training guidelines?", opts:["Teach proper breathing","Encourage single maximal lifts and competition","Supervise and use proper technique","Encourage drinking plenty of fluids"], ans:1, exp:"Children should never be encouraged to perform single maximal lifts, sudden explosive movements, or compete during muscular training." },
+      { q:"What anatomical structure makes injury prevention especially important for Tyler?", opts:["The rotator cuff","The epiphyseal (growth) plate","The Achilles tendon","The rectus abdominis"], ans:1, exp:"The epiphyseal plate is cartilaginous and not fully formed in youth; improper form, impact, and torque increase its injury risk." },
+      { q:"Per Wolff's Law, bone-strengthening for Tyler occurs when bones are:", opts:["Completely rested","Acted upon by unaccustomed forces","Only stretched","Kept non-weight-bearing"], ans:1, exp:"Wolff's Law: bone strengthening occurs when bones are acted upon by forces to which they are unaccustomed." }
+    ]
+  },
+  { num:2, topic:"Youth Activity Planning — Maya", scenario:"Maya is a school-aged child whose parents want her to be more active. She dislikes competitive sports. You build a fun, well-rounded weekly plan.",
+    qs:[
+      { q:"What daily activity target should you set for Maya?", opts:["20 minutes","60 minutes or more","120 minutes","10 minutes"], ans:1, exp:"Youth benefit from 60 minutes or more of moderate-to-vigorous activity each day (HHS, 2018)." },
+      { q:"Why emphasize bone-strengthening activities for Maya now?", opts:["Bone mass cannot change in childhood","Greatest bone-mass gains occur just before and during puberty","Bone work is only for adults","It replaces all cardio needs"], ans:1, exp:"Bone-strengthening is especially critical because the greatest bone-mass gains occur just before and during puberty." },
+      { q:"Given Maya dislikes competition, the best approach is to:", opts:["Force her into a competitive league","Match activities to her interests and prioritize effort over performance","Only do maximal testing","Avoid all activity"], ans:1, exp:"Inspiring children requires matching their interests and prioritizing effort, not performance, especially for those who find competition discouraging." },
+      { q:"Which is an appropriate bone-strengthening activity for a school-aged child?", opts:["Static stretching only","Jumping rope","Sitting video games","Floating in water"], ans:1, exp:"Jumping rope, running, basketball, and tennis are bone-strengthening activities for school-aged children." },
+      { q:"To avoid overuse injury and burnout, you should:", opts:["Specialize her in one sport year-round","Provide a variety of activities and apply periodization","Maximize training volume immediately","Eliminate rest entirely"], ans:1, exp:"Variety and periodization reduce overuse injury and burnout while improving overall athleticism." }
+    ]
+  },
+  { num:3, topic:"Pregnancy Continuation — Michelle", scenario:"Michelle is seven weeks pregnant and cleared by her physician to continue her current program. She wants to keep meeting guidelines and add muscle-strengthening work.",
+    qs:[
+      { q:"What weekly exercise target fits Michelle's normal pregnancy?", opts:["At least 150 minutes over at least 3 days/week","300 minutes over 6 days/week","60 minutes once weekly","75 minutes over 1 day/week"], ans:0, exp:"Recommendations support at least 150 minutes over a minimum of 3 days/week of moderate exercise in a normal pregnancy." },
+      { q:"How should Michelle best monitor her exercise intensity?", opts:["Maximal heart-rate testing","The talk test, staying below VT1","1-RM testing","Breath-hold tests"], ans:1, exp:"The talk test is a more effective intensity gauge than heart rate in pregnancy; staying below VT1 indicates moderate intensity." },
+      { q:"Which exercises best support her changing center of gravity?", opts:["Supine crunches after 20 weeks","Squats, stiff-legged deadlifts, seated rows, bird dogs","Maximal overhead lifts","Contact-sport drills"], ans:1, exp:"Choose squats, stiff-legged deadlifts, side lunges, lat pull-downs, seated rows, and bird dogs to support the changing COG." },
+      { q:"After 20 weeks, which position should Michelle avoid during exercise?", opts:["Standing","Seated","Supine (lying on her back)","Quadruped"], ans:2, exp:"After 20 weeks of gestation, supine positions risk aortocaval compression and hypotension." },
+      { q:"Which screening tool should be part of her preparticipation process?", opts:["PAR-Q+ only","PARmed-X for Pregnancy","VO2max test","Body-fat caliper test"], ans:1, exp:"The PARmed-X for Pregnancy physical-activity readiness evaluation should be included in screening." }
+    ]
+  },
+  { num:4, topic:"Pregnancy Warning Signs — Priya", scenario:"Priya is 24 weeks pregnant and exercising with you. Midway through a session she reports new symptoms and you must decide how to respond.",
+    qs:[
+      { q:"Which symptom is a warning sign to stop exercise immediately?", opts:["Mild thirst","Vaginal bleeding","Light sweating","Slight muscle warmth"], ans:1, exp:"Vaginal bleeding is among the ACOG warning signs requiring the session be stopped and the physician consulted." },
+      { q:"Priya feels dizzy and short of breath before exertion. You should:", opts:["Push through the workout","Stop the session and have her consult her physician","Increase the intensity","Place her supine to rest"], ans:1, exp:"Dizziness and dyspnea before exertion are warning signs; the session should be postponed and the condition discussed with her physician." },
+      { q:"She mentions calf pain and swelling. This is:", opts:["A normal training response to ignore","A listed warning sign to stop and seek medical advice","A reason to add more cardio","Only relevant postpartum"], ans:1, exp:"Calf pain or swelling is a recognized ACOG warning sign to discontinue exercise and consult a physician." },
+      { q:"If Priya had poorly controlled hypertension, exercise during pregnancy would be:", opts:["Encouraged at high intensity","A contraindication requiring physician management","Unrelated to exercise safety","Only a concern after delivery"], ans:1, exp:"Poorly controlled hypertension (with anemia, seizure disorder, hyperthyroidism) is a contraindication to activity during pregnancy." },
+      { q:"For a previously inactive pregnant client, you should:", opts:["Start with 60-minute vigorous sessions","Begin with shorter durations, possibly under 10 minutes, and progress gradually","Begin with maximal lifts","Avoid all exercise entirely"], ans:1, exp:"Previously inactive women should gradually progress to moderate exercise, sometimes in shorter (<10-minute) or intermittent bouts." }
+    ]
+  },
+  { num:5, topic:"Postpartum Return — Dana", scenario:"Dana delivered six weeks ago via C-section and has physician clearance. She is fatigued, breastfeeding, and short on time. She wants to rebuild her fitness.",
+    qs:[
+      { q:"What is the appropriate progression for Dana's return to exercise?", opts:["Resume pre-pregnancy intensity immediately","Begin slowly and increase duration, then frequency, then intensity","Start with maximal lifts","Avoid exercise for a year"], ans:1, exp:"Begin slowly and gradually increase duration, frequency, and then intensity, toward at least 150 minutes/week." },
+      { q:"Given her limited time, a practical format is:", opts:["Single 90-minute sessions","10-minute time blocks, including walking with the baby","Only gym-based 60-minute sessions","No structured activity"], ans:1, exp:"Simple programs in 10-minute blocks and walking (child can come along) help around childcare and schedule limits." },
+      { q:"Which consideration is specific to her C-section?", opts:["No extra recovery is needed","Additional recovery time and a physician return-to-activity protocol","Immediate maximal core work","Avoiding all upper-body work permanently"], ans:1, exp:"C-section is highly invasive; healing time varies and the physician should provide a return-to-activity protocol." },
+      { q:"To reduce diastasis recti risk, you should include:", opts:["Heavy ballistic crunches","Transverse abdominis and pelvic-floor isometrics with postural work","Maximal Valsalva lifts","Only cardio"], ans:1, exp:"TA and pelvic-floor isometrics plus postural/abdominal strength exercises help reduce diastasis recti." },
+      { q:"A realistic expectation for returning to pre-pregnancy intensity is over the next:", opts:["2 weeks","9 to 12 months","2 years","1 month"], ans:1, exp:"A realistic timeframe to return to pre-pregnancy exercise-intensity levels is the subsequent 9 to 12 months." }
+    ]
+  },
+  { num:6, topic:"Older Adult Balance — Harold", scenario:"Harold is 72 with knee arthritis and some balance decline. He wants to stay independent and avoid falls. You set up assessments and a program.",
+    qs:[
+      { q:"Before the movement assessment, you should begin with:", opts:["Maximal strength testing","Posture and flexibility assessments","A timed sprint","A 1-RM bench press"], ans:1, exp:"Because arthritis is prevalent (49.6% over 65), begin with posture and flexibility assessments before progressing to movement." },
+      { q:"For Harold's knee arthritis, instead of a body-weight squat you might assess with:", opts:["A maximal jump","A chair sit-to-stand","A barbell back squat","A sprint test"], ans:1, exp:"A chair sit-to-stand evaluates form and strength while mitigating knee pain." },
+      { q:"Which balance test is more prudent to start with for Harold?", opts:["Y balance test","Unipedal stance test near a wall","Maximal single-leg hop","Beam walking blindfolded"], ans:1, exp:"Begin with a unipedal stance test near an external stabilizer rather than starting with the Y balance test." },
+      { q:"How often should Harold perform muscular training?", opts:["Never","At least twice each week","Only once per month","Every day with maximal loads"], ans:1, exp:"Older adults should do muscular training at least twice/week to maintain or increase strength and endurance." },
+      { q:"Where in the session should balance exercises be placed?", opts:["At the very end when fatigued","Early, when strength and mental focus are highest","Omitted entirely","Only during cool-down"], ans:1, exp:"Balance exercises should be introduced early in the session when the client has the highest strength and focus, reducing injury risk." }
+    ]
+  },
+  { num:7, topic:"Older Adult Cardio & Cognition — Eleanor", scenario:"Eleanor is 68, recently widowed, and worried about memory and mood. She has no major orthopedic issues. You build a program targeting health and well-being.",
+    qs:[
+      { q:"What moderate cardio target fits Eleanor per HHS guidelines?", opts:["60 to 90 min/week","150 to 300 min/week","300 to 600 min/week","30 min/week"], ans:1, exp:"HHS (2018): older adults should do 150 to 300 min/week moderate or 75 to 150 min/week vigorous activity." },
+      { q:"What does the evidence say about exercise and cognition for Eleanor?", opts:["Exercise worsens cognition after 50","Physical activity improves cognitive function in people over 50","Only medication helps cognition","Cognition is unaffected by activity"], ans:1, exp:"Northey et al. (2018) found physical activity improves cognitive function in people over 50, regardless of cognitive status at onset." },
+      { q:"Beyond physical benefits, exercise can help Eleanor's mood by:", opts:["Isolating her from others","Providing regular social interaction and human connection","Eliminating all rest","Replacing all medical care"], ans:1, exp:"Exercise settings provide social interaction that helps counter the rise in depression/anxiety and social loss with age." },
+      { q:"Which aerobic modality best suits an older adult avoiding orthopedic stress?", opts:["High-impact plyometrics","Walking, aquatic, or stationary-cycle exercise","Maximal sprinting","Heavy box jumps"], ans:1, exp:"Aerobic type should be any modality that does not impose excessive orthopedic stress, such as walking, aquatic, or stationary cycling." },
+      { q:"A thorough warm-up is increasingly important for Eleanor because aging brings:", opts:["Increased collagen and elasticity","Decreased collagen content and reduced connective-tissue elasticity","No change in tissues","Faster healing"], ans:1, exp:"Decreased collagen content and reduced elasticity make a thorough warm-up important to reduce injury risk." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Outstanding! Strong command of lifespan programming — youth, pregnancy, postpartum, and older adults.',
+    B: 'Great work. Review any wrong answers — check the FITT tables and pregnancy safety rules.',
+    C: 'Passing, but worth another review — especially youth bone safety, the supine rule, and older-adult balance.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>
