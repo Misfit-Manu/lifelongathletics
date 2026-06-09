@@ -3,6 +3,8 @@ title: "How to Get 80g of Protein a Day on a Simple Indian Vegetarian Diet"
 description: "Most Indian vegetarian meals are heavy on carbs and short on protein. Here's exactly how to hit 80g of protein a day with simple, everyday veg foods — including high-protein vegetarian sources and a full sample day that adds up."
 category: "Nutrition & Habits"
 pubDate: 2026-06-08
+image: "/blog/high-protein-indian-meal.jpg"
+imageAlt: "Paneer curry served over rice — a high-protein Indian vegetarian meal"
 ---
 Here's a question almost nobody can answer: *how much protein did you eat yesterday?*
 

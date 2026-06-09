@@ -41,13 +41,16 @@ allBlogs.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
       {allBlogs.map(post => (
         <a href={`/blog/${post.id}`} class="post-card" data-category={post.data.category.toLowerCase().replace(' ', '-')}>
           <div class="card-img">
-            <!-- Dynamic placeholder generation or image loading could go here -->
-            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-              <rect x="10" y="50" width="8" height="20" fill="#c9a84c" rx="1"/>
-              <rect x="22" y="38" width="8" height="32" fill="#c9a84c" rx="1"/>
-              <rect x="34" y="28" width="8" height="42" fill="#c9a84c" rx="1"/>
-              <rect x="46" y="18" width="8" height="52" fill="#c9a84c" rx="1"/>
-            </svg>
+            {post.data.image
+              ? <img src={post.data.image} alt={post.data.imageAlt || post.data.title} loading="lazy" />
+              : (
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <rect x="10" y="50" width="8" height="20" fill="#c9a84c" rx="1"/>
+                  <rect x="22" y="38" width="8" height="32" fill="#c9a84c" rx="1"/>
+                  <rect x="34" y="28" width="8" height="42" fill="#c9a84c" rx="1"/>
+                  <rect x="46" y="18" width="8" height="52" fill="#c9a84c" rx="1"/>
+                </svg>
+              )}
           </div>
           <div class="card-body">
             <p class="card-category">{post.data.category}</p>
@@ -161,6 +164,7 @@ allBlogs.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
     overflow: hidden;
   }
   .card-img svg { opacity: 0.12; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; }
   .card-body { padding: 32px 28px; flex: 1; display: flex; flex-direction: column; }
   .card-category {
     font-size: 0.6rem;
