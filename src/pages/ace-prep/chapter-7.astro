@@ -1,0 +1,946 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 7 — Resting Assessments & Anthropometric Measurements | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 7 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 7</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 7</div>
+  <h1>Resting Assessments &amp; <em>Anthropometric</em> Measurements</h1>
+  <p>How to sequence and conduct resting cardiovascular assessments and anthropometric measurements — heart rate, blood pressure, body composition, BMI, circumferences, and waist-to-hip ratio — to gauge health risk.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 7 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-7-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Sequencing · Heart Rate · Blood Pressure · Body Composition · BMI · Circumference · WHR</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 7 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 7 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card">
+      <h3>Resting <em>Heart Rate</em></h3>
+      <table class="ref-table">
+        <tr><th>Category</th><th>RHR</th></tr>
+        <tr><td>Sinus bradycardia</td><td>&lt;60 bpm</td></tr>
+        <tr><td>Normal sinus rhythm</td><td>60–100 bpm</td></tr>
+        <tr><td>Sinus tachycardia</td><td>&gt;100 bpm</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Key facts</strong><span>Avg 60–70 bpm (men), 72–80 (women). Athletes 15–30 bpm lower. Overtraining flag: &gt;5 bpm above norm. Abstain HR meds 12 h. True RHR = before rising. Use index + middle fingers (not thumb).</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Blood Pressure <em>(Table 7-2)</em></h3>
+      <table class="ref-table">
+        <tr><th>Category</th><th>SBP</th><th>DBP</th></tr>
+        <tr><td>Normal</td><td>&lt;120</td><td>and &lt;80</td></tr>
+        <tr><td>Elevated</td><td>120–129</td><td>and &lt;80</td></tr>
+        <tr><td>Stage 1</td><td>130–139</td><td>or 80–89</td></tr>
+        <tr><td>Stage 2</td><td>≥140</td><td>or ≥90</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Technique</strong><span>Brachial artery. Korotkoff onset = SBP, disappearance = DBP. Higher category wins. Average 2+ readings on 2+ occasions.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>BMI <em>(Table 7-6)</em></h3>
+      <div class="key-term"><strong>Formula</strong><span>kg/m² &nbsp;or&nbsp; (lb / in²) × 703. Classifies risk, NOT body fat.</span></div>
+      <table class="ref-table">
+        <tr><th>Class</th><th>BMI</th></tr>
+        <tr><td>Underweight</td><td>&lt;18.5</td></tr>
+        <tr><td>Normal</td><td>18.5–24.9</td></tr>
+        <tr><td>Overweight</td><td>25.0–29.9</td></tr>
+        <tr><td>Obesity I</td><td>30.0–34.9</td></tr>
+        <tr><td>Obesity II</td><td>35.0–39.9</td></tr>
+        <tr><td>Extreme (III)</td><td>≥40.0</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Waist <em>Circumference (Table 7-7)</em></h3>
+      <table class="ref-table">
+        <tr><th>Risk</th><th>Females</th><th>Males</th></tr>
+        <tr><td>Very low</td><td>&lt;70 cm</td><td>&lt;80 cm</td></tr>
+        <tr><td>Low</td><td>70–89 cm</td><td>80–99 cm</td></tr>
+        <tr><td>High</td><td>90–109 cm</td><td>100–120 cm</td></tr>
+        <tr><td>Very high</td><td>&gt;110 cm</td><td>&gt;120 cm</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Per 1-inch (2.5 cm) ↑ in men</strong><span>BP <span class="tag-up">+10%</span> · cholesterol <span class="tag-up">+8%</span> · HDL <span class="tag-up">−15%</span> · triglycerides <span class="tag-up">+18%</span> · metabolic-syndrome risk <span class="tag-up">+18%</span></span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Body-Composition <em>Accuracy</em></h3>
+      <table class="ref-table">
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Essential fat (men / women)</td><td>2–5% / 10–13%</td></tr>
+        <tr><td>DXA</td><td>Most accurate &amp; precise</td></tr>
+        <tr><td>Hydrostatic vs cadaver</td><td>2–3% error (benchmark)</td></tr>
+        <tr><td>Skinfold vs hydrostatic</td><td>±3.5%</td></tr>
+        <tr><td>Subcutaneous share of fat</td><td>~50%</td></tr>
+        <tr><td>BIA</td><td>Needs optimal hydration</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Key <em>Terms</em></h3>
+      <div class="key-term"><strong>Overweight vs overfat</strong><span>Overweight = excess weight for height; overfat = excess body fat (more accurate).</span></div>
+      <div class="key-term"><strong>Vasovagal response</strong><span>Carotid over-pressure can slow HR.</span></div>
+      <div class="key-term"><strong>Skinfold principle</strong><span>Subcutaneous fat is proportional to total body fat (~50%). Use a population-specific equation. Harpenden/Lange ($250–400) &gt; cheap spring calipers.</span></div>
+      <div class="key-term"><strong>WHR &amp; distribution</strong><span>WHR = waist ÷ hip. Android (apple, abdominal/visceral) = higher risk than gynoid (pear, hip/thigh). Visceral fat → insulin resistance, T2DM, HTN.</span></div>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Sequencing &amp; <em>Environment</em></h3>
+      <div class="key-term"><strong>Order rules</strong><span>Only run necessary assessments. Skinfold BEFORE activity. Let HR/BP return to baseline between measures. Don't test the same muscle group back-to-back. Run follow-ups in the SAME sequence.</span></div>
+      <div class="key-term"><strong>Environment</strong><span>Room 68–72°F (20–22°C), humidity &lt;60%, quiet &amp; private. Signed informed consent. Calibrated equipment. Realistic change (2–3 mo): body fat ↓2.7–6.9%, waist ↓1.9–3.3 cm.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 7: Resting Assessments &amp; Anthropometric Measurements
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"SEQUENCING & PROFESSIONALISM",color:"#22d3ee",subs:[
+    {name:"Order of Tests",points:["Only do necessary assessments","Skinfold before activity","Let HR/BP return to baseline","Follow-ups in same sequence"]},
+    {name:"Self-Efficacy",points:["Build early success","Avoid assessment overload","Observe movement in workout","Supports adherence"]},
+    {name:"Professional Prep",points:["Advance instructions to client","Signed informed consent","Calibrated equipment","Clear demonstration"]},
+    {name:"Environment",points:["Room 68-72 F (20-22 C)","Humidity below 60%","Quiet and private","Reduce client anxiety"]}
+  ]},
+  {id:2,name:"HEART RATE",color:"#fb923c",subs:[
+    {name:"Palpation Sites",points:["Radial artery (wrist, thumb side)","Carotid artery (neck)","Don't press carotid hard (vasovagal)","Auscultation with stethoscope"]},
+    {name:"RHR Categories",points:["Bradycardia <60 bpm","Normal sinus 60-100 bpm","Tachycardia >100 bpm","Average 60-70 men, 72-80 women"]},
+    {name:"Measurement Rules",points:["True RHR before getting out of bed","Count 30 or 60 seconds","Abstain non-Rx meds 12 hours","Use index/middle fingers, not thumb"]},
+    {name:"Influences",points:["Endurance athletes 15-30 bpm lower","Elevation >5 bpm = overtraining","Position, digestion, stress raise it","Fitness, caffeine, alcohol"]}
+  ]},
+  {id:3,name:"BLOOD PRESSURE",color:"#f87171",subs:[
+    {name:"Technique",points:["Brachial artery, heart level","Listen to Korotkoff sounds","Onset tapping = SBP","Sound disappearance = DBP"]},
+    {name:"Categories",points:["Normal <120 and <80","Elevated 120-129 and <80","Stage 1: 130-139 or 80-89","Stage 2: 140+ or 90+"]},
+    {name:"Rules",points:["Higher category wins if split","Average 2+ readings, 2+ occasions","Whelton et al. 2017 source","Home monitors less accurate"]},
+    {name:"Management",points:["Elevated BP responds to lifestyle","True hypertension needs medication","Exercise, diet, weight loss","Smoking cessation, stress mgmt"]}
+  ]},
+  {id:4,name:"BODY COMPOSITION METHODS",color:"#3b82f6",subs:[
+    {name:"Essential Fat",points:["Men 2-5%","Women 10-13%","Overweight vs overfat","Lean mass metabolically active"]},
+    {name:"Lab Methods",points:["DXA most accurate and precise","Hydrostatic = benchmark (2-3% error)","ADP/Bod Pod accurate, costly","BIA needs optimal hydration"]},
+    {name:"Hydrostatic Detail",points:["Archimedes: Density = Mass/Volume","RV error 300-400 mL","0.7% fat error per 100 mL","Final error 2.1-2.8%"]},
+    {name:"Obesity Caution",points:["Many methods inaccurate with obesity","Use BMI + circumference instead","Contraindicated in extreme obesity","Method choice depends on skill/equipment"]}
+  ]},
+  {id:5,name:"SKINFOLD",color:"#a78bfa",subs:[
+    {name:"Principle",points:["Subcutaneous fat proportional to total","About 50% of fat subcutaneous","Population-specific equation needed","Most practical fitness tool"]},
+    {name:"Calipers",points:["Constant tension required","Cheap $10-25 inaccurate","Harpenden/Lange $250-400","Calibrate before use"]},
+    {name:"Accuracy",points:["Within +/-3.5% of hydrostatic","Worse with poor technique","Worse with obesity/very thin","Useful for tracking change"]},
+    {name:"Procedure",points:["Hydrate, avoid pre-exercise","Know exact site locations","Proper grasp technique","Table 7-4 Cooper norms"]}
+  ]},
+  {id:6,name:"BMI & HEIGHT/WEIGHT",color:"#10b981",subs:[
+    {name:"Formula",points:["kg/m^2","or lb/in^2 x 703","Quick and inexpensive","Does not show composition"]},
+    {name:"Classification",points:["Under <18.5","Normal 18.5-24.9","Overweight 25-29.9","Obesity 30+; extreme 40+"]},
+    {name:"Limitations",points:["Mislabels muscular people","Misses older-adult fat gain","Same BMI: females +10% fat","Age raises BMI 1.5 men/2.5 women"]},
+    {name:"Prevalence",points:["World 39% overweight (1.9B)","World 13% obese (650M)","US adults 39.8% obese","US youth 18.5%"]}
+  ]},
+  {id:7,name:"CIRCUMFERENCE & WAIST",color:"#fbbf24",subs:[
+    {name:"Technique",points:["Non-elastic flexible tape","Duplicate within 5 mm","Wait 20-30 seconds","Measure before exercise"]},
+    {name:"Landmarks",points:["Waist: narrowest, above umbilicus","Abdominal: iliac-crest/umbilicus","Hip: max buttocks","Biceps: acromion-olecranon midpoint"]},
+    {name:"Risk Per Inch (Men)",points:["BP +10%","Cholesterol +8%, HDL -15%","Triglycerides +18%","Metabolic syndrome +18%"]},
+    {name:"Waist Criteria",points:["Very high men >46.8 in (>120 cm)","Very high women >42.9 in (>110 cm)","Low men 31.2-38.6 in","Table 7-7 by sex"]}
+  ]},
+  {id:8,name:"WAIST-TO-HIP RATIO",color:"#94a3b8",subs:[
+    {name:"Patterns",points:["Android = apple, abdominal fat","Gynoid = pear, hip/thigh fat","Android higher health risk","Location predicts risk"]},
+    {name:"Calculation",points:["WHR = waist / hip","Compare to Table 7-8 norms","Norms vary by age and sex","Higher ratio = higher risk"]},
+    {name:"Visceral Fat",points:["Inside body around viscera","Drives android distribution","Linked to insulin resistance","Raises type 2 diabetes risk"]},
+    {name:"Use",points:["Differentiates fat distribution","Better risk indicator than weight","Tracks lifestyle change","Motivates via measurable data"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"Why should skinfold/body-composition estimation be performed before activity?", opts:["To save time","To avoid underestimating fat from dehydration or overestimating it from surface vasodilation","Because muscles are warmer","To raise the client's heart rate first"], c:1, exp:"Doing it before activity avoids underestimating fat (sweat/dehydration) or overestimating it (vasodilation in surface vessels from thermoregulation)." },
+  { q:"The ideal assessment-room temperature range is:", opts:["60 to 64°F (15 to 18°C)","68 to 72°F (20 to 22°C)","75 to 80°F (24 to 27°C)","Below 60°F (16°C)"], c:1, exp:"Room temperature should ideally be 68 to 72°F (20 to 22°C) with relative humidity below 60%." },
+  { q:"Pressing too hard on the carotid artery may cause:", opts:["A vasovagal response that slows the heart rate","An immediate rise in heart rate","A spike in blood pressure","No physiological effect"], c:0, exp:"Excess pressure on the carotid can evoke a vasovagal response that slows the heart rate." },
+  { q:"A resting heart rate below 60 bpm is classified as:", opts:["Sinus tachycardia","Normal sinus rhythm","Sinus bradycardia","Atrial fibrillation"], c:2, exp:"Sinus bradycardia is RHR < 60 bpm; normal sinus rhythm is 60-100 bpm; sinus tachycardia is > 100 bpm." },
+  { q:"Highly endurance-trained athletes typically have resting heart rates how much lower than sedentary people?", opts:["5 to 10 bpm lower","15 to 30 bpm lower","40 to 50 bpm lower","About the same"], c:1, exp:"Endurance-trained athletes generally have RHR values 15 to 30 bpm lower than sedentary counterparts." },
+  { q:"True resting heart rate is best measured:", opts:["After a warm-up","Just before getting out of bed in the morning","Immediately after eating","After standing for five minutes"], c:1, exp:"True RHR is measured just before the client gets out of bed; most trainer-measured RHR is therefore not true RHR." },
+  { q:"Blood pressure is most commonly measured at which artery?", opts:["Radial","Carotid","Brachial","Femoral"], c:2, exp:"The standard BP site is the brachial artery, given its accessibility and proximity to the heart." },
+  { q:"The onset of tapping Korotkoff sounds corresponds to:", opts:["Diastolic blood pressure","Systolic blood pressure","Mean arterial pressure","Pulse pressure"], c:1, exp:"The onset of tapping Korotkoff sounds corresponds to SBP; the disappearance of sound corresponds to DBP." },
+  { q:"Per Table 7-2, which reading is classified as Hypertension Stage 1?", opts:["118/76 mmHg","126/78 mmHg","134/82 mmHg","142/92 mmHg"], c:2, exp:"Stage 1 hypertension is SBP 130-139 or DBP 80-89 mmHg; 134/82 qualifies. 142/92 would be Stage 2." },
+  { q:"When SBP and DBP fall into two different BP categories, the client should be assigned to:", opts:["The lower category","The higher category","An average of the two","Whichever the trainer prefers"], c:1, exp:"Individuals with SBP and DBP in two different categories are designated to the higher BP category." },
+  { q:"Essential body fat for men and women, respectively, is approximately:", opts:["2-5% and 10-13%","10-13% and 2-5%","5-8% and 15-18%","1-2% and 5-7%"], c:0, exp:"Essential body fat is 2 to 5% for men and 10 to 13% for women." },
+  { q:"Which body-composition method is described as the most accurate and precise?", opts:["Bioelectrical impedance analysis","Skinfold calipers","Dual-energy X-ray absorptiometry (DXA)","Near-infrared interactance"], c:2, exp:"DXA is described as one of the most accurate and precise methods and can identify regional fat distribution." },
+  { q:"Hydrostatic weighing is based on which principle?", opts:["Bernoulli's principle","Archimedes' principle (Density = Mass/Volume)","Boyle's law","The Frank-Starling mechanism"], c:1, exp:"Hydrostatic weighing applies Archimedes' principle, with Density = Mass/Volume, and is the benchmark with a 2-3% margin of error." },
+  { q:"The skinfold method assumes that subcutaneous fat is:", opts:["Equal to visceral fat","Proportional to total body fat","Unrelated to total fat","Always exactly 25% of total fat"], c:1, exp:"Skinfold measurement is based on the principle that subcutaneous fat is proportional to total body fat." },
+  { q:"Compared with hydrostatic weighing, the skinfold caliper method generally produces a measurement within about:", opts:["±1.0%","±3.5%","±7.0%","±10.0%"], c:1, exp:"The skinfold method generally produces a measurement within +/-3.5% of hydrostatic weighing." },
+  { q:"The correct BMI formula using pounds and inches is:", opts:["Weight (lb) / Height (in) × 703","[Weight (lb) / Height² (in)] × 703","Weight (lb) × Height² (in) / 703","Weight (lb) / Height² (in) × 100"], c:1, exp:"BMI = [Weight (lb) / Height² (in)] × 703, or Weight (kg) / Height² (m)." },
+  { q:"Per Table 7-6, a BMI of 30.0 to 34.9 is classified as:", opts:["Overweight","Obesity (Class I)","Obesity (Class II)","Extreme obesity"], c:1, exp:"Table 7-6: 30.0-34.9 is Obesity (Class I); 35.0-39.9 is Class II; ≥40.0 is extreme obesity." },
+  { q:"Jackson et al. (2002) found that for the same BMI, females had how much more body fat than males?", opts:["About 2% higher","About 5% higher","About 10% higher","About 20% higher"], c:2, exp:"For the same BMI, females had 10% higher levels of body fat than males." },
+  { q:"When taking duplicate circumference measurements, you should remeasure if the values are not within:", opts:["1 mm","5 mm","1 cm","2 cm"], c:1, exp:"If recorded values are not within 5 mm, remeasure, waiting 20 to 30 seconds between measurements." },
+  { q:"A high waist-to-hip ratio with an android ('apple') pattern indicates excess:", opts:["Hip and thigh fat","Abdominal/visceral fat and greater health risk","Subcutaneous arm fat","Lean muscle mass"], c:1, exp:"Android (apple-shaped) distribution means excess abdominal/visceral fat and greater health risk than gynoid (pear) patterns." }
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"A resting heart rate above ________ bpm is classified as sinus tachycardia.", a:"100", hint:"Greater than 100 bpm" },
+  { q:"To convert pounds and inches to BMI, multiply weight/height-squared by ________.", a:"703", hint:"The conversion factor 703" },
+  { q:"Essential body fat for women is approximately 10 to ________ percent.", a:"13", hint:"10 to 13% for women" },
+  { q:"Blood pressure should be based on an average of ________ or more readings taken on two or more occasions.", a:"2", hint:"Two or more readings" },
+  { q:"The waist-to-hip ratio is calculated by dividing the waist measurement by the ________ measurement.", a:"hip", hint:"WHR = waist / hip" }
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"Body composition assessment techniques like skinfold and BIA are accurate and recommended for clients with extreme obesity.", a:false, exp:"False. For clients with extreme obesity, many techniques are inaccurate and contraindicated; use BMI and circumference measurements instead." },
+  { q:"BMI directly measures a person's body-fat percentage.", a:false, exp:"False. BMI provides objective height/weight information but does not estimate actual body composition and can misclassify muscular or older individuals." },
+  { q:"Hydrostatic weighing is considered the benchmark for measuring body composition, with only a 2 to 3% margin of error.", a:true, exp:"True. Compared with cadaver assessments, hydrostatic weighing has only a 2 to 3% margin of error." },
+  { q:"For every 1-inch (2.5-cm) increase in waist circumference in men, HDL cholesterol increases by 15%.", a:false, exp:"False. HDL decreases by 15%; triglycerides and metabolic-syndrome risk each increase by 18%, BP by 10%, and total cholesterol by 8%." },
+  { q:"Inexpensive spring-tension skinfold calipers are as accurate as Harpenden or Lange calipers.", a:false, exp:"False. Cheap $10-25 spring calipers are inaccurate because tension changes with jaw width; Harpenden and Lange calipers ($250-400) maintain constant tension and are much more accurate." }
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  { num:1, topic:"First-session Sequencing — Nadia", scenario:"Nadia is new to exercise, has obesity, and is anxious about her first session. You must decide which assessments to run and in what order to build her confidence.",
+    qs:[
+      { q:"What is the best assessment approach for Nadia's first session?", opts:["Run a full battery of every assessment","Conduct only necessary assessments and focus on early success","Skip all assessments permanently","Start with a 1-RM strength test"], ans:1, exp:"Determine which assessments are necessary and conduct only those; early success builds self-efficacy and adherence." },
+      { q:"When should you perform any skinfold measurement?", opts:["After her cardio workout","Before activity","At peak exercise","Only when she is dehydrated"], ans:1, exp:"Skinfold/body-composition estimation should be done before activity to avoid fat under- or over-estimation." },
+      { q:"Given her extreme obesity, which assessments are most appropriate?", opts:["Hydrostatic weighing and skinfold","BMI and circumference measurements","DXA only","Near-infrared interactance"], ans:1, exp:"For clients with extreme obesity, many techniques are inaccurate/contraindicated; BMI and circumference are appropriate." },
+      { q:"Between her heart-rate and blood-pressure checks, you should:", opts:["Take them back-to-back with no pause","Allow HR and BP to return to baseline","Have her exercise first","Measure only once and move on"], ans:1, exp:"BP and HR should be permitted to return to baseline values between assessments." },
+      { q:"To reduce Nadia's anxiety, the environment should be:", opts:["Crowded and warm","Quiet, private, 68-72°F, humidity below 60%","Cold and noisy","Bright and public"], ans:1, exp:"A controlled environment (68-72°F, humidity <60%, quiet and private) reduces anxiety." }
+    ]
+  },
+  { num:2, topic:"Resting Heart Rate — Carlos", scenario:"Carlos asks you to measure his resting heart rate at the gym. He had coffee an hour ago and just walked in. You also track his RHR weekly for overtraining.",
+    qs:[
+      { q:"Which finding would be classified as normal sinus rhythm?", opts:["52 bpm","68 bpm","104 bpm","118 bpm"], ans:1, exp:"Normal sinus rhythm is 60-100 bpm; 68 bpm qualifies." },
+      { q:"Which fingers should you use to palpate his pulse?", opts:["Thumb only","Index and middle fingers","Thumb and index","Pinky finger"], ans:1, exp:"Use the index and middle fingers, not the thumb, which has its own pulse." },
+      { q:"Why is the gym measurement not Carlos's true RHR?", opts:["He is too fit","True RHR is measured just before getting out of bed","Caffeine has no effect","The radial site is invalid"], ans:1, exp:"True RHR is measured before getting out of bed; gym conditions (and his coffee) make this not true RHR." },
+      { q:"His weekly RHR jumps more than 5 bpm above his norm. This may indicate:", opts:["Improved fitness","Overtraining, warranting a taper","Dehydration only","Nothing at all"], ans:1, exp:"An RHR elevation >5 bpm over the client's norm is a good reason to reduce or taper training (overtraining sign)." },
+      { q:"How long should non-prescription HR-affecting supplements be avoided before measuring RHR?", opts:["1 hour","6 hours","12 hours","48 hours"], ans:2, exp:"Clients should abstain from non-prescription HR-affecting drugs/supplements for at least 12 hours before measuring RHR." }
+    ]
+  },
+  { num:3, topic:"Blood Pressure Reading — Mr. Tan", scenario:"You measure Mr. Tan's blood pressure at the brachial artery and get 136/82 mmHg on two occasions. He wants to know what it means.",
+    qs:[
+      { q:"Which artery did you use, and why?", opts:["Radial, for wrist access","Brachial, at heart level for accuracy","Carotid, for self-checks","Femoral, for proximity to legs"], ans:1, exp:"BP is measured at the brachial artery, at heart level, given accessibility and proximity to the heart." },
+      { q:"How is 136/82 mmHg classified?", opts:["Normal","Elevated","Hypertension Stage 1","Hypertension Stage 2"], ans:2, exp:"SBP 130-139 or DBP 80-89 is Stage 1 hypertension; both values fall in Stage 1." },
+      { q:"The disappearance of Korotkoff sounds corresponds to:", opts:["Systolic BP","Diastolic BP","Pulse pressure","Mean arterial pressure"], ans:1, exp:"The disappearance (muffling) of Korotkoff sounds corresponds to diastolic BP." },
+      { q:"Before concluding a diagnosis-level interpretation, BP should be based on:", opts:["A single reading","An average of 2+ readings on 2+ occasions","Only morning readings","Whatever is highest"], ans:1, exp:"BP classification is based on an average of two or more readings obtained on two or more occasions." },
+      { q:"As his trainer, your appropriate role is to:", opts:["Prescribe medication","Provide lifestyle-modification guidance and refer as needed","Diagnose hypertension","Ignore the reading"], ans:1, exp:"Trainers provide lifestyle-modification guidance; true hypertension is treated by a physician, often with medication plus lifestyle change." }
+    ]
+  },
+  { num:4, topic:"Body-composition Method Choice — Renata", scenario:"Renata, a lean recreational runner, wants an accurate body-composition assessment. You weigh the available methods and your skill level.",
+    qs:[
+      { q:"Which available method is the recognized benchmark with a 2-3% error?", opts:["Skinfold","Hydrostatic weighing","BMI","Near-infrared interactance"], ans:1, exp:"Hydrostatic (underwater) weighing is the benchmark with only a 2-3% margin of error vs. cadaver assessment." },
+      { q:"For BIA to be accurate for Renata, she must be:", opts:["Dehydrated","Optimally hydrated","Fasted for 24 hours","Recently exercised"], ans:1, exp:"BIA accuracy depends on machine quality and optimal hydration." },
+      { q:"If you use skinfolds, the result is generally within what range of hydrostatic weighing?", opts:["±1.0%","±3.5%","±7.0%","±12%"], ans:1, exp:"The skinfold method generally yields a measurement within +/-3.5% of hydrostatic weighing." },
+      { q:"Which caliper choice ensures constant tension and better accuracy?", opts:["A $10-25 spring caliper","A Harpenden or Lange caliper","Any plastic caliper","A tailor's tape"], ans:1, exp:"Harpenden and Lange calipers ($250-400) maintain constant tension and are much more accurate than cheap spring calipers." },
+      { q:"Even if absolute skinfold accuracy is limited, it is most useful for:", opts:["Diagnosing disease","Reliably tracking change over time","Replacing all other tests","Measuring bone density"], ans:1, exp:"A skilled trainer can reliably track changes over time with skinfolds, supporting motivation." }
+    ]
+  },
+  { num:5, topic:"BMI Misclassification — Marcus", scenario:"Marcus is a heavily muscled client whose BMI of 28 labels him 'overweight,' which surprises him because he is visibly lean. You explain BMI's limits.",
+    qs:[
+      { q:"Why might Marcus's BMI mislabel him?", opts:["BMI overcounts body water","BMI does not estimate body composition, so muscular people score high","BMI only works for women","BMI ignores height"], ans:1, exp:"BMI does not estimate actual composition; very muscular or large-framed people can be labeled overweight/obese." },
+      { q:"Marcus's BMI of 28 falls in which category?", opts:["Normal","Overweight","Obesity Class I","Extreme obesity"], ans:1, exp:"BMI 25.0-29.9 is the overweight category." },
+      { q:"What is the appropriate next step when observation contradicts the BMI label?", opts:["Trust BMI absolutely","Consider a body-composition assessment if welcomed by the client","Tell him to lose weight immediately","Re-measure his height only"], ans:1, exp:"When a simple observation contradicts the BMI category, question the label and, if welcomed, proceed with a body-composition assessment." },
+      { q:"For the SAME BMI, research shows females have body fat that is about:", opts:["10% lower than males","Equal to males","10% higher than males","30% higher than males"], ans:2, exp:"Jackson et al. (2002): for the same BMI, females had 10% higher body fat than males." },
+      { q:"Using pounds and inches, how is Marcus's BMI calculated?", opts:["lb / in × 703","(lb / in²) × 703","lb × in² / 703","(lb / in²) × 100"], ans:1, exp:"BMI = (Weight in lb / Height² in inches) × 703." }
+    ]
+  },
+  { num:6, topic:"Waist Circumference & Risk — Devon", scenario:"Devon is a 45-year-old man. You measure his waist circumference and discuss how abdominal fat relates to health risk.",
+    qs:[
+      { q:"Where is the waist circumference landmark located?", opts:["At the maximal buttocks","At the narrowest torso, above the umbilicus and below the xiphoid process","At the iliac crest only","Midway up the thigh"], ans:1, exp:"Waist circumference is taken at the narrowest part of the torso, above the umbilicus and below the xiphoid process." },
+      { q:"For every 1-inch (2.5-cm) increase in his waist, triglycerides increase by about:", opts:["8%","10%","15%","18%"], ans:3, exp:"Per Janssen et al. (2004), triglycerides and metabolic-syndrome risk each increase 18% per 1-inch waist increase in men." },
+      { q:"A men's waist of 48 in (122 cm) falls in which risk category (Table 7-7)?", opts:["Very low","Low","High","Very high"], ans:3, exp:"For men, >46.8 in (>120 cm) is the 'very high' risk category." },
+      { q:"When taking duplicate waist measurements, you remeasure if they differ by more than:", opts:["1 mm","5 mm","1 cm","3 cm"], ans:1, exp:"Remeasure if duplicate values are not within 5 mm, waiting 20-30 seconds between measures." },
+      { q:"Which tape is appropriate for the measurement?", opts:["An elastic stretch band","A non-elastic, flexible tape snug to the skin","A rigid metal ruler","A cloth tape pressed deep into tissue"], ans:1, exp:"Use a non-elastic, flexible tape snug against the skin without compressing the subcutaneous layers." }
+    ]
+  },
+  { num:7, topic:"Waist-to-Hip Ratio — Priya", scenario:"Priya, age 42, wants to understand her disease risk from fat distribution. You measure her waist and hip and compute her WHR.",
+    qs:[
+      { q:"How do you calculate Priya's WHR?", opts:["Hip divided by waist","Waist divided by hip","Waist times hip","Waist minus hip"], ans:1, exp:"WHR = waist measurement divided by hip measurement." },
+      { q:"An 'apple-shaped' distribution is termed:", opts:["Gynoid","Android","Subcutaneous","Peripheral"], ans:1, exp:"Android (apple-shaped) distribution carries excess abdominal fat; gynoid (pear) carries hip/thigh fat." },
+      { q:"Why is excess visceral fat especially unhealthy?", opts:["It only affects appearance","It is linked to insulin resistance, inflammation, and blood lipids","It improves cholesterol","It is purely subcutaneous"], ans:1, exp:"Excess visceral fat is associated with insulin resistance, inflammation, and lipid production, raising risk of type 2 diabetes, hypercholesterolemia, and hypertension." },
+      { q:"For a 42-year-old woman, a WHR of 0.85 falls in which range (Table 7-8, 40-49)?", opts:["Low (<0.73)","Moderate (0.73-0.79)","High (0.80-0.87)","Very high (>0.87)"], ans:2, exp:"For women 40-49, 0.80-0.87 is the 'high' category; 0.85 falls within it." },
+      { q:"If Priya is upset by numbers, a motivating alternative is to:", opts:["Stop all measurement","Use a ribbon cut to length to show visual change","Only use the bathroom scale","Show her other clients' data"], ans:1, exp:"Using a ribbon cut to circumference length gives a clear visual of progress without upsetting numerical values." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Outstanding! Strong command of resting assessments, body composition, and anthropometric risk.',
+    B: 'Great work. Review any wrong answers — check the BP/BMI categories and body-comp accuracy facts.',
+    C: 'Passing, but worth another review — especially the RHR/BP rules, skinfold accuracy, and waist criteria.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>

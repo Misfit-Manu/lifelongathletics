@@ -145,10 +145,10 @@ authors the full 35-case + 20-theory + 5 FIB + 5 TF bank from the chapter conten
 
 ## 5. Progress tracker
 
-**ACE chapters with full hub + guide (DONE):** 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13
-(8–11 pre-existed; 1/3/4/5 were restructured to the 4-tab pattern; 2/6/12/13 built fresh.)
+**ACE chapters with full hub + guide (DONE):** 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+(8–11 pre-existed; 1/3/4/5 were restructured to the 4-tab pattern; 2/6/7/12/13/14 built fresh.)
 
-**REMAINING to build:** **7, 14, 15, 16, 17** (currently render from markdown via `[id].astro`).
+**REMAINING to build:** **15, 16, 17** (currently render from markdown via `[id].astro`).
 
 **Chapter titles for reference:**
 - Ch 1 Role & Scope of Practice · Ch 2 ACE Integrated Fitness Training (IFT) Model
