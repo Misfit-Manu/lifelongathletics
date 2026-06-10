@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="Considerations for Clients with Obesity — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering energy balance, causes of obesity, appetite hormones, nutrition and REE estimation, cardiorespiratory and muscular FITT, weight-management dose-response, goal setting, behavioral weight loss, and pharmacology/surgery for ACE-CPT Chapter 12.">
+<Layout title="Considerations for Clients with Obesity — Theory Guide | ACE Prep · Lifelong Athletics" description="Full theory guide covering the causes of obesity (energy balance, genetics, hormones, sleep, stress), nutrition and REE estimation, cardiorespiratory and muscular FITT, weight-management dose-response, behavioral weight loss, pharmacology, and bariatric surgery for ACE-CPT Chapter 12.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -35,8 +35,12 @@ body { font-family:'DM Sans',system-ui,sans-serif; font-size:16px; line-height:1
 .section p { color:#c4c2bc; margin-bottom:18px; font-size:16px; }
 .section p strong { color:#f0eeea; }
 .section em { color:#9bbf28; font-style:italic; }
-h3 { font-size:1.1rem; font-weight:700; color:#e2e0db; margin:26px 0 10px; }
+h3 { font-size:1.15rem; font-weight:700; color:#e2e0db; margin:30px 0 12px; }
 h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.05em; }
+ul.body-list { margin:0 0 18px; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:9px; }
+ul.body-list li { font-size:15px; color:#c4c2bc; line-height:1.6; padding-left:20px; position:relative; }
+ul.body-list li::before { content:'›'; position:absolute; left:2px; color:#9bbf28; font-weight:700; }
+ul.body-list li strong { color:#f0eeea; }
 
 /* DIVIDER */
 .divider { height:1px; background:#2a2828; margin:48px 0; }
@@ -44,36 +48,17 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
 /* CALLOUT */
 .callout { background:#141414; border-left:4px solid #c5f135; border-radius:0 8px 8px 0; padding:16px 20px; margin:22px 0; }
 .callout.teal{border-left-color:#22d3ee} .callout.blue{border-left-color:#3b82f6} .callout.purple{border-left-color:#a855f7} .callout.orange{border-left-color:#f97316} .callout.green{border-left-color:#10b981} .callout.red{border-left-color:#ef4444}
-.callout p { font-size:14px; margin:0; color:#c4c2bc; line-height:1.65; }
+.callout p { font-size:14px; margin:0 0 10px; color:#c4c2bc; line-height:1.65; }
+.callout p:last-child { margin-bottom:0; }
 .callout p strong { color:#f0eeea; }
-
-/* CARD GRID */
-.card-grid { display:grid; gap:14px; margin:22px 0; }
-.card-grid-2 { grid-template-columns:1fr 1fr; }
-.card { background:#171717; border:1px solid #2a2828; border-radius:10px; padding:18px; border-left:3px solid #c5f135; }
-.card.teal{border-left-color:#22d3ee} .card.blue{border-left-color:#3b82f6} .card.purple{border-left-color:#a855f7} .card.orange{border-left-color:#f97316} .card.green{border-left-color:#10b981} .card.red{border-left-color:#ef4444}
-.card h4 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; margin:0 0 8px; color:#f0eeea; }
-.card.green h4{color:#34d399} .card.red h4{color:#f87171} .card.orange h4{color:#fb923c} .card.blue h4{color:#60a5fa} .card.purple h4{color:#a78bfa} .card.teal h4{color:#22d3ee}
-.card p { font-size:13px; color:#c4c2bc; margin:0 0 8px; line-height:1.6; }
-.card p:last-child { margin-bottom:0; }
-.card ul { padding-left:0; margin-top:6px; list-style:none; display:flex; flex-direction:column; gap:6px; }
-.card li { font-size:13px; color:#c4c2bc; line-height:1.5; padding-left:18px; position:relative; }
-.card li::before { content:'›'; position:absolute; left:0; color:#555; }
+.callout .c-label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#9bbf28; margin-bottom:8px; }
 
 /* TABLE */
-.data-table { width:100%; border-collapse:collapse; font-size:13px; margin:8px 0; }
+.data-table { width:100%; border-collapse:collapse; font-size:13px; margin:14px 0; }
 .data-table th { background:#1c1c1c; color:#9bbf28; text-align:left; padding:9px 12px; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid #2a2828; }
 .data-table td { padding:8px 12px; border-bottom:1px solid #222; color:#c4c2bc; vertical-align:top; }
 .data-table td:first-child { font-weight:600; color:#f0eeea; }
 .data-table tr:hover td { background:#161616; }
-
-/* EXERCISE TABLE */
-.ex-table { background:#141414; border:1px solid #2a2828; border-radius:10px; overflow:hidden; margin:14px 0; }
-.ex-head { background:#1c1c1c; padding:9px 14px; font-size:.76rem; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:#9bbf28; }
-.ex-row { display:grid; grid-template-columns:120px 1fr; border-bottom:1px solid #222; }
-.ex-row:last-child { border-bottom:none; }
-.ex-row .label { padding:9px 14px; font-size:.76rem; font-weight:700; color:#888; border-right:1px solid #222; }
-.ex-row .val { padding:9px 14px; font-size:.82rem; color:#c4c2bc; line-height:1.5; }
 
 /* TAKEAWAYS */
 .takeaways { background:#0d160f; border:1px solid #1a3020; border-radius:12px; padding:30px; margin:44px 0; }
@@ -90,9 +75,8 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
 
 @media (max-width:680px) {
   .hero { padding:32px 22px; }
-  .card-grid-2 { grid-template-columns:1fr; }
-  .ex-row { grid-template-columns:1fr; }
-  .ex-row .label { border-right:none; border-bottom:1px solid #222; }
+  .data-table { font-size:12px; }
+  .data-table th, .data-table td { padding:7px 8px; }
 }
 </style>
 
@@ -102,34 +86,33 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
   <div class="hero">
     <div class="hero-tag">ACE-CPT · Chapter 12 · Theory Guide</div>
     <h1>Considerations for Clients with Obesity</h1>
-    <p>How obesity develops, why energy balance is complex, and how personal trainers design safe nutrition, exercise, and behavior-change programs to help clients lose weight and keep it off.</p>
+    <p>How obesity develops, why energy balance is more complex than it looks, and how personal trainers design safe nutrition, exercise, and behavior-change programs that help clients lose weight and keep it off.</p>
     <a href="/ace-prep/chapter-12" class="back-link">← Back to Chapter 12 Hub</a>
   </div>
 
   <!-- TOC -->
   <nav class="toc-bar">
     <div class="toc-inner">
-      <a href="#why"      class="toc-link">01 Why It Matters</a>
-      <a href="#causes"   class="toc-link">02 Causes</a>
-      <a href="#energy"   class="toc-link">03 Energy Balance</a>
+      <a href="#frame"     class="toc-link">01 Why It Matters</a>
+      <a href="#causes"    class="toc-link">02 Causes</a>
+      <a href="#energy"    class="toc-link">03 Energy Balance</a>
       <a href="#nutrition" class="toc-link">04 Nutrition</a>
-      <a href="#cardio"   class="toc-link">05 Cardio Training</a>
-      <a href="#muscular" class="toc-link">06 Muscular Training</a>
-      <a href="#weight"   class="toc-link">07 Weight Mgmt &amp; Goals</a>
-      <a href="#behavior" class="toc-link">08 Behavior</a>
-      <a href="#other"    class="toc-link">09 Pharma &amp; Surgery</a>
-      <a href="#takeaways" class="toc-link">10 Takeaways</a>
+      <a href="#exercise"  class="toc-link">05 Exercise &amp; EE</a>
+      <a href="#cardio"    class="toc-link">06 Cardio FITT</a>
+      <a href="#muscular"  class="toc-link">07 Muscular FITT</a>
+      <a href="#weight"    class="toc-link">08 Weight Mgmt &amp; Goals</a>
+      <a href="#behavior"  class="toc-link">09 Behavior</a>
+      <a href="#other"     class="toc-link">10 Pharma &amp; Surgery</a>
+      <a href="#takeaways" class="toc-link">11 Takeaways</a>
     </div>
   </nav>
 
-  <!-- 01 WHY -->
-  <div class="section" id="why">
-    <span class="section-tag teal">Why It Matters</span>
-    <h2>What Obesity Is and Why It Matters</h2>
-    <p>Simplistically, obesity is the result of an imbalance in energy: increased energy intake (EI) with no change in energy expenditure (EE), or decreased EE with no change in EI, leads to a <strong>positive energy balance</strong> and weight gain. Excess weight is associated with an increased likelihood of type 2 diabetes, cardiovascular disorders, gallstones, breathing problems, and some cancers (endometrial, breast, colon). It is also associated with reduced life expectancy and raises healthcare costs in nearly every country.</p>
-    <div class="callout">
-      <p><strong>Energy balance basics:</strong> Obesity develops when EI is greater than EE. Per Nguyen &amp; El-Serag (2010), obesity is caused by an interaction between the environment, genetic predisposition, and human behavior — with <em>environmental factors probably the major contributor</em>.</p>
-    </div>
+  <!-- 01 FRAME -->
+  <div class="section" id="frame">
+    <span class="section-tag">Why It Matters</span>
+    <h2>Energy Balance &amp; the Consequences of Obesity</h2>
+    <p>This chapter examines the causes of obesity, the nutritional and exercise approaches used to address it, and a client-centered approach to working with clients who have overweight or obesity — including the other weight-loss approaches of pharmacological intervention and bariatric surgery. Obesity is framed as a <strong>multifactorial condition</strong> in which environment, genetics, hormones, sleep, stress, and behavior all interact — but in which <em>lifestyle is the dominant lever</em> for most people.</p>
+    <p>Simplistically, obesity is the result of an imbalance in energy: increased energy intake (EI) with no change in energy expenditure (EE), or decreased EE with no change in EI, leads to a <strong>positive energy balance</strong> and weight gain. Excess weight is associated with an increased likelihood of <strong>type 2 diabetes, cardiovascular disorders, gallstones, breathing problems, and some cancers (endometrial, breast, colon)</strong>, reduced life expectancy, and a major economic burden through healthcare costs. Although obesity develops when EI exceeds EE, the relative contribution of each cause isn't fully understood — and per Nguyen &amp; El-Serag (2010), <strong>environmental factors are probably the major factor</strong>.</p>
   </div>
 
   <div class="divider"></div>
@@ -138,29 +121,19 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
   <div class="section" id="causes">
     <span class="section-tag orange">Causes</span>
     <h2>Possible Causes of Obesity</h2>
-    <p>The relative contribution of each cause is not fully understood. Environmental factors include the availability, quantity, and energy density of foods, labor-saving devices, more time sitting, and fewer places to be active. Other contributors include stress, medications that cause weight gain, and inadequate sleep.</p>
+    <p><strong>Environment:</strong> the availability, quantity, and energy density of foods; labor-saving devices; more sitting time; and fewer places to be active in the built environment. <strong>Stress:</strong> immediately after a stressful event, food intake is suppressed, but with <em>ongoing</em> psychological stress hunger is stimulated — particularly for high-calorie "palatable" food. Because exercise has psychological benefits (some seen in a single acute bout), trainers should emphasize that regular exercise can empower clients to reduce stress.</p>
 
-    <div class="card-grid card-grid-2">
-      <div class="card orange">
-        <h4>Stress</h4>
-        <p>Immediately after a stressful event, food intake is suppressed. With ongoing psychological stress, hunger is stimulated — particularly high-calorie "palatable" food (Sominsky &amp; Spencer, 2014). Trainers should reinforce that regular exercise provides psychological benefits and can reduce stress.</p>
-      </div>
-      <div class="card blue">
-        <h4>Genetics</h4>
-        <p>The rise in obesity over 60 years is too sudden to be genetic alone. Twin/family/adoption studies show BMI heritability of <strong>40–70%</strong>, yet identified genes account for <strong>less than 5%</strong> of total variation. Li et al. (2010): genetic predisposition can be reduced by about <strong>40%</strong> by being physically active.</p>
-      </div>
-      <div class="card purple">
-        <h4>Hormones</h4>
-        <p>Fat tissue acts like an endocrine organ. <strong>Ghrelin</strong> (the "hunger hormone," secreted by the stomach) stimulates appetite. <strong>Peptide YY</strong>, cholecystokinin, and GLP-1 are released from the intestines in response to food and signal the CNS to produce <em>satiety</em>.</p>
-      </div>
-      <div class="card teal">
-        <h4>Sleep</h4>
-        <p>Obesity interacts with inadequate sleep quantity and poor quality (Kahan, 2017) — linked to hunger, stress, and inflammation. An estimated <strong>58%</strong> of moderate-to-severe obstructive sleep apnea (OSA) is due to obesity; OSA can also cause rapid weight gain, creating a vicious cycle.</p>
-      </div>
-    </div>
+    <h3>Genetics</h3>
+    <p>The rise in U.S. obesity over 60 years has been <strong>too sudden to be caused solely by genetics</strong> — it's more likely behavioral and environmental. Twin, family, and adoption studies put BMI heritability at <strong>40 to 70%</strong>, yet identified genes account for <strong>less than 5%</strong> of total variation. Li et al. (2010): the more obesogenic genes a person had, the higher their weight — but the average increase was greater in inactive persons (1.4 lb) than active ones (0.8 lb), meaning genetic predisposition can be <strong>reduced ~40% by being physically active</strong>. The Bouchard twin studies showed weight gained (overfeeding 1,000 cal/day × 100 days → 9–29 lb) and weight lost (exercising 90 min/day × 100 days → 2–13 lb) varied widely between people but were <em>similar within each twin pair</em>. The lesson: not everyone responds the same to diet and exercise — but for most, lifestyle matters more than genes.</p>
 
-    <div class="callout">
-      <p><strong>Twin studies:</strong> Bouchard overfed identical twins 1,000 cal/day for 100 days — weight gained ranged 9–29 lb, but each twin pair gained <em>similarly</em>. A separate study had twins exercise 90 min/day for 100 days — loss ranged 2–13 lb, again similar within pairs. Not everyone responds the same way to diet and exercise; genetics plays a role, but for most people lifestyle matters more.</p>
+    <h3>Hormones</h3>
+    <p>Fat tissue (adipocytes) functions like an endocrine organ, and "gut hormones" regulate feeding and appetite. <strong>Ghrelin</strong> — the "hunger hormone," secreted by the stomach — stimulates appetite and is associated with obesity. In response to food (especially lipids and carbohydrates), <strong>peptide YY</strong> (along with cholecystokinin and glucagon-like peptide-1) is released from the intestines and signals the central nervous system to produce <strong>satiety</strong>. Research continues into treating obesity using gut hormones to help regulate intake.</p>
+
+    <h3>Sleep</h3>
+    <p>Obesity interacts with inadequate sleep quantity and poor sleep quality — linked to hunger, appetite, the immune system, stress, and inflammation — and inadequate sleep brings fatigue and reduced activity.</p>
+    <div class="callout red">
+      <span class="c-label">Obstructive Sleep Apnea (OSA)</span>
+      <p>An estimated <strong>58% of moderate-to-severe OSA is due to obesity</strong>. OSA causes pauses in breathing during sleep (airway collapse/blockage); blood oxygen falls and carbon dioxide rises, triggering stress hormones that raise heart rate and the risk of <strong>hypertension, myocardial infarction, stroke, and arrhythmias</strong>. OSA can also drive rapid weight gain — a vicious cycle of worsening weight and worsening OSA.</p>
     </div>
   </div>
 
@@ -169,12 +142,9 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
   <!-- 03 ENERGY -->
   <div class="section" id="energy">
     <span class="section-tag blue">Energy Balance</span>
-    <h2>The Dynamic Energy Balance Equation</h2>
-    <p>Many people have learned there are about <strong>3,500 kcal in 1 pound (0.45 kg) of fat</strong> — so a total deficit of 500 kcal/day should produce a 1-pound loss after seven days. However, Manore (2015) notes the kcal required per pound of weight loss changes with diet length, diet type, and physical activity.</p>
-    <p>Hill et al. (2012): when people dieted to lose 15% of body weight, the energy equivalent of weight loss in the first four weeks was near <strong>2,208 kcal per pound</strong> (early loss is water, lean tissue, and glycogen), gradually increasing toward 3,500 kcal/lb as mainly fat was lost later. Adding exercise also changes the composition of weight lost.</p>
-    <div class="callout blue">
-      <p><strong>Sitting cost:</strong> Non-exercise activity thermogenesis (NEAT) — fidgeting, walking, standing — is an important component of daily EE. Excessive sitting produces a positive energy balance of about <strong>100 kcal/day</strong> (Hill et al., 2003), a likely contributor to the obesity epidemic. Weight loss from lifestyle physical activity can match structured cardio over time (Andersen et al., 1999).</p>
-    </div>
+    <h2>The Dynamic Energy-Balance Equation</h2>
+    <p>Many people have learned there are about <strong>3,500 kcal in 1 pound (0.45 kg) of fat</strong>, so a total deficit of 500 kcal/day (e.g., −250 EI and +250 EE) should produce a 1-pound loss in seven days. But as Manore (2015) notes, the kcal required per pound of weight loss changes with how long the diet lasts, the type of diet, and physical activity.</p>
+    <p>Heymsfield et al. (2012) showed why: when people dieted to lose 15% of body weight, the energy equivalent of 1 pound lost in the first four weeks was near <strong>2,208 kcal/lb</strong> — far below 3,500 — because early loss includes water, lean tissue, and glycogen, which are less energy-dense than fat. As dieting continues and mainly fat is lost, the figure rises toward 3,500 kcal/lb. Adding exercise also changes the composition of weight lost. And for any weight change, EE changes too: eat more → weight and resting metabolic rate rise → more energy is needed to move a heavier body, until EE matches EI and weight stabilizes; eat less or exercise → weight and resting metabolic rate fall. Prediction is therefore inherently imprecise (Manore, 2015).</p>
   </div>
 
   <div class="divider"></div>
@@ -183,10 +153,9 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
   <div class="section" id="nutrition">
     <span class="section-tag green">Nutrition</span>
     <h2>Nutritional Guidelines</h2>
-    <p>The ADA (2009) recommends reducing fat and/or carbohydrate intake to obtain a caloric deficit of <strong>500 to 1,000 kcal/day</strong> for a weight loss of <strong>1 to 2 pounds (0.45–0.9 kg) per week</strong>. A good program includes portion control, eating frequency (including breakfast, not eating late), and food that is high in nutrient density and low in energy density.</p>
-
+    <p>Trainers must stay mindful of their nutrition scope of practice (see Ch 6). The ADA (2009) recommends reducing fat and/or carbohydrate intake for a caloric deficit of <strong>500 to 1,000 kcal/day</strong> → a weight loss of <strong>1 to 2 lb (0.45 to 0.9 kg) per week</strong> (theory — not all of it will be fat). A good program attends to serving sizes and frequency (including breakfast, not eating late) and favors food <strong>high in nutrient density</strong> and <strong>low in energy density</strong>.</p>
     <h3>Resting Energy Expenditure (REE)</h3>
-    <p>REE is measured at rest in the morning and is the major part of total energy expenditure (TEE) — about <strong>75% of TEE</strong>. Ideally measured by indirect calorimetry; if not, the <strong>Mifflin-St. Jeor equation</strong> is the most accurate estimate for people with overweight/obesity.</p>
+    <p>REE is measured at rest in the morning and is about <strong>75% of total energy expenditure (TEE)</strong>. Ideally measured by indirect calorimetry; if not, the <strong>Mifflin-St. Jeor equation</strong> is the most accurate estimate for people with overweight/obesity.</p>
     <table class="data-table">
       <thead><tr><th>Sex</th><th>Mifflin-St. Jeor REE (kcal/day)</th></tr></thead>
       <tbody>
@@ -194,139 +163,148 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
         <tr><td>Females</td><td>(10 × kg) + (6.25 × cm) − (5 × age) − 161</td></tr>
       </tbody>
     </table>
-    <p style="font-size:13px;color:#9a988f">Conversions: lb → kg ÷ 2.2; inches → cm × 2.54.</p>
-    <div class="callout green">
-      <p><strong>Worked example — Barbara:</strong> 35-yr-old woman, 5'3" (160.0 cm), 175 lb (79.5 kg). REE = (10 × 79.5) + (6.25 × 160.0) − (5 × 35) − 161 = 795 + 1,000 − 175 − 161 = <strong>1,459 kcal/day</strong>.</p>
-    </div>
-
+    <p style="font-size:13px;color:#9a988f">Conversions: lb → kg ÷ 2.2 (e.g., 140 / 2.2 = 63.6 kg); inches → cm × 2.54 (e.g., 66 × 2.54 = 167.6 cm).</p>
     <h3>Protein &amp; Energy Density</h3>
-    <p>When too few calories are eaten, some protein is used for energy, so protein needs rise as intake falls. The RDA for protein is <strong>46 to 56 g/day, or 10 to 35% of total caloric intake</strong>. Higher-protein diets increase satiety. <em>Low-energy-density</em> foods (high in fruits, vegetables, whole grains, legumes, and water) create satiety while eating fewer calories. Acute exercise above <strong>60% of VO₂max</strong> suppresses appetite by altering gut hormones for two to 10 hours afterward.</p>
-    <div class="callout">
-      <p><strong>Evaluating diets:</strong> A client should ask — How does it cut calories? Nutrient density? Does it recommend exercise? Where's the evidence? Cost? Social support? How easy to adhere to? NIH: most dieters regain one-third to two-thirds of lost weight within a year and almost all within five years. <em>Long-term adherence is the most important factor.</em></p>
+    <p>When too few calories are eaten, some protein is burned for energy, so protein <em>needs</em> rise as intake falls. The protein RDA is <strong>46 to 56 g/day, or 10 to 35% of total calories</strong>; meeting it (and spreading it through the day) helps preserve lean tissue, and higher-protein diets increase satiety. <strong>Low-energy-density</strong> foods (high in fruits, vegetables, whole grains, legumes, water; low in sugar-sweetened beverages and alcohol) let a person eat a greater <em>volume</em> while consuming fewer calories. Acute exercise — especially above <strong>60% of VO₂max</strong> — suppresses appetite by altering gut hormones for <strong>two to 10 hours</strong> afterward.</p>
+    <div class="callout green">
+      <span class="c-label">Evaluating Diets</span>
+      <p>Help a client critique any diet: How does it cut calories? What's its nutrient density? Does it recommend exercise? Does it make sense (rapid loss is mostly water and is regained)? Where's the evidence? Does it meet individual needs, budget, and social support? How easy is it to adhere to? <strong>Long-term adherence is the most important factor.</strong> A landmark NIH study found most dieters regained one-third to two-thirds of lost weight within a year and almost all within five years — and one-third to two-thirds regained <em>more</em> than they lost.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 05 CARDIO -->
+  <!-- 05 EXERCISE EE -->
+  <div class="section" id="exercise">
+    <span class="section-tag teal">Exercise &amp; Energy Expenditure</span>
+    <h2>Walking, Running, NEAT &amp; the Heat</h2>
+    <p>There is a linear relationship between usual walking speed (<strong>1.5–4.4 mph</strong>) and EE — and the key insight is that <strong>total distance walked determines total EE</strong>: faster walking burns more per minute but takes fewer minutes for the same distance. Running's EE is <strong>about 10% higher</strong> than walking (both feet leave the ground; the center of gravity moves more), but again total distance — not speed — sets total EE. Because total EE is what matters, three 10-minute walks ≈ one 30-minute walk over the same distance, which makes activity easier to fit into a day. Duncan et al. (1991) confirmed this: women with overweight who walked 3 miles/session × 5/week × 24 weeks at three different speeds saw <em>no difference</em> in total EE, weight lost, or composition — but the <em>faster</em> walkers improved VO₂max more.</p>
+    <p>Because EE is tied to transporting body weight, people with obesity burn more kcal/min at the same speed — but that falls as they lose weight (and as gait becomes more efficient).</p>
+    <div class="callout orange">
+      <span class="c-label">Heat &amp; Equipment Considerations</span>
+      <p>Clients with obesity feel hotter when exercising and have a reduced ability to dissipate heat — train at lower intensities (especially in warm/humid conditions), allow time to acclimatize, and watch for skin chafing and orthopedic/joint stress. Swimming and water exercise reduce joint stress and aid temperature regulation (though buoyancy reduces EE, and some clients feel self-conscious). Recumbent cycling can be more comfortable than upright (bigger seat, less balance demand); some machines may not fit larger bodies, and getting to/from the floor or lying supine can be difficult.</p>
+    </div>
+    <h3>Lifestyle Physical Activity &amp; NEAT</h3>
+    <p><strong>Lifestyle physical activity</strong> is any activity outside a structured exercise period (e.g., walking <em>to</em> work). <strong>Non-exercise activity thermogenesis (NEAT)</strong> — fidgeting, walking, standing — is an important component of daily EE. Because adherence to formal programs is often poor, lifestyle activity is an effective option: Andersen et al. (1999) found weight loss from lifestyle activity was <em>similar</em> to structured cardio at 16 and 68 weeks. Excessive sitting produces a <strong>positive energy balance of about 100 kcal/day</strong> — a likely contributor to the obesity epidemic — so taking the stairs, parking farther away, and walking to talk to someone all help.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 06 CARDIO -->
   <div class="section" id="cardio">
     <span class="section-tag teal">Cardiorespiratory Training</span>
-    <h2>Walking, Running &amp; the FITT Framework</h2>
-    <p>There is a linear relationship between usual walking speed (1.5–4.4 mph) and EE — <strong>total distance walked determines total EE</strong>. Running's EE is about <strong>10% higher</strong> than walking because both feet leave the ground. Because total distance (not speed) drives total EE, three 10-minute walks produce roughly the same EE as one 30-minute walk over the same distance.</p>
-
-    <div class="ex-table">
-      <div class="ex-head">Cardiorespiratory FITT (clients with obesity)</div>
-      <div class="ex-row"><div class="label">Frequency</div><div class="val">As many days as possible; at least 3–5 days/week. Not consistently doing moderate cardio ≥3 days/week for 20–30 min → begin in <strong>Base Training</strong>.</div></div>
-      <div class="ex-row"><div class="label">Intensity</div><div class="val">Moderate, below VT1. Talk test (comfortable talking = below VT1); RPE 12–13 on the 6–20 scale (3–4 on 0–10).</div></div>
-      <div class="ex-row"><div class="label">Time</div><div class="val">30 to 60 minutes per day, in one session or shorter bouts.</div></div>
-      <div class="ex-row"><div class="label">Type</div><div class="val">Low-impact, rhythmic, large-muscle exercise; weight-bearing (brisk walking) or non-weight-bearing (cycling, swimming).</div></div>
-    </div>
-
-    <p><strong>Programming amounts (ACSM, 2009):</strong> 150–250 min/week prevents weight gain and produces modest loss; <strong>250–300 min/week (~2,000 kcal/week)</strong> is associated with clinically significant loss — roughly 20 miles/week. Progress frequency and duration <em>first</em>; increasing intensity too soon raises musculoskeletal injury risk.</p>
-    <div class="callout teal">
-      <p><strong>Heat &amp; biomechanics:</strong> Clients with obesity transport more weight, so they burn more kcal/min at the same speed — but have a reduced ability to dissipate heat. Train at lower intensities in warm/humid conditions, acclimatize gradually, and watch for chafing and joint problems. Water exercise reduces joint stress and aids temperature regulation, though buoyancy reduces EE.</p>
-    </div>
+    <h2>Cardiorespiratory FITT &amp; Programming</h2>
+    <table class="data-table">
+      <thead><tr><th>FITT</th><th>Recommendation (clients with obesity)</th></tr></thead>
+      <tbody>
+        <tr><td>Frequency</td><td>As many days as possible; ≥3–5 days/week. Not consistently doing moderate cardio ≥3 days/week for 20–30 min → begin in <strong>Base Training</strong>.</td></tr>
+        <tr><td>Intensity</td><td>Moderate; the highest comfortably sustainable. <strong>Talk test</strong>: comfortable talking = below VT1. RPE 12–13 (6–20 scale) / 3–4 (0–10 scale).</td></tr>
+        <tr><td>Time</td><td>30–60 min/day, in one session or shorter bouts.</td></tr>
+        <tr><td>Type</td><td>Low-impact, rhythmic, large-muscle; weight-bearing (brisk walking) or non-weight-bearing (cycling, swimming).</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Programming amounts (ACSM, 2009):</strong> 150–250 min/week prevents significant weight gain and produces modest loss; <strong>250–300 min/week (~2,000 kcal/week)</strong> is associated with clinically significant loss — roughly <strong>20 miles/week</strong> or 3 miles/day (about an hour at 3 mph). Because that's hard for many, progress gradually over a long period (e.g., 20 weeks). Injury risk is greatest in the first few months or with abrupt increases — so <strong>increase frequency and duration first</strong>; raising intensity too soon raises musculoskeletal injury risk. Prefer a mix of weight-bearing and non-weight-bearing modes; most time at low-to-moderate intensity; stationary &gt; road cycling; walking needs no extra skill.</p>
     <div class="callout green">
-      <p><strong>Table 12-1 — 13-week ACE study (N=20, mean BMI 30.3):</strong> average reductions of <strong>−4.0 lb</strong> weight, <strong>−1.0 in</strong> waist circumference, and <strong>−3.5%</strong> body fat.</p>
+      <span class="c-label">Table 12-1 — Changes after 13 Weeks (ACE study, Byrd et al., 2019; N=20, mean BMI 30.3)</span>
+      <p>Average reductions: <strong>weight −4.0 lb (−1.8 kg)</strong>, <strong>waist −1.0 in (−2.5 cm)</strong>, <strong>body fat −3.5%</strong> (ranges: weight −0.5 to −13.5 lb; waist −0.25 to −2.25 in; body fat −2.0 to −8.0%). Use these to set realistic, research-backed expectations.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 06 MUSCULAR -->
+  <!-- 07 MUSCULAR -->
   <div class="section" id="muscular">
     <span class="section-tag orange">Muscular Training</span>
-    <h2>Muscular Training (FITT)</h2>
-    <p>Muscular training may not produce the greatest scale-weight changes, but it improves body composition, shifts the fat-to-lean ratio, increases muscle mass (raising 24-hour EE), and improves strength/endurance for functional tasks.</p>
-    <div class="ex-table">
-      <div class="ex-head" style="color:#fb923c">Muscular FITT (ACSM, 2018)</div>
-      <div class="ex-row"><div class="label">Frequency</div><div class="val">2 to 3 days/week, with a day of rest between sessions.</div></div>
-      <div class="ex-row"><div class="label">Intensity</div><div class="val">Moderate — 60 to 70% of 1-RM, 8 to 12 repetitions, 2 to 4 sets.</div></div>
-      <div class="ex-row"><div class="label">Time</div><div class="val">A full-body program needs 20 to 30 minutes.</div></div>
-      <div class="ex-row"><div class="label">Type</div><div class="val">All major muscle groups using free weights and/or machines.</div></div>
-    </div>
-    <div class="callout orange">
-      <p><strong>Biomechanics:</strong> Seated exercise is a good option for some clients; weight benches are often narrow (balance risk). Take care with abdominal floor exercises (getting up/down), supine exercises (breathing difficulty), and excessive lunge/squat work (knee/hip discomfort).</p>
-    </div>
+    <h2>Muscular Training FITT</h2>
+    <p>Muscular training may not move the scale much (its EE per unit time is lower than cardio), but it improves body composition, shifts the fat-to-lean ratio (people often look better and fit clothes more comfortably), builds muscle that raises 24-hour EE, and improves strength/endurance for functional tasks (rising from a chair, lifting body weight) — which can facilitate a more active lifestyle.</p>
+    <table class="data-table">
+      <thead><tr><th>FITT</th><th>Recommendation (ACSM, 2018)</th></tr></thead>
+      <tbody>
+        <tr><td>Frequency</td><td>2–3 days/week, with a rest day between sessions</td></tr>
+        <tr><td>Intensity</td><td>Moderate — 60–70% of 1-RM, 8–12 reps, 2–4 sets</td></tr>
+        <tr><td>Time</td><td>A full-body program needs 20–30 minutes</td></tr>
+        <tr><td>Type</td><td>All major muscle groups, free weights and/or machines (by preference/experience/goals)</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Biomechanics:</strong> Seated exercise is a good option for some (and for those with mobility/balance challenges) and builds basic strength. But some machine seats and narrow benches create a balance/fit problem, getting onto floor-level devices is hard, certain supine exercises cause breathing difficulty, and take care with heavy lunge/squat work due to knee/hip discomfort.</p>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 07 WEIGHT MGMT -->
+  <!-- 08 WEIGHT MGMT -->
   <div class="section" id="weight">
     <span class="section-tag purple">Weight Management &amp; Goals</span>
-    <h2>Exercise, Maintenance &amp; Goal Setting</h2>
-    <p>Without diet change, ~150 min/week produces minimal loss [4.4–6.6 lb], while <strong>225–420 min/week</strong> produces 11–16.5 lb loss over 12–18 weeks. <strong>Weight stability</strong> is a change of less than 3%; a change of <strong>5% or more is clinically significant</strong>. Maintaining a significantly reduced weight may require <strong>more than 300 min/week</strong> (ACSM: ~60 min/day of moderate activity).</p>
-    <div class="callout">
-      <p><strong>Setting goals:</strong> Many clients set unrealistic goals (20–30% loss) when a realistic goal is <strong>5 to 15%</strong>. A loss of just <strong>5–10%</strong> significantly improves comorbidities (type 2 diabetes, abnormal lipids, high BP, osteoarthritis, GERD). Set small, attainable goals — e.g., 2–3 lb per month. <em>Preventing further weight gain is itself an achievement.</em></p>
+    <h2>Exercise for Weight Management &amp; Goal Setting</h2>
+    <p>Without concurrent caloric restriction, ~<strong>150 min/week</strong> produces minimal loss (4.4–6.6 lb), while <strong>225–420 min/week</strong> produces 11–16.5 lb over 12–18 weeks. Adults with overweight/obesity should accumulate &gt;150 min/week initially and, when possible, &gt;225 min/week. <strong>Weight stability = a change of less than 3%</strong>; a change of <strong>5% or more is clinically significant</strong> (for a 200-lb person, 5% = a 10-lb change). Maintaining a significantly reduced weight may require <strong>more than 300 min/week</strong> — ACSM links maintenance to about <strong>60 min/day</strong> of moderate activity. Muscular training helps preserve lean mass during loss. The key to long-term stability is lifelong activity plus sensible eating.</p>
+    <div class="callout green">
+      <span class="c-label">Not Gaining Is Winning</span>
+      <p>Preventing further weight gain is itself an achievement — especially in the first weeks. If gain has stopped, the client's behavior changes are working. Sharing this helps when a client is discouraged by a lack of scale movement early on.</p>
     </div>
-    <div class="card-grid card-grid-2">
-      <div class="card blue">
-        <h4>Fitness vs. Fatness</h4>
-        <p>Gaesser &amp; Blair (2019): fit people with overweight/obesity have about the same all-cause mortality risk as fit normal-weight people, and lower risk than unfit people. In the Diabetes Prevention Program, ~50% more people met the physical-activity goal than the weight-loss goal. Both fitness and weight matter.</p>
-      </div>
-      <div class="card teal">
-        <h4>Metabolically Healthy Obese (MHO)</h4>
-        <p>~93 million U.S. adults have obesity. MHO individuals resist cardiometabolic harm better than metabolically abnormal obese (MAO) — all-cause and CVD mortality were <strong>57%</strong> and <strong>76%</strong> lower in MHO. Higher exercise volumes help people transition from MAO to MHO.</p>
-      </div>
+    <p><strong>Setting goals:</strong> many clients set unrealistic targets (20–30%) when a realistic goal is <strong>5 to 15%</strong> — and a loss of just <strong>5–10%</strong> significantly improves comorbidities (type 2 diabetes, abnormal lipids, high BP, osteoarthritis, stress incontinence, GERD). Break a big target into small, attainable goals (e.g., 2–3 lb/month). The <strong>NIH Body Weight Planner</strong> is a useful web-based prediction model.</p>
+    <div class="callout blue">
+      <span class="c-label">Fitness vs. Fatness</span>
+      <p>Gaesser &amp; Blair (2019) argue fitness matters more than fatness — fit people with overweight/obesity have about the same all-cause mortality risk as fit normal-weight people, and lower risk than unfit people. In the Diabetes Prevention Program, ~50% more people met the activity goal (≥150 min/week) than the weight-loss goal (≥7%). Jakicic et al. counter that weight loss may matter more for severe obesity. Both sides agree <strong>both are important</strong> — so focus on the <em>behaviors</em> (activity + diet) that improve fitness, fatness, and health.</p>
+    </div>
+    <div class="callout teal">
+      <span class="c-label">Metabolically Healthy Obese (MHO)</span>
+      <p>~93 million U.S. adults have obesity, but a substantial portion are essentially metabolically healthy (MHO) and more resistant to cardiometabolic harm than metabolically abnormal obese (MAO) peers — all-cause and CVD mortality were <strong>57% and 76% lower</strong> in MHO. Personalized exercise can transition MAO → MHO: those with higher exercise volumes and the greatest fitness gains were <strong>22 and 8 times</strong> more likely to make the transition.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 08 BEHAVIOR -->
+  <!-- 09 BEHAVIOR -->
   <div class="section" id="behavior">
     <span class="section-tag green">Behavior Change</span>
     <h2>A Client-Centered, Behavioral Approach</h2>
-    <p>Lifestyle interventions (physical activity + changes in eating behaviors) should be the first option because of low cost and low risk. The ADA recommends cognitive-behavioral strategies: self-monitoring, stress management, stimulus control, problem solving, contingency management, cognitive restructuring, and social support.</p>
+    <p>Lifestyle interventions (activity + eating-behavior change) should be the <strong>first option</strong> because of low cost and low risk. The ADA recommends cognitive-behavioral strategies: <strong>self-monitoring, stress management, stimulus control, problem solving, contingency management, cognitive restructuring, and social support</strong>.</p>
     <div class="callout red">
-      <p><strong>Weight bias &amp; stigma:</strong> Use inclusive, people-first language ("a client with obesity," not "an obese client"). Ask permission to discuss weight. Never humiliate, blame, or shame. Use motivational interviewing.</p>
+      <span class="c-label">Overcoming Weight Bias &amp; Stigma</span>
+      <p>Discussing weight is sensitive. Use inclusive, <strong>people-first language</strong> ("a client with obesity," not "an obese client"). Never humiliate, blame, shame, or categorize. Recognize your own implicit biases, ask permission to broach the topic ("What words do you like to use when we talk about weight?"), and use motivational interviewing.</p>
     </div>
-    <div class="card-grid card-grid-2">
-      <div class="card green">
-        <h4>National Weight Control Registry</h4>
-        <p>People who lost ≥30 lb and kept it off ≥1 year: <strong>98%</strong> modified food intake; <strong>94%</strong> increased activity; <strong>90%</strong> exercised ~1 hr/day; <strong>78%</strong> ate breakfast daily; <strong>75%</strong> weighed weekly; <strong>62%</strong> watched &lt;10 hrs TV/week.</p>
-      </div>
-      <div class="card blue">
-        <h4>Self-Monitoring</h4>
-        <p>A food diary is effective for long-term loss. But clients tend to <strong>underestimate intake by 30–50%</strong> and overestimate physical activity — so accuracy and honest tracking matter.</p>
-      </div>
-    </div>
-    <div class="ex-table">
-      <div class="ex-head" style="color:#34d399">Table 12-2 — Chief Components of a Behavioral Weight-loss Program</div>
-      <div class="ex-row"><div class="label">Calorie Reduction</div><div class="val">Personalized ~500–1,000 kcal/day deficit; portion control; cut calorically dense foods; add fruits/vegetables.</div></div>
-      <div class="ex-row"><div class="label">Physical Activity</div><div class="val">Begin 50 min/week (10-min sessions ×5 days); build to 150 min/week; for maintenance 200–300 min/week; muscular training ≥2×/week; increase non-exercise activity.</div></div>
-      <div class="ex-row"><div class="label">Behavioral</div><div class="val">Self-monitoring (weight, intake, activity); stimulus control; behavioral substitution; spend time with active people; set SMART goals.</div></div>
+    <p>The <strong>National Weight Control Registry</strong> (people who lost ≥30 lb and kept it off ≥1 year) found: <strong>98%</strong> modified food intake; <strong>94%</strong> increased activity (walking most common); <strong>90%</strong> exercised ~1 hr/day; <strong>78%</strong> ate breakfast daily; <strong>75%</strong> weighed weekly; <strong>62%</strong> watched &lt;10 hrs TV/week; <strong>55%</strong> used a weight-loss program. Structured lifestyle support helps: 34% achieved ≥5% loss over 12 weeks vs. 19% with usual care.</p>
+    <table class="data-table">
+      <thead><tr><th>Component</th><th>Key points</th></tr></thead>
+      <tbody>
+        <tr><td>Calorie Reduction</td><td>Personalized goals for a <strong>500–1,000 kcal/day deficit</strong>; portion control; cut calorically dense foods; add fruits/vegetables.</td></tr>
+        <tr><td>Physical Activity</td><td>Begin <strong>50 min/week</strong> (10-min sessions ×5 days); build to <strong>150 min/week</strong>; for maintenance 200–300 min/week; muscular training ≥2×/week; increase non-exercise activity.</td></tr>
+        <tr><td>Behavioral</td><td>Self-monitoring (weight, intake, activity); stimulus control; behavioral substitution; time with active people; SMART goals.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout orange">
+      <span class="c-label">Accurate Self-Monitoring</span>
+      <p>Clients tend to <strong>underestimate intake by ~30–50%</strong> and <strong>overestimate activity</strong> — so they may not see a problem. A food diary is effective for long-term loss; apps, trackers, and wireless scales help. Web-based interventions with personalized feedback yield clinically meaningful loss.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 09 OTHER -->
+  <!-- 10 OTHER -->
   <div class="section" id="other">
     <span class="section-tag red">Other Approaches</span>
     <h2>Pharmacology &amp; Bariatric Surgery</h2>
-    <p>Lifestyle modification remains the main component and should be implemented before/during drug therapy. <strong>Pharmacotherapy</strong> may be prescribed if a client retains a <strong>BMI ≥30 kg/m²</strong> (or <strong>≥27 with at least one comorbidity</strong>) after intensive lifestyle intervention. <strong>Phentermine</strong> is for short-term use (&lt;3 months); five long-term options exist (orlistat, lorcaserin, phentermine-topiramate, naltrexone-bupropion, liraglutide 3.0 mg). The FDA recommends discontinuation if there is <strong>&lt;5% weight loss after 16 weeks</strong>.</p>
-    <p>Wadden et al.: over 52 weeks, pharmacotherapy alone produced ~11 lb loss; lifestyle alone ~15 lb; <strong>combined ~26 lb</strong>. <strong>Bariatric surgery</strong> is recommended at a <strong>BMI ≥40</strong> (or <strong>≥35 with a comorbidity</strong>). It is more effective than lifestyle/pharmacology but carries greater risk, is expensive, and ~5–20% of individuals regain weight. It is <em>not a cure</em> — clients must continue a behavior-change program.</p>
+    <p>Lifestyle modification remains the main component and should be implemented before and during drug therapy. <strong>Pharmacotherapy</strong> may be prescribed if, after intensive lifestyle intervention, the client still has a <strong>BMI ≥30</strong> (or <strong>≥27 with at least one obesity-related comorbidity</strong>). Approved options: <strong>phentermine for short-term use (&lt;3 months)</strong> plus five long-term drugs — orlistat, lorcaserin, phentermine-topiramate, naltrexone-bupropion, and liraglutide 3.0 mg. The FDA recommends <strong>discontinuation if there is &lt;5% weight loss after 16 weeks</strong>. Wadden et al. (52 weeks): pharmacotherapy alone ~11 lb, lifestyle alone ~15 lb, <strong>combined ~26 lb</strong> — and regain is common, so the behavioral program must be sustained.</p>
+    <p><strong>Bariatric surgery</strong> is <em>more effective</em> than lifestyle and pharmacology but carries greater risk. The ACC/AHA Task Force (2014) recommends it at <strong>BMI ≥40, or ≥35 with at least one obesity-related comorbidity</strong>. It is expensive, ~<strong>5–20% regain weight</strong>, and it is <strong>not a cure</strong> — it supplements a behavior-change program the client must continue.</p>
     <div class="callout">
-      <p><strong>Summary:</strong> Preventing and treating obesity is difficult because many complex factors interact. Appropriate changes in lifestyle, dietary patterns, and physical activity can help prevent obesity at all ages. Weight loss should not be the only endpoint — important health benefits from activity and nutrition occur even without large changes in body weight.</p>
+      <span class="c-label">Summary</span>
+      <p>Preventing and treating obesity is hard because the factors are many and complex. But strong evidence shows that appropriate changes in lifestyle, diet, physical activity, and other behaviors can prevent obesity at all ages and support loss and maintenance. Weight loss should not be the only endpoint — important health benefits from activity and nutrition occur even without large changes in body weight.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 10 TAKEAWAYS -->
+  <!-- 11 TAKEAWAYS -->
   <div class="section" id="takeaways">
     <div class="takeaways">
       <h3>★ Key Takeaways</h3>
-      <div class="takeaway-item"><div class="tnum">1</div><p>Obesity is a positive energy balance (EI &gt; EE) driven by environment, genetics, and behavior — with environment probably the biggest factor.</p></div>
-      <div class="takeaway-item"><div class="tnum">2</div><p>~3,500 kcal ≈ 1 lb of fat, but the figure is dynamic (early loss is water/lean tissue). ADA: a 500–1,000 kcal/day deficit → 1–2 lb/week.</p></div>
-      <div class="takeaway-item"><div class="tnum">3</div><p>REE ≈ 75% of TEE; estimate it with Mifflin-St. Jeor (males +5, females −161). Protein RDA 46–56 g/day (10–35% of calories).</p></div>
-      <div class="takeaway-item"><div class="tnum">4</div><p>Cardio FITT: ≥3–5 days, moderate (below VT1, talk test, RPE 12–13/20), 30–60 min/day, low-impact. Total distance, not speed, sets total EE.</p></div>
-      <div class="takeaway-item"><div class="tnum">5</div><p>Muscular FITT: 2–3 days/week, 60–70% 1-RM, 8–12 reps, 2–4 sets. Progress frequency/duration before intensity to limit injury risk.</p></div>
-      <div class="takeaway-item"><div class="tnum">6</div><p>Dose-response: 150–250 min/week = modest loss; 250–300 = clinically significant; &gt;300 min/week (~60 min/day) to maintain a reduced weight.</p></div>
-      <div class="takeaway-item"><div class="tnum">7</div><p>Realistic goal is 5–15% loss (5–10% improves comorbidities). Weight stability = &lt;3% change; ≥5% is clinically significant. Fitness matters, not just fatness.</p></div>
-      <div class="takeaway-item"><div class="tnum">8</div><p>Use people-first language and behavioral strategies. Pharmacotherapy at BMI ≥30 (or ≥27 + comorbidity); surgery at ≥40 (or ≥35 + comorbidity) — neither is a cure without behavior change.</p></div>
+      <div class="takeaway-item"><div class="tnum">1</div><p>Obesity is a positive energy balance (EI &gt; EE) driven by environment, genetics, hormones, sleep, stress, and behavior — with environment probably the biggest factor and lifestyle the dominant lever for most.</p></div>
+      <div class="takeaway-item"><div class="tnum">2</div><p>BMI heritability is 40–70%, but genes explain &lt;5% of variation; activity cuts genetic predisposition ~40%. Ghrelin drives hunger; peptide YY drives satiety. 58% of moderate-severe OSA is due to obesity.</p></div>
+      <div class="takeaway-item"><div class="tnum">3</div><p>~3,500 kcal ≈ 1 lb of fat, but it's dynamic (early loss is water/lean tissue, ~2,208 kcal/lb at first). ADA: a 500–1,000 kcal/day deficit → 1–2 lb/week.</p></div>
+      <div class="takeaway-item"><div class="tnum">4</div><p>REE ≈ 75% of TEE; estimate with Mifflin-St. Jeor (males +5, females −161). Protein RDA 46–56 g/day (10–35% of calories). Exercise above 60% VO₂max suppresses appetite for 2–10 hr.</p></div>
+      <div class="takeaway-item"><div class="tnum">5</div><p>Total distance, not speed, sets total EE; running ≈ 10% &gt; walking. Cardio FITT: ≥3–5 days, moderate (below VT1, talk test, RPE 12–13/20), 30–60 min. Progress frequency/duration before intensity.</p></div>
+      <div class="takeaway-item"><div class="tnum">6</div><p>Muscular FITT: 2–3 days/week, 60–70% 1-RM, 8–12 reps, 2–4 sets. Dose-response: 150–250 min/week = modest loss; 250–300 = clinically significant; &gt;300 min/week (~60 min/day) to maintain.</p></div>
+      <div class="takeaway-item"><div class="tnum">7</div><p>Weight stability = &lt;3% change; ≥5% is clinically significant. Realistic goal 5–15% (5–10% improves comorbidities). Fitness matters, not just fatness; "not gaining is winning."</p></div>
+      <div class="takeaway-item"><div class="tnum">8</div><p>Use people-first language and behavioral strategies; clients under-report intake ~30–50%. Pharmacotherapy at BMI ≥30 (or ≥27 + comorbidity), discontinue if &lt;5% loss at 16 weeks; surgery at ≥40 (or ≥35 + comorbidity) — neither is a cure without behavior change.</p></div>
     </div>
   </div>
 
