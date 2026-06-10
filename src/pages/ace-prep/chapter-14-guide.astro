@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="Exercise Considerations across the Lifespan — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering exercise for youth (physical literacy, bone & strength safety), women during pregnancy and postpartum (ACOG guidelines, physiology, diastasis recti), and older adults (aging, balance, cognition) for ACE-CPT Chapter 14.">
+<Layout title="Exercise Considerations across the Lifespan — Theory Guide | ACE Prep · Lifelong Athletics" description="Full theory guide covering exercise for youth (physical literacy, bone & strength safety, periodization), women during pregnancy and postpartum (ACOG guidelines, physiology, diastasis recti), and older adults (aging, balance, cognition) for ACE-CPT Chapter 14.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -35,13 +35,12 @@ body { font-family:'DM Sans',system-ui,sans-serif; font-size:16px; line-height:1
 .section p { color:#c4c2bc; margin-bottom:18px; font-size:16px; }
 .section p strong { color:#f0eeea; }
 .section em { color:#9bbf28; font-style:italic; }
-h3 { font-size:1.1rem; font-weight:700; color:#e2e0db; margin:26px 0 10px; }
+h3 { font-size:1.15rem; font-weight:700; color:#e2e0db; margin:30px 0 12px; }
 h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.05em; }
-
-/* DISEASE/TOPIC HEADER */
-.disease-header { background:#161616; border-left:4px solid #22d3ee; border-radius:0 8px 8px 0; padding:12px 16px; margin:26px 0 14px; }
-.disease-header h3 { font-size:1.05rem; font-weight:800; color:#22d3ee; margin:0; }
-.disease-header p { font-size:.82rem; color:#888; margin:3px 0 0; }
+ul.body-list { margin:0 0 18px; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:9px; }
+ul.body-list li { font-size:15px; color:#c4c2bc; line-height:1.6; padding-left:20px; position:relative; }
+ul.body-list li::before { content:'›'; position:absolute; left:2px; color:#9bbf28; font-weight:700; }
+ul.body-list li strong { color:#f0eeea; }
 
 /* DIVIDER */
 .divider { height:1px; background:#2a2828; margin:48px 0; }
@@ -49,36 +48,17 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
 /* CALLOUT */
 .callout { background:#141414; border-left:4px solid #c5f135; border-radius:0 8px 8px 0; padding:16px 20px; margin:22px 0; }
 .callout.teal{border-left-color:#22d3ee} .callout.blue{border-left-color:#3b82f6} .callout.purple{border-left-color:#a855f7} .callout.orange{border-left-color:#f97316} .callout.green{border-left-color:#10b981} .callout.red{border-left-color:#ef4444}
-.callout p { font-size:14px; margin:0; color:#c4c2bc; line-height:1.65; }
+.callout p { font-size:14px; margin:0 0 10px; color:#c4c2bc; line-height:1.65; }
+.callout p:last-child { margin-bottom:0; }
 .callout p strong { color:#f0eeea; }
-
-/* CARD GRID */
-.card-grid { display:grid; gap:14px; margin:22px 0; }
-.card-grid-2 { grid-template-columns:1fr 1fr; }
-.card { background:#171717; border:1px solid #2a2828; border-radius:10px; padding:18px; border-left:3px solid #c5f135; }
-.card.teal{border-left-color:#22d3ee} .card.blue{border-left-color:#3b82f6} .card.purple{border-left-color:#a855f7} .card.orange{border-left-color:#f97316} .card.green{border-left-color:#10b981} .card.red{border-left-color:#ef4444}
-.card h4 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; margin:0 0 8px; color:#f0eeea; }
-.card.green h4{color:#34d399} .card.red h4{color:#f87171} .card.orange h4{color:#fb923c} .card.blue h4{color:#60a5fa} .card.purple h4{color:#a78bfa} .card.teal h4{color:#22d3ee}
-.card p { font-size:13px; color:#c4c2bc; margin:0 0 8px; line-height:1.6; }
-.card p:last-child { margin-bottom:0; }
-.card ul { padding-left:0; margin-top:6px; list-style:none; display:flex; flex-direction:column; gap:6px; }
-.card li { font-size:13px; color:#c4c2bc; line-height:1.5; padding-left:18px; position:relative; }
-.card li::before { content:'›'; position:absolute; left:0; color:#555; }
+.callout .c-label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#9bbf28; margin-bottom:8px; }
 
 /* TABLE */
-.data-table { width:100%; border-collapse:collapse; font-size:13px; margin:8px 0; }
+.data-table { width:100%; border-collapse:collapse; font-size:13px; margin:14px 0; }
 .data-table th { background:#1c1c1c; color:#9bbf28; text-align:left; padding:9px 12px; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid #2a2828; }
 .data-table td { padding:8px 12px; border-bottom:1px solid #222; color:#c4c2bc; vertical-align:top; }
 .data-table td:first-child { font-weight:600; color:#f0eeea; }
 .data-table tr:hover td { background:#161616; }
-
-/* EXERCISE TABLE */
-.ex-table { background:#141414; border:1px solid #2a2828; border-radius:10px; overflow:hidden; margin:14px 0; }
-.ex-head { background:#1c1c1c; padding:9px 14px; font-size:.76rem; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:#9bbf28; }
-.ex-row { display:grid; grid-template-columns:120px 1fr; border-bottom:1px solid #222; }
-.ex-row:last-child { border-bottom:none; }
-.ex-row .label { padding:9px 14px; font-size:.76rem; font-weight:700; color:#888; border-right:1px solid #222; }
-.ex-row .val { padding:9px 14px; font-size:.82rem; color:#c4c2bc; line-height:1.5; }
 
 /* TAKEAWAYS */
 .takeaways { background:#0d160f; border:1px solid #1a3020; border-radius:12px; padding:30px; margin:44px 0; }
@@ -95,9 +75,8 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
 
 @media (max-width:680px) {
   .hero { padding:32px 22px; }
-  .card-grid-2 { grid-template-columns:1fr; }
-  .ex-row { grid-template-columns:1fr; }
-  .ex-row .label { border-right:none; border-bottom:1px solid #222; }
+  .data-table { font-size:12px; }
+  .data-table th, .data-table td { padding:7px 8px; }
 }
 </style>
 
@@ -107,186 +86,228 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
   <div class="hero">
     <div class="hero-tag">ACE-CPT · Chapter 14 · Theory Guide</div>
     <h1>Exercise Considerations across the Lifespan</h1>
-    <p>How personal trainers safely adapt programming for three special populations — youth, women during pregnancy and postpartum, and older adults — across the stages of life.</p>
+    <p>A practical guide to safely adapting exercise programming for three special populations — youth, women during pregnancy and the postpartum period, and older adults — across every stage of life.</p>
     <a href="/ace-prep/chapter-14" class="back-link">← Back to Chapter 14 Hub</a>
   </div>
 
   <!-- TOC -->
   <nav class="toc-bar">
     <div class="toc-inner">
-      <a href="#youth"        class="toc-link">01 Youth</a>
-      <a href="#youth-fitt"   class="toc-link">02 Youth FITT</a>
-      <a href="#pregnancy"    class="toc-link">03 Pregnancy</a>
-      <a href="#preg-prog"    class="toc-link">04 Pregnancy Programming</a>
-      <a href="#postpartum"   class="toc-link">05 Postpartum</a>
-      <a href="#older"        class="toc-link">06 Older Adults</a>
-      <a href="#older-prog"   class="toc-link">07 Older-Adult Programming</a>
-      <a href="#takeaways"    class="toc-link">08 Takeaways</a>
+      <a href="#frame"        class="toc-link">01 Why It Matters</a>
+      <a href="#youth"        class="toc-link">02 Youth &amp; Literacy</a>
+      <a href="#youth-safety" class="toc-link">03 Youth Strength Safety</a>
+      <a href="#youth-apply"  class="toc-link">04 Youth Variety &amp; IFT</a>
+      <a href="#pregnancy"    class="toc-link">05 Pregnancy Physiology</a>
+      <a href="#preg-guidelines" class="toc-link">06 Pregnancy Guidelines</a>
+      <a href="#postpartum"   class="toc-link">07 Postpartum</a>
+      <a href="#older"        class="toc-link">08 Older Adults</a>
+      <a href="#older-prog"   class="toc-link">09 Older-Adult Programming</a>
+      <a href="#takeaways"    class="toc-link">10 Takeaways</a>
     </div>
   </nav>
 
-  <!-- 01 YOUTH -->
+  <!-- 01 FRAME -->
+  <div class="section" id="frame">
+    <span class="section-tag">Why It Matters</span>
+    <h2>Why Lifespan Considerations Matter</h2>
+    <p>This chapter addresses how personal trainers adapt exercise programming for three populations whose physiology and needs differ meaningfully from the general adult population: <strong>youth</strong>, <strong>women during pregnancy and the postpartum period</strong>, and <strong>older adults</strong>. Within each group it covers the relevant physiology, the published exercise guidelines, the safety considerations, and how to apply the ACE Integrated Fitness Training (ACE IFT) Model.</p>
+    <p>The unifying message is that regular physical activity is essential and beneficial at <em>every</em> stage of life — but the way a trainer designs and delivers that activity must be tailored to the developmental stage, the physiological state, and the individual goals of the client in front of them. Across all three populations the chapter returns to a few common threads: obtain medical clearance when warranted, progress gradually (usually frequency and duration before intensity), keep the experience enjoyable and confidence-building, and collaborate with the client using the ACE Mover Method and the ACE ABC Approach rather than dictating a program.</p>
+    <p>Each population is treated as its own self-contained body of knowledge, but a single client may move through more than one of these life stages over a long-term relationship — for example, a client who becomes pregnant during training, or one who ages into the older-adult category.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 02 YOUTH -->
   <div class="section" id="youth">
-    <span class="section-tag teal">Youth</span>
-    <h2>Exercise and Youth — Physical Literacy &amp; Safety</h2>
-    <p><strong>Physical literacy</strong> is the ability, confidence, and desire to be physically active for life (The Aspen Institute, 2015). Inactive parents are nearly <strong>six times</strong> more likely to have inactive children. The goal is to build the motor skills to run, jump, and balance — and the mindset to use them. Trainers should prioritize <em>effort, not performance</em>, and keep activities fun.</p>
-    <p>Youth gain substantial health benefits from <strong>60 minutes or more</strong> of moderate-to-vigorous activity each day (HHS, 2018) — cardiorespiratory, muscle-strengthening, and bone-strengthening. Total weekly activity matters more than any single component, but bone-strengthening is especially critical because the <strong>greatest gains in bone mass occur just before and during puberty</strong>.</p>
+    <span class="section-tag teal">Youth &amp; Physical Literacy</span>
+    <h2>Exercise and Youth — Physical Literacy as the Foundation</h2>
+    <p><strong>Physical literacy</strong> is defined as the ability, confidence, and desire to be physically active for life (The Aspen Institute, 2015). The chapter frames it as a response to declining rates of physical activity among children — a consequential decline that reduces quality of life, drains economies, and sets in motion a self-perpetuating cycle in which inactive parents are nearly <strong>six times</strong> more likely to have inactive children.</p>
+    <p>The goal of physical-literacy initiatives is to help children develop the fundamental motor skills — running, jumping, balancing — that they need to lead an active life, plus the <em>mindset</em> to actually use them. The intent is to set children up to enjoy a variety of activities throughout life, not to push early specialization or performance. The recommended strategies for the fitness world include making physical literacy the basis of family programming, taking kids' gym classes into schools and community centers, and — critically — <strong>prioritizing effort, not performance</strong>.</p>
 
-    <div class="callout green">
-      <p><strong>Can youth safely strength train? Yes.</strong> Evidence dispelled the old myth. Nine-year-old girls who did 10 months of simple muscular training increased bone mineral density <strong>four times as much</strong> as non-training girls (<strong>6.2% vs. 1.4%</strong>). With qualified supervision, proper equipment, and appropriate loads, there is no published evidence of growth-plate damage — and muscular training had a better safety record than other athletic activities.</p>
-    </div>
+    <h3>Exercise Guidelines for Youth</h3>
+    <p>The core guideline: youth achieve substantial health benefits from bouts of moderate- and vigorous-intensity activity adding up to <strong>60 minutes or more each day</strong> (HHS, 2018), including cardiorespiratory, muscle-strengthening, and bone-strengthening exercise. As with adults, the <em>total amount</em> of activity accumulated each week matters more for health benefits than any single component (frequency, intensity, or duration) on its own.</p>
+    <p>One component is singled out as especially critical for children and young adolescents: <strong>bone-strengthening activities</strong>. The reason is developmental — the greatest gains in bone mass occur during the window just before and during puberty. Because that window is time-limited, loading the skeleton during childhood and early adolescence has outsized lifelong value.</p>
+    <p>Inspiring children to be more active requires understanding the individual child and their interests. While recreational and competitive sports get children moving, a competitive atmosphere can be discouraging for some — especially those with less-developed motor skills or with overweight or obesity. Trainers can shape a child's perception of exercise by making activities fun and tailored to the child's interests: a science-minded child might enjoy a hike to collect rock specimens; a child who likes climbing might enjoy bouldering; dancing counts too. Meet the child where their interests already are.</p>
 
-    <div class="card-grid card-grid-2">
-      <div class="card orange">
-        <h4>Growth Plate &amp; Technique</h4>
-        <p>The <strong>epiphyseal (growth) plate</strong> is cartilaginous and not fully formed; improper form, repetitive impact, and torque raise injury risk.</p>
-        <ul>
-          <li>Always supervise; use proper technique</li>
-          <li>Free weights/body weight may beat machines (lever-arm fit)</li>
-          <li>No single maximal lifts, explosive moves, or competition</li>
-          <li>Teach breathing; hydrate before/during/after</li>
-        </ul>
-        <p style="margin-top:8px"><strong>Wolff's Law:</strong> bone strengthens when acted upon by unaccustomed forces.</p>
-      </div>
-      <div class="card red">
-        <h4>Environment &amp; Overuse</h4>
-        <p><strong>Heat:</strong> children have a higher surface-area-to-mass ratio, lower exercise economy, diminished sweating, and lower cardiac output at a given workload → greater heat-illness risk.</p>
-        <p style="margin-top:8px"><strong>Cold:</strong> dehydration, hypothermia, frostbite; cold dry air can worsen asthma/EIB.</p>
-        <p style="margin-top:8px"><strong>Sport specialization:</strong> early single-sport, year-round play raises overuse-injury and burnout risk. Variety + periodization build well-rounded athletes.</p>
-      </div>
+    <div class="callout orange">
+      <span class="c-label">⚠ Precautions — Heat &amp; Cold</span>
+      <p>Research suggests children and adults are <em>relatively similar</em> in their risk for heat-related illness, with no maturational differences in thermal balance or endurance performance in the heat. Even so, concern persists that children may be at greater risk because of their <strong>higher ratio of body surface area to mass, lower exercise economy, diminished sweating capacity, and lower cardiac output</strong> at a similar workload — deserving special attention in sports that require padding.</p>
+      <p>In extreme cold, children face increased risk of <strong>dehydration, hypothermia, and frostbite</strong> (attend to hydration and layered clothing; move indoors if needed). Cold air also lacks moisture, so a child with asthma or exercise-induced bronchoconstriction may be at greater risk. Heed local heat/cold warnings.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 02 YOUTH FITT -->
-  <div class="section" id="youth-fitt">
-    <span class="section-tag teal">Youth FITT</span>
-    <h2>FITT for Children &amp; Adolescents (Table 14-2)</h2>
+  <!-- 03 YOUTH SAFETY -->
+  <div class="section" id="youth-safety">
+    <span class="section-tag orange">Youth Strength Safety</span>
+    <h2>Can Youth Safely Perform Muscular Training?</h2>
+    <p>A persistent myth holds that children are too young to strength train and that doing so is dangerous. <strong>Evidence has dispelled that myth.</strong> Children can significantly increase muscular strength and physical ability through properly designed progressive muscular-training programs — in fact, muscular training is <strong>the most effective means for young people to build bone density</strong>. The chapter cites a striking study: nine-year-old girls who performed 10 months of simple muscular training increased bone mineral density <strong>four times as much</strong> as girls who did not strength train (a <strong>6.2% increase versus 1.4%</strong>).</p>
+    <p>On safety, the chapter is emphatic: there has never been research indicating that growth retardation, skeletal damage, or substantial injury occurs in youth muscular-training programs <em>when qualified adult supervision is provided, evidence-based recommendations are followed, equipment is used properly, and appropriate loads are used</em>. In one study, muscular training had a much better safety record than other athletic activities (Hamill, 1994). Benefits include an improved cardiovascular-risk profile, better body composition, stronger bones, better motor skills, reduced injury risk, and positive psychosocial outcomes.</p>
+    <p>That said, the key anatomical difference is the <strong>epiphyseal plate (growth plate)</strong> — a cartilaginous area of bone not fully formed in youth. Improper form, repetitive impact, and torque may increase injury risk there. To minimize that risk:</p>
+    <ul class="body-list">
+      <li>Children should be <strong>properly supervised</strong> and use proper technique at all times.</li>
+      <li>Traditional machines may not provide the appropriate lever arm for children — <strong>free weights or body-weight exercises may be preferred</strong>.</li>
+      <li><strong>Never</strong> have children perform single maximal lifts, sudden explosive movements, or compete with other children during muscular training.</li>
+      <li>Teach proper breathing during movements.</li>
+      <li>Encourage drinking plenty of fluids before, during, and after exercise.</li>
+      <li>Have children communicate when they feel tired, fatigued, or in discomfort/pain.</li>
+      <li>Create a dynamic, fun, age-appropriate program.</li>
+    </ul>
+    <p>The mechanism behind bone-strengthening is <strong>Wolff's Law</strong>: bone strengthening occurs when bones are acted upon by forces to which they are unaccustomed.</p>
+
+    <h3>Examples of Physical Activities for Youth (Table 14-1)</h3>
+    <p>Activities are organized by type and developmental stage. Note that some activities (bicycling, swimming) can be moderate <em>or</em> vigorous depending on effort.</p>
     <table class="data-table">
-      <thead><tr><th>Component</th><th>Aerobic</th><th>Resistance</th><th>Bone</th></tr></thead>
+      <thead><tr><th>Type</th><th>School-aged Children</th><th>Adolescents</th></tr></thead>
       <tbody>
-        <tr><td>Frequency</td><td>Daily</td><td>≥3 days/week</td><td>≥3 days/week</td></tr>
-        <tr><td>Intensity</td><td>Moderate→vigorous; include vigorous ≥3 d/wk</td><td>Body weight, or 8–15 submax reps to moderate fatigue</td><td>—</td></tr>
-        <tr><td>Time</td><td>Within ≥60 min/day</td><td>Within ≥60 min/day</td><td>Within ≥60 min/day</td></tr>
-        <tr><td>Type</td><td>Running, swimming, dancing, cycling, sports</td><td>Playground/climbing or weights/bands</td><td>Running, jump rope, basketball, tennis, hopscotch</td></tr>
+        <tr><td>Moderate aerobic</td><td>Brisk walking, bicycling, hiking, swimming, baseball/softball</td><td>Brisk walking, kayaking, hiking, yard work, active video games</td></tr>
+        <tr><td>Vigorous aerobic</td><td>Running, tag/flag football, jump rope, soccer, basketball, tennis, martial arts</td><td>Running, jump rope, cross-country skiing, soccer, basketball, vigorous dancing</td></tr>
+        <tr><td>Muscle strengthening</td><td>Tug of war, body-weight/band exercises, tree climbing, some yoga</td><td>Tug of war, body weight/bands/machines/hand weights, some yoga</td></tr>
+        <tr><td>Bone strengthening</td><td>Hopping, jumping, jump rope, running, jumping/direction-change sports</td><td>Jump rope, running, jumping/direction-change sports</td></tr>
       </tbody>
     </table>
-    <div class="callout teal">
-      <p><strong>ACE IFT for youth:</strong> Make assessments fun and noncritical (they need not differ from adults'). Include movement in all three planes; emphasize balance, coordination, and muscle/bone strengthening. Youth are prone to forward-head and rounded-shoulder posture from screens — use the cool-down to teach postural stretches.</p>
-    </div>
+    <p>For youth with health challenges (e.g., asthma, diabetes), communicate with the child's healthcare providers to understand appropriate types and amounts of activity, then design gradual increases that positively affect overall health.</p>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 03 PREGNANCY -->
+  <!-- 04 YOUTH APPLY -->
+  <div class="section" id="youth-apply">
+    <span class="section-tag teal">Youth Variety &amp; IFT</span>
+    <h2>Overuse, Specialization &amp; Applying the IFT Model</h2>
+    <p>Although physical <em>inactivity</em> is the dominant threat to youth, the opposite problem matters too: overuse injuries from increasing <strong>sport specialization</strong> and year-round single-sport play. A singular focus on one sport increases repetitive stress on the growing body, often accompanied by a loss of fun and, ultimately, burnout. Vigorous exercise is good for youth, but it must be age-appropriate and not so strenuous that it raises injury risk.</p>
+    <p>The antidote is <strong>variety</strong>. Participating in multiple sports gives the most well-rounded opportunity to improve athleticism — increasing proprioception along with multidimensional strength, agility, endurance, speed, and confidence. Different sports build different qualities: baseball relies on focus and quick reactions; gymnastics requires strength, coordination, and balance; biking and climbing build independence plus cardiorespiratory and muscular fitness. Trainers should also apply <strong>periodization</strong> to youth in organized sport — professional and Olympic athletes don't compete year-round, and neither should children.</p>
+
+    <h3>Applying the ACE IFT Model to Youth</h3>
+    <p>When working with youth — especially those who are inactive or have overweight/obesity — structure movement assessments as <strong>fun activities</strong> and remain noncritical of movement. The assessments themselves need not differ from those used for adults; what changes is the framing and delivery. Setting children up for success and celebrating each achievement builds confidence and enjoyment.</p>
+    <p>A program with fun, playful movement engages even older teens. Vary the equipment, include movement in <strong>all three planes of motion</strong>, and select exercises for their benefits to balance, coordination, and muscle/bone strengthening as well as for fun. Because youth increasingly spend hours at keyboards, video games, and phones, they are prone to <strong>forward-head and rounded-shoulder posture</strong> — the cool-down is a great time to teach daily postural stretches.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 05 PREGNANCY -->
   <div class="section" id="pregnancy">
-    <span class="section-tag purple">Pregnancy</span>
-    <h2>Exercise during Pregnancy — Benefits &amp; Physiology</h2>
-    <p>Since the mid-1990s, research shows pregnant women can exercise safely without harming the fetus; excessive weight gain and inactivity are independent risk factors for complications. ACOG (2020) states the benefits of exercise far outweigh the risks. Regular exercise is associated with reduced <strong>preeclampsia, gestational diabetes, Caesarean section, low-back pain, anxiety, nausea, heartburn, insomnia, and leg cramps</strong>.</p>
+    <span class="section-tag purple">Pregnancy Physiology</span>
+    <h2>Exercise during Pregnancy &amp; the Physiological Changes</h2>
+    <p>Historically the medical community encouraged pregnant women to <em>reduce</em> activity, fearing harm to the fetus. Since the mid-1990s, research has shown pregnant women can exercise safely without harming the fetus. Not only is exercise now viewed as safe and desirable — <strong>excessive weight gain and physical inactivity in pregnancy are now recognized as independent risk factors</strong> for maternal obesity and complications. ACOG (2020) states the beneficial effects of exercise are indisputable and that the benefits far outweigh the risks. Regular exercise is associated with reduced rates of <strong>preeclampsia, gestational diabetes, Caesarean section, low-back pain, anxiety, nausea, heartburn, insomnia, leg cramps</strong>, and possibly control of excessive weight gain.</p>
     <div class="callout red">
-      <p><strong>Get medical clearance</strong> if the client has obstetric/medical comorbidities (severe obesity, type 1 or gestational diabetes). Poorly controlled <strong>anemia, hypertension, seizure disorder, and hyperthyroidism are contraindications</strong> to activity during pregnancy.</p>
+      <span class="c-label">⚠ Medical Clearance &amp; Contraindications</span>
+      <p>Request medical clearance if the client has obstetric/medical comorbidities such as severe obesity or type 1/gestational diabetes. The chapter lists <strong>contraindications to activity during pregnancy: poorly controlled anemia, hypertension, seizure disorder, and hyperthyroidism.</strong></p>
     </div>
 
-    <div class="card-grid card-grid-2">
-      <div class="card purple">
-        <h4>Weight, COG &amp; Hormones</h4>
-        <p>Healthy gain: <strong>25–35 lb (11.4–15.9 kg)</strong>. The <strong>center of gravity moves up and forward</strong> → low-back discomfort and balance changes; train posterior leg/trunk early (squat, lunge, deadlift). <strong>Relaxin</strong> increases joint laxity — widening the pelvis but affecting <em>all</em> joints, risking flare-ups.</p>
-      </div>
-      <div class="card blue">
-        <h4>Cardiovascular &amp; Thermoregulation</h4>
-        <p><strong>Cardiac reserve is reduced</strong>; HR, blood volume, stroke volume, and cardiac output rise. After <strong>20 weeks of gestation, avoid the supine position</strong> — aortocaval compression of the inferior vena cava and aorta can cause hypotension. Thermoregulation slightly improves; no malformation link to exercise-related heat is reported.</p>
-      </div>
-    </div>
+    <h3>Physical &amp; Physiological Changes</h3>
+    <p>During a healthy pregnancy a woman is recommended to gain <strong>25 to 35 lb (11.4 to 15.9 kg)</strong> (adjusted for pre-pregnancy weight status). Most added weight increases abdominal circumference, placing stress on the back, pelvis, hips, and legs. As the fetus grows, the <strong>center of gravity (COG) moves upward and forward</strong>, which can cause low-back discomfort and affect balance and coordination. A proactive recommendation: focus <em>early</em> on posterior leg and trunk strength (properly performed squat, lunge, deadlift) to ready the body for the added weight and COG shift.</p>
+    <p>Shifting hormone levels may cause nausea and fatigue (most common in the first trimester but possible anytime); trainers must adjust intensity and rest accordingly. A key hormonal change is increased <strong>relaxin</strong>, which increases joint laxity — necessary because it widens the pelvis and birth canal for delivery, but it affects the laxity of <strong>all</strong> joints, so old injuries may flare and instability may increase. Strength and stability training help provide additional stabilization as the body changes.</p>
+    <p>The cardiovascular system also changes: <strong>cardiac reserve is reduced</strong>, while heart rate, blood volume, stroke volume, and cardiac output rise. Women may feel short of breath after short moderate bouts or tire more easily — allow more rest. A crucial safety point: <strong>after 20 weeks of gestation, the supine position may cause decreased venous return from aortocaval compression (of the inferior vena cava and aorta) by the gravid uterus, which can produce hypotension.</strong> Thermoregulation slightly improves (more skin blood flow, increased tidal volume), but the exerciser must be aware of ambient temperature/humidity; reassuringly, <strong>no reports link exercise-related hyperthermia to embryo/fetal malformations.</strong></p>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 04 PREGNANCY PROGRAMMING -->
-  <div class="section" id="preg-prog">
-    <span class="section-tag blue">Pregnancy Programming</span>
-    <h2>Guidelines &amp; FITT during Pregnancy</h2>
-    <p>Recommendations support moderate-intensity exercise for <strong>at least 150 minutes over a minimum of 3 days per week</strong> in a normal pregnancy. Use the <strong>PARmed-X for Pregnancy</strong> readiness form in screening, and the <strong>talk test</strong> (stay below VT1) rather than heart rate to gauge intensity. Avoid high abdominal-trauma activities (contact sports, skiing, surfing) and extreme heat (hot yoga). A small snack helps avoid hypoglycemia, especially past 45 minutes of moderate work. Choose exercises that support the changing COG: squats, stiff-legged deadlifts, side lunges, lat pull-downs, seated rows, bird dogs.</p>
+  <!-- 06 PREG GUIDELINES -->
+  <div class="section" id="preg-guidelines">
+    <span class="section-tag blue">Pregnancy Guidelines</span>
+    <h2>Exercise Guidelines &amp; FITT during Pregnancy</h2>
+    <p>Review updated ACOG guidelines whenever training a pregnant client, and include the <strong>PARmed-X for Pregnancy</strong> readiness form in preparticipation screening. Current recommendations support <strong>moderate-intensity exercise for at least 150 minutes over a minimum of three days per week</strong> in a normal pregnancy, posing minimal fetal risk while offering metabolic and cardiorespiratory benefits. Pregnant women should be under the care of a physician and combine cardiorespiratory and muscular training.</p>
     <div class="callout red">
-      <p><strong>⚠ Warning signs to STOP (ACOG 2020):</strong> vaginal bleeding · abdominal pain · regular painful contractions · amniotic fluid leakage · dyspnea before exertion · dizziness · headache · chest pain · muscle weakness affecting balance · calf pain or swelling.</p>
+      <span class="c-label">⚠ Warning Signs to STOP (ACOG 2020)</span>
+      <p>Postpone the session and consult the physician if any occur: <strong>vaginal bleeding; abdominal pain; regular painful contractions; amniotic fluid leakage; dyspnea before exertion; dizziness; headache; chest pain; muscle weakness affecting balance; calf pain or swelling.</strong></p>
     </div>
-    <div class="ex-table">
-      <div class="ex-head" style="color:#a855f7">Pregnancy FITT (Table 14-3)</div>
-      <div class="ex-row"><div class="label">Frequency</div><div class="val">Aerobic ≥3–5 d/wk · Resistance 2–3 nonconsecutive d/wk · Flexibility ≥2–3 d/wk (daily most effective)</div></div>
-      <div class="ex-row"><div class="label">Intensity</div><div class="val">Moderate (3–5.9 METs), RPE 12–13 on 6–20; vigorous (≥6 METs, RPE 14–17) for those highly active before/progressing during pregnancy. Resistance: 8–10 or 12–15 submax reps to moderate fatigue</div></div>
-      <div class="ex-row"><div class="label">Time</div><div class="val">~30 min accumulated to ≥150 min/week (or 75 min/week vigorous). Resistance: 1 set beginner, 2–3 sets intermediate/advanced</div></div>
-      <div class="ex-row"><div class="label">Type</div><div class="val">Weight- and non-weight-bearing (walking, hiking, group exercise, swimming); machines, free weights, body weight</div></div>
-    </div>
+    <ul class="body-list">
+      <li>Previously active women with uncomplicated pregnancies may continue and maintain prior intensity as tolerated (the safe upper limit is not established).</li>
+      <li>Previously inactive women should progress gradually to moderate exercise — some beginning with <strong>under 10 minutes</strong> and/or intermittent activity.</li>
+      <li>Use the <strong>talk test</strong> (more effective than heart rate); staying below the first ventilatory threshold (VT1) indicates moderate intensity.</li>
+      <li>Avoid high abdominal-trauma activities (contact sports, skiing, surfing) and extreme heat (e.g., hot yoga).</li>
+      <li>Focus on hydration; a small snack may help avoid hypoglycemia, especially past <strong>45 minutes</strong> of moderate exercise.</li>
+    </ul>
+    <h3>FITT for Women Who Are Pregnant (Table 14-3)</h3>
+    <table class="data-table">
+      <thead><tr><th></th><th>Aerobic</th><th>Resistance</th><th>Flexibility</th></tr></thead>
+      <tbody>
+        <tr><td>Frequency</td><td>≥3–5 days/week</td><td>2–3 nonconsecutive days/week</td><td>≥2–3 days/week (daily best)</td></tr>
+        <tr><td>Intensity</td><td>Moderate 3–5.9 METs, RPE 12–13; vigorous ≥6 METs, RPE 14–17 (if highly active before/progressing)</td><td>8–10 or 12–15 reps to moderate fatigue</td><td>To tightness/slight discomfort</td></tr>
+        <tr><td>Time</td><td>~30 min accumulated → ≥150 min/week (or 75 min vigorous)</td><td>1 set beginner; 2–3 sets intermediate/advanced</td><td>Hold 30–60 sec</td></tr>
+        <tr><td>Type</td><td>Walking, hiking, group exercise, swimming</td><td>Machines, free weights, body weight (squats, chest press, lunges)</td><td>Static &amp; dynamic per muscle-tendon unit</td></tr>
+      </tbody>
+    </table>
+    <h3>Applying the ACE IFT Model during Pregnancy</h3>
+    <p>When a client becomes pregnant mid-program, review updated ACOG guidelines, and — once she grants permission — connect with her physician to discuss health considerations. Consider shorter sessions (e.g., 30 vs. 60 minutes) for new clients, then slowly increase. Choose exercises that support the changing COG (squats, stiff-legged deadlifts, side lunges, lat pull-downs, seated rows, bird dogs), and individualize intensity and rest day to day. The chapter's worked example (client "Michelle," seven weeks pregnant and cleared by her doctor) demonstrates the <strong>ACE ABC Approach</strong> — <em>Ask</em> open-ended questions, <em>Break down barriers</em> (competing demands from work/friends/family), and <em>Collaborate</em> on action steps she owns — leading her to commit to 150 min/week of cardio, twice-weekly strength work, and recruiting social support.</p>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 05 POSTPARTUM -->
+  <!-- 07 POSTPARTUM -->
   <div class="section" id="postpartum">
     <span class="section-tag red">Postpartum</span>
     <h2>Postpartum Exercise Guidelines</h2>
-    <p>Hormone levels keep shifting; fatigue, interrupted sleep, and postpartum anemia are common. Increase exercise gradually as the woman feels ready and her doctor recommends; <strong>C-section requires extra recovery and a physician return-to-activity protocol</strong>. An estimated <strong>25% of pregnancies end in miscarriage and 1% in stillbirth</strong> (~50% of stillbirths from placental disorders). Trainers should show empathy and never reinforce the misconception that exercise or daily activity caused a loss.</p>
-    <p>Program guidelines: obtain physician clearance; begin slowly, increasing <strong>duration, then frequency, then intensity</strong>; aim for at least <strong>150 minutes/week</strong> of moderate activity; strengthen major muscle groups; hydrate and consider expressing milk before exercise. Use <strong>10-minute time blocks</strong> and encourage walking (the child can come along). Include back/posterior-shoulder work and anterior chest stretches to counter rounded shoulders from feeding. Set a realistic expectation of returning to pre-pregnancy intensity over the <strong>subsequent 9 to 12 months</strong>.</p>
+    <p>Each delivery experience is unique. Hormone levels continue to shift, and fatigue remains a factor from those changes, the demands on the body, and the interrupted sleep of caring for a newborn. <strong>Postpartum anemia is common</strong> and is associated with impaired quality of life, reduced cognition, emotional instability, and depression. A woman should increase exercise gradually as she feels ready and as her doctor recommends. A <strong>C-section requires additional recovery</strong> — it is highly invasive (incision through skin, fascia, uterine tissue, sometimes muscle) — so consult the physician for a return-to-activity protocol.</p>
+    <p>The chapter addresses pregnancy loss directly: an estimated <strong>25% of pregnancies end in miscarriage and 1% in stillbirth</strong>, with ~50% of stillbirths caused by placental disorders. A woman may carry intense grief and, due to common misconceptions, may feel guilt that exercise or daily activity caused the loss. A trainer should maintain professional distance yet check in with care and empathy. Nutrition also matters — breastfeeding women have increased caloric and nutrient needs vital to activity and milk production.</p>
+    <p>General postpartum program guidelines:</p>
+    <ul class="body-list">
+      <li>Obtain physician clearance before resuming/starting, depending on delivery mode and complications.</li>
+      <li>Begin slowly and increase <strong>duration, then frequency, then intensity</strong>, toward at least <strong>150 minutes/week</strong> of moderate activity.</li>
+      <li>Strengthen major muscle groups (ACOG, 2020), progressing as she feels ready.</li>
+      <li>Hydrate; consider expressing milk before exercise to avoid discomfort from engorged breasts.</li>
+    </ul>
+    <p>Practical realities matter: childcare gaps and changing schedules make gym trips hard, so build simple programs in <strong>10-minute time blocks</strong> and encourage <strong>walking</strong> (the child can come along). Frequent feeding contributes to rounded shoulders, so include back/posterior-shoulder work (seated row) and anterior chest stretches. Set a realistic expectation of returning to pre-pregnancy intensity over the <strong>subsequent 9 to 12 months</strong>.</p>
     <div class="callout orange">
-      <p><strong>Diastasis recti:</strong> separation of the two muscle bellies of the rectus abdominis, up to <strong>1–2 inches (2.5–5.1 cm)</strong> wide. Incidence as high as <strong>45% during pregnancy and 33% at 12 months postpartum</strong>; exercise before/during pregnancy reduced its presence by <strong>35%</strong>. Helpful: transverse abdominis and pelvic-floor isometrics, plus postural/abdominal strength work (quadruped TA isometric, wide-stance squats, bridges, dead bugs, bird dog).</p>
+      <span class="c-label">Diastasis Recti</span>
+      <p>Separation of the two muscle bellies of the rectus abdominis, up to <strong>1 to 2 inches (2.5 to 5.1 cm)</strong> wide. One study found incidence as high as <strong>45% during pregnancy and 33% at 12 months postpartum</strong>. A systematic review concluded that exercise performed before and during pregnancy <strong>reduced its presence by 35%</strong>. Helpful work: isometric contractions of the transverse abdominis and pelvic floor, plus postural and abdominal strength exercises — illustrated as the quadruped TA isometric, wide-stance squats with a dumbbell, bridges (yoga block between knees), dead bugs, and the bird dog.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 06 OLDER ADULTS -->
+  <!-- 08 OLDER -->
   <div class="section" id="older">
     <span class="section-tag green">Older Adults</span>
-    <h2>Aging, Structure &amp; Balance</h2>
-    <p>Older adults are individuals <strong>≥65 years of age</strong>. The Baby Boomer generation numbered <strong>74 million</strong> in the U.S. (2016) and expects to stay active. Aging brings declines in fitness, loss of height, reduced lean body mass, reduced connective-tissue elasticity, slower healing, vision changes, and reduced coordination — compounded by chronic disease.</p>
-    <div class="card-grid card-grid-2">
-      <div class="card green">
-        <h4>Structural Changes</h4>
-        <p>Muscle mass declines (less strength/endurance), largely from reduced activity and neuromuscular effectiveness. Bones become fragile and porous — <strong>~20% of older adults who sustain a hip fracture die of related complications</strong>. Weight-bearing and muscular-training exercise help maintain bone mass. As lean mass falls, body fat tends to rise.</p>
-      </div>
-      <div class="card blue">
-        <h4>Balance Systems</h4>
-        <p>Balance and coordination decline because the <strong>visual, vestibular, and somatosensory systems</strong> are all negatively affected by aging — raising fall risk. Balance training improves proprioception and reduces falls.</p>
-      </div>
-    </div>
+    <h2>Exercise and Older Adults — Aging, Structure &amp; Balance</h2>
+    <p>Older adults are defined as <strong>individuals 65 years of age and older</strong>. The Baby Boomer generation numbered <strong>74 million</strong> in the U.S. (2016) and increasingly expects to stay active and independent. For some, activities of daily living become strenuous due to chronic conditions and loss of physical function — so regular exercise, healthful eating, and not smoking become even more important with age. The physiological results of aging typically include declining fitness, loss of height, reduced lean body mass, loss of skin/connective-tissue elasticity, slower healing, changes in eyesight, and reduced coordination — compounded by any chronic disease.</p>
+    <h3>Structural Changes</h3>
+    <p>Muscle mass declines with age (reducing strength and endurance), largely from reduced activity and decreased neuromuscular effectiveness. Bones become more fragile and porous, raising fracture risk — and <strong>approximately 20% of older individuals who sustain a hip fracture die of related complications</strong>. Loss of calcium decreases bone mass, but <strong>weight-bearing and muscular-training exercise help maintain bone mass</strong>, supporting the need for muscular training throughout the lifespan. As lean mass declines, body fat typically rises (lower muscle mass, lower BMR, insufficient activity); regular activity stimulates protein synthesis, preserves lean mass, and decreases fat stores.</p>
+    <h3>Stability &amp; Balance</h3>
+    <p>Balance and coordination decline with age, increasing fall risk — due to lost muscle/strength and declining proprioception. Three sensory systems feed balance information to the central nervous system — the <strong>visual, vestibular, and somatosensory systems</strong> — and <em>each</em> is negatively affected by aging. Vision is a primary proprioceptive input; the vestibular system tracks head position; the somatosensory system includes muscle/joint proprioceptors and cutaneous/pressure receptors. Physical activity can positively impact balance and coordination.</p>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 07 OLDER PROGRAMMING -->
+  <!-- 09 OLDER PROGRAMMING -->
   <div class="section" id="older-prog">
     <span class="section-tag green">Older-Adult Programming</span>
-    <h2>Guidelines, FITT &amp; Cognition</h2>
-    <p>HHS (2018) recommends older adults exercise at the same level as other adults: <strong>150–300 min/week moderate</strong>, or <strong>75–150 min/week vigorous</strong> (or a combination), spread through the week. More is better, and <em>some is better than none</em>. <strong>Muscular training at least twice/week</strong> maintains strength and endurance; <strong>balance training</strong> reduces falls.</p>
-    <div class="callout teal">
-      <p><strong>ACE IFT for older adults:</strong> Arthritis affects <strong>49.6% of those over 65</strong>, so start with posture and flexibility assessments. Substitute a <strong>chair sit-to-stand</strong> for a body-weight squat with knee arthritis. For balance, begin with the <strong>unipedal stance test</strong> (near a wall) before the Y balance test. Use a thorough warm-up (declining collagen/elasticity), introduce balance work <em>early</em> in the session, and check the ability to get to/from the floor.</p>
-    </div>
-    <div class="ex-table">
-      <div class="ex-head">Older Adult FITT (Table 14-4)</div>
-      <div class="ex-row"><div class="label">Frequency</div><div class="val">Aerobic ≥5 d/wk moderate, ≥3 d/wk vigorous (3–5 combo) · Resistance ≥2 d/wk · Flexibility ≥2 d/wk</div></div>
-      <div class="ex-row"><div class="label">Intensity</div><div class="val">0–10 exertion scale: 5–6 moderate, 7–8 vigorous. Resistance: light 40–50% 1-RM (beginner) → moderate-vigorous 60–80% 1-RM</div></div>
-      <div class="ex-row"><div class="label">Time</div><div class="val">30–60 min/day moderate (20–30 vigorous), bouts ≥10 min. Resistance: 8–10 exercises, 1–3 sets × 8–12 reps. Hold stretches 30–60 sec</div></div>
-      <div class="ex-row"><div class="label">Type</div><div class="val">Any modality without excessive orthopedic stress (walking, aquatic, stationary cycle); progressive weight-training; static (not ballistic) stretches</div></div>
-    </div>
+    <h2>Guidelines, the IFT Model &amp; FITT</h2>
+    <p>HHS (2018) recommends older adults exercise at the same level as other adults: <strong>150–300 minutes/week of moderate</strong>, or <strong>75–150 minutes/week of vigorous</strong> cardiorespiratory activity (or a combination), spread through the week. Additional activity brings additional benefit, and <strong>some is better than none</strong> — in the absence of a program, move more and sit less. <strong>Muscular training at least twice/week</strong> maintains strength and endurance, and <strong>balance training</strong> improves proprioception and reduces falls.</p>
+    <p>Although guidelines mirror the general population, an older client's initial fitness may be affected by chronic disease, so conduct thorough preparticipation screening (Ch 5) and modify movement assessments collaboratively. <strong>Arthritis affects 49.6% of those over 65</strong>, so begin with posture and flexibility assessments before the movement assessment — e.g., a client with knee arthritis may do a <strong>chair sit-to-stand</strong> instead of a body-weight squat. For balance, provide a safe environment: rather than starting with the Y balance test, begin with the <strong>unipedal stance test</strong>, near a wall/chair, with the trainer's hands ready; progress from wall support → a cane/dowel → no support.</p>
+    <p>Don't impose unnecessary limits — challenge the client's sense of adventure with exercises aimed at gradual improvement toward their goals. A thorough <strong>warm-up</strong> becomes increasingly important (declining collagen and connective-tissue elasticity), and the <strong>cool-down</strong> is used for static stretching. Focus on Functional Training, and introduce <strong>balance exercises early in the session</strong> when strength and focus are highest. Check whether the client can get down to and up from the floor (a goal might be playing with grandchildren). Cardiorespiratory training stays a high priority given chronic-disease risk — weight-bearing is preferred for bone strength (if tolerated), while recumbent/stationary bikes suit those with hip/knee or balance limitations (a recumbent bike's low center bar eases entry).</p>
     <div class="callout green">
-      <p><strong>Cognition &amp; mental health:</strong> A systematic review of 43 articles found physical activity improves cognitive function in people over 50, regardless of cognitive status at onset (Northey et al., 2018). Exercise also provides valuable social interaction through gyms, classes, and trainers — countering age-related depression, anxiety, and social loss.</p>
+      <span class="c-label">Cognition &amp; Mental Health</span>
+      <p>In a systematic review of 43 articles, Northey et al. (2018) concluded that <strong>physical activity improves cognitive function in people over age 50, regardless of cognitive status at onset</strong>, consistent across cardiorespiratory and muscular training. As people age, depression and anxiety increase and social losses mount — exercise provides regular <strong>social interaction</strong> through gyms, classes, and trainers, offering important human connection alongside the physiological benefits.</p>
     </div>
+    <h3>FITT for Older Adults (Table 14-4)</h3>
+    <table class="data-table">
+      <thead><tr><th></th><th>Aerobic</th><th>Resistance</th><th>Flexibility</th></tr></thead>
+      <tbody>
+        <tr><td>Frequency</td><td>≥5 d/wk moderate; ≥3 d/wk vigorous; 3–5 combo</td><td>≥2 days/week</td><td>≥2 days/week</td></tr>
+        <tr><td>Intensity</td><td>0–10 scale: 5–6 moderate, 7–8 vigorous</td><td>40–50% 1-RM (beginner) → 60–80% 1-RM</td><td>To tightness/slight discomfort</td></tr>
+        <tr><td>Time</td><td>30–60 min/day moderate; 20–30 vigorous; bouts ≥10 min</td><td>8–10 exercises, 1–3 sets × 8–12 reps</td><td>Hold 30–60 sec</td></tr>
+        <tr><td>Type</td><td>No excessive orthopedic stress (walking, aquatic, stationary cycle)</td><td>Progressive weights/calisthenics, stair climbing</td><td>Static (not ballistic) stretches</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 08 TAKEAWAYS -->
+  <!-- 10 TAKEAWAYS -->
   <div class="section" id="takeaways">
     <div class="takeaways">
       <h3>★ Key Takeaways</h3>
-      <div class="takeaway-item"><div class="tnum">1</div><p>Youth: build physical literacy, prioritize effort over performance, and target ≥60 min/day of activity. Bone-mass gains peak just before/during puberty.</p></div>
-      <div class="takeaway-item"><div class="tnum">2</div><p>Supervised, evidence-based youth strength training is safe (no growth-plate damage) — but no single-max lifts, explosive moves, or competition. Wolff's Law: bone strengthens under unaccustomed forces.</p></div>
-      <div class="takeaway-item"><div class="tnum">3</div><p>Pregnancy: ≥150 min/week moderate over ≥3 days; use the talk test (below VT1) and PARmed-X. Healthy gain 25–35 lb. Relaxin loosens all joints.</p></div>
-      <div class="takeaway-item"><div class="tnum">4</div><p>After 20 weeks of gestation, avoid the supine position (aortocaval compression → hypotension). Contraindications: poorly controlled anemia, hypertension, seizure disorder, hyperthyroidism.</p></div>
-      <div class="takeaway-item"><div class="tnum">5</div><p>Know the ACOG warning signs to STOP (vaginal bleeding, contractions, dizziness, chest pain, calf pain/swelling, etc.) and act immediately.</p></div>
-      <div class="takeaway-item"><div class="tnum">6</div><p>Postpartum: progress duration → frequency → intensity; 10-min blocks; pre-pregnancy intensity over 9–12 months. Diastasis recti (rectus abdominis separation) — use TA &amp; pelvic-floor isometrics.</p></div>
-      <div class="takeaway-item"><div class="tnum">7</div><p>Older adults (65+): 150–300 min/week moderate, muscular training 2×/week, plus balance training. Visual, vestibular &amp; somatosensory decline raises fall risk.</p></div>
-      <div class="takeaway-item"><div class="tnum">8</div><p>Assess older adults' posture/flexibility first (arthritis 49.6% over 65); chair sit-to-stand for knee arthritis, unipedal stance before Y balance. Activity also improves cognition over age 50.</p></div>
+      <div class="takeaway-item"><div class="tnum">1</div><p>Youth: build physical literacy, prioritize effort over performance, and target ≥60 min/day of activity. Bone-mass gains peak just before/during puberty, so bone-strengthening is critical.</p></div>
+      <div class="takeaway-item"><div class="tnum">2</div><p>Supervised, evidence-based youth strength training is safe (no growth-plate damage) and builds bone (6.2% vs 1.4% BMD) — but no single-max lifts, explosive moves, or competition. Wolff's Law: bone strengthens under unaccustomed forces.</p></div>
+      <div class="takeaway-item"><div class="tnum">3</div><p>Avoid early single-sport specialization (overuse, burnout). Variety + periodization build well-rounded athletes. Keep youth assessments fun and noncritical; train all three planes.</p></div>
+      <div class="takeaway-item"><div class="tnum">4</div><p>Pregnancy: ≥150 min/week moderate over ≥3 days; talk test (below VT1) &gt; heart rate; PARmed-X for screening. Healthy gain 25–35 lb. Relaxin loosens ALL joints.</p></div>
+      <div class="takeaway-item"><div class="tnum">5</div><p>After 20 weeks, avoid supine (aortocaval compression → hypotension). Contraindications: poorly controlled anemia, hypertension, seizure disorder, hyperthyroidism. Know the ACOG warning signs to STOP.</p></div>
+      <div class="takeaway-item"><div class="tnum">6</div><p>Postpartum: progress duration → frequency → intensity; 10-min blocks; pre-pregnancy intensity over 9–12 months; C-section needs an MD protocol. Diastasis recti — TA &amp; pelvic-floor isometrics; exercise cut its presence 35%.</p></div>
+      <div class="takeaway-item"><div class="tnum">7</div><p>Older adults (65+): 150–300 min/week moderate, muscular training 2×/week, plus balance training. Aging declines the visual, vestibular &amp; somatosensory systems → fall risk; ~20% of hip-fracture elders die of complications.</p></div>
+      <div class="takeaway-item"><div class="tnum">8</div><p>Assess older adults' posture/flexibility first (arthritis 49.6% over 65); chair sit-to-stand for knee arthritis; unipedal stance before Y balance; warm up thoroughly; balance work early. Activity also improves cognition over age 50.</p></div>
     </div>
   </div>
 
