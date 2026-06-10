@@ -23,11 +23,25 @@ Output these 8 parts, in this order, using the EXACT JSON field names shown:
 - Hero subtitle: one sentence (~25 words) summarizing the chapter
 - Accent phrase: the 1–2 words from the title to highlight
 
-━━━ 2. GUIDE SECTIONS ━━━
-Reproduce the chapter section by section so it can become a long-form study guide.
-For each section give: a short SECTION TAG label (2–3 words), an H2 heading, the body
-content (paragraphs), and any tables, bullet lists, or "callout" notes. Be faithful and
-thorough — this is the teaching content. Use markdown (tables as markdown tables).
+━━━ 2. GUIDE SECTIONS (the MOST important part — make it LONG and COMPLETE) ━━━
+This becomes a full long-form study guide, so REPRODUCE THE CHAPTER IN FULL — do NOT
+summarize, compress, or paraphrase tightly. This is the actual teaching text, not an
+outline. **Target 4,000–7,000 words.** Err on the side of MORE detail, always.
+
+Go section by section through the ENTIRE chapter and, for each section, write SEVERAL full
+paragraphs that keep ALL of: every definition, every mechanism and "how/why it works"
+explanation, every example and analogy, every number/range/threshold, every cited study
+and statistic, every table, and every list. Explain each concept the way the textbook
+explains it — in complete sentences and full paragraphs, not bullets-only. If the chapter
+spends a page on a topic, your section should reflect that depth (a sentence or two is NOT
+enough). Do not drop sub-sections, sidebars, "do the math" boxes, figures' captions, or
+clinical/safety notes — fold them in.
+
+For each section give: a short SECTION TAG label (2–3 words), an H2 heading, the FULL body
+content as multiple paragraphs, plus any tables (as markdown tables), bullet lists, and
+"callout" notes. Use markdown. Quality bar: a student who reads ONLY your GUIDE SECTIONS
+should learn essentially everything the chapter teaches. (For reference, a good chapter
+guide runs ~8,000 words — match that scale, not a 1,500-word summary.)
 
 ━━━ 3. MINDMAP (JSON) ━━━
 About 8 branches covering the whole chapter:

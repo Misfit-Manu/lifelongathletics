@@ -112,6 +112,14 @@ That JSON drops almost verbatim into the arrays above. The extraction prompt is 
 **`ACE_EXTRACTION_PROMPT.md`** (repo root). If only a blog (no quiz) is provided, the build agent
 authors the full 35-case + 20-theory + 5 FIB + 5 TF bank from the chapter content itself.
 
+⚠ **Guide depth:** the `chapter-N-guide.astro` page is only as rich as the extraction's
+**GUIDE SECTIONS** text. Early extractions summarized chapters down to ~1,500 words, producing
+thin guides (ch 7/12/13/14 ≈ 1,500–2,100 words) vs. the full-source guides (ch 10 ≈ 8,000 words).
+The extraction prompt was upgraded (2026-06) to demand a **full 4,000–7,000-word reproduction** of
+the chapter, not a summary. When building a guide, render that full prose faithfully — but NEVER
+invent textbook facts/numbers not in the source. To retrofit a thin guide, re-run extraction with
+the upgraded prompt OR work from the chapter PDF/OCR directly.
+
 ### 3f. Build → verify → ship
 1. Create `chapter-N.astro` and `chapter-N-guide.astro` from the templates with the new data.
 2. Add `'chapter-N'` to `STATIC_OVERRIDES` in `[id].astro`.
