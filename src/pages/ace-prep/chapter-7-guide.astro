@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="Resting Assessments & Anthropometric Measurements — Theory Guide | ACE Prep · Lifelong Athletics" description="Complete theory guide covering assessment sequencing, resting heart rate and blood pressure, body-composition methods (DXA, hydrostatic, BIA, skinfold), BMI, circumference, and waist-to-hip ratio for ACE-CPT Chapter 7.">
+<Layout title="Resting Assessments & Anthropometric Measurements — Theory Guide | ACE Prep · Lifelong Athletics" description="Full theory guide covering assessment sequencing and professionalism, resting heart rate and blood pressure, body-composition methods (DXA, hydrostatic, BIA, skinfold), BMI, circumference, and waist-to-hip ratio for ACE-CPT Chapter 7.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -35,8 +35,12 @@ body { font-family:'DM Sans',system-ui,sans-serif; font-size:16px; line-height:1
 .section p { color:#c4c2bc; margin-bottom:18px; font-size:16px; }
 .section p strong { color:#f0eeea; }
 .section em { color:#9bbf28; font-style:italic; }
-h3 { font-size:1.1rem; font-weight:700; color:#e2e0db; margin:26px 0 10px; }
+h3 { font-size:1.15rem; font-weight:700; color:#e2e0db; margin:30px 0 12px; }
 h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.05em; }
+ul.body-list { margin:0 0 18px; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:9px; }
+ul.body-list li { font-size:15px; color:#c4c2bc; line-height:1.6; padding-left:20px; position:relative; }
+ul.body-list li::before { content:'›'; position:absolute; left:2px; color:#9bbf28; font-weight:700; }
+ul.body-list li strong { color:#f0eeea; }
 
 /* DIVIDER */
 .divider { height:1px; background:#2a2828; margin:48px 0; }
@@ -44,24 +48,13 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
 /* CALLOUT */
 .callout { background:#141414; border-left:4px solid #c5f135; border-radius:0 8px 8px 0; padding:16px 20px; margin:22px 0; }
 .callout.teal{border-left-color:#22d3ee} .callout.blue{border-left-color:#3b82f6} .callout.purple{border-left-color:#a855f7} .callout.orange{border-left-color:#f97316} .callout.green{border-left-color:#10b981} .callout.red{border-left-color:#ef4444}
-.callout p { font-size:14px; margin:0; color:#c4c2bc; line-height:1.65; }
+.callout p { font-size:14px; margin:0 0 10px; color:#c4c2bc; line-height:1.65; }
+.callout p:last-child { margin-bottom:0; }
 .callout p strong { color:#f0eeea; }
-
-/* CARD GRID */
-.card-grid { display:grid; gap:14px; margin:22px 0; }
-.card-grid-2 { grid-template-columns:1fr 1fr; }
-.card { background:#171717; border:1px solid #2a2828; border-radius:10px; padding:18px; border-left:3px solid #c5f135; }
-.card.teal{border-left-color:#22d3ee} .card.blue{border-left-color:#3b82f6} .card.purple{border-left-color:#a855f7} .card.orange{border-left-color:#f97316} .card.green{border-left-color:#10b981} .card.red{border-left-color:#ef4444}
-.card h4 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; margin:0 0 8px; color:#f0eeea; }
-.card.green h4{color:#34d399} .card.red h4{color:#f87171} .card.orange h4{color:#fb923c} .card.blue h4{color:#60a5fa} .card.purple h4{color:#a78bfa} .card.teal h4{color:#22d3ee}
-.card p { font-size:13px; color:#c4c2bc; margin:0 0 8px; line-height:1.6; }
-.card p:last-child { margin-bottom:0; }
-.card ul { padding-left:0; margin-top:6px; list-style:none; display:flex; flex-direction:column; gap:6px; }
-.card li { font-size:13px; color:#c4c2bc; line-height:1.5; padding-left:18px; position:relative; }
-.card li::before { content:'›'; position:absolute; left:0; color:#555; }
+.callout .c-label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#9bbf28; margin-bottom:8px; }
 
 /* TABLE */
-.data-table { width:100%; border-collapse:collapse; font-size:13px; margin:8px 0; }
+.data-table { width:100%; border-collapse:collapse; font-size:13px; margin:14px 0; }
 .data-table th { background:#1c1c1c; color:#9bbf28; text-align:left; padding:9px 12px; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid #2a2828; }
 .data-table td { padding:8px 12px; border-bottom:1px solid #222; color:#c4c2bc; vertical-align:top; }
 .data-table td:first-child { font-weight:600; color:#f0eeea; }
@@ -82,7 +75,8 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
 
 @media (max-width:680px) {
   .hero { padding:32px 22px; }
-  .card-grid-2 { grid-template-columns:1fr; }
+  .data-table { font-size:12px; }
+  .data-table th, .data-table td { padding:7px 8px; }
 }
 </style>
 
@@ -92,45 +86,71 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
   <div class="hero">
     <div class="hero-tag">ACE-CPT · Chapter 7 · Theory Guide</div>
     <h1>Resting Assessments &amp; Anthropometric Measurements</h1>
-    <p>How to sequence and conduct resting cardiovascular assessments and anthropometric measurements — heart rate, blood pressure, body composition, BMI, circumferences, and waist-to-hip ratio — to gauge health risk.</p>
+    <p>How to sequence and conduct resting cardiovascular assessments and anthropometric measurements — heart rate, blood pressure, body composition, BMI, circumferences, and waist-to-hip ratio — to evaluate a client's health risk.</p>
     <a href="/ace-prep/chapter-7" class="back-link">← Back to Chapter 7 Hub</a>
   </div>
 
   <!-- TOC -->
   <nav class="toc-bar">
     <div class="toc-inner">
-      <a href="#sequencing"   class="toc-link">01 Sequencing</a>
-      <a href="#heart-rate"   class="toc-link">02 Heart Rate</a>
-      <a href="#blood-pressure" class="toc-link">03 Blood Pressure</a>
-      <a href="#body-comp"    class="toc-link">04 Body Composition</a>
-      <a href="#skinfold"     class="toc-link">05 Skinfold</a>
-      <a href="#bmi"          class="toc-link">06 BMI</a>
-      <a href="#circumference" class="toc-link">07 Circumference</a>
-      <a href="#whr"          class="toc-link">08 Waist-to-Hip</a>
-      <a href="#takeaways"    class="toc-link">09 Takeaways</a>
+      <a href="#frame"        class="toc-link">01 Overview</a>
+      <a href="#sequencing"   class="toc-link">02 Sequencing</a>
+      <a href="#heart-rate"   class="toc-link">03 Heart Rate</a>
+      <a href="#blood-pressure" class="toc-link">04 Blood Pressure</a>
+      <a href="#body-comp"    class="toc-link">05 Body Composition</a>
+      <a href="#skinfold"     class="toc-link">06 Skinfold</a>
+      <a href="#bmi"          class="toc-link">07 BMI</a>
+      <a href="#circumference" class="toc-link">08 Circumference</a>
+      <a href="#whr"          class="toc-link">09 Waist-to-Hip</a>
+      <a href="#takeaways"    class="toc-link">10 Takeaways</a>
     </div>
   </nav>
 
-  <!-- 01 SEQUENCING -->
+  <!-- 01 FRAME -->
+  <div class="section" id="frame">
+    <span class="section-tag">Overview</span>
+    <h2>What This Chapter Covers</h2>
+    <p>This chapter teaches how to perform <strong>resting assessments</strong> (heart rate and blood pressure) and <strong>anthropometric measurements</strong> used to evaluate body size, shape, and composition — body-composition methods, height, weight, BMI, and circumferences including waist circumference and the waist-to-hip ratio. The objectives are to sequence resting assessments properly; to measure heart rate and blood pressure and know the conditions under which they should be measured; to compare the body-composition methods and their pros and cons; to explain why BMI is used and its limitations; and to identify the anatomical landmarks and protocols for circumference measurements.</p>
+    <p>The underlying philosophy is that assessments are <em>not just data collection</em> — they are part of the client experience and the relationship. The trainer must decide <strong>which</strong> assessments are appropriate, <strong>when</strong> to do them, and <strong>how</strong> to conduct them professionally, because those decisions affect rapport, self-efficacy, enjoyment, success, and adherence. A recurring theme: anthropometric indices (BMI, waist circumference, WHR) are used because they correlate with morbidity and mortality and are inexpensive and simple — <em>not</em> because they directly measure body fatness.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 02 SEQUENCING -->
   <div class="section" id="sequencing">
-    <span class="section-tag teal">Sequencing</span>
-    <h2>Sequencing Assessments Professionally</h2>
-    <p>Each early client experience should build success and self-efficacy, so don't pile an entire session full of assessments. Determine which assessments (if any) are necessary and conduct only those — sometimes you can gather what you need just by observing movement during an introductory workout. Candidates include resting vital signs, static posture and movement, flexibility and muscle length, balance and core function, cardiorespiratory fitness, body composition, and muscular fitness.</p>
+    <span class="section-tag teal">Sequencing &amp; Professionalism</span>
+    <h2>Selecting, Sequencing &amp; Conducting Assessments</h2>
+    <p>Many new clients begin with very low confidence in their exercise ability and chances of success. Because past performance is a critical source of <strong>self-efficacy</strong>, each early experience should create success and build confidence. A common mistake is to schedule an entire session of assessments — for someone new to exercise and/or with obesity, that is likely to feel discouraging. The client should leave the first session feeling successful and looking forward to the next.</p>
+    <p>The practical rule: determine which assessments (if any) are necessary and conduct only those. Sometimes a trainer can collect everything needed simply by <strong>observing movement during an introductory workout</strong> rather than running formal tests. Assessments that merit consideration include resting vital signs (HR, BP, height, weight); static posture and movement; joint flexibility and muscle length; balance and core function; cardiorespiratory fitness; body composition and anthropometry; muscular fitness; and skill-related parameters (agility, coordination, power, reactivity, speed). All of this follows preparticipation health screening and an initial interview.</p>
+
+    <h3>Sequencing rules that matter for the exam</h3>
+    <ul class="body-list">
+      <li><strong>Skinfold/body-composition before activity</strong> — to avoid <em>underestimating</em> fat (sweat/dehydration) or <em>overestimating</em> it (surface vasodilation from thermoregulation).</li>
+      <li>Let <strong>BP and HR return to baseline</strong> between assessments within a session.</li>
+      <li>Don't test the <strong>same muscle group back-to-back</strong>.</li>
+      <li>Run any <strong>follow-up assessments in the same sequence</strong> as the originals (ACSM, 2018).</li>
+      <li><strong>Early strength gains are largely neurological</strong> (first 1–2 weeks), so early strength testing may not reflect the true pre-training state.</li>
+    </ul>
+
     <div class="callout">
-      <p><strong>Sequencing rules:</strong> Skinfold/body-composition estimation should be done <em>before activity</em> (sweat/dehydration underestimates fat; surface vasodilation overestimates it). Let <strong>BP and HR return to baseline</strong> between cardiovascular measures. Don't test the same muscle group back-to-back, and run follow-ups in the <strong>same sequence</strong> as the originals. Early strength gains are largely neurological, so early strength testing may not reflect the true pre-training state.</p>
-    </div>
-    <div class="callout teal">
-      <p><strong>Professionalism &amp; environment:</strong> Distribute instructions in advance (clothing, eating/hydration, stimulants); obtain signed informed consent; calibrate equipment; and control the environment — room temperature ideally <strong>68 to 72°F (20 to 22°C)</strong> with relative humidity <strong>below 60%</strong>, quiet and private.</p>
+      <span class="c-label">Professionalism &amp; the Assessment Environment (ACSM, 2018)</span>
+      <p>Distribute instructions in advance (clothing, eating/hydration, abstaining from stimulants); obtain a <strong>signed informed consent</strong> covering purposes, protocols, and risks, with a chance for the client to ask questions; organize all forms and data sheets; communicate and demonstrate clearly and calmly; and ensure equipment is <strong>calibrated</strong> and in proper working condition.</p>
+      <p><strong>Environmental control:</strong> room temperature ideally <strong>68–72°F (20–22°C)</strong>, relative humidity <strong>below 60%</strong>, adequate airflow, quiet and private to reduce anxiety.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 02 HEART RATE -->
+  <!-- 03 HEART RATE -->
   <div class="section" id="heart-rate">
     <span class="section-tag orange">Heart Rate</span>
-    <h2>Resting Heart Rate</h2>
-    <p>Pulse rate (usually identical to HR) can be palpated wherever an artery runs near the surface — commonly the <strong>radial artery</strong> (ventral wrist, thumb side) and the <strong>carotid artery</strong> (neck). Don't press too hard on the carotid: it can trigger a <strong>vasovagal response</strong> that slows HR. Use the index and middle fingers (not the thumb). Lower resting and submaximal HRs may indicate higher fitness, since cardiovascular adaptations raise stroke volume and reduce HR.</p>
+    <h2>Cardiovascular Assessments at Rest — Heart Rate</h2>
+    <p>The pulse rate (identical to HR in most people) can be measured wherever an artery's pulsation is near the surface. The <strong>radial artery</strong> (ventral wrist, thumb side) can be palpated by both clients and trainers. The <strong>carotid artery</strong> (neck, lateral to the trachea) is easy for clients to locate, making it ideal for self-assessment during exercise — but <strong>do not press too hard on the carotid</strong>, as it can evoke a <strong>vasovagal response</strong> that slows the HR. The heartbeat can also be heard by <strong>auscultation</strong> with a stethoscope. HR is recorded in <strong>beats per minute (bpm)</strong>. If you feel any irregularity in rate or rhythm, recommend the client contact their physician.</p>
+    <p>HR is a valid indicator of work intensity during exercise. <em>Resting</em> HR is a weaker fitness indicator because so many factors influence it and effects vary between people. Still, lower resting and submaximal HRs may indicate higher fitness, because cardiovascular adaptations increase stroke volume and thereby reduce HR.</p>
+    <div class="callout teal">
+      <span class="c-label">Factors Affecting Resting Heart Rate</span>
+      <p>In cross-sectional studies, highly endurance-trained athletes have RHRs <strong>15 to 30 bpm lower</strong> than sedentary counterparts; longitudinal findings are more mixed. RHR is influenced by fitness, fatigue, genetics, body composition, alcohol, caffeine, and stress.</p>
+    </div>
     <table class="data-table">
       <thead><tr><th>Category</th><th>Resting HR</th></tr></thead>
       <tbody>
@@ -139,18 +159,23 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
         <tr><td>Sinus tachycardia (fast)</td><td>&gt;100 bpm</td></tr>
       </tbody>
     </table>
-    <div class="callout orange">
-      <p><strong>Key facts:</strong> Average RHR is ~60–70 bpm in males and 72–80 bpm in females. Highly endurance-trained athletes run <strong>15–30 bpm lower</strong>. An RHR <strong>elevation of &gt;5 bpm</strong> over a client's norm can signal overtraining (taper). Abstain from non-prescription HR-affecting drugs/supplements ≥<strong>12 hours</strong> before measuring. <strong>True RHR is measured just before getting out of bed</strong> — so most trainer-measured RHR is not true RHR. Count for 30 or 60 seconds and correct to bpm.</p>
-    </div>
+    <p>Average RHR is ~<strong>60–70 bpm in males and 72–80 bpm in females</strong> (higher female values reflect smaller heart-chamber size and lower hemoglobin). Key facts:</p>
+    <ul class="body-list">
+      <li>An <strong>elevation in RHR of more than 5 bpm</strong> over the client's norm, persisting for days, signals possible overtraining — a reason to reduce or taper volume/intensity.</li>
+      <li>Abstain from non-prescription HR-affecting drugs/supplements for a <strong>minimum of 12 hours</strong> before measuring.</li>
+      <li><strong>Body position</strong> (standing/sitting &gt; supine/prone), <strong>digestion</strong>, <strong>environment</strong> (noise, temperature), and <strong>emotional stress</strong> all raise RHR.</li>
+      <li><strong>True RHR is measured just before getting out of bed</strong> — so a trainer's gym measurement is usually not true RHR. Rest quietly for several minutes first.</li>
+      <li>Palpate with the <strong>index and middle fingers</strong> (not the thumb, which has its own pulse); count for <strong>30 or 60 seconds</strong> and correct to bpm.</li>
+    </ul>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 03 BLOOD PRESSURE -->
+  <!-- 04 BLOOD PRESSURE -->
   <div class="section" id="blood-pressure">
     <span class="section-tag red">Blood Pressure</span>
     <h2>Blood Pressure</h2>
-    <p>BP is measured at the <strong>brachial artery</strong> (heart level) by listening to <strong>Korotkoff sounds</strong> — vibrations as blood moves past a deformed vessel wall under cuff pressure. The <strong>onset of tapping sounds = systolic BP</strong>; the point where sound disappears (significant muffling) = <strong>diastolic BP</strong>.</p>
+    <p>BP is measured at a site level with the heart — the standard being the <strong>brachial artery</strong> — by listening to the <strong>Korotkoff sounds</strong> (vibrations as blood moves along a deformed vessel wall). When cuff pressure exceeds the pressure during contraction, the artery collapses and flow is blocked. As air is slowly released, blood begins to flow past the compressed area, producing the <strong>onset of tapping sounds = systolic blood pressure (SBP)</strong>. When cuff pressure drops to where the wall is no longer deformed, the <strong>muffling and disappearance of sound = diastolic blood pressure (DBP)</strong>. In normal BP the disappearance of sound is used as DBP; in children and apparently healthy adults the first muffling may be used.</p>
     <table class="data-table">
       <thead><tr><th>Category</th><th>SBP</th><th></th><th>DBP</th></tr></thead>
       <tbody>
@@ -160,57 +185,66 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
         <tr><td>Hypertension Stage 2</td><td>≥140 mmHg</td><td>or</td><td>≥90 mmHg</td></tr>
       </tbody>
     </table>
-    <div class="callout red">
-      <p><strong>Rules:</strong> When SBP and DBP fall in two different categories, assign the <strong>higher</strong> category. BP is based on an average of <strong>two or more</strong> readings on <strong>two or more</strong> occasions. Elevated BP often responds to lifestyle change (exercise, diet, weight loss, smoking cessation, stress management); true hypertension usually requires physician treatment plus lifestyle interventions. Trainers guide lifestyle change — they do not diagnose or prescribe.</p>
+    <p>Two essential rules: when SBP and DBP fall in <strong>different categories, assign the higher</strong> one; and BP is based on an <strong>average of two or more readings on two or more occasions</strong> (Whelton et al., 2017).</p>
+    <div class="callout blue">
+      <span class="c-label">Accuracy of BP Machines</span>
+      <p>Pharmacy and home monitors can be useful but may be inaccurate — wrist monitors read higher and less accurately than arm cuffs. One study found home monitors accurate within 5 mmHg only <strong>69%</strong> of the time, with 10-mmHg and 15-mmHg errors occurring 29% and 7% of the time (Ringrose et al., 2017).</p>
+    </div>
+    <div class="callout green">
+      <span class="c-label">Reducing Blood Pressure</span>
+      <p>Elevated BP can realistically be lowered with lifestyle interventions — exercise, diet, weight loss, smoking cessation, stress management. True hypertension is usually treated by a physician with medication <em>plus</em> lifestyle change; the trainer's role is guidance and motivation on lifestyle, not diagnosis or prescription.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 04 BODY COMP -->
+  <!-- 05 BODY COMP -->
   <div class="section" id="body-comp">
     <span class="section-tag blue">Body Composition</span>
     <h2>Body Composition &amp; Measurement Methods</h2>
-    <p>Body composition is the relative proportion of lean and fat tissue. <strong>Essential body fat</strong> (insulation, thermoregulation, hormone production, organ cushioning) is <strong>2–5% for men and 10–13% for women</strong>. <em>Overweight</em> is excess weight relative to height; <em>overfat</em> is an excess of body fat (a more accurate term). For clients with extreme obesity, many body-composition techniques are inaccurate/contraindicated — use <strong>BMI and circumference</strong> instead.</p>
+    <p>Body composition is the relative proportion of <strong>lean tissue</strong> (muscle, connective tissue, bone, blood, skin, organs — mostly metabolically active) and <strong>fat tissue</strong>. A certain amount of fat is necessary for insulation/thermoregulation, hormone production, and organ cushioning — <strong>essential body fat is 2–5% for men and 10–13% for women</strong>. The rest is stored as <strong>subcutaneous fat</strong> (under the skin) and <strong>visceral fat</strong> (around the organs). An important distinction: <em>overweight</em> is excess weight relative to height (could be fat or lean), while <strong>overfat</strong> — a more accurate term — indicates excess body fat specifically.</p>
+    <p>Trainers must weigh their own skill level, protocol accuracy, and equipment when choosing a method, and may use more than one (e.g., skinfold + BMI + abdominal circumference). A caution: for clients with <strong>extreme obesity, most techniques are inaccurate and contraindicated</strong> — use BMI and circumference instead.</p>
     <table class="data-table">
-      <thead><tr><th>Method</th><th>Notes</th></tr></thead>
+      <thead><tr><th>Method</th><th>Description</th></tr></thead>
       <tbody>
-        <tr><td>DXA</td><td><strong>Most accurate &amp; precise</strong>; whole-body low-dose X-ray; shows regional fat distribution</td></tr>
-        <tr><td>Hydrostatic weighing</td><td>Benchmark; density via water displacement; impractical in fitness centers</td></tr>
-        <tr><td>ADP (Bod Pod)</td><td>Displaced air + body weight; high accuracy but expensive</td></tr>
-        <tr><td>BIA</td><td>Electrical signal through fat/lean/water; accuracy needs <strong>optimal hydration</strong></td></tr>
-        <tr><td>Skinfold</td><td>Calipers pinch skin/fat at several sites; most common in fitness settings</td></tr>
-        <tr><td>NIR</td><td>Fiber-optic probe; inexpensive/fast but less accurate</td></tr>
+        <tr><td>DXA</td><td><strong>One of the most accurate &amp; precise.</strong> Whole-body low-dose X-ray reads bone and soft-tissue mass; identifies regional fat distribution. Mostly clinical/university.</td></tr>
+        <tr><td>Hydrostatic weighing</td><td>The <strong>benchmark</strong>; body density via water displacement. Impractical in fitness centers (size, complexity).</td></tr>
+        <tr><td>ADP (Bod Pod)</td><td>Measures displaced air + body weight. High accuracy, expensive.</td></tr>
+        <tr><td>BIA</td><td>Electrical signal through fat/lean/water. Simple and common, but needs <strong>optimal hydration</strong>; accuracy depends on machine quality.</td></tr>
+        <tr><td>Skinfold</td><td>Calipers pinch skin/fat at several sites into a prediction equation. Very common in fitness settings.</td></tr>
+        <tr><td>NIR</td><td>Fiber-optic probe (usually biceps). Inexpensive/fast but less accurate.</td></tr>
+        <tr><td>MRI / TOBEC</td><td>Clinical/research only; impractical and expensive for body-fat alone.</td></tr>
       </tbody>
     </table>
     <div class="callout blue">
-      <p><strong>Hydrostatic detail:</strong> The benchmark, with only a <strong>2–3% margin of error</strong> vs. cadaver assessment, based on <strong>Archimedes' principle</strong> (Density = Mass/Volume). Estimating residual volume mathematically (rather than measuring in water) can add a <strong>300–400 mL</strong> error; for every 100 mL of RV error the percent-body-fat error changes by <strong>0.7%</strong> — so the final error may be 2.1–2.8%.</p>
+      <span class="c-label">Hydrostatic Weighing in Detail</span>
+      <p>The benchmark, with only a <strong>2–3% margin of error</strong> vs. cadaver assessment, based on <strong>Archimedes' principle (Density = Mass/Volume)</strong>. Fat is less dense, so it displaces more water and weighs less underwater. Residual volume (RV) should be measured <em>in</em> water; estimating it mathematically can add <strong>300–400 mL</strong> of error, and <strong>for every 100 mL of RV error the percent-body-fat error changes by 0.7%</strong> — so the final error may be 2.1–2.8%.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 05 SKINFOLD -->
+  <!-- 06 SKINFOLD -->
   <div class="section" id="skinfold">
     <span class="section-tag purple">Skinfold</span>
-    <h2>Skinfold Measurement</h2>
-    <p>Skinfold is the most practical body-composition tool in the fitness setting, based on the principle that <strong>subcutaneous fat is proportional to total body fat</strong>. Because that proportion varies with sex, age, and race/ethnicity, use a prediction equation developed on the <strong>same population</strong> as the client. In an average person, <strong>about 50%</strong> of fat is subcutaneous; in clients with obesity, more than 50% is internal, so the assumption may not hold.</p>
-    <div class="callout purple">
-      <p><strong>Calipers:</strong> A caliper must apply <strong>constant tension</strong> regardless of jaw width. Cheap spring calipers ($10–25) are inaccurate; <strong>Harpenden and Lange calipers ($250–400)</strong> are much more accurate. Skinfold generally lands within <strong>±3.5%</strong> of hydrostatic weighing (more error with inexperience, obesity, very thin clients, or a poor caliper). Even when absolute accuracy is limited, a skilled trainer can reliably <em>track changes over time</em>.</p>
-    </div>
+    <h2>Skinfold Measurement &amp; Realistic Change</h2>
+    <p>Given its ease and low cost, skinfold measurement is the <strong>most practical body-composition tool in the fitness setting</strong> — reasonably accurate <em>if performed properly</em> by a trained technician with a quality caliper. It is based on the principle that <strong>subcutaneous fat is proportional to total body fat</strong>. Because that proportion varies with sex, age, and race/ethnicity, use a prediction equation developed on the <strong>same population</strong> as the client. Instruct the client not to exercise beforehand and to stay well hydrated, since accuracy depends on hydration.</p>
+    <p>A caliper must apply <strong>constant tension</strong> regardless of jaw width. Cheap spring calipers (<strong>$10–25</strong>) are inaccurate, especially with obesity; <strong>Harpenden and Lange calipers ($250–400)</strong> are much more accurate. In an average person <strong>~50% of body fat is subcutaneous</strong>; in clients with obesity, more than half is internal, so the 50% assumption may not hold, and folds are harder to grasp. In general the skinfold method lands <strong>within ±3.5% of hydrostatic weighing</strong> (more error with inexperience, obesity, very thin clients, or a poor/uncalibrated caliper).</p>
+    <p>Even when absolute accuracy is limited, a skilled trainer can reliably <strong>track changes over time</strong>. This matters because, as lean mass increases and body fat decreases, the bathroom scale cannot tell the difference — objective reassessment shows progress the scale hides. Table 7-4 (The Cooper Institute) gives percentage-body-fat norms by percentile, sex, and age.</p>
     <div class="callout green">
-      <p><strong>Realistic change (ACE-sponsored, Table 7-5):</strong> over 2–3 months, expect body fat to drop <strong>2.7–6.9%</strong> and waist circumference to drop <strong>1.9–3.3 cm</strong>. Anthropometric indices classify risk but <em>do not directly measure body fatness</em>.</p>
+      <span class="c-label">Realistic Change (ACE-sponsored research, Table 7-5)</span>
+      <p>Over <strong>2–3 months</strong>, expect body fat to drop <strong>2.7–6.9%</strong> and waist circumference to drop <strong>1.9–3.3 cm</strong>. Knowing this lets the trainer set attainable goals — essential when clients want big results before a reunion, wedding, or vacation.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 06 BMI -->
+  <!-- 07 BMI -->
   <div class="section" id="bmi">
     <span class="section-tag green">BMI</span>
     <h2>Height, Weight &amp; Body Mass Index</h2>
-    <p>Height is measured with a <strong>stadiometer</strong> (shoes off). BMI gives objective, easy information but <strong>does not estimate actual body composition</strong> — very muscular or large-framed people may be mislabeled "overweight/obese," while older adults with low lean tissue may score "normal."</p>
-    <p><strong>Formula:</strong> BMI = Weight (kg) / Height² (m), <strong>or</strong> [Weight (lb) / Height² (in)] × <strong>703</strong>.</p>
+    <p><strong>Height</strong> is measured with a <strong>stadiometer</strong> (shoes off, standing straight, headboard compressing the hair). <strong>Weight</strong> is taken in lightweight clothing with mass evenly distributed; record the time of day and the client's hydration/food state for fair later comparison. BMI gives objective, easy information but <strong>does not estimate actual body composition</strong> — extremely muscular or large-framed people can be mislabeled "overweight/obese," while older adults with low lean tissue may score "normal."</p>
+    <p><strong>BMI = Weight (kg) / Height² (m), or [Weight (lb) / Height² (in)] × 703.</strong></p>
     <table class="data-table">
       <thead><tr><th>Classification</th><th>BMI</th></tr></thead>
       <tbody>
@@ -222,21 +256,33 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
         <tr><td>Extreme Obesity (Class III)</td><td>≥40.0</td></tr>
       </tbody>
     </table>
-    <p>A BMI of <strong>25 kg/m² or greater</strong> increases risk for CVD, metabolic syndrome, hypertension, and type 2 diabetes. Worldwide, 39% (1.9 billion) of adults have overweight and 13% (650 million) have obesity; the U.S. adult obesity estimate is 39.8%.</p>
+    <p>A <strong>BMI of 25 kg/m² or greater</strong> raises risk for cardiovascular disease, metabolic syndrome, hypertension, and type 2 diabetes. Worldwide, <strong>39% (1.9 billion)</strong> of adults have overweight and <strong>13% (650 million)</strong> have obesity (WHO, 2018); the U.S. adult obesity estimate is <strong>39.8%</strong> and U.S. youth overweight/obesity is <strong>18.5%</strong> (CDC, 2017). Because BMI alone can misclassify, a simple observation that contradicts the BMI category should prompt the trainer to question the label and — if welcomed by the client — proceed to a body-composition assessment for a more accurate risk indicator.</p>
     <div class="callout green">
-      <p><strong>Why BMI is a poor estimate of fatness:</strong> Jackson et al. (2002) found that for the <strong>same BMI, females had 10% higher body fat</strong> than males. With age, height decreases; with minimal weight change, BMI rises by <strong>1.5 kg/m² in men and 2.5 kg/m² in women</strong>.</p>
+      <span class="c-label">Why BMI Is a Poor Estimate of Fatness</span>
+      <p>Jackson et al. (2002), studying 655 adults (BMI ~17–47), found that for the <strong>same BMI, females had 10% higher body fat</strong> than males. With age there is muscle loss; if people lose muscle but gain fat at a stable weight, BMI shows no change. Height also decreases with age, so with minimal weight change BMI rises by <strong>1.5 kg/m² in men and 2.5 kg/m² in women</strong> (Srikanthan et al., 2009).</p>
+    </div>
+    <div class="callout">
+      <span class="c-label">Managing Expectations (client scenario)</span>
+      <p>When a motivated client wants to lose 40 lb (18 kg) before a reunion three months away, the trainer uses the ACE ABC Approach and an <em>elicit-provide-elicit</em> strategy: acknowledge the enthusiasm, ask permission before sharing information, and co-arrive at a realistic goal — noting that a safe, gradual loss of <strong>12–24 lb (5.5–10.9 kg) in 12 weeks</strong> is realistic, keeping the client in control of the decision.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 07 CIRCUMFERENCE -->
+  <!-- 08 CIRCUMFERENCE -->
   <div class="section" id="circumference">
     <span class="section-tag orange">Circumference</span>
     <h2>Circumference &amp; Waist Measurements</h2>
-    <p>Circumferences can predict health problems (waist as a heart-disease predictor) and motivate clients. Use a <strong>non-elastic, flexible tape</strong> snug to the skin without compressing it. <strong>Take duplicate measurements at each site; if not within 5 mm, remeasure</strong>, waiting 20–30 seconds between. Perform before exercise, using precise landmarks: <strong>waist</strong> = narrowest torso (above the umbilicus, below the xiphoid process); <strong>abdominal</strong> = iliac-crest height, level with the umbilicus; <strong>hip</strong> = maximal circumference of the buttocks.</p>
+    <p>Circumferences can predict health problems (waist as a heart-disease predictor) and can motivate clients who see their dimensions change — though some clients are self-conscious or discouraged by small changes, so handle with care. Technique guidelines:</p>
+    <ul class="body-list">
+      <li>Use a <strong>non-elastic but flexible tape</strong>, snug to the skin without pressing into the subcutaneous layers; clients wear thin, form-fitting materials.</li>
+      <li>Measure precisely and consistently, using exact anatomical landmarks; perform <strong>before exercise</strong>.</li>
+      <li><strong>Take duplicate measurements at each site; if not within 5 mm, remeasure</strong>, waiting <strong>20–30 seconds</strong> between to let tissue return to normal.</li>
+    </ul>
+    <p>Landmarks: <strong>waist</strong> = narrowest torso (above the umbilicus, below the xiphoid process); <strong>abdominal</strong> = iliac-crest height, level with the umbilicus; <strong>hip</strong> = maximal circumference of the buttocks; <strong>biceps</strong> = midway between the acromion and olecranon; <strong>midthigh</strong> = knee flexed 90°, midway between the inguinal crease and proximal patella.</p>
     <div class="callout orange">
-      <p><strong>Risk per inch (Janssen et al., 2004):</strong> for every 1-inch (2.5-cm) increase in waist circumference <em>in men</em> — BP increases <strong>10%</strong>, blood cholesterol <strong>8%</strong>, HDL <strong>decreases 15%</strong>, triglycerides increase <strong>18%</strong>, and metabolic-syndrome risk increases <strong>18%</strong>.</p>
+      <span class="c-label">Risk Per Inch of Waist — Men (Janssen et al., 2004)</span>
+      <p>For every <strong>1-inch (2.5-cm) increase in waist circumference in men</strong>: BP increases <strong>10%</strong>, blood cholesterol <strong>8%</strong>, HDL <strong>decreases 15%</strong>, triglycerides increase <strong>18%</strong>, and metabolic-syndrome risk increases <strong>18%</strong>. Cerhan et al. (2014) found similar all-cause mortality increases in a larger cohort.</p>
     </div>
     <table class="data-table">
       <thead><tr><th>Risk Category</th><th>Females</th><th>Males</th></tr></thead>
@@ -251,31 +297,42 @@ h4 { font-size:0.82rem; font-weight:700; color:#9bbf28; margin:16px 0 6px; text-
 
   <div class="divider"></div>
 
-  <!-- 08 WHR -->
+  <!-- 09 WHR -->
   <div class="section" id="whr">
     <span class="section-tag blue">Waist-to-Hip Ratio</span>
     <h2>Waist-to-Hip Ratio (WHR)</h2>
-    <p>WHR distinguishes <strong>android</strong> body-fat patterns (masculine, "apple-shape," excess abdominal fat) from <strong>gynoid</strong> patterns (feminine, "pear-shape," excess hip/thigh fat). Android, high-WHR individuals are at greater health risk. <strong>Visceral fat</strong> drives android distribution and is linked to insulin resistance, inflammation, and blood lipids — correlating with type 2 diabetes, hypercholesterolemia, and hypertension.</p>
-    <p><strong>WHR = waist measurement ÷ hip measurement.</strong> Compare to age- and sex-specific norms (Table 7-8); higher ratios mean higher risk.</p>
-    <div class="callout blue">
-      <p><strong>Motivation tip:</strong> for clients upset by numbers, measure circumferences with a <strong>ribbon cut to length</strong>; a visibly shorter ribbon later shows progress without numerical values.</p>
+    <p>The <em>location</em> of fat may be a better risk indicator than total fat. WHR distinguishes <strong>android</strong> patterns (masculine, "apple-shape," excess abdominal fat) from <strong>gynoid</strong> patterns (feminine, "pear-shape," excess hip/thigh fat). Android, high-WHR individuals are at greater health risk. <strong>Visceral fat</strong> drives the android pattern and is associated with insulin resistance, inflammation, and blood-lipid production — strongly correlated with type 2 diabetes, hypercholesterolemia, and hypertension. <strong>WHR = waist ÷ hip.</strong></p>
+    <table class="data-table">
+      <thead><tr><th>Group / Age</th><th>Low</th><th>Moderate</th><th>High</th><th>Very high</th></tr></thead>
+      <tbody>
+        <tr><td>Men 20–29</td><td>&lt;0.83</td><td>0.83–0.88</td><td>0.89–0.94</td><td>&gt;0.94</td></tr>
+        <tr><td>Men 40–49</td><td>&lt;0.88</td><td>0.88–0.95</td><td>0.96–1.00</td><td>&gt;1.00</td></tr>
+        <tr><td>Men 60–69</td><td>&lt;0.91</td><td>0.91–0.98</td><td>0.99–1.03</td><td>&gt;1.03</td></tr>
+        <tr><td>Women 20–29</td><td>&lt;0.71</td><td>0.71–0.77</td><td>0.78–0.82</td><td>&gt;0.82</td></tr>
+        <tr><td>Women 40–49</td><td>&lt;0.73</td><td>0.73–0.79</td><td>0.80–0.87</td><td>&gt;0.87</td></tr>
+        <tr><td>Women 60–69</td><td>&lt;0.76</td><td>0.76–0.83</td><td>0.84–0.90</td><td>&gt;0.90</td></tr>
+      </tbody>
+    </table>
+    <div class="callout teal">
+      <span class="c-label">Taking the Stress out of Circumference Measurements</span>
+      <p>Many clients with overweight/obesity find being measured unpleasant and demotivating. To ease this, use a <strong>ribbon cut to length</strong> at each site instead of recording numbers; when measurements are repeated later and the ribbons are visibly shorter, the client gets a clear <em>visual</em> of progress without the upsetting numerical values. (In a year-long self-tracking example, Daniel J. Green found circumference changes especially motivating during weight plateaus, with a WHR target of &lt;0.95.)</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- 09 TAKEAWAYS -->
+  <!-- 10 TAKEAWAYS -->
   <div class="section" id="takeaways">
     <div class="takeaways">
       <h3>★ Key Takeaways</h3>
-      <div class="takeaway-item"><div class="tnum">1</div><p>Run only necessary assessments to build early success. Do skinfold BEFORE activity; let HR/BP return to baseline between measures; run follow-ups in the same sequence. Room 68–72°F, humidity &lt;60%.</p></div>
-      <div class="takeaway-item"><div class="tnum">2</div><p>RHR: bradycardia &lt;60, normal 60–100, tachycardia &gt;100 bpm. Don't over-press the carotid (vasovagal). True RHR is before rising; &gt;5 bpm above norm flags overtraining.</p></div>
-      <div class="takeaway-item"><div class="tnum">3</div><p>BP at the brachial artery via Korotkoff sounds (onset = SBP, disappearance = DBP). Stage 1 = 130–139 or 80–89; Stage 2 = ≥140 or ≥90. Higher category wins; average 2+ readings on 2+ occasions.</p></div>
-      <div class="takeaway-item"><div class="tnum">4</div><p>Essential fat: men 2–5%, women 10–13%. DXA is most accurate/precise; hydrostatic weighing is the benchmark (Archimedes, 2–3% error). BIA needs optimal hydration. Extreme obesity → use BMI + circumference.</p></div>
-      <div class="takeaway-item"><div class="tnum">5</div><p>Skinfold assumes subcutaneous fat (~50% of total) is proportional to total fat; within ±3.5% of hydrostatic. Use Harpenden/Lange calipers and population-specific equations; great for tracking change.</p></div>
-      <div class="takeaway-item"><div class="tnum">6</div><p>BMI = kg/m² or (lb/in²)×703 — classifies risk, not body fat. Overweight 25–29.9; Obesity I 30–34.9; extreme ≥40. For the same BMI, females carry ~10% more fat than males.</p></div>
-      <div class="takeaway-item"><div class="tnum">7</div><p>Circumference: non-elastic tape, duplicates within 5 mm, 20–30 s apart, before exercise. Per 1-inch waist increase in men: BP +10%, cholesterol +8%, HDL −15%, triglycerides +18%, MetS risk +18%.</p></div>
-      <div class="takeaway-item"><div class="tnum">8</div><p>WHR = waist ÷ hip. Android (apple, visceral) carries more risk than gynoid (pear). Visceral fat drives insulin resistance, T2DM, and hypertension. A cut ribbon motivates clients without numbers.</p></div>
+      <div class="takeaway-item"><div class="tnum">1</div><p>Assessments build (or break) self-efficacy — run only what's necessary, observe movement when possible, and conduct everything professionally in a controlled environment (68–72°F, humidity &lt;60%, quiet/private). Signed informed consent and calibrated equipment are required.</p></div>
+      <div class="takeaway-item"><div class="tnum">2</div><p>Sequence: skinfold BEFORE activity; let HR/BP return to baseline; don't test the same muscle group back-to-back; run follow-ups in the same order. Early strength gains are neurological.</p></div>
+      <div class="takeaway-item"><div class="tnum">3</div><p>RHR: bradycardia &lt;60, normal 60–100, tachycardia &gt;100 bpm. Don't over-press the carotid (vasovagal). True RHR is before rising; &gt;5 bpm above norm flags overtraining; use index + middle fingers; abstain HR meds 12 h.</p></div>
+      <div class="takeaway-item"><div class="tnum">4</div><p>BP at the brachial artery via Korotkoff sounds (onset = SBP, disappearance = DBP). Stage 1 = 130–139 or 80–89; Stage 2 = ≥140 or ≥90. Higher category wins; average 2+ readings on 2+ occasions. Wrist/home monitors are less accurate.</p></div>
+      <div class="takeaway-item"><div class="tnum">5</div><p>Essential fat: men 2–5%, women 10–13%. DXA is most accurate/precise; hydrostatic weighing is the benchmark (Archimedes, 2–3% error). BIA needs optimal hydration. Extreme obesity → use BMI + circumference.</p></div>
+      <div class="takeaway-item"><div class="tnum">6</div><p>Skinfold assumes subcutaneous fat (~50% of total) is proportional to total fat; within ±3.5% of hydrostatic. Use Harpenden/Lange calipers and population-specific equations; it's excellent for tracking change the scale can't show.</p></div>
+      <div class="takeaway-item"><div class="tnum">7</div><p>BMI = kg/m² or (lb/in²)×703 — classifies risk, not body fat. Overweight 25–29.9; Obesity I 30–34.9; extreme ≥40. For the same BMI, females carry ~10% more fat than males. Set realistic goals (~12–24 lb in 12 weeks).</p></div>
+      <div class="takeaway-item"><div class="tnum">8</div><p>Circumference: non-elastic tape, duplicates within 5 mm, 20–30 s apart, before exercise. Per 1-inch waist increase in men: BP +10%, cholesterol +8%, HDL −15%, triglycerides +18%, MetS +18%. WHR = waist ÷ hip; android (apple/visceral) carries more risk than gynoid (pear).</p></div>
     </div>
   </div>
 
