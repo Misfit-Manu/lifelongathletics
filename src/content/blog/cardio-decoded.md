@@ -4,7 +4,7 @@ description: "Forget the 220-minus-your-age formula. Here's the real science of 
 category: "Exercise Science"
 pubDate: 2026-05-21
 image: "/blog/cardio-decoded.jpg"
-imageAlt: "Heart glowing with electric pulse energy on a black background — how the heart builds endurance"
+imageAlt: "Hand holding a realistic anatomical human heart — the engine behind cardiovascular endurance"
 ---
 
 Most people think of cardio as a chore — a means to a leaner body or a slightly better treadmill time. Almost no one thinks of it as the single most powerful intervention they can make for how long they'll live and how well they'll move when they get there.
