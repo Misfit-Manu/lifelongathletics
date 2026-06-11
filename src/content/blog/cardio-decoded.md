@@ -4,7 +4,7 @@ description: "Forget the 220-minus-your-age formula. Here's the real science of 
 category: "Exercise Science"
 pubDate: 2026-05-21
 image: "/blog/cardio-decoded.jpg"
-imageAlt: "Labeled anatomical diagram of the human heart showing chambers, valves and blood flow"
+imageAlt: "3D medical illustration of the human heart and blood vessels inside the chest"
 ---
 
 Most people think of cardio as a chore — a means to a leaner body or a slightly better treadmill time. Almost no one thinks of it as the single most powerful intervention they can make for how long they'll live and how well they'll move when they get there.
@@ -197,5 +197,3 @@ One caveat: immersion shifts blood toward your central circulation. If you have 
   <p>Want the technical, exam-prep version of this?</p>
   <a href="/ace-prep/chapter-8-guide" class="btn-gold">Read the ACE Chapter 8 Deep Dive →</a>
 </div>
-
-<p style="font-size:0.75rem; opacity:0.5;"><em>Poster image: heart diagram by Wapcaplet via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">CC BY-SA 3.0</a>.</em></p>
