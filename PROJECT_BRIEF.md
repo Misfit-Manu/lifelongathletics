@@ -5,6 +5,9 @@
 > agent (Claude Code, Kimi, Codex, etc.) — with no prior chat memory — can read it and
 > proceed. The website lives in this git repo, not in any chat: losing a conversation
 > never loses the work.
+>
+> **Status:** current through **Chapter 15** + the blog/SEO system + the homepage repositioning
+> (see §5, §6, §8, §9). Last refreshed 2026-06.
 
 ---
 
@@ -52,10 +55,29 @@ floating WhatsApp). Key routes:
 - `/ace-prep/chapter-N-guide` — per-chapter long-form theory guide
 - `src/pages/ace-prep/[id].astro` — fallback that renders any chapter from markdown
   (`src/content/ace/chapter-N.md`) **unless** that chapter is in `STATIC_OVERRIDES` (see §3).
+- `/blog` — `src/pages/blog/index.astro` (the "Education" hub: post cards)
+- `/blog/<slug>` — `src/pages/blog/[id].astro` (article renderer; slug = markdown filename). See §8.
 
-### Brand CSS tokens (dark theme, defined in `Layout.astro`)
-`--black:#080808` · `--gold:#c9a84c` · `--white:#f5f0e8` · fonts: Cormorant Garamond (display) + DM Sans (body).
-The **ACE chapter pages use a different palette** (see §3): lime accent `--accent:#c5f135` on near-black.
+### Website styles — three palettes (important for matching the look)
+
+**1) Main site — gold-on-dark (defined in `src/layouts/Layout.astro` `<style is:global>`):**
+`--black:#080808`, dark `--surface`/`--surface2` greys, `--border`, `--muted`, **`--gold:#c9a84c`**, `--white:#f5f0e8`.
+Fonts: **Cormorant Garamond** (display, `--font-display`) + **DM Sans** (body). Signature look = a gold
+*italic* `<em>` accent word inside headings. Floating gold WhatsApp button, bottom-right. ⚠ Global
+`nav { position: fixed }` lives here (the gotcha in §4).
+
+**2) ACE chapter hubs — lime-on-near-black (inline in each `chapter-N.astro`):**
+`--bg:#080808; --bg2:#111; --bg3:#181818; --border:#222; --border2:#2e2e2e; --text:#ededec; --muted:#777;`
+**`--accent:#c5f135`** (lime) `--accent-dim:#9bbf28`; status colors `--correct:#4ade80 --incorrect:#f87171
+--warn:#fbbf24 --blue:#60a5fa --purple:#a78bfa --teal:#22d3ee --orange:#fb923c --red:#f87171`.
+Fonts: **Playfair Display** (head) + **DM Sans** (body). Includes a "breathing" guide-link button and a
+pulsing glow on the Quiz tab.
+
+**3) Guide pages — dark-native (inline in each `chapter-N-guide.astro`):**
+bg `#0e0e0e`, body text `#c4c2bc`, headings `#f4f2ee`/`#e2e0db`, accent `#c5f135`/`#9bbf28`, cards `#171717`,
+borders `#2a2828`. Building blocks: `.section` + `.section-tag` (color variants teal/blue/purple/orange/green/red),
+`.callout` (+ `.c-label`), `.data-table`, `.body-list`, `.takeaways` (green box). `.toc-bar` MUST be
+`position:static` (see §4). This is the canonical guide skin — copy it for new guides.
 
 ### Homepage section order (current)
 hero → **Services** ("We don't just train you." eyebrow / "We design your behavior for *longevity*") →
@@ -63,6 +85,31 @@ hero → **Services** ("We don't just train you." eyebrow / "We design your beha
 pull-quote → Testimonials → About → Apply.
 The 3 methodology pillars, in order: **01 Behavior Change · 02 Physical Training · 03 Education**
 (each card keeps its own SVG icon; the `.method-num` numerals are large italic gold with an underline accent).
+
+### Where files live (folder map — repo root is `C:\Users\Manu\claude lcal work\lifelongathletics`)
+```
+src/
+  layouts/Layout.astro            ← global shell: nav, footer, WhatsApp, global CSS (main gold theme)
+  pages/
+    index.astro                   ← homepage
+    ace-prep/
+      index.astro                 ← ACE chapter hub landing
+      [id].astro                  ← markdown fallback + STATIC_OVERRIDES set
+      chapter-N.astro             ← per-chapter 4-tab HUB (N = 1..17)
+      chapter-N-guide.astro       ← per-chapter long-form GUIDE
+    exam-prep/index.astro         ← study-hub landing + the ACE banner
+    blog/
+      index.astro                 ← "Education" blog list (cards)
+      [id].astro                  ← blog article renderer (slug = filename)
+  content/
+    ace/chapter-N.md              ← chapter markdown (only renders when NOT overridden)
+    blog/*.md                     ← blog posts; _template.md is the starter
+    exam/*.md
+  content.config.ts               ← content-collection schemas (ace, blog, exam)
+public/                           ← static assets served at site root
+  blog/<name>.jpg                 ← blog poster images (referenced as /blog/<name>.jpg)
+PROJECT_BRIEF.md  CLAUDE.md  ACE_EXTRACTION_PROMPT.md   ← these handoff files (repo root)
+```
 
 ---
 
@@ -175,6 +222,11 @@ the upgraded prompt OR work from the chapter PDF/OCR directly.
 - Exam-prep page (`/exam-prep`) has a revamped lime-accented "Chapterwise ACE Preparation" banner
   with feature chips + stat strip + "100% Free" badge (stats are aspirational with `+`).
 - All 4 guide TOC bars un-stuck + scrollbar hidden; guides on warm→dark palette history (now dark).
+- **Guide retrofits to full depth** from upgraded "v2" extractions: ch14 (1,634→3,683 words), ch7
+  (1,521→2,803), ch12 (2,144→3,101). Ch15 was built full-depth from the start. (Ch13 guide ≈ 1,909
+  words is the last remaining thin one; ch1/3/4/5 guides are the older restyled ones.)
+- **Blog/SEO system shipped** — see §8. Added `image`/`imageAlt` to the blog schema, a poster image
+  above the article heading + as the card thumbnail, markdown-table styling, and the first SEO post.
 
 ---
 
@@ -184,3 +236,64 @@ the upgraded prompt OR work from the chapter PDF/OCR directly.
 3. To edit the site/brand voice: use the positioning in §1. Homepage is `src/pages/index.astro`;
    global styles are in `src/layouts/Layout.astro`.
 4. Always `npx astro build` before committing. Push to `main` to ship.
+
+---
+
+## 8. Blog / Education (SEO) system
+The `/blog` ("Education") section is the **client-acquisition channel** for online coaching — free,
+value-first content that pulls in everyday people (a different audience from the ACE exam-prep, which
+targets aspiring trainers).
+
+- **Posts:** `src/content/blog/*.md`. Frontmatter schema (in `src/content.config.ts`): `title`,
+  `description`, `category`, `pubDate`, optional `image`, optional `imageAlt`. `title` + `description`
+  auto-fill the SEO `<title>` and meta description.
+- **Render:** `src/pages/blog/[id].astro` (article; URL slug = the markdown filename) and
+  `src/pages/blog/index.astro` (cards). In the markdown you can use these custom HTML blocks (already
+  styled): `.chart-box` / `.chart-title` / `.chart-sub` (with inline `<svg>`), `.callout`,
+  `.takeaway` + `.takeaway-label`, and `.article-cta` + `.btn-gold` (CTA links to `/#apply`). Markdown
+  tables are styled; if a post has an `image`, it renders as a poster above the H1 and as the card thumbnail.
+- **Images:** save the file to `public/blog/<name>.jpg` and set `image: "/blog/<name>.jpg"` in frontmatter.
+  (An agent CANNOT save a chat-pasted image to disk — the owner drops the file in; then the agent commits it.)
+- **Existing posts:** `cardio-decoded`, `fat-myth`, `how-muscles-grow`, `movement-assessment-explained`,
+  `smart-program-design`, and the first SEO post `high-protein-indian-vegetarian-meals`
+  (poster `public/blog/high-protein-indian-meal.jpg`).
+- **SEO rules:** ORIGINAL copy only — never copy or closely paraphrase a source article (Google buries
+  near-duplicates and it isn't ours to republish); take the topic, write it better. Target India
+  long-tail keywords — informational top-of-funnel ("high protein indian vegetarian diet", "home workout
+  for beginners") plus a few commercial ("online fitness coach india"). Add an **author byline +
+  credentials** (E-E-A-T) — NOT yet added, a good quick win. Internal-link posts to each other and to
+  coaching. One clearly-answered question per post. SEO is a slow 3–6 month compounding play.
+- **Next ideas:** a "how to stay consistent with exercise" post (the behavior-change USP, low competition),
+  and a dedicated "Online Coaching — how it works" money page targeting the commercial keywords.
+
+---
+
+## 9. Session history — what we did & how it went
+Roughly chronological (oldest → newest):
+1. **Guide readability fix (ch 1/3/4/5):** text was invisible due to a light-then-dark CSS cascade
+   conflict; fixed with a dark `!important` override block, then un-stuck the floating TOC bars
+   (`position:static` + hidden scrollbar).
+2. **Exam-prep banner rebuild:** lime-accented "Chapterwise ACE Preparation" card — pain-point copy,
+   feature chips, stat strip, "100% Free" badge, pulse-glow animation.
+3. **Built the 4-tab system for chapters 6 → 2 → 13 → 12 → 7 → 14 → 15** from extraction MDs (8–11
+   pre-existed; 1/3/4/5 were restructured). Ch13 had no quiz file, so the full 35-case + 30-theory bank
+   was authored from the blog content.
+4. **Homepage repositioning/polish:** Services eyebrow `WE DON'T JUST TRAIN YOU.` + heading "We design
+   your behavior for *longevity*"; methodology heading "How we transform *you*"; pillars reordered to
+   Behavior Change / Physical Training / Education with restyled 01/02/03 numerals; Methodology section
+   moved above "Programs for each category".
+5. **Locked the not-for-profit positioning** (§1) and wrote these handoff docs.
+6. **Blog/SEO workstream:** added blog image support + table styling; shipped the first SEO post
+   (high-protein Indian vegetarian meals) with a poster image.
+7. **Guide-depth fix:** realized the new guides were too thin (~1,500–2,100 words vs ch10 ≈ 8,000).
+   Upgraded `ACE_EXTRACTION_PROMPT.md` to demand a full 4,000–7,000-word reproduction, then re-extracted
+   and rebuilt the **ch14, ch7, ch12** guides to full depth. Ch15 was built full-depth from the start.
+
+**State now:** chapters **1–15 complete** (hubs + guides; guides full-depth except the slightly-thin
+ch13 and the older ch1/3/4/5). Blog system live with 1 SEO post. Homepage on the new positioning.
+
+**Remaining / next moves:**
+- Build **chapters 16 & 17** (owner sends the v2 extraction MD per chapter → follow §3f).
+- Optional: retrofit the **ch13** guide (re-extract v2) and deepen ch1/3/4/5 guides.
+- Blog: add **author bylines**, publish the next SEO posts, build the **coaching money page**.
+- Optional: register the not-for-profit legal entity to make the "not-for-profit" label literal.

@@ -13,3 +13,6 @@ done vs. remaining. For adding a new chapter, also see [`ACE_EXTRACTION_PROMPT.m
 - Done: chapters 1–15. **Remaining: 16, 17.**
 - Critical gotcha: a new chapter id must be added to `STATIC_OVERRIDES` in
   `src/pages/ace-prep/[id].astro`, and guide `.toc-bar` must be `position:static` (see brief §4).
+- Also live: a **blog / Education SEO system** (`src/content/blog/*.md` → `/blog`, with image support)
+  and the homepage on the locked not-for-profit positioning. Full website styles + folder map + session
+  history are in PROJECT_BRIEF.md (§2, §8, §9).
