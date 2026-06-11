@@ -3,6 +3,8 @@ title: "How Your Muscles Actually Grow: The Real Science of Hypertrophy"
 description: "Forget broscience. Inside your muscles, sliding filaments, fibre types, and a few specific training variables decide whether you build muscle — and how fast."
 category: "Exercise Science"
 pubDate: 2026-05-21
+image: "/blog/how-muscles-grow.jpg"
+imageAlt: "Interwoven red muscle fiber bundles in close-up — the microscopic structure behind muscle growth"
 ---
 
 The biggest myth about muscle growth is that it's complicated. It isn't. There are about six principles that govern *all* of it, and they've been understood since the 1970s.

@@ -3,6 +3,8 @@ title: "Why Your Posture Predicts Your Pain: A Guide to Movement Assessment"
 description: "Most chronic aches start as tiny movement faults — a knee that caves, a hip that hikes, a scapula that wings. Here's how to assess movement quality before it becomes injury."
 category: "Exercise Science"
 pubDate: 2026-05-21
+image: "/blog/movement-assessment-explained.jpg"
+imageAlt: "Physiotherapist's hands assessing a woman's painful mid-back during a clinical movement assessment"
 ---
 
 Most fitness advice starts with the workout. The smart version starts with the assessment.
