@@ -10,6 +10,6 @@ done vs. remaining. For adding a new chapter, also see [`ACE_EXTRACTION_PROMPT.m
 - Repo: `Misfit-Manu/lifelongathletics` (branch `main`). Build: `npx astro build`. Ship: push to `main`.
 - Main workstream: 17 ACE-CPT chapter pages, each a 4-tab hub (`chapter-N.astro`) + a theory guide
   (`chapter-N-guide.astro`). Templates to copy: `src/pages/ace-prep/chapter-13*.astro`.
-- Done: chapters 1–14. **Remaining: 15, 16, 17.**
+- Done: chapters 1–15. **Remaining: 16, 17.**
 - Critical gotcha: a new chapter id must be added to `STATIC_OVERRIDES` in
   `src/pages/ace-prep/[id].astro`, and guide `.toc-bar` must be `position:static` (see brief §4).

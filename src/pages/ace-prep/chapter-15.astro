@@ -1,0 +1,935 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 15 — Considerations for Clients with Musculoskeletal Issues | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 15 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 15</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 15</div>
+  <h1>Considerations for Clients with <em>Musculoskeletal</em> Issues</h1>
+  <p>How to recognize acute and chronic injuries, respond and refer within scope, manage pain, and design safe exercise programs for every major joint and region.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 15 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-15-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">Healing · Acute Injuries · Overuse · Pain · Shoulder · Spine · Hip · Knee · Ankle</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 15 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 15 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Three Stages of <em>Healing (Table 15-1)</em></h3>
+      <table class="ref-table">
+        <tr><th>Phase</th><th>Time</th><th>Physiology</th><th>Activity</th></tr>
+        <tr><td><strong>Inflammation</strong></td><td>3–4 days</td><td>Redness, swelling, pain, local heat</td><td>Non-weight bearing, active ROM; RICE</td></tr>
+        <tr><td><strong>Repair</strong></td><td>3 days–6 weeks</td><td>Initial scar formation</td><td>Weight bearing as tolerated; gentle pain-free movement</td></tr>
+        <tr><td><strong>Remodeling</strong></td><td>4 weeks–2 years</td><td>Increased scar-tissue strength</td><td>Progressive, pain-free exercise</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>RICE</strong><span>Rest/restricted activity · Ice (indirect, ≤20 min, first 24–48 h) · Compression (firm not tight) · Elevation (above heart). Exercise is contraindicated when pain/swelling is present at the injury site.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Strain &amp; Sprain <em>Grading</em></h3>
+      <table class="ref-table">
+        <tr><th>Grade</th><th>Strain</th><th>Sprain</th></tr>
+        <tr><td>I</td><td>Mild; strength normal</td><td>Microscopic tear; RICE</td></tr>
+        <tr><td>II</td><td>Moderate; weakness, ↓ROM, limp</td><td>Partial tear; RICE + MD eval</td></tr>
+        <tr><td>III</td><td>Complete tear; pop, deformation</td><td>Rupture; air splint, prompt referral</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Perceived <em>Pain Scale</em></h3>
+      <div class="key-term"><strong>0–10 scale</strong><span>0 = no pain · 10 = worst pain ever experienced.</span></div>
+      <div class="key-term"><strong>Threshold = 3</strong><span>At a pain level of 3, modify or stop the exercise. Assess before AND throughout the session. Pushing through pain can make an acute injury chronic.</span></div>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Post-Rehab Training <em>by Injury (Table 15-3)</em></h3>
+      <table class="ref-table">
+        <tr><th>Injury</th><th>Cardio options</th><th>Avoid</th></tr>
+        <tr><td><strong>Lower extremity</strong></td><td>Water exercise, upper-body ergometer, recumbent/stationary bike</td><td>Weight-bearing until cleared; any painful movement</td></tr>
+        <tr><td><strong>Upper extremity</strong></td><td>Walking, recumbent/stationary bike, elliptical</td><td>Running; exercises needing both hands; painful movement</td></tr>
+        <tr><td><strong>Back / spinal</strong></td><td>Water exercise, walking, recumbent/stationary bike</td><td>Weighted spinal rotation; floor exercises; reps &gt;8–10; painful movement</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Region-Specific <em>Facts</em></h3>
+      <table class="ref-table">
+        <tr><th>Region</th><th>Key facts</th></tr>
+        <tr><td><strong>Shoulder</strong></td><td>Largest ROM, least bony stability; impingement of supraspinatus/subacromial bursa; press in <strong>scapular plane (30° anterior)</strong>; stabilizers = lower trap, rhomboids, serratus anterior; avoid overhead early</td></tr>
+        <tr><td><strong>Elbow/wrist</strong></td><td>Lateral epicondylitis = tennis elbow (extensors); medial = golfer's elbow (flexors); ages 30–55; carpal tunnel compresses median nerve</td></tr>
+        <tr><td><strong>Low back</strong></td><td>Ages 30–50; up to 80% of adults; 30% of acute → chronic; exaggerated lordosis; do daily endurance exercises (cat-cow, curl-up, bird dog, side bridge)</td></tr>
+        <tr><td><strong>Hip</strong></td><td>Ball-and-socket, deep acetabulum; piriformis compresses sciatic nerve; sciatic splits piriformis in ~22%; ~6% of LBP is piriformis; ~2.5M U.S. hip replacements (2010)</td></tr>
+        <tr><td><strong>Knee</strong></td><td>Hinge, up to 130° flexion; only popliteus crosses; ITB friction ages 15–50; PFPS/genu valgum/chondromalacia; <strong>avoid open-chain knee extension</strong></td></tr>
+        <tr><td><strong>Ankle/leg</strong></td><td>MTSS = periostitis (posterior shin); ankle sprains ~2M/yr; lateral/inversion ~75%, 70% recur; Achilles rupture = grade III strain (clients &gt;45)</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>Scope &amp; <em>Action</em></h3>
+      <div class="key-term"><strong>Scope of practice</strong><span>Movement screening YES; evaluation/assessment/diagnosis of injury NO. Refer to a healthcare provider for pain.</span></div>
+      <div class="key-term"><strong>Acute vs chronic</strong><span>Acute = single identifiable onset; chronic = onset over months/years (LBP &gt;6 months).</span></div>
+      <div class="key-term"><strong>Don't move an injured client</strong><span>…unless they are in danger. Ice and call EMS as needed; document the injury.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Key <em>Terms</em></h3>
+      <div class="key-term"><strong>Avascular cartilage</strong><span>Can't heal without blood supply → often surgery; outer ⅓ of menisci is vascular.</span></div>
+      <div class="key-term"><strong>Second-impact syndrome</strong><span>Life-threatening result of a second concussion before healing — remove immediately, written clearance.</span></div>
+      <div class="key-term"><strong>−itis</strong><span>"Inflammation of" — tendinitis, bursitis, fasciitis, periostitis.</span></div>
+      <div class="key-term"><strong>Nucleus pulposus</strong><span>Gelatinous disc core that leaks through a torn annulus fibrosus to compress nerves.</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 15: Considerations for Clients with Musculoskeletal Issues
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"SCOPE & HEALING",color:"#22d3ee",subs:[
+    {name:"Scope of Practice",points:["No evaluation, assessment, or diagnosis","Refer to healthcare provider for pain","Physicians use MRI, x-ray, CT","Learn return-to-activity protocols"]},
+    {name:"Acute vs Chronic",points:["Acute = single identifiable onset","Chronic = onset over 6 months","LBP >6 months is chronic","Knee OA develops over years"]},
+    {name:"Three Healing Phases",points:["Inflammation: 3-4 days","Repair: 3 days to 6 weeks","Remodeling: 4 weeks to 2 years","Tissue remodels to imposed forces"]},
+    {name:"RICE & Pain",points:["Rest, Ice, Compression, Elevation","Ice indirect, max 20 min, first 24-48 hr","Compression firm not tight","Pain marks the stopping point"]}
+  ]},
+  {id:2,name:"ACUTE SOFT TISSUE",color:"#fb923c",subs:[
+    {name:"Muscle Strains",points:["Grade I: strength normal","Grade II: weakness, decreased ROM, limp","Grade III: complete tear, pop, deformation","Grade III more common in older adults"]},
+    {name:"Ligament Sprains",points:["External force = mechanism of injury","Grade I: microscopic tear, RICE","Grade II: partial tear, physician eval","Grade III: rupture, air splint, prompt referral"]},
+    {name:"Knee Ligaments",points:["ACL, MCL, PCL, LCL","Medial and lateral menisci","ACL tear mechanism = hyperextension","Contact or non-contact"]},
+    {name:"Cartilage",points:["Shock absorption, congruency, proprioception","Compression + shearing mechanism","Avascular - cannot heal","Outer 1/3 of menisci can be repaired"]}
+  ]},
+  {id:3,name:"ACUTE BONE & HEAD/SPINE",color:"#f87171",subs:[
+    {name:"Fractures",points:["Osteoporosis, infection, cancer raise risk","Compressive, torsional, or impact force","Ice may increase pain","Splint only if remote, no EMS"]},
+    {name:"Concussion",points:["Brain injury, change in mental status","Confusion, memory loss, slurred speech","Second-impact syndrome life-threatening","Remove immediately; written clearance"]},
+    {name:"Disc Injury",points:["Compression + shearing forces","Valsalva, sneezing, coughing raise risk","Annulus fibrosus tears","Nucleus pulposus leaks, compresses nerve"]},
+    {name:"Action",points:["Don't move client unless in danger","Ice and call EMS as needed","Immediate doctor referral for disc","Document the injury"]}
+  ]},
+  {id:4,name:"OVERUSE & PREVENTION",color:"#3b82f6",subs:[
+    {name:"-itis Conditions",points:["-itis = inflammation of","Tendinitis = tendon","Bursitis = bursa sac","Fasciitis = fascia"]},
+    {name:"Stress Fracture",points:["Point tenderness, single spot","Focal, progressive, weight-bearing pain","Can become complete fracture","Bone cancer symptoms similar"]},
+    {name:"Flexibility Loss",points:["Scar tissue, adhesion, disuse","Decreased collagen with age","Compromises ROM and force","Causes postural imbalance"]},
+    {name:"Warm-up & Recovery",points:["Prepare all planes, nervous system","Multidimensional preferred over single-plane","Activate proprioceptors","Rest, stretching, SMR, variability"]}
+  ]},
+  {id:5,name:"PAIN & PROGRAMMING",color:"#a78bfa",subs:[
+    {name:"Perceived Pain Scale",points:["0 to 10 scale","0 = none, 10 = worst ever","Pain of 3 = threshold to modify/stop","Assess before and during session"]},
+    {name:"Chronic Pain Impact",points:["Biological, psychological, emotional","Anger, hopelessness, depression, anxiety","APA recommends staying active","Empathy and trust essential"]},
+    {name:"Post-Rehab Training",points:["Defer to physician/PT protocol","Lower-extremity: upper-body and water","Upper-extremity: lower-body, bike, elliptical","Spinal: keep reps 8-10, avoid weighted rotation"]},
+    {name:"Chronic History",points:["Ask history, pain, treatment","Watch for wincing, hesitancy, jerkiness","Investigation stage sets phase","Functional / Movement / Load-Speed"]}
+  ]},
+  {id:6,name:"UPPER EXTREMITY",color:"#10b981",subs:[
+    {name:"Shoulder Anatomy",points:["Largest ROM, least bony stability","Shallow glenoid fossa, glenoid labrum","Rotator cuff stabilizes humerus","Decelerates overhead motion"]},
+    {name:"Impingement",points:["Supraspinatus + subacromial bursa","Can include biceps long head","Prolonged leads to rotator cuff tear","Tear incidence rises with age"]},
+    {name:"Shoulder Programming",points:["Avoid overhead movement","Open subacromial space","Strengthen lower trap, rhomboids, serratus","Overhead press in scapular plane (30 deg)"]},
+    {name:"Elbow/Wrist/Hand",points:["Lateral epicondylitis = tennis elbow","Medial epicondylitis = golfer's elbow","Common ages 30-55","Carpal tunnel compresses median nerve"]}
+  ]},
+  {id:7,name:"SPINE",color:"#fbbf24",subs:[
+    {name:"Neck",points:["Forward-head position from poor posture","Kinetic-chain pain reactions","Address whole chain, not isolation","Lateral and rotational stretches"]},
+    {name:"Low-Back Stats",points:["Occurs ages 30-50","Up to 80% of adults experience LBP","30% of acute LBP becomes chronic","Exaggerated lordosis common"]},
+    {name:"Stabilizers (Table 15-4)",points:["Gluteus maximus, hamstrings","Rectus abdominis, obliques","Latissimus dorsi via thoracolumbar fascia","Hip rotators and flexors affect tilt"]},
+    {name:"Daily Routine",points:["Low-back exercises best done daily","Endurance over strength (McGill)","Cat-cow, curl-up, bird dog, side bridge","Hold 5-8 seconds per rep"]}
+  ]},
+  {id:8,name:"LOWER EXTREMITY",color:"#94a3b8",subs:[
+    {name:"Hip",points:["Ball-and-socket, deep acetabulum","Piriformis compresses sciatic nerve","Sciatic splits piriformis in ~22%","~6% of LBP is piriformis syndrome"]},
+    {name:"Knee",points:["Hinge joint, up to 130 deg flexion","ITB friction syndrome ages 15-50","PFPS, genu valgum, chondromalacia","Avoid open-chain knee extension"]},
+    {name:"Shin & Ankle",points:["MTSS = periostitis (posterior shin)","Ankle sprains ~2 million/yr in US","Lateral/inversion ~75%, 70% recur","Achilles rupture = grade III strain"]},
+    {name:"Foot",points:["Plantar fasciitis - daily stretching","SMR with tennis/golf ball","Pes planus and pes cavus may be asymptomatic","Balance: stand on leg while brushing teeth"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"Which of the following is OUTSIDE a personal trainer's scope of practice?", opts:["Movement screening","Diagnosing a muscle or skeletal injury","Referring a client to a physician","Following a return-to-activity protocol"], c:1, exp:"Scope of practice does not include the evaluation, assessment, or diagnosis of a muscle or skeletal injury; trainers refer to healthcare providers." },
+  { q:"The cardinal signs of the inflammation phase are:", opts:["Numbness, tingling, weakness, and pallor","Redness, swelling, pain, and localized increased temperature","Scar formation and remodeling","Bruising, fever, and dizziness"], c:1, exp:"Phase I inflammation is marked by redness, swelling, pain, and localized increased temperature." },
+  { q:"In RICE, ice should be applied indirectly for no longer than:", opts:["5 minutes","10 minutes","20 minutes","45 minutes"], c:2, exp:"Ice should be applied indirectly (with a cloth) for no longer than 20 minutes at a time, usually in the first 24 to 48 hours." },
+  { q:"The remodeling phase of healing can last approximately:", opts:["3 to 4 days","1 to 2 weeks","Up to 6 weeks","4 weeks to 2 years"], c:3, exp:"Phase III remodeling lasts approximately 4 weeks to 2 years; ligament and bone remodeling can take one to two years." },
+  { q:"On the perceived pain scale, which level is used as the threshold to modify or stop an exercise?", opts:["1","3","5","7"], c:1, exp:"A pain level of 3 is used as the threshold because pain beyond that is discomforting or distressing." },
+  { q:"A Grade I muscle strain is distinguished by the fact that:", opts:["The muscle is completely torn","Muscle strength remains normal","A limp is always present","Surgery is required"], c:1, exp:"Grade I strains are mild; though tender, the strength of the muscle remains normal." },
+  { q:"Why can damaged cartilage often not heal on its own?", opts:["It is too thick","It is largely avascular (without blood flow)","It regenerates too quickly","It is made of bone"], c:1, exp:"Cartilage is largely avascular, so without nutrient delivery from blood it cannot heal, often requiring surgery." },
+  { q:"A second concussion before the first has healed can lead to which life-threatening condition?", opts:["Carpal tunnel syndrome","Second-impact syndrome","Periostitis","Chondromalacia"], c:1, exp:"A second injury can lead to second-impact syndrome, which can be life-threatening, so the person must be removed immediately from activity." },
+  { q:"In a disc injury, the gelatinous fluid that leaks out is the:", opts:["Annulus fibrosus","Nucleus pulposus","Synovial fluid","Vertebral endplate"], c:1, exp:"A tear in the annulus fibrosus allows the gelatinous nucleus pulposus to leak, creating a bulge that may compress nerves." },
+  { q:"The suffix '-itis' means:", opts:["Tearing of","Inflammation of","Hardening of","Weakness of"], c:1, exp:"'-itis' means 'inflammation of' — e.g., tendinitis, bursitis, fasciitis." },
+  { q:"Which joint has the largest range of motion of any joint in the body?", opts:["Hip","Knee","Shoulder","Ankle"], c:2, exp:"The shoulder has the largest ROM of any joint but, due to the shallow glenoid fossa, the least bony stability." },
+  { q:"To prevent impingement, an overhead press should be performed in the scapular plane, which is:", opts:["Directly overhead in the frontal plane","30 degrees anterior to the frontal plane","45 degrees behind the frontal plane","In the transverse plane only"], c:1, exp:"The scapular plane is the shoulder positioned 30 degrees anterior to the frontal plane, which prevents pinching of shoulder structures." },
+  { q:"Lateral epicondylitis is commonly known as:", opts:["Golfer's elbow","Tennis elbow","Jumper's knee","Runner's heel"], c:1, exp:"Lateral epicondylitis (tennis elbow) affects the wrist extensor tendons at the lateral epicondyle; medial epicondylitis is golfer's elbow." },
+  { q:"Up to what percentage of adults will experience low-back pain at some point?", opts:["30%","50%","65%","80%"], c:3, exp:"Some researchers report that up to 80% of adults will experience low-back pain at some point (Peng, 2013); in 30% of cases acute LBP becomes chronic." },
+  { q:"Why are daily low-back exercises emphasizing endurance recommended over heavy strength work?", opts:["Strength has no value for the spine","Endurance has protective value for the slow-twitch postural muscles","Daily heavy lifting prevents all injury","Postural muscles are fast-twitch"], c:1, exp:"Endurance has protective value to the slow-twitch postural muscles, so strength gains should not be overemphasized at the expense of endurance (McGill, 2016)." },
+  { q:"In roughly what percentage of the population does the sciatic nerve split through the piriformis muscle?", opts:["6%","22%","50%","75%"], c:1, exp:"In as much as 22% of the population, the sciatic nerve splits the piriformis, predisposing them to piriformis syndrome." },
+  { q:"Patellofemoral pain syndrome is associated with which malalignment?", opts:["Genu varum and femoral external rotation","Genu valgum and femoral internal rotation","Excessive ankle eversion only","Shoulder impingement"], c:1, exp:"PFPS occurs with a lack of control of internal rotation of the femur, often with genu valgum (knock knees), causing the patella to track abnormally." },
+  { q:"Medial tibial stress syndrome (posterior shin splints) is actually which inflammation?", opts:["Bursitis","Periostitis (inflammation of the periosteum)","Tendinitis of the Achilles","Plantar fasciitis"], c:1, exp:"MTSS is periostitis, inflammation of the periosteum (connective tissue covering the bone)." },
+  { q:"Which type of ankle sprain is the most common?", opts:["Medial (eversion) sprain","Lateral (inversion) sprain","High ankle syndesmotic sprain","Deltoid ligament sprain"], c:1, exp:"Lateral (inversion) ankle sprains are most common — approximately 75% are to the lateral structures — with a mechanism of plantar flexion and inversion." },
+  { q:"A Grade III strain of the Achilles tendon is also called:", opts:["Achilles tendinitis","An Achilles tendon rupture","Plantar fasciitis","Periostitis"], c:1, exp:"A grade III strain to the Achilles tendon is called an Achilles tendon rupture, most often resulting from chronic Achilles tendinitis." }
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"RICE stands for Rest or restricted activity, Ice, ________, and Elevation.", a:"Compression", hint:"The C in RICE" },
+  { q:"On the perceived pain scale, a level of ________ is used as the threshold to stop or modify an exercise.", a:"3", hint:"Pain level 3" },
+  { q:"The inflammation phase of healing lasts approximately ________ to four days.", a:"3", hint:"About 3 to 4 days" },
+  { q:"Tennis elbow is the common name for ________ epicondylitis.", a:"lateral", hint:"Lateral epicondylitis (wrist extensors)" },
+  { q:"Carpal tunnel syndrome involves compression of the ________ nerve at the wrist.", a:"median", hint:"The median nerve" }
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"Personal trainers are permitted to diagnose musculoskeletal injuries as long as they have experience.", a:false, exp:"False. Diagnosis of a muscle or skeletal injury is outside the personal trainer's scope of practice; clients must be referred to a healthcare provider." },
+  { q:"Pushing through the pain of an injury can prolong healing and turn an acute injury into a chronic one.", a:true, exp:"True. Pushing through pain can prolong healing, promote further damage, or cause an acute injury to become chronic." },
+  { q:"Applying ice to a suspected bone fracture reliably reduces pain at the site.", a:false, exp:"False. Applying ice may actually increase pain at a fracture site." },
+  { q:"Open-chain knee extension exercises like seated knee extensions are ideal for clients with knee pain.", a:false, exp:"False. Knee pain is exacerbated by open-chain extension exercises, which should be avoided in favor of weight-bearing, closed-chain exercises." },
+  { q:"Shin splints, unlike stress fractures, usually do not require complete rest.", a:true, exp:"True. Shin splints usually require modification rather than complete rest, while stress fractures require referral and rest." }
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  { num:1, topic:"Acute Ankle Sprain — Jordan", scenario:"During a session, Jordan rolls his ankle stepping off a box, hears a pop, and reports immediate pain and swelling on the outside of the ankle. He can bear some weight but is limping.",
+    qs:[
+      { q:"What is the most likely type of sprain Jordan sustained?", opts:["Medial (eversion) sprain","Lateral (inversion) sprain","High syndesmotic sprain","Deltoid ligament sprain"], ans:1, exp:"Lateral (inversion) ankle sprains are most common (~75%), with a mechanism of plantar flexion and inversion." },
+      { q:"What immediate care protocol is appropriate?", opts:["Heat and massage","RICE — rest, ice, compression, elevation","Immediate return to jumping","Aggressive stretching"], ans:1, exp:"RICE is standard for an acute sprain; ice indirectly for no more than 20 minutes." },
+      { q:"How should you wrap the compression bandage?", opts:["As tight as possible","Firmly but not tightly","Loosely so it slips","Not at all"], ans:1, exp:"Compression should be firm but not tight, because a tight bandage blocks venous return and traps inflammation below the site." },
+      { q:"Once Jordan returns from physical therapy, what should you prioritize first?", opts:["Maximal plyometrics","Restoring proprioception, flexibility, and strength via single-leg work","Frontal-plane lateral hops immediately","Unstable-surface training right away"], ans:1, exp:"Restoring proprioception, flexibility, and strength is the first step; progress single-leg exercises and limit unstable surfaces early." },
+      { q:"Which statistic reflects Jordan's risk going forward?", opts:["10% of lateral sprains recur","70% of lateral sprains lead to repetitive sprains and chronic symptoms","Lateral sprains never recur","Only athletes get ankle sprains"], ans:1, exp:"70% of lateral ankle sprains lead to repetitive sprains and chronic symptoms (Herzog et al., 2019)." }
+    ]
+  },
+  { num:2, topic:"Chronic Low-back Pain — Maria", scenario:"Maria, 42, has intermittent low-back pain and a desk job. She has medical clearance and no current restrictions. Her primary goal is general fitness, and she wants to manage her back.",
+    qs:[
+      { q:"How often should Maria perform her low-back stabilization exercises?", opts:["Once a week","Daily","Once a month","Only on heavy lifting days"], ans:1, exp:"Low-back exercises have the most beneficial effect when performed daily (McGill, 2016)." },
+      { q:"What quality should her low-back program emphasize?", opts:["Maximal strength with heavy loads","Endurance via more reps of less-demanding exercises","Explosive power","Single maximal lifts"], ans:1, exp:"Endurance has protective value for the slow-twitch postural muscles, so it should not be sacrificed for strength gains." },
+      { q:"Which set of exercises fits her stabilization routine?", opts:["Cat-cow, modified curl-up, bird dog, side bridge","Seated knee extensions and leg press","Overhead barbell press and snatch","Sprint intervals"], ans:0, exp:"The routine includes the cat-cow, modified curl-up, bird dog, and side bridge to build stabilizing endurance." },
+      { q:"How long should she hold the bird dog and side bridge positions per repetition?", opts:["1 to 2 seconds","5 to 8 seconds","30 seconds","2 minutes"], ans:1, exp:"Hold the position for 5 to 8 seconds per repetition before alternating sides (McGill, 2016)." },
+      { q:"If Maria is pain-free on the elliptical, how can you address her weight/fitness goal without overloading her back?", opts:["Heavy axial-loaded squats only","Intermittent elliptical intervals, addressing the back in the warm-up and active rest","Weighted spinal rotation","High-impact running"], ans:1, exp:"Elliptical intervals address the fitness goal while the low-back condition is handled in the warm-up and active rest periods." }
+    ]
+  },
+  { num:3, topic:"Shoulder Impingement — Priya", scenario:"Priya is a swimmer with anterior shoulder pain and forward-rounded shoulders. Her physician cleared her for exercise. She reports pain with overhead reaching.",
+    qs:[
+      { q:"Which movements should you avoid early in Priya's program?", opts:["Seated rows","Overhead movements","Closed-chain bird dogs","Postural stretches"], ans:1, exp:"Avoid overhead movement, which places the humeral head closer to the acromion and increases impingement risk." },
+      { q:"What is the first programming priority for her shoulder?", opts:["Maximal overhead pressing","Address postural imbalances that reduce subacromial space","Sprint training","Heavy bench press"], ans:1, exp:"First address postural imbalances (forward-rounded shoulders, kyphosis) that decrease the space between the acromion and humeral head." },
+      { q:"Which muscles should you target to stabilize the scapula?", opts:["Lower trapezius, rhomboids, serratus anterior","Gastrocnemius and soleus","Hip flexors","Wrist extensors"], ans:0, exp:"The scapular stabilizers are the lower trapezius, rhomboids, and serratus anterior (e.g., seated row, serratus punch)." },
+      { q:"When she is ready for overhead pressing, how should it be performed?", opts:["Directly in the frontal plane","In the scapular plane, 30 degrees anterior to the frontal plane","Behind the neck","With maximal load"], ans:1, exp:"Perform the overhead press in the scapular plane (30 degrees anterior to the frontal plane) to prevent impingement." },
+      { q:"Why might Priya choose conservative treatment even with a rotator cuff tear?", opts:["Tears always heal without help","Other soft tissue can compensate for rotator cuff function","Surgery is never effective","The cuff has no role in stability"], ans:1, exp:"Rotator cuff functions can often be compensated for by other soft tissue, so some individuals elect conservative treatment and physical therapy." }
+    ]
+  },
+  { num:4, topic:"Knee PFPS — Devon", scenario:"Devon, a recreational runner, has diffuse pain around the front of the kneecap that worsens walking downstairs. Assessment shows knock-knee alignment and weak hip muscles. He is cleared to train.",
+    qs:[
+      { q:"Devon's presentation is most consistent with:", opts:["Achilles tendinitis","Patellofemoral pain syndrome (PFPS)","Lateral ankle sprain","Carpal tunnel syndrome"], ans:1, exp:"Diffuse anterior knee pain worsening with stairs, plus genu valgum, is characteristic of PFPS." },
+      { q:"Which weakness is commonly associated with PFPS?", opts:["Wrist flexors","Hip abductors and external rotators","Neck extensors","Plantar fascia"], ans:1, exp:"Hip abductor and external-rotator weakness can cause femoral internal rotation and abnormal knee valgus in PFPS." },
+      { q:"Which activity should you be cautious about recommending for Devon?", opts:["Walking down stairs or downhill","Stationary cycling","Closed-chain hip strengthening","Recumbent biking"], ans:0, exp:"Activities requiring the quadriceps to decelerate knee flexion (walking down stairs/downhill) are often painful and aggravate PFPS." },
+      { q:"Which knee exercise should generally be AVOIDED?", opts:["Closed-chain weight-bearing squats to tolerance","Open-chain seated knee extensions","Stationary bike","Posterior-chain strengthening"], ans:1, exp:"Open-chain knee extension exercises exacerbate knee pain and should be avoided in favor of closed-chain options." },
+      { q:"Where should much of the corrective focus be directed?", opts:["Strengthening the corresponding hip to improve stability","Maximal calf raises only","Wrist mobility","Neck stretching"], ans:0, exp:"After identifying tightness/instability/malalignment, focus on improving strength in the corresponding hip to improve overall stability." }
+    ]
+  },
+  { num:5, topic:"Post-rehab Lower-extremity — Sam", scenario:"Sam is recovering from a lower-extremity injury and has physician clearance to exercise within limits. He does not want to lose overall fitness while protecting the limb.",
+    qs:[
+      { q:"Which cardiorespiratory option fits a lower-extremity injury per Table 15-3?", opts:["Running on a treadmill","Water exercise or an upper-body ergometer","Box jumps","Stair sprints"], ans:1, exp:"For lower-extremity injury, appropriate cardio includes water exercise, an upper-body ergometer, and recumbent or stationary bike." },
+      { q:"Which muscular-training approach is appropriate?", opts:["Heavy weight-bearing squats immediately","Upper-body seated/lying exercises and PT-prescribed lower-body work","Only the affected limb","Plyometric jumping"], ans:1, exp:"Use upper-body seated or lying exercises, lower-body exercises as prescribed by the PT/physician, and spine/core work that doesn't involve the affected limb." },
+      { q:"What must Sam avoid until cleared?", opts:["All upper-body work","Weight-bearing exercise until cleared by a physician/PT","Breathing exercises","Seated rows"], ans:1, exp:"Avoid weight-bearing exercise until cleared by a physician and/or physical therapist, and any movements that cause pain." },
+      { q:"Why is the kinetic chain relevant even for a localized lower-leg injury?", opts:["It isn't relevant","A lower-extremity injury affects all weight-bearing movements up the chain","Only the injured muscle matters","It only affects the upper body"], ans:1, exp:"A lower-extremity injury affects the kinetic chain in all weight-bearing movements, so programming must account for the whole chain." },
+      { q:"If a prescribed exercise causes pain in the affected area, you should:", opts:["Push through to build tolerance","Stop immediately","Add load","Increase reps"], ans:1, exp:"If the client indicates pain in the affected area, the exercise should stop immediately." }
+    ]
+  },
+  { num:6, topic:"Chronic Pain Coaching — Olivia", scenario:"Olivia has chronic pain from a herniated disc and was referred by her psychologist. She rates her baseline pain at 2 with flare-ups to 5 or 6, associates movement with pain, and is anxious about exercise.",
+    qs:[
+      { q:"What does the American Psychological Association recommend for coping with chronic pain?", opts:["Complete bed rest","Exercise and staying active","Avoiding all movement","Only medication"], ans:1, exp:"The APA (2019) recommends exercise and staying active as strategies for coping with chronic pain." },
+      { q:"Which approach best fits coaching Olivia?", opts:["Tell her which feelings are right or wrong","Use the ACE Mover Method/ABC Approach with open-ended questions and empathy","Push her to a high intensity quickly","Avoid discussing pain"], ans:1, exp:"The ACE Mover Method and ABC Approach use open-ended questions, respect the client's feelings, and let her be the expert in her own life." },
+      { q:"How should you use the perceived pain scale with Olivia during sessions?", opts:["Ignore it since she has chronic pain","Ask her to assess pain before and throughout, stopping if it exceeds her threshold","Only ask at the end","Push past her flare-up level"], ans:1, exp:"Ask the client to assess pain before and throughout the session and discontinue if pain exceeds the threshold or she is uncomfortable." },
+      { q:"Recognizing chronic pain's emotional toll, you should:", opts:["Judge her progress harshly","Remain empathetic and non-judgmental","Minimize her experience","Avoid communication"], ans:1, exp:"Chronic pain has emotional impacts, so the trainer must remain empathetic and avoid judgment; the experience of pain differs for everyone." },
+      { q:"What is an appropriate early focus for her program?", opts:["Maximal deadlifts","Observing how she moves and finding pain-free movements, starting slow","Immediate high-volume training","Unstable-surface plyometrics"], ans:1, exp:"Start by observing movement and finding what she can do without making pain worse, starting slow and adjusting as needed." }
+    ]
+  },
+  { num:7, topic:"Shin Pain in a New Runner — Aisha", scenario:"Aisha recently increased her running and now has aching pain along the inner shin that came on gradually. There is no single point of intense tenderness, and pain eases with rest.",
+    qs:[
+      { q:"Aisha's diffuse inner-shin pain is most consistent with:", opts:["A stress fracture","Medial tibial stress syndrome (posterior shin splints)","An ACL tear","Carpal tunnel syndrome"], ans:1, exp:"Diffuse pain along the medial tibia from a sudden activity change suggests MTSS, which is periostitis." },
+      { q:"How does a stress fracture differ from her presentation?", opts:["It causes diffuse pain","It causes point tenderness at a single spot and worsens with weight-bearing","It never causes pain","It only occurs in the arms"], ans:1, exp:"Stress fractures cause focal point tenderness at a single spot that worsens with weight-bearing and may ache at rest." },
+      { q:"Does MTSS typically require complete rest?", opts:["Yes, total rest is mandatory","No, it usually requires modification and lower-impact alternatives","Yes, for a full year","Only surgery helps"], ans:1, exp:"Unlike stress fractures, shin splints usually do not require complete rest but rather modification and cross-training." },
+      { q:"Which stretch has been shown to relieve MTSS symptoms?", opts:["Wrist flexor stretch","Pain-free stretching of the calf, especially the soleus","Neck rotation stretch","Shoulder cross-body stretch"], ans:1, exp:"Pain-free stretching of the calf muscles, especially the soleus, has been shown effective for MTSS." },
+      { q:"What should you do if her symptoms point instead to a stress fracture?", opts:["Keep increasing her mileage","Refer her to a physician for diagnosis and treatment","Apply heat and continue running","Ignore it"], ans:1, exp:"Any client with symptoms of an acute or stress fracture should be referred to a physician, partly because bone-cancer symptoms can be similar." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Outstanding! Strong command of injury recognition, scope/referral, pain management, and region-specific programming.',
+    B: 'Great work. Review any wrong answers — check the healing phases, grading systems, and joint-specific rules.',
+    C: 'Passing, but worth another review — especially RICE, the pain scale, and what to avoid for each joint.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>
