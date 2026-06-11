@@ -3,6 +3,8 @@ title: "Strength Is Your Retirement Account: Why Training Now Decides How You Ag
 description: "Muscle, strength, and bone density decline far faster than most people realize — and the reserve you build in your 30s and 40s decides whether you're independent at 80. Here's the science of strength training for longevity, and the four foundations to start building today."
 category: "Longevity & Training"
 pubDate: 2026-06-11
+image: "/blog/strength-training-longevity.jpg"
+imageAlt: "Gray-haired man strength training with two dumbbells — building muscle reserve for healthy aging"
 ---
 Everyone understands retirement savings. Start early, invest steadily, let compounding do the work — and never, ever try to scramble together a lifetime of savings at 55.
 
