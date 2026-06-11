@@ -4,7 +4,7 @@ description: "Forget broscience. Inside your muscles, sliding filaments, fibre t
 category: "Exercise Science"
 pubDate: 2026-05-21
 image: "/blog/how-muscles-grow.jpg"
-imageAlt: "Athlete flexing back and arms in a dim gym, every muscle group visible — the anatomy of muscle growth"
+imageAlt: "Labeled anatomical diagram of skeletal muscle structure — muscle, fascicle and muscle fiber levels"
 ---
 
 The biggest myth about muscle growth is that it's complicated. It isn't. There are about six principles that govern *all* of it, and they've been understood since the 1970s.
@@ -176,3 +176,5 @@ This is how Milo of Croton allegedly built his strength — carrying the same ca
   <p>Want the technical, exam-prep version of this?</p>
   <a href="/ace-prep/chapter-9-guide" class="btn-gold">Read the ACE Chapter 9 Deep Dive →</a>
 </div>
+
+<p style="font-size:0.75rem; opacity:0.5;"><em>Poster image: skeletal muscle diagram from OpenStax Anatomy &amp; Physiology via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by/4.0/" rel="nofollow">CC BY 4.0</a>.</em></p>
