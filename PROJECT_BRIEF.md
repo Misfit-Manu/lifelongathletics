@@ -264,7 +264,23 @@ targets aspiring trainers).
   credentials** (E-E-A-T) — NOT yet added, a good quick win. Internal-link posts to each other and to
   coaching. One clearly-answered question per post. SEO is a slow 3–6 month compounding play.
 - **Next ideas:** a "how to stay consistent with exercise" post (the behavior-change USP, low competition),
-  and a dedicated "Online Coaching — how it works" money page targeting the commercial keywords.
+  a **strength-training** post (e.g. "strength training for beginners", "how to start lifting", "progressive
+  overload explained"), and a dedicated "Online Coaching — how it works" money page targeting commercial keywords.
+
+### How to write a new blog post (step-by-step recipe for a fresh agent)
+1. **Copy an existing post as the template.** `src/content/blog/high-protein-indian-vegetarian-meals.md`
+   is the reference (frontmatter → intro hook → `## H2` sections → a `.chart-box` with inline `<svg>` →
+   a markdown table → `.callout` → `.takeaway` → `.article-cta`). Match that structure.
+2. **Write ORIGINAL copy** on the topic — relatable hook, teach the *why*, India-relevant where it fits,
+   end with the coaching CTA (`.article-cta` block → `/#apply`). Do NOT copy/paraphrase a source article.
+3. **Frontmatter:** keyword-rich `title` + `description` (they become the SEO `<title>`/meta), a `category`
+   (e.g. "Strength & Movement"), and `pubDate`. Add `image: "/blog/<name>.jpg"` + `imageAlt` only after
+   the image file exists.
+4. **Filename = URL slug** — keyword-rich, e.g. `strength-training-for-beginners.md` →
+   `/blog/strength-training-for-beginners`.
+5. **Image:** the OWNER saves the picture to `public/blog/<name>.jpg` (an agent can't save a chat-pasted
+   image); the agent then commits it. If there's no image yet, omit `image` and the card shows the default placeholder.
+6. **Build → commit → push:** `npx astro build`, confirm `/blog/<slug>/` renders, then commit + push to `main`.
 
 ---
 
