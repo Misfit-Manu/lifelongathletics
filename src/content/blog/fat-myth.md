@@ -3,6 +3,8 @@ title: "The Biggest Diet Lie We Ever Believed: Why Eating Fat Doesn't Make You F
 description: "For 40 years, we were told cholesterol clogs our arteries like grease in a kitchen pipe. We were lied to. Here's what actually happens when you eat fat, explained simply."
 category: "Nutrition & Habits"
 pubDate: 2026-04-14
+image: "/blog/fat-myth.jpg"
+imageAlt: "Avocado halves, olive oil, seeds and salt on marble — the healthy fats we were told to fear"
 ---
 Think about the logic for a second: If you eat green vegetables, does your skin turn green? Obviously not. Your body breaks the food down and uses the vitamins.
 

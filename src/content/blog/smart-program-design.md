@@ -3,6 +3,8 @@ title: "How to Build a Real Training Program: Integrated Fitness Decoded"
 description: "Proximal-to-distal stability, the four stretching techniques that actually work, and why mobility without stability is just hypermobility waiting to hurt you."
 category: "Exercise Science"
 pubDate: 2026-05-21
+image: "/blog/smart-program-design.jpg"
+imageAlt: "Coach reviewing a training program on a clipboard with an athlete in the gym"
 ---
 
 The difference between a workout and a program is intent.
