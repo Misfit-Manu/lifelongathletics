@@ -3,8 +3,8 @@ title: "Why Your Tendons Are Weak — And the Science That Fixes It"
 description: "Most people train their muscles. Almost nobody trains their tendons. Here's the science of tendon adaptation — and the specific protocol that actually works."
 category: "Exercise Science"
 pubDate: 2026-06-14
-image: "/blog/tendon-strength-mri-damage.png"
-imageAlt: "MRI cross-section of a patellar tendon showing tendinopathy in an NBA athlete"
+image: "/blog/tendon-strength-ultrasound.png"
+imageAlt: "Split-panel illustration showing a damaged tendon with frayed collagen fibres versus a stronger remodeled tendon with tight, organised fibres"
 ---
 
 *By Manu Sehgal — Coach, Lifelong Athletics*
@@ -52,7 +52,7 @@ The 18-month timeline shown here was already significant. But it's not the floor
 
 More recent cases have documented tendon remodeling in considerably shorter windows — months rather than a year and a half — in athletes who loaded with appropriate intensity and consistency.
 
-![Ultrasound images side by side: left shows a damaged, disorganised tendon; right shows the same tendon after a loading protocol — labelled as 'damaged tendon' and 'stronger remodeled tendon'](/blog/tendon-strength-ultrasound.png)
+<img src="/blog/tendon-strength-ultrasound.png" alt="Split-panel illustration showing a damaged tendon with frayed, disorganised collagen fibres versus a stronger remodeled tendon with tight, parallel fibres" style="max-width:720px; width:100%; display:block; margin:24px auto; border-radius:8px;" />
 
 *Ultrasound imaging of a competitive athlete's tendon. Left: a disrupted, damaged structure. Right: the same tendon in under two months of targeted loading — visibly thicker, more organised, and structurally stronger.*
 
