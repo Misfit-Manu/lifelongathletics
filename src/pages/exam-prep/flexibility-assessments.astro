@@ -1,0 +1,410 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Flexibility Assessments Master Table | Lifelong Athletics"
+  description="All 6 flexibility assessments, 10 findings, and the complete RLAI correction protocol — Sit & Reach, Thomas Test, Passive SLR, Apley's Scratch, Shoulder Flexion, Ankle Dorsiflexion."
+>
+
+<style is:global>
+  .fla-guide {
+    --fla-bg: #0f1014;
+    --fla-surface: #1a1d24;
+    --fla-border: #2a2d36;
+    --fla-text: #e2e4ea;
+    --fla-muted: #8b8fa8;
+    --fla-tight: #e05a5a;
+    --fla-weak: #5b9bd5;
+    --fla-release: #e07c3a;
+    --fla-stretch: #5cb870;
+    --fla-activate: #c9a84c;
+    --fla-integrate: #a78bda;
+    --fla-header-bg: #12151c;
+
+    background: var(--fla-bg);
+    color: var(--fla-text);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .fla-guide * { box-sizing: border-box; }
+
+  .fla-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .fla-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    color: var(--fla-activate);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .fla-title {
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 8px;
+    line-height: 1.15;
+  }
+
+  .fla-subtitle {
+    color: var(--fla-muted);
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  /* LEGEND */
+  .fla-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-bottom: 28px;
+    padding: 14px 18px;
+    background: var(--fla-surface);
+    border: 1px solid var(--fla-border);
+    border-radius: 8px;
+  }
+
+  .fla-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--fla-muted);
+  }
+
+  .fla-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* PROTOCOL BANNER */
+  .fla-protocol {
+    background: linear-gradient(135deg, #1a1d24, #1e2130);
+    border: 1px solid var(--fla-border);
+    border-left: 3px solid var(--fla-activate);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--fla-muted);
+  }
+
+  .fla-protocol strong { color: var(--fla-text); }
+
+  .fla-proto-steps {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .fla-proto-step {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .fla-arrow {
+    color: var(--fla-muted);
+    font-size: 14px;
+  }
+
+  /* TABLE WRAPPER */
+  .fla-table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid var(--fla-border);
+  }
+
+  table.fla-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+    font-size: 13px;
+  }
+
+  /* COLUMN HEADERS */
+  .fla-table thead th {
+    padding: 13px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--fla-header-bg);
+    border-bottom: 1px solid var(--fla-border);
+    white-space: nowrap;
+  }
+
+  .fla-table thead th:first-child { color: #fff; min-width: 110px; }
+  .fla-table thead th:nth-child(2) { color: var(--fla-muted); min-width: 140px; }
+  .fla-col-tight { color: var(--fla-tight) !important; }
+  .fla-col-weak  { color: var(--fla-weak) !important; }
+  .fla-col-release { color: var(--fla-release) !important; }
+  .fla-col-stretch { color: var(--fla-stretch) !important; }
+  .fla-col-activate { color: var(--fla-activate) !important; }
+  .fla-col-integrate { color: var(--fla-integrate) !important; }
+
+  /* ROWS */
+  .fla-table tbody td {
+    padding: 12px 14px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--fla-border);
+    line-height: 1.5;
+  }
+
+  .fla-table tbody tr:last-child td { border-bottom: none; }
+
+  .fla-table tbody tr:hover td { background: rgba(255,255,255,0.025); }
+
+  /* GROUP SEPARATORS */
+  .fla-table tbody tr.fla-group-start td {
+    border-top: 2px solid var(--fla-border);
+  }
+
+  /* TEST NAME CELL */
+  .fla-test-name {
+    font-weight: 700;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .fla-test-sit    { color: #e8834a; }
+  .fla-test-thomas { color: #e05a5a; }
+  .fla-test-slr    { color: #5cb870; }
+  .fla-test-apley  { color: #5b9bd5; }
+  .fla-test-shoulder { color: #3bbfbf; }
+  .fla-test-ankle  { color: #c9a84c; }
+
+  .fla-finding {
+    color: var(--fla-muted);
+    font-size: 12px;
+  }
+
+  /* CELL CONTENT */
+  .fla-tight-text   { color: var(--fla-tight); font-weight: 500; }
+  .fla-weak-text    { color: var(--fla-weak); font-weight: 500; }
+  .fla-release-text { color: var(--fla-release); }
+  .fla-stretch-text { color: var(--fla-stretch); }
+  .fla-activate-text { color: var(--fla-activate); }
+  .fla-integrate-text { color: var(--fla-integrate); }
+
+  /* FOOTER NOTE */
+  .fla-footnote {
+    margin-top: 20px;
+    font-size: 11px;
+    color: var(--fla-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .fla-legend { gap: 8px 14px; }
+    .fla-legend-item { font-size: 11px; }
+  }
+</style>
+
+<div class="fla-guide">
+  <div class="fla-inner">
+
+    <p class="fla-eyebrow">Important Tables · Flexibility &amp; Assessment</p>
+    <h1 class="fla-title">Flexibility Assessments — Master Table</h1>
+    <p class="fla-subtitle">All 6 assessments · 10 findings · Complete RLAI correction protocol</p>
+
+    <!-- LEGEND -->
+    <div class="fla-legend">
+      <div class="fla-legend-item">
+        <div class="fla-legend-dot" style="background:var(--fla-tight)"></div>
+        Tight / Overactive
+      </div>
+      <div class="fla-legend-item">
+        <div class="fla-legend-dot" style="background:var(--fla-weak)"></div>
+        Weak / Inhibited
+      </div>
+      <div class="fla-legend-item">
+        <div class="fla-legend-dot" style="background:var(--fla-release)"></div>
+        Release
+      </div>
+      <div class="fla-legend-item">
+        <div class="fla-legend-dot" style="background:var(--fla-stretch)"></div>
+        Stretch
+      </div>
+      <div class="fla-legend-item">
+        <div class="fla-legend-dot" style="background:var(--fla-activate)"></div>
+        Activate
+      </div>
+      <div class="fla-legend-item">
+        <div class="fla-legend-dot" style="background:var(--fla-integrate)"></div>
+        Integrate
+      </div>
+    </div>
+
+    <!-- PROTOCOL -->
+    <div class="fla-protocol">
+      <strong>RLAI Correction Protocol</strong>
+      <div class="fla-proto-steps">
+        <span class="fla-proto-step" style="background:rgba(224,131,74,0.15);color:var(--fla-release)">Release</span>
+        <span class="fla-arrow">→</span>
+        <span class="fla-proto-step" style="background:rgba(92,184,112,0.15);color:var(--fla-stretch)">Stretch</span>
+        <span class="fla-arrow">→</span>
+        <span class="fla-proto-step" style="background:rgba(201,168,76,0.15);color:var(--fla-activate)">Activate</span>
+        <span class="fla-arrow">→</span>
+        <span class="fla-proto-step" style="background:rgba(167,139,218,0.15);color:var(--fla-integrate)">Integrate</span>
+        <span style="margin-left:8px;font-size:11px">Always: stretch tight · strengthen weak · load through full ROM</span>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="fla-table-wrap">
+      <table class="fla-table">
+        <thead>
+          <tr>
+            <th>Test</th>
+            <th>Finding</th>
+            <th class="fla-col-tight">Tight Structure</th>
+            <th class="fla-col-weak">Weak / Inhibited</th>
+            <th class="fla-col-release">Release</th>
+            <th class="fla-col-stretch">Stretch</th>
+            <th class="fla-col-activate">Activate</th>
+            <th class="fla-col-integrate">Integrate</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- SIT & REACH -->
+          <tr>
+            <td><span class="fla-test-name fla-test-sit">Sit &amp; Reach</span></td>
+            <td><span class="fla-finding">Short of toes</span></td>
+            <td><span class="fla-tight-text">Hamstrings<br/>Erectors</span></td>
+            <td><span class="fla-weak-text">Hip Flexors<br/>Core</span></td>
+            <td><span class="fla-release-text">Foam roll hamstrings</span></td>
+            <td><span class="fla-stretch-text">Supine hamstring stretch</span></td>
+            <td><span class="fla-activate-text">Dead bugs, bird dogs</span></td>
+            <td><span class="fla-integrate-text">RDL, KB swings</span></td>
+          </tr>
+
+          <!-- THOMAS TEST -->
+          <tr class="fla-group-start">
+            <td><span class="fla-test-name fla-test-thomas">Thomas Test</span></td>
+            <td><span class="fla-finding">Finding A —<br/>Thigh elevated</span></td>
+            <td><span class="fla-tight-text">Iliopsoas</span></td>
+            <td><span class="fla-weak-text">Glute Max</span></td>
+            <td><span class="fla-release-text">Foam roll hip flexors</span></td>
+            <td><span class="fla-stretch-text">Kneeling hip flexor stretch</span></td>
+            <td><span class="fla-activate-text">Glute bridges, clamshells</span></td>
+            <td><span class="fla-integrate-text">Squats, deadlifts, lunges</span></td>
+          </tr>
+          <tr>
+            <td><span class="fla-test-name fla-test-thomas">Thomas Test</span></td>
+            <td><span class="fla-finding">Finding B —<br/>Knee extends</span></td>
+            <td><span class="fla-tight-text">Rectus Femoris</span></td>
+            <td><span class="fla-weak-text">Hamstrings</span></td>
+            <td><span class="fla-release-text">Foam roll quads proximal</span></td>
+            <td><span class="fla-stretch-text">Prone quad + pelvic tilt</span></td>
+            <td><span class="fla-activate-text">Nordic curls, SB leg curl</span></td>
+            <td><span class="fla-integrate-text">Reverse lunges, step-ups</span></td>
+          </tr>
+          <tr>
+            <td><span class="fla-test-name fla-test-thomas">Thomas Test</span></td>
+            <td><span class="fla-finding">Finding C —<br/>Thigh abducts</span></td>
+            <td><span class="fla-tight-text">TFL<br/>IT Band</span></td>
+            <td><span class="fla-weak-text">Glute Med<br/>Adductors</span></td>
+            <td><span class="fla-release-text">Foam roll TFL / lateral thigh</span></td>
+            <td><span class="fla-stretch-text">Pigeon, crossover stretch</span></td>
+            <td><span class="fla-activate-text">Hip abduction, clamshells</span></td>
+            <td><span class="fla-integrate-text">SL deadlift, lateral walks</span></td>
+          </tr>
+
+          <!-- PASSIVE SLR -->
+          <tr class="fla-group-start">
+            <td><span class="fla-test-name fla-test-slr">Passive SLR</span></td>
+            <td><span class="fla-finding">&lt; 80° hip flexion</span></td>
+            <td><span class="fla-tight-text">Hamstrings (isolated)</span></td>
+            <td><span class="fla-weak-text">Glutes<br/>Core</span></td>
+            <td><span class="fla-release-text">Foam roll hamstrings</span></td>
+            <td><span class="fla-stretch-text">PNF hamstring stretch</span></td>
+            <td><span class="fla-activate-text">Nordic curls, SL RDL</span></td>
+            <td><span class="fla-integrate-text">Deadlifts, KB swings</span></td>
+          </tr>
+
+          <!-- APLEY'S SCRATCH -->
+          <tr class="fla-group-start">
+            <td><span class="fla-test-name fla-test-apley">Apley's Scratch</span></td>
+            <td><span class="fla-finding">Top hand —<br/>ER limited</span></td>
+            <td><span class="fla-tight-text">Posterior capsule<br/>Infraspinatus</span></td>
+            <td><span class="fla-weak-text">Internal rotators</span></td>
+            <td><span class="fla-release-text">Thoracic foam roll</span></td>
+            <td><span class="fla-stretch-text">Sleeper stretch</span></td>
+            <td><span class="fla-activate-text">Cable internal rotation</span></td>
+            <td><span class="fla-integrate-text">Pressing movements</span></td>
+          </tr>
+          <tr>
+            <td><span class="fla-test-name fla-test-apley">Apley's Scratch</span></td>
+            <td><span class="fla-finding">Bottom hand —<br/>IR limited</span></td>
+            <td><span class="fla-tight-text">Pec major / minor<br/>Ant. Deltoid</span></td>
+            <td><span class="fla-weak-text">Ext. rotators<br/>Low trap</span></td>
+            <td><span class="fla-release-text">Pec minor release</span></td>
+            <td><span class="fla-stretch-text">Doorway pec stretch</span></td>
+            <td><span class="fla-activate-text">Face pulls, YTW, band ER</span></td>
+            <td><span class="fla-integrate-text">Rows, pull-ups</span></td>
+          </tr>
+
+          <!-- SHOULDER FLEXION -->
+          <tr class="fla-group-start">
+            <td><span class="fla-test-name fla-test-shoulder">Shoulder Flexion</span></td>
+            <td><span class="fla-finding">Arms don't reach table</span></td>
+            <td><span class="fla-tight-text">Lats<br/>Pec minor</span></td>
+            <td><span class="fla-weak-text">Low trap<br/>Serratus ant.</span></td>
+            <td><span class="fla-release-text">Foam roll lats sidelying</span></td>
+            <td><span class="fla-stretch-text">Overhead lat stretch</span></td>
+            <td><span class="fla-activate-text">Prone Y, wall slides</span></td>
+            <td><span class="fla-integrate-text">OH press, lat pulldown</span></td>
+          </tr>
+
+          <!-- ANKLE DORSIFLEXION -->
+          <tr class="fla-group-start">
+            <td><span class="fla-test-name fla-test-ankle">Ankle Dorsiflex</span></td>
+            <td><span class="fla-finding">Knee straight — limited, improves bent</span></td>
+            <td><span class="fla-tight-text">Gastrocnemius</span></td>
+            <td><span class="fla-weak-text">Tibialis Anterior</span></td>
+            <td><span class="fla-release-text">Foam roll calf full length</span></td>
+            <td><span class="fla-stretch-text">Straight-leg heel drop</span></td>
+            <td><span class="fla-activate-text">Heel walks, toe raises</span></td>
+            <td><span class="fla-integrate-text">Deep squat, step-ups</span></td>
+          </tr>
+          <tr>
+            <td><span class="fla-test-name fla-test-ankle">Ankle Dorsiflex</span></td>
+            <td><span class="fla-finding">Knee bent — still limited</span></td>
+            <td><span class="fla-tight-text">Soleus<br/>Posterior capsule</span></td>
+            <td><span class="fla-weak-text">Peroneals<br/>Tib. Anterior</span></td>
+            <td><span class="fla-release-text">Lacrosse ball Achilles</span></td>
+            <td><span class="fla-stretch-text">Bent-knee calf stretch</span></td>
+            <td><span class="fla-activate-text">Eversion band, SL balance</span></td>
+            <td><span class="fla-integrate-text">SL calf raises, split squat</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fla-footnote">
+      RLAI = Release → Stretch → Activate → Integrate &nbsp;·&nbsp;
+      Lifelong Athletics Exam Prep Reference
+    </p>
+
+  </div>
+</div>
+
+</Layout>
