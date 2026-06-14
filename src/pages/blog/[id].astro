@@ -21,9 +21,9 @@ const { Content } = await render(entry);
     <a href="/blog" class="back-link">← Back to Education</a>
   </div>
 
-  {entry.data.image && (
+  {(entry.data.heroImage || entry.data.image) && (
     <div class="article-hero-img">
-      <img src={entry.data.image} alt={entry.data.imageAlt || entry.data.title} />
+      <img src={entry.data.heroImage || entry.data.image} alt={entry.data.imageAlt || entry.data.title} />
     </div>
   )}
 

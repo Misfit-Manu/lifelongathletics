@@ -3,8 +3,9 @@ title: "Why Your Tendons Are Weak — And the Science That Fixes It"
 description: "Most people train their muscles. Almost nobody trains their tendons. Here's the science of tendon adaptation — and the specific protocol that actually works."
 category: "Exercise Science"
 pubDate: 2026-06-14
-image: "/blog/tendon-strength-ultrasound.png"
-imageAlt: "Split-panel illustration showing a damaged tendon with frayed collagen fibres versus a stronger remodeled tendon with tight, organised fibres"
+image: "/blog/tendon-strength-mri-damage.png"
+imageAlt: "MRI cross-section of a patellar tendon showing tendinopathy in an NBA athlete"
+heroImage: "/blog/tendon-strength-ultrasound.png"
 ---
 
 *By Manu Sehgal — Coach, Lifelong Athletics*
