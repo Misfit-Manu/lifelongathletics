@@ -68,7 +68,7 @@ This is why isometric exercises — a split squat hold, a leg extension hold, a 
 
 Three variables determine whether those isometrics actually produce structural change.
 
-![Anatomical diagram showing a muscle body connected to a healthy tendon with parallel collagen fibres, transitioning into a disrupted damaged region before attaching to bone](/blog/tendon-strength-anatomy.png)
+<img src="/blog/tendon-strength-anatomy.png" alt="Anatomical diagram showing a muscle body connected to a healthy tendon with parallel collagen fibres, transitioning into a disrupted damaged region before attaching to bone" style="max-width:620px; width:100%; display:block; margin:24px auto; border-radius:8px;" />
 
 *The anatomy of a tendon — organised collagen fibres transitioning into a disrupted, damaged region. Fast loading stress-shields this area. Slow isometric loading reaches it via stress relaxation.*
 
