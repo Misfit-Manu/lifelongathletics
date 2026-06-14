@@ -1,0 +1,1215 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Types of Inflammation — Visual Guide | Lifelong Athletics"
+  description="The 8 types of inflammation, how each works, and what to do about them. From acute trauma response to chronic metabolic damage — the complete reference."
+>
+
+<div class="infl-back-bar">
+  <a href="/exam-prep" class="infl-back-link">← Back to Study Hub</a>
+</div>
+
+<style is:global>
+
+  .infl-back-bar { max-width: 1100px; margin: 0 auto; padding: 110px 60px 0; }
+  .infl-back-link {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; display: inline-flex;
+    align-items: center; gap: 8px; transition: color 0.2s;
+  }
+  .infl-back-link:hover { color: var(--gold); }
+
+  .infl-hub {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(180deg, #0a0a0a 0%, #151515 50%, #0a0a0a 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 3rem 2rem;
+  }
+
+  .infl-container { max-width: 1400px; margin: 0 auto; }
+
+  /* HEADER */
+  .infl-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .infl-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .infl-hero p {
+    font-size: 16px;
+    color: #999;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* BASIC INFLAMMATION VISUAL */
+  .infl-mechanism-section {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .infl-mechanism-title {
+    font-size: 22px;
+    color: #ffd700;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .infl-mechanism-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .infl-mechanism-step {
+    text-align: center;
+    position: relative;
+  }
+
+  .infl-step-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  }
+
+  .infl-step-arrow {
+    position: absolute;
+    right: -25px;
+    top: 30px;
+    font-size: 24px;
+    color: #ffd700;
+    animation: infl-bounce 2s infinite;
+  }
+
+  .infl-mechanism-step:last-child .infl-step-arrow { display: none; }
+
+  @keyframes infl-bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  .infl-step-label {
+    font-size: 12px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .infl-step-text {
+    font-size: 13px;
+    color: #ddd;
+    line-height: 1.5;
+  }
+
+  /* INFLAMMATION TYPES GRID */
+  .infl-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .infl-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1.5px solid;
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .infl-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Color coding */
+  .infl-card-trauma    { border-color: #51cf66; background: linear-gradient(135deg, rgba(81, 207, 102, 0.08) 0%, rgba(81, 207, 102, 0.02) 100%); }
+  .infl-card-metabolic { border-color: #ff922b; background: linear-gradient(135deg, rgba(255, 146, 43, 0.08) 0%, rgba(255, 146, 43, 0.02) 100%); }
+  .infl-card-leaky     { border-color: #ff6b6b; background: linear-gradient(135deg, rgba(255, 107, 107, 0.08) 0%, rgba(255, 107, 107, 0.02) 100%); }
+  .infl-card-autoimmune{ border-color: #a78bfa; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08) 0%, rgba(167, 139, 250, 0.02) 100%); }
+  .infl-card-allergic  { border-color: #06b6d4; background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.02) 100%); }
+  .infl-card-infectious{ border-color: #f87171; background: linear-gradient(135deg, rgba(248, 113, 113, 0.08) 0%, rgba(248, 113, 113, 0.02) 100%); }
+  .infl-card-neuro     { border-color: #fbbf24; background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(251, 191, 36, 0.02) 100%); }
+  .infl-card-intestinal{ border-color: #34d399; background: linear-gradient(135deg, rgba(52, 211, 153, 0.08) 0%, rgba(52, 211, 153, 0.02) 100%); }
+
+  .infl-card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .infl-card-icon {
+    font-size: 36px;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .infl-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .infl-card-type {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .infl-card-trauma .infl-card-type    { color: #51cf66; }
+  .infl-card-metabolic .infl-card-type { color: #ff922b; }
+  .infl-card-leaky .infl-card-type     { color: #ff6b6b; }
+  .infl-card-autoimmune .infl-card-type{ color: #a78bfa; }
+  .infl-card-allergic .infl-card-type  { color: #06b6d4; }
+  .infl-card-infectious .infl-card-type{ color: #f87171; }
+  .infl-card-neuro .infl-card-type     { color: #fbbf24; }
+  .infl-card-intestinal .infl-card-type{ color: #34d399; }
+
+  .infl-card-body { padding: 1.5rem; }
+
+  .infl-metric-row {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .infl-metric-row:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .infl-metric-label {
+    font-size: 10px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .infl-metric-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .infl-duration-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+
+  .infl-duration-fill { height: 100%; border-radius: 2px; }
+
+  .infl-card-trauma .infl-duration-fill    { background: #51cf66; }
+  .infl-card-metabolic .infl-duration-fill { background: #ff922b; }
+  .infl-card-leaky .infl-duration-fill     { background: #ff6b6b; }
+  .infl-card-autoimmune .infl-duration-fill{ background: #a78bfa; }
+  .infl-card-allergic .infl-duration-fill  { background: #06b6d4; }
+  .infl-card-infectious .infl-duration-fill{ background: #f87171; }
+  .infl-card-neuro .infl-duration-fill     { background: #fbbf24; }
+  .infl-card-intestinal .infl-duration-fill{ background: #34d399; }
+
+  /* DETAILED BREAKDOWN SECTION */
+  .infl-breakdown-section { margin: 3rem 0; }
+
+  .infl-breakdown-title {
+    font-size: 24px;
+    color: #ffd700;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .infl-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .infl-breakdown-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .infl-breakdown-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 215, 0, 0.4);
+  }
+
+  .infl-breakdown-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+  }
+
+  .infl-breakdown-icon { font-size: 32px; }
+
+  .infl-breakdown-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .infl-breakdown-content { display: grid; gap: 1rem; }
+
+  .infl-info-block {
+    background: rgba(255, 215, 0, 0.05);
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 3px solid #ffd700;
+  }
+
+  .infl-info-label {
+    font-size: 11px;
+    color: #ffd700;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .infl-info-text {
+    font-size: 13px;
+    color: #ddd;
+    line-height: 1.6;
+  }
+
+  .infl-list-item {
+    font-size: 13px;
+    color: #bbb;
+    margin-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .infl-list-item:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #ffd700;
+    font-weight: 600;
+  }
+
+  /* TIMELINE VISUALIZATION */
+  .infl-timeline-section {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 3rem 0;
+  }
+
+  .infl-timeline-title {
+    font-size: 20px;
+    color: #ffd700;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .infl-timeline-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .infl-timeline-track {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .infl-timeline-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffd700;
+    margin-bottom: 1rem;
+  }
+
+  .infl-timeline-line {
+    height: 6px;
+    background: linear-gradient(90deg, #51cf66 0%, transparent 100%);
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .infl-timeline-line.infl-chronic {
+    background: linear-gradient(90deg, #ff6b6b 0%, #ff6b6b 100%);
+  }
+
+  .infl-timeline-markers {
+    font-size: 11px;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .infl-timeline-desc {
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 1rem;
+    line-height: 1.6;
+  }
+
+  /* COMPARISON TABLE */
+  .infl-comparison-table {
+    width: 100%;
+    margin: 3rem 0;
+    border-collapse: collapse;
+    font-size: 13px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+  }
+
+  .infl-comparison-table th {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #ffd700;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  }
+
+  .infl-comparison-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ddd;
+  }
+
+  .infl-comparison-table tr:hover { background: rgba(255, 215, 0, 0.05); }
+  .infl-comparison-table tr:last-child td { border-bottom: none; }
+
+  .infl-type-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .infl-badge-trauma     { background: rgba(81, 207, 102, 0.2); color: #51cf66; }
+  .infl-badge-metabolic  { background: rgba(255, 146, 43, 0.2);  color: #ff922b; }
+  .infl-badge-leaky      { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+  .infl-badge-autoimmune { background: rgba(167, 139, 250, 0.2); color: #a78bfa; }
+  .infl-badge-allergic   { background: rgba(6, 182, 212, 0.2);   color: #06b6d4; }
+  .infl-badge-infectious { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+  .infl-badge-neuro      { background: rgba(251, 191, 36, 0.2);  color: #fbbf24; }
+  .infl-badge-intestinal { background: rgba(52, 211, 153, 0.2);  color: #34d399; }
+
+  /* PREVENTIONS & CURES */
+  .infl-solutions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .infl-solutions-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .infl-solutions-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffd700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .infl-solutions-list { display: grid; gap: 1rem; }
+
+  .infl-solution-item {
+    background: rgba(255, 215, 0, 0.05);
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 3px solid #ffd700;
+  }
+
+  .infl-solution-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffd700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .infl-solution-text {
+    font-size: 12px;
+    color: #bbb;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .infl-back-bar { padding: 110px 24px 0; }
+    .infl-types-grid { grid-template-columns: 1fr; }
+    .infl-breakdown-grid { grid-template-columns: 1fr; }
+    .infl-timeline-comparison { grid-template-columns: 1fr; }
+    .infl-solutions-grid { grid-template-columns: 1fr; }
+    .infl-mechanism-grid { grid-template-columns: repeat(2, 1fr); }
+    .infl-hero h1 { font-size: 36px; }
+    .infl-comparison-table { font-size: 11px; }
+    .infl-comparison-table th, .infl-comparison-table td { padding: 0.6rem; }
+  }
+</style>
+
+<div class="infl-hub">
+  <div class="infl-container">
+
+    <!-- HERO -->
+    <div class="infl-hero">
+      <h1>Understanding Inflammation</h1>
+      <p>From acute immune response to chronic systemic damage — the complete visual guide</p>
+    </div>
+
+    <!-- BASIC MECHANISM -->
+    <div class="infl-mechanism-section">
+      <div class="infl-mechanism-title">How Inflammation Works: The 5-Step Cascade</div>
+      <div class="infl-mechanism-grid">
+        <div class="infl-mechanism-step">
+          <div class="infl-step-circle">🚨</div>
+          <div class="infl-step-label">Step 1</div>
+          <div class="infl-step-text"><strong>Threat Detected</strong><br>Bacteria, toxin, injury</div>
+          <div class="infl-step-arrow">→</div>
+        </div>
+        <div class="infl-mechanism-step">
+          <div class="infl-step-circle">🔔</div>
+          <div class="infl-step-label">Step 2</div>
+          <div class="infl-step-text"><strong>Signal Released</strong><br>TNF-α, IL-6, IL-8</div>
+          <div class="infl-step-arrow">→</div>
+        </div>
+        <div class="infl-mechanism-step">
+          <div class="infl-step-circle">🚔</div>
+          <div class="infl-step-label">Step 3</div>
+          <div class="infl-step-text"><strong>Immune Arrives</strong><br>Neutrophils, macrophages</div>
+          <div class="infl-step-arrow">→</div>
+        </div>
+        <div class="infl-mechanism-step">
+          <div class="infl-step-circle">💥</div>
+          <div class="infl-step-label">Step 4</div>
+          <div class="infl-step-text"><strong>Inflammation Peaks</strong><br>Redness, swelling, pain</div>
+          <div class="infl-step-arrow">→</div>
+        </div>
+        <div class="infl-mechanism-step">
+          <div class="infl-step-circle">✅</div>
+          <div class="infl-step-label">Step 5</div>
+          <div class="infl-step-text"><strong>Resolution</strong><br>Heal or chronify</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 TYPES OF INFLAMMATION -->
+    <div style="margin-bottom: 3rem;">
+      <h2 style="font-size: 24px; color: #ffd700; text-align: center; margin-bottom: 2rem;">8 Types of Inflammation</h2>
+      <div class="infl-types-grid">
+
+        <!-- TRAUMA -->
+        <div class="infl-card infl-card-trauma">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">⚡</span>
+            <div class="infl-card-title">Trauma Inflammation</div>
+            <p class="infl-card-type">Acute (Good)</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">7-14 days</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 15%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">Injury, surgery</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Sharp pain, swelling</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- METABOLIC -->
+        <div class="infl-card infl-card-metabolic">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">🍔</span>
+            <div class="infl-card-title">Metabolic Inflammation</div>
+            <p class="infl-card-type">Chronic (Bad)</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">Months–Years</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 95%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">High sugar, calories</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Tired, joint aches</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEAKY GUT -->
+        <div class="infl-card infl-card-leaky">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">💨</span>
+            <div class="infl-card-title">Leaky Gut Inflammation</div>
+            <p class="infl-card-type">Chronic (Severe)</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">Months–Years</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 95%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">LPS endotoxemia</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Brain fog, fatigue</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AUTOIMMUNE -->
+        <div class="infl-card infl-card-autoimmune">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">🔫</span>
+            <div class="infl-card-title">Autoimmune Inflammation</div>
+            <p class="infl-card-type">Chronic (Severe)</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">Months–Years</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 95%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">Immune attacks self</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Tissue-specific pain</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALLERGIC -->
+        <div class="infl-card infl-card-allergic">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">🐚</span>
+            <div class="infl-card-title">Allergic Inflammation</div>
+            <p class="infl-card-type">Acute (Good)</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">Minutes–Hours</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 5%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">Allergen exposure</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Itching, hives, swelling</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFECTIOUS -->
+        <div class="infl-card infl-card-infectious">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">🦠</span>
+            <div class="infl-card-title">Infectious Inflammation</div>
+            <p class="infl-card-type">Acute → Chronic</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">Days–Weeks</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 25%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">Pathogen (bacteria, virus)</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Fever, pain, fatigue</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEUROINFLAMMATION -->
+        <div class="infl-card infl-card-neuro">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">🧠</span>
+            <div class="infl-card-title">Neuroinflammation</div>
+            <p class="infl-card-type">Chronic (Severe)</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">Months–Years</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 95%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">LPS in brain, stress</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Brain fog, memory loss</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INTESTINAL -->
+        <div class="infl-card infl-card-intestinal">
+          <div class="infl-card-header">
+            <span class="infl-card-icon">🔥</span>
+            <div class="infl-card-title">Intestinal Inflammation</div>
+            <p class="infl-card-type">Chronic (Bad)</p>
+          </div>
+          <div class="infl-card-body">
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Duration</div>
+              <div class="infl-metric-value">Months–Years</div>
+              <div class="infl-duration-bar"><div class="infl-duration-fill" style="width: 95%;"></div></div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Trigger</div>
+              <div class="infl-metric-value">Dysbiosis, food</div>
+            </div>
+            <div class="infl-metric-row">
+              <div class="infl-metric-label">Feeling</div>
+              <div class="infl-metric-value">Bloating, malabsorption</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DEEP DIVE: EACH TYPE -->
+    <div class="infl-breakdown-section">
+      <div class="infl-breakdown-title">Deep Dive: Triggers, Mechanisms &amp; Solutions</div>
+      <div class="infl-breakdown-grid">
+
+        <!-- TRAUMA DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">⚡</div>
+            <div class="infl-breakdown-name">Trauma</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">Muscle tear, fracture, surgery</div>
+              <div class="infl-list-item">Acute mechanical damage</div>
+              <div class="infl-list-item">One-time injury event</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">Cell rupture → DAMPs released → Neutrophils arrive → Macrophages clean debris → Growth factors signal repair</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Controlled training</div>
+              <div class="infl-list-item">Proper recovery</div>
+              <div class="infl-list-item">Adequate sleep</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">RICE (first 48h)</div>
+              <div class="infl-list-item">Protein + calories</div>
+              <div class="infl-list-item">Sleep 7–9h nightly</div>
+              <div class="infl-list-item"><strong>Timeline: 7–14 days acute</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- METABOLIC DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">🍔</div>
+            <div class="infl-breakdown-name">Metabolic</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">High sugar + calories</div>
+              <div class="infl-list-item">Processed foods (AGEs)</div>
+              <div class="infl-list-item">High omega-6 ratio</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">Glucose spike → oxidative stress → mTOR overactivation. High AGEs → bind RAGE → TNF-α cascade</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Whole foods only</div>
+              <div class="infl-list-item">Lower refined carbs</div>
+              <div class="infl-list-item">Omega-3 &gt; Omega-6</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">Diet shift (whole foods)</div>
+              <div class="infl-list-item">Regular exercise</div>
+              <div class="infl-list-item">Omega-3 supplement</div>
+              <div class="infl-list-item"><strong>Timeline: 4–8 weeks</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEAKY GUT DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">💨</div>
+            <div class="infl-breakdown-name">Leaky Gut</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">Gluten (sensitive individuals)</div>
+              <div class="infl-list-item">NSAIDs (ibuprofen, naproxen)</div>
+              <div class="infl-list-item">Stress (high cortisol)</div>
+              <div class="infl-list-item">Dysbiosis (bad bacteria)</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">Zonulin released → Tight junctions open → LPS enters bloodstream → TLR4 activation → Massive cytokine cascade (TNF-α, IL-6)</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Avoid gluten</div>
+              <div class="infl-list-item">No NSAIDs</div>
+              <div class="infl-list-item">Manage stress</div>
+              <div class="infl-list-item">Sleep 7–9h</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">Remove triggers</div>
+              <div class="infl-list-item">L-glutamine 5–10g</div>
+              <div class="infl-list-item">Zinc 15–30mg</div>
+              <div class="infl-list-item">Bone broth daily</div>
+              <div class="infl-list-item"><strong>Timeline: 4–8 weeks</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AUTOIMMUNE DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">🔫</div>
+            <div class="infl-breakdown-name">Autoimmune</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">Leaky gut → molecular mimicry</div>
+              <div class="infl-list-item">Genetic predisposition</div>
+              <div class="infl-list-item">Viral infection</div>
+              <div class="infl-list-item">Gluten (celiac-prone)</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">B-cells produce autoantibodies → T-cells infiltrate tissue → Immune attacks self → Chronic damage</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Maintain gut barrier</div>
+              <div class="infl-list-item">Avoid trigger (gluten)</div>
+              <div class="infl-list-item">Manage stress</div>
+              <div class="infl-list-item">Sleep well</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">Remove trigger</div>
+              <div class="infl-list-item">Repair gut barrier</div>
+              <div class="infl-list-item">Anti-inflam diet</div>
+              <div class="infl-list-item">Medical: immunosuppressants</div>
+              <div class="infl-list-item"><strong>Timeline: Ongoing management</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALLERGIC DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">🐚</div>
+            <div class="infl-breakdown-name">Allergic</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">Allergen exposure (pollen, food)</div>
+              <div class="infl-list-item">One-time event</div>
+              <div class="infl-list-item">IgE-mediated reaction</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">Allergen → IgE cross-links on mast cells → Histamine/tryptase release → Immediate reaction</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Allergen avoidance</div>
+              <div class="infl-list-item">Carry epinephrine (if severe)</div>
+              <div class="infl-list-item">Read labels</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">Antihistamines (Benadryl)</div>
+              <div class="infl-list-item">Epinephrine (anaphylaxis)</div>
+              <div class="infl-list-item">Desensitization (slow exposure)</div>
+              <div class="infl-list-item"><strong>Timeline: Minutes–Hours</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFECTIOUS DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">🦠</div>
+            <div class="infl-breakdown-name">Infectious</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">Bacteria, virus, fungus</div>
+              <div class="infl-list-item">PAMPs recognized</div>
+              <div class="infl-list-item">Fever response</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">PAMP → PRR recognition → Massive TNF-α, IL-6, IFN-γ → Fever, swelling, immune attack</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Hygiene</div>
+              <div class="infl-list-item">Vaccination</div>
+              <div class="infl-list-item">Sleep, nutrition</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">Antibiotics (bacterial)</div>
+              <div class="infl-list-item">Antivirals (viral)</div>
+              <div class="infl-list-item">Rest + sleep</div>
+              <div class="infl-list-item"><strong>Timeline: Days–Weeks</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEUROINFLAMMATION DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">🧠</div>
+            <div class="infl-breakdown-name">Neuroinflammation</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">LPS crossing BBB (leaky gut)</div>
+              <div class="infl-list-item">Head trauma</div>
+              <div class="infl-list-item">Chronic stress</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">Glial cells (microglia) activate → IL-6, TNF-α in brain → Synapse damage → Cognitive decline</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Repair gut barrier</div>
+              <div class="infl-list-item">Manage stress</div>
+              <div class="infl-list-item">Sleep 8+ hours</div>
+              <div class="infl-list-item">Regular exercise</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">Repair gut (stop LPS)</div>
+              <div class="infl-list-item">Omega-3 supplement</div>
+              <div class="infl-list-item">Curcumin, resveratrol</div>
+              <div class="infl-list-item">Exercise, meditation</div>
+              <div class="infl-list-item"><strong>Timeline: 8–12 weeks</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INTESTINAL DEEP DIVE -->
+        <div class="infl-breakdown-card">
+          <div class="infl-breakdown-header">
+            <div class="infl-breakdown-icon">🔥</div>
+            <div class="infl-breakdown-name">Intestinal</div>
+          </div>
+          <div class="infl-breakdown-content">
+            <div class="infl-info-block">
+              <div class="infl-info-label">🚨 Triggers</div>
+              <div class="infl-list-item">Dysbiosis (bad bacteria)</div>
+              <div class="infl-list-item">Food sensitivities</div>
+              <div class="infl-list-item">Leaky gut (amplifies)</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">⚙️ Mechanism</div>
+              <div class="infl-info-text">Bad bacteria → LPS + inflammatory compounds → Intestinal IL-6, TNF-α → Villous damage</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">🛡️ Prevention</div>
+              <div class="infl-list-item">Fiber (25–35g daily)</div>
+              <div class="infl-list-item">Whole foods only</div>
+              <div class="infl-list-item">Manage stress</div>
+            </div>
+            <div class="infl-info-block">
+              <div class="infl-info-label">💊 Cure</div>
+              <div class="infl-list-item">Remove inflammatory foods</div>
+              <div class="infl-list-item">Fermented foods</div>
+              <div class="infl-list-item">Probiotics + prebiotics</div>
+              <div class="infl-list-item">L-glutamine, zinc</div>
+              <div class="infl-list-item"><strong>Timeline: 4–8 weeks</strong></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TIMELINE: ACUTE VS CHRONIC -->
+    <div class="infl-timeline-section">
+      <div class="infl-timeline-title">Timeline Comparison: Acute vs Chronic Inflammation</div>
+      <div class="infl-timeline-comparison">
+        <div class="infl-timeline-track">
+          <div class="infl-timeline-label">🟢 ACUTE (Good — Resolves)</div>
+          <div class="infl-timeline-line"></div>
+          <div class="infl-timeline-markers">
+            <span>Day 0</span>
+            <span>Day 7</span>
+            <span>Day 14</span>
+          </div>
+          <div class="infl-timeline-desc">
+            <strong>What happens:</strong> Immune arrives, cleans debris, signals repair. Then <strong>resolves</strong>. Tissue heals. Back to baseline.
+            <br><br>
+            <strong>Examples:</strong> Muscle tear, cut, infection (treated)
+            <br><br>
+            <strong>Key:</strong> It ends. Resolution happens.
+          </div>
+        </div>
+        <div class="infl-timeline-track">
+          <div class="infl-timeline-label">🔴 CHRONIC (Bad — Never Ends)</div>
+          <div class="infl-timeline-line infl-chronic"></div>
+          <div class="infl-timeline-markers">
+            <span>Month 0</span>
+            <span>Year 1</span>
+            <span>Year 5+</span>
+          </div>
+          <div class="infl-timeline-desc">
+            <strong>What happens:</strong> Immune stays activated. Cytokines keep flowing. Tissue damage accumulates. Spiral worsens.
+            <br><br>
+            <strong>Examples:</strong> Leaky gut, metabolic inflammation, autoimmune
+            <br><br>
+            <strong>Key:</strong> It never resolves. Requires intervention.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div>
+      <h2 style="font-size: 24px; color: #ffd700; text-align: center; margin: 3rem 0 2rem;">Quick Reference: All 8 Types</h2>
+      <table class="infl-comparison-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Trigger</th>
+            <th>Duration</th>
+            <th>Key Cytokine</th>
+            <th>Main Prevention</th>
+            <th>Timeline to Cure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-trauma">Trauma</span></td>
+            <td>Physical injury</td>
+            <td>7–14 days</td>
+            <td>TNF-α, IL-6</td>
+            <td>Rest, recovery</td>
+            <td>7–14 days</td>
+          </tr>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-metabolic">Metabolic</span></td>
+            <td>High sugar/calories</td>
+            <td>Months–Years</td>
+            <td>TNF-α, IL-6</td>
+            <td>Whole foods, exercise</td>
+            <td>4–8 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-leaky">Leaky Gut</span></td>
+            <td>LPS endotoxemia</td>
+            <td>Months–Years</td>
+            <td>TNF-α, IL-6, IL-8</td>
+            <td>Barrier repair</td>
+            <td>4–8 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-autoimmune">Autoimmune</span></td>
+            <td>Self-tissue attack</td>
+            <td>Years (chronic)</td>
+            <td>IL-6, TNF-α, IL-17</td>
+            <td>Trigger removal</td>
+            <td>8–12 weeks (management)</td>
+          </tr>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-allergic">Allergic</span></td>
+            <td>Allergen</td>
+            <td>Minutes–Hours</td>
+            <td>Histamine</td>
+            <td>Allergen avoidance</td>
+            <td>Immediate</td>
+          </tr>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-infectious">Infectious</span></td>
+            <td>Pathogen</td>
+            <td>Days–Weeks</td>
+            <td>TNF-α, IL-6, IFN-γ</td>
+            <td>Hygiene, vaccination</td>
+            <td>Days–Weeks</td>
+          </tr>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-neuro">Neuroinflam</span></td>
+            <td>LPS BBB crossing</td>
+            <td>Months–Years</td>
+            <td>IL-6, TNF-α</td>
+            <td>Barrier repair, exercise</td>
+            <td>8–12 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="infl-type-badge infl-badge-intestinal">Intestinal</span></td>
+            <td>Dysbiosis</td>
+            <td>Months–Years</td>
+            <td>IL-6, TNF-α, IL-8</td>
+            <td>Microbiome repair</td>
+            <td>4–8 weeks</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- UNIVERSAL PREVENTION & CURE -->
+    <div class="infl-solutions-grid">
+      <div class="infl-solutions-box">
+        <div class="infl-solutions-title">
+          <span>🛡️</span> Universal Prevention
+        </div>
+        <div class="infl-solutions-list">
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">Gut Barrier Health</div>
+            <div class="infl-solution-text">Avoid gluten, NSAIDs. Manage stress. Sleep 7–9h. Stops leaky gut + endotoxemia.</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">Anti-Inflammatory Diet</div>
+            <div class="infl-solution-text">Whole foods only. Omega-3 &gt; omega-6. High polyphenols (berries, tea, turmeric).</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">Regular Exercise</div>
+            <div class="infl-solution-text">Aerobic + resistance. IL-10 production (anti-inflammatory).</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">Stress Management</div>
+            <div class="infl-solution-text">Meditation, breathing, sleep. Prevents cortisol-driven zonulin.</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">Strategic Supplements</div>
+            <div class="infl-solution-text">Omega-3s, curcumin, probiotics, zinc.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infl-solutions-box">
+        <div class="infl-solutions-title">
+          <span>💊</span> Universal Cure Framework
+        </div>
+        <div class="infl-solutions-list">
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">1. Identify Type</div>
+            <div class="infl-solution-text">Ask: onset, location, triggers, duration. Acute or chronic?</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">2. Remove Trigger</div>
+            <div class="infl-solution-text">Gluten, NSAIDs, processed foods, stress, etc.</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">3. Reduce Inflammation</div>
+            <div class="infl-solution-text">Shift diet. Add omega-3s, polyphenols. Exercise daily.</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">4. Repair Barrier</div>
+            <div class="infl-solution-text">L-glutamine, zinc, bone broth, probiotics. Sleep well.</div>
+          </div>
+          <div class="infl-solution-item">
+            <div class="infl-solution-title">5. Monitor Progress</div>
+            <div class="infl-solution-text">Symptoms improve in 2–4 weeks. Full resolution in 4–8 weeks.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</Layout>
