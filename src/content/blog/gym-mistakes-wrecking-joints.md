@@ -3,8 +3,8 @@ title: "5 Gym Habits That Are Quietly Wrecking Your Joints (And the Fixes That A
 description: "Most joint pain isn't bad luck — it's predictable patterns repeated thousands of times. A kinesiologist's breakdown of five common training mistakes and how to fix each one."
 category: "Training"
 pubDate: 2026-06-14
-image: "/blog/gym-joints-squat-2.png"
-imageAlt: "Side-by-side squat comparison showing two different body types — one upright, one forward-leaning — both with correct form for their anatomy"
+image: "/blog/gym-joints-hero.png"
+imageAlt: "Side-by-side barbell squat comparison — one lifter upright, one leaning forward — both anatomically correct for their body type"
 ---
 
 The injury usually comes out of nowhere.
