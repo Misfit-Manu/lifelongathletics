@@ -1,0 +1,809 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Muscular Training Variables — ACE Ch.9 Study Guide | Lifelong Athletics"
+  description="Evidence-based study guide for ACE CPT Chapter 9. Frequency, exercise selection, volume, intensity, tempo, rest intervals, and session structure — with exam tips for every variable."
+>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  .mtv-guide {
+    --mtv-black: #0a0a0a;
+    --mtv-charcoal: #1a1a1a;
+    --mtv-slate: #2c2c2c;
+    --mtv-mid: #3d3d3d;
+    --mtv-muted: #888;
+    --mtv-light: #c8c8c8;
+    --mtv-white: #f5f3ef;
+    --mtv-gold: #d4a843;
+    --mtv-orange: #e06b2d;
+    --mtv-red: #c0392b;
+    --mtv-green: #2ecc71;
+    --mtv-blue: #3498db;
+    --mtv-purple: #9b59b6;
+    --mtv-teal: #1abc9c;
+
+    background: var(--mtv-black);
+    color: var(--mtv-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .mtv-guide *, .mtv-guide *::before, .mtv-guide *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .mtv-header {
+    background: var(--mtv-charcoal);
+    border-bottom: 3px solid var(--mtv-gold);
+    padding: 40px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .mtv-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent, transparent 40px,
+      rgba(212,168,67,0.03) 40px,
+      rgba(212,168,67,0.03) 41px
+    );
+  }
+  .mtv-badge {
+    display: inline-block;
+    background: var(--mtv-gold);
+    color: var(--mtv-black);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .mtv-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 8vw, 72px);
+    letter-spacing: 3px;
+    line-height: 1;
+    color: var(--mtv-white);
+    margin-bottom: 10px;
+  }
+  .mtv-header h1 span { color: var(--mtv-gold); }
+  .mtv-subtitle {
+    color: var(--mtv-muted);
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* NAV PILLS */
+  .mtv-nav-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 20px 24px;
+    background: var(--mtv-charcoal);
+    border-bottom: 1px solid var(--mtv-slate);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .mtv-nav-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid;
+  }
+  .mtv-nav-pill:hover { transform: translateY(-1px); }
+  .mtv-np-1 { border-color: var(--mtv-gold); color: var(--mtv-gold); }
+  .mtv-np-1:hover { background: var(--mtv-gold); color: var(--mtv-black); }
+  .mtv-np-2 { border-color: var(--mtv-orange); color: var(--mtv-orange); }
+  .mtv-np-2:hover { background: var(--mtv-orange); color: var(--mtv-white); }
+  .mtv-np-3 { border-color: var(--mtv-blue); color: var(--mtv-blue); }
+  .mtv-np-3:hover { background: var(--mtv-blue); color: var(--mtv-white); }
+  .mtv-np-4 { border-color: var(--mtv-green); color: var(--mtv-green); }
+  .mtv-np-4:hover { background: var(--mtv-green); color: var(--mtv-black); }
+  .mtv-np-5 { border-color: var(--mtv-purple); color: var(--mtv-purple); }
+  .mtv-np-5:hover { background: var(--mtv-purple); color: var(--mtv-white); }
+  .mtv-np-6 { border-color: var(--mtv-teal); color: var(--mtv-teal); }
+  .mtv-np-6:hover { background: var(--mtv-teal); color: var(--mtv-black); }
+  .mtv-np-7 { border-color: var(--mtv-red); color: var(--mtv-red); }
+  .mtv-np-7:hover { background: var(--mtv-red); color: var(--mtv-white); }
+
+  /* MAIN */
+  .mtv-main { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* SECTION */
+  .mtv-section {
+    margin-bottom: 60px;
+    animation: mtv-fadeUp 0.5s ease both;
+  }
+  @keyframes mtv-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .mtv-section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--mtv-slate);
+  }
+  .mtv-sec-icon {
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .mtv-ic-gold { background: rgba(212,168,67,0.15); }
+  .mtv-ic-orange { background: rgba(224,107,45,0.15); }
+  .mtv-ic-blue { background: rgba(52,152,219,0.15); }
+  .mtv-ic-green { background: rgba(46,204,113,0.15); }
+  .mtv-ic-purple { background: rgba(155,89,182,0.15); }
+  .mtv-ic-teal { background: rgba(26,188,156,0.15); }
+  .mtv-ic-red { background: rgba(192,57,43,0.15); }
+
+  .mtv-sec-title-wrap h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .mtv-sec-title-wrap p {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    color: var(--mtv-muted);
+  }
+
+  /* CARDS */
+  .mtv-card {
+    background: var(--mtv-charcoal);
+    border: 1px solid var(--mtv-slate);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .mtv-card:hover { border-color: var(--mtv-mid); }
+  .mtv-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .mtv-card p { color: var(--mtv-light); font-size: 14px; line-height: 1.75; }
+
+  /* ACCENT COLOURS */
+  .mtv-gold .mtv-card { border-left: 3px solid var(--mtv-gold); }
+  .mtv-gold .mtv-card h3, .mtv-gold .mtv-tag { color: var(--mtv-gold); }
+  .mtv-orange .mtv-card { border-left: 3px solid var(--mtv-orange); }
+  .mtv-orange .mtv-card h3, .mtv-orange .mtv-tag { color: var(--mtv-orange); }
+  .mtv-blue .mtv-card { border-left: 3px solid var(--mtv-blue); }
+  .mtv-blue .mtv-card h3, .mtv-blue .mtv-tag { color: var(--mtv-blue); }
+  .mtv-green .mtv-card { border-left: 3px solid var(--mtv-green); }
+  .mtv-green .mtv-card h3, .mtv-green .mtv-tag { color: var(--mtv-green); }
+  .mtv-purple .mtv-card { border-left: 3px solid var(--mtv-purple); }
+  .mtv-purple .mtv-card h3, .mtv-purple .mtv-tag { color: var(--mtv-purple); }
+  .mtv-teal .mtv-card { border-left: 3px solid var(--mtv-teal); }
+  .mtv-teal .mtv-card h3, .mtv-teal .mtv-tag { color: var(--mtv-teal); }
+  .mtv-red .mtv-card { border-left: 3px solid var(--mtv-red); }
+  .mtv-red .mtv-card h3, .mtv-red .mtv-tag { color: var(--mtv-red); }
+
+  /* Standalone card colours (not wrapped) */
+  .mtv-card.gold { border-left: 3px solid var(--mtv-gold); }
+  .mtv-card.gold h3, .mtv-card.gold .mtv-tag { color: var(--mtv-gold); }
+  .mtv-card.orange { border-left: 3px solid var(--mtv-orange); }
+  .mtv-card.orange h3, .mtv-card.orange .mtv-tag { color: var(--mtv-orange); }
+  .mtv-card.blue { border-left: 3px solid var(--mtv-blue); }
+  .mtv-card.blue h3, .mtv-card.blue .mtv-tag { color: var(--mtv-blue); }
+  .mtv-card.green { border-left: 3px solid var(--mtv-green); }
+  .mtv-card.green h3, .mtv-card.green .mtv-tag { color: var(--mtv-green); }
+  .mtv-card.purple { border-left: 3px solid var(--mtv-purple); }
+  .mtv-card.purple h3, .mtv-card.purple .mtv-tag { color: var(--mtv-purple); }
+  .mtv-card.teal { border-left: 3px solid var(--mtv-teal); }
+  .mtv-card.teal h3, .mtv-card.teal .mtv-tag { color: var(--mtv-teal); }
+  .mtv-card.red { border-left: 3px solid var(--mtv-red); }
+  .mtv-card.red h3, .mtv-card.red .mtv-tag { color: var(--mtv-red); }
+
+  /* HIGHLIGHT */
+  .mtv-highlight {
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--mtv-light);
+  }
+  .mtv-hl-gold { background: rgba(212,168,67,0.08); border: 1px solid rgba(212,168,67,0.25); }
+  .mtv-hl-orange { background: rgba(224,107,45,0.08); border: 1px solid rgba(224,107,45,0.25); }
+  .mtv-hl-blue { background: rgba(52,152,219,0.08); border: 1px solid rgba(52,152,219,0.25); }
+  .mtv-hl-green { background: rgba(46,204,113,0.08); border: 1px solid rgba(46,204,113,0.25); }
+  .mtv-hl-red { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.25); }
+
+  /* TABLE */
+  .mtv-tbl-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--mtv-slate); margin: 16px 0; }
+  .mtv-guide table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .mtv-guide thead { background: var(--mtv-slate); }
+  .mtv-guide thead th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--mtv-light);
+    font-weight: 500;
+  }
+  .mtv-guide tbody tr { border-top: 1px solid var(--mtv-slate); }
+  .mtv-guide tbody tr:hover { background: rgba(255,255,255,0.02); }
+  .mtv-guide tbody td { padding: 12px 16px; color: var(--mtv-light); vertical-align: top; }
+  .mtv-guide td strong { color: var(--mtv-white); }
+  .td-gold { color: var(--mtv-gold) !important; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .td-orange { color: var(--mtv-orange) !important; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .td-blue { color: var(--mtv-blue) !important; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .td-green { color: var(--mtv-green) !important; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .td-purple { color: var(--mtv-purple) !important; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .td-teal { color: var(--mtv-teal) !important; font-family: 'DM Mono', monospace; font-size: 12px; }
+
+  /* FORMULA */
+  .mtv-formula {
+    background: var(--mtv-slate);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--mtv-gold);
+    margin: 14px 0;
+    letter-spacing: 0.5px;
+  }
+
+  /* GRID 2-COL */
+  .mtv-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  @media (max-width: 600px) { .mtv-grid2 { grid-template-columns: 1fr; } }
+
+  /* TAG */
+  .mtv-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    border: 1px solid currentColor;
+    opacity: 0.8;
+  }
+
+  /* STAT ROW */
+  .mtv-stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+  .mtv-stat-box {
+    flex: 1; min-width: 120px;
+    background: var(--mtv-slate);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .mtv-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .mtv-stat-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--mtv-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* TIMELINE */
+  .mtv-timeline { position: relative; padding-left: 28px; }
+  .mtv-timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 4px; bottom: 4px;
+    width: 2px;
+    background: var(--mtv-slate);
+  }
+  .mtv-tl-item { position: relative; margin-bottom: 18px; }
+  .mtv-tl-item::before {
+    content: '';
+    position: absolute;
+    left: -24px; top: 7px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid;
+  }
+  .mtv-tl-gold::before { border-color: var(--mtv-gold); background: rgba(212,168,67,0.3); }
+  .mtv-tl-orange::before { border-color: var(--mtv-orange); background: rgba(224,107,45,0.3); }
+  .mtv-tl-green::before { border-color: var(--mtv-green); background: rgba(46,204,113,0.3); }
+  .mtv-tl-blue::before { border-color: var(--mtv-blue); background: rgba(52,152,219,0.3); }
+  .mtv-tl-item h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .mtv-tl-item p { font-size: 13px; color: var(--mtv-light); }
+
+  /* EXAM TIP */
+  .mtv-exam-tip {
+    background: rgba(192,57,43,0.1);
+    border: 1px solid rgba(192,57,43,0.3);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  .mtv-exam-tip strong {
+    color: var(--mtv-red);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .mtv-exam-tip p { color: var(--mtv-light); line-height: 1.6; }
+
+  .mtv-guide hr { border: none; border-top: 1px solid var(--mtv-slate); margin: 32px 0; }
+  .mtv-guide strong { color: var(--mtv-white); }
+  .mtv-guide em { color: var(--mtv-gold); font-style: normal; font-weight: 500; }
+
+  .mtv-subhead {
+    margin: 20px 0 12px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* FOOTER */
+  .mtv-footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--mtv-muted);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    border-top: 1px solid var(--mtv-slate);
+    line-height: 1.8;
+  }
+</style>
+
+<div class="mtv-guide">
+
+  <!-- HEADER -->
+  <div class="mtv-header">
+    <div class="mtv-badge">ACE CPT Chapter 9</div>
+    <h1>Muscular <span>Training</span><br>Variables</h1>
+    <p class="mtv-subtitle">Evidence-Based Study Guide — Foundations &amp; Benefits</p>
+  </div>
+
+  <!-- NAV PILLS -->
+  <nav class="mtv-nav-bar">
+    <a class="mtv-nav-pill mtv-np-1" href="#frequency">Training Frequency</a>
+    <a class="mtv-nav-pill mtv-np-2" href="#selection">Exercise Selection</a>
+    <a class="mtv-nav-pill mtv-np-3" href="#volume">Training Volume</a>
+    <a class="mtv-nav-pill mtv-np-4" href="#intensity">Training Intensity</a>
+    <a class="mtv-nav-pill mtv-np-5" href="#tempo">Tempo</a>
+    <a class="mtv-nav-pill mtv-np-6" href="#rest">Rest Intervals</a>
+    <a class="mtv-nav-pill mtv-np-7" href="#session">Session Structure</a>
+  </nav>
+
+  <div class="mtv-main">
+
+    <!-- 1. TRAINING FREQUENCY -->
+    <section class="mtv-section" id="frequency">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon mtv-ic-gold">📅</div>
+        <div class="mtv-sec-title-wrap">
+          <h2 style="color:var(--mtv-gold)">Training Frequency</h2>
+          <p>How often to train each muscle group</p>
+        </div>
+      </div>
+
+      <div class="mtv-card gold">
+        <div class="mtv-tag">Core Principle</div>
+        <h3>Frequency ↔ Volume &amp; Intensity Relationship</h3>
+        <p>Training frequency is <strong>inversely related</strong> to both training volume and intensity. Higher-intensity sessions produce more muscle microtrauma → require more recovery time → must be performed <em>less frequently</em>. Lower-intensity sessions need less recovery and can be done more often.</p>
+      </div>
+
+      <div class="mtv-highlight mtv-hl-gold">
+        🔬 <strong>Research (Hackney, Engels &amp; Gretebeck, 2008):</strong> A challenging muscular-training workout elevates <strong>Resting Metabolic Rate (RMR) by 8–9%</strong> for the three days following the session — driven by muscle-building processes.
+      </div>
+      <div class="mtv-highlight mtv-hl-gold">
+        🔬 <strong>Research (McLester et al., 2003):</strong> Standard muscular-training sessions (8 exercises, 3 sets × 10 reps) require <strong>at least 72 hours</strong> for muscular strength to return to or exceed baseline.
+      </div>
+
+      <div class="mtv-grid2">
+        <div class="mtv-card gold">
+          <div class="mtv-tag">Advanced Exercisers</div>
+          <h3>High Volume / High Intensity</h3>
+          <p>Should <strong>NOT train the same muscle groups more often than every 3rd day.</strong></p>
+          <p style="margin-top:10px;font-size:13px;color:var(--mtv-muted)">Example split:<br>Mon/Thu → Push (chest, shoulders, triceps)<br>Tue/Fri → Pull (back, biceps, trunk)<br>Wed/Sat → Legs (squats, lunges)</p>
+        </div>
+        <div class="mtv-card gold">
+          <div class="mtv-tag">Beginner / New Exercisers</div>
+          <h3>2–3 Days/Week</h3>
+          <p>Research (Westcott, 2016): After 10 weeks, training <strong>2 or 3 days/week both increased lean muscle mass by 3.1 lbs (1.4 kg)</strong> — equally effective.</p>
+          <p style="margin-top:10px;font-size:13px;color:var(--mtv-muted)">1 day/week → significantly <em>less</em> lean weight gain. Minimum of 2 days recommended.</p>
+        </div>
+      </div>
+
+      <div class="mtv-exam-tip">
+        <strong>🎯 Exam Tip</strong>
+        <p>If asked about frequency for beginners → answer: <strong>2–3 days/week.</strong> For advanced high-volume trainers → no same muscle group more than every <strong>72 hours (every 3rd day).</strong> 1 day/week is marginally productive but NOT recommended as a standalone program.</p>
+      </div>
+    </section>
+
+    <!-- 2. EXERCISE SELECTION & ORDER -->
+    <section class="mtv-section" id="selection">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon mtv-ic-orange">🏋️</div>
+        <div class="mtv-sec-title-wrap">
+          <h2 style="color:var(--mtv-orange)">Exercise Selection &amp; Order</h2>
+          <p>Primary vs. accessory — sequencing strategies</p>
+        </div>
+      </div>
+
+      <div class="mtv-card orange">
+        <div class="mtv-tag">Definition</div>
+        <h3>Primary (Compound) Exercises</h3>
+        <p>Involve <strong>multiple muscles across 2+ joints</strong> (multijoint). Examples: squat, deadlift, bench press, overhead press. These are performed <em>first</em> in a session when energy is highest.</p>
+      </div>
+      <div class="mtv-card orange">
+        <div class="mtv-tag">Definition</div>
+        <h3>Accessory (Isolation) Exercises</h3>
+        <p>Target <strong>smaller muscle groups, single joint</strong>. Examples: bicep curl, leg extension, lateral raise. Performed <em>after</em> primary exercises. Reflect specific needs and availability of the client.</p>
+      </div>
+
+      <hr>
+      <div class="mtv-subhead" style="color:var(--mtv-orange)">Advanced Grouping Options</div>
+
+      <div class="mtv-timeline">
+        <div class="mtv-tl-item mtv-tl-orange">
+          <h4 style="color:var(--mtv-orange)">Supersets / Compound Sets</h4>
+          <p>Two exercises done in sequence with little or no rest between them. Increases training density and time efficiency.</p>
+        </div>
+        <div class="mtv-tl-item mtv-tl-orange">
+          <h4 style="color:var(--mtv-orange)">Alternating Push / Pull (Agonist–Antagonist)</h4>
+          <p>E.g., chest press followed by seated row. Allows one muscle group to recover while the other works.</p>
+        </div>
+        <div class="mtv-tl-item mtv-tl-orange">
+          <h4 style="color:var(--mtv-orange)">Upper / Lower Alternating</h4>
+          <p>Upper and lower extremity exercises alternated within or between training sessions.</p>
+        </div>
+        <div class="mtv-tl-item mtv-tl-orange">
+          <h4 style="color:var(--mtv-orange)">Muscular-Training Circuit</h4>
+          <p>Each exercise addresses a different muscle group; shorter rest intervals increase cardio and metabolic responses — popular for weight management goals.</p>
+        </div>
+      </div>
+
+      <div class="mtv-highlight mtv-hl-orange">
+        💡 <strong>Grouping principle:</strong> Exercises can be grouped by <strong>body area</strong> (e.g., legs, shoulders) or by <strong>function</strong> (push vs. pull) or by <strong>relevance to sport/activity</strong>.
+      </div>
+      <div class="mtv-exam-tip">
+        <strong>🎯 Exam Tip</strong>
+        <p>Primary exercises = multijoint, done FIRST. Accessory = single-joint, done AFTER. Guidelines (ACSM 2018) recommend targeting each major muscle group 2–3 days/week minimum.</p>
+      </div>
+    </section>
+
+    <!-- 3. TRAINING VOLUME -->
+    <section class="mtv-section" id="volume">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon mtv-ic-blue">📊</div>
+        <div class="mtv-sec-title-wrap">
+          <h2 style="color:var(--mtv-blue)">Training Volume</h2>
+          <p>Quantifying total work performed</p>
+        </div>
+      </div>
+
+      <div class="mtv-formula">Volume = Weight × Sets × Reps &nbsp;|&nbsp; (per muscle group OR entire session)</div>
+
+      <div class="mtv-card blue">
+        <div class="mtv-tag">Why Volume Matters</div>
+        <h3>Correlation to Calories &amp; Adaptation</h3>
+        <p>Training volume provides a <strong>reasonably good indication of total energy expended</strong> in a session. There is a direct correlation between volume, weight lifted, and total calories burned. Volume should be <em>changed periodically</em> for physiological and psychological purposes (periodization).</p>
+      </div>
+      <div class="mtv-highlight mtv-hl-blue">
+        ⚠️ <strong>Volume is typically lower for competitive powerlifters</strong> — they perform fewer exercises/reps but with heavier loads, focusing on maximizing force output. Bodybuilders use moderate loads with higher volume to maximize time under tension for hypertrophy.
+      </div>
+      <div class="mtv-highlight mtv-hl-blue">
+        📌 <strong>For deconditioned or novice clients:</strong> Start with manageable volumes and progress toward the ranges in Table 9-12 progressively.
+      </div>
+
+      <div class="mtv-subhead" style="color:var(--mtv-blue)">Table 9-12 — Training Volume Based on Goal</div>
+      <div class="mtv-tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Training Goal</th><th>Sets</th><th>Reps</th><th>Rest Interval</th><th>Intensity (%1-RM)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>General Muscular Fitness</strong></td><td class="td-blue">1–4</td><td class="td-blue">8–15</td><td class="td-blue">2–3 min</td><td class="td-blue">20–70%</td></tr>
+            <tr><td><strong>Muscular Endurance</strong></td><td class="td-green">2–3</td><td class="td-green">≥12</td><td class="td-green">≤30 sec</td><td class="td-green">≤67%</td></tr>
+            <tr><td><strong>Muscular Hypertrophy</strong></td><td class="td-gold">3–6</td><td class="td-gold">6–12</td><td class="td-gold">30–90 sec</td><td class="td-gold">67–85%</td></tr>
+            <tr><td><strong>Muscular Strength</strong></td><td class="td-orange">2–6</td><td class="td-orange">≤6</td><td class="td-orange">2–5 min</td><td class="td-orange">≥85%</td></tr>
+            <tr><td><strong>Power – Single-effort</strong></td><td class="td-purple">3–5</td><td class="td-purple">1–2</td><td class="td-purple">2–5 min</td><td class="td-purple">80–90%</td></tr>
+            <tr><td><strong>Power – Multiple-effort</strong></td><td class="td-purple">3–5</td><td class="td-purple">3–5</td><td class="td-purple">2–5 min</td><td class="td-purple">75–85%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:11px;color:var(--mtv-muted);margin-top:8px;font-family:'DM Mono',monospace">Note: 1-RM = One-repetition maximum. For core exercises involving large muscle groups, loads of ~80% 1-RM are used. In nonexplosive movements, loads ≥8-RM.</p>
+
+      <div class="mtv-exam-tip">
+        <strong>🎯 Exam Tip</strong>
+        <p>You MUST memorize Table 9-12. The most tested row is <strong>Hypertrophy: 3–6 sets, 6–12 reps, 67–85% 1-RM, 30–90 sec rest.</strong> Volume = Weight × Sets × Reps — know the formula.</p>
+      </div>
+    </section>
+
+    <!-- 4. TRAINING INTENSITY -->
+    <section class="mtv-section" id="intensity">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon mtv-ic-green">⚡</div>
+        <div class="mtv-sec-title-wrap">
+          <h2 style="color:var(--mtv-green)">Training Intensity</h2>
+          <p>% of maximal resistance — the key stimulus variable</p>
+        </div>
+      </div>
+
+      <div class="mtv-card green">
+        <div class="mtv-tag">Definition</div>
+        <h3>Two Definitions of Intensity</h3>
+        <p><strong>1. Percentage of 1-RM (maximal resistance):</strong> The load used as a percentage of the maximum weight a person can lift once.<br><br>
+        <strong>2. Effort level / Muscle fatigue:</strong> The degree of muscle fatigue produced during a set — how hard the muscle is working relative to its capacity.</p>
+      </div>
+      <div class="mtv-highlight mtv-hl-green">
+        🔬 <strong>Evidence (Volume vs. Intensity):</strong> Training with 4 reps @ 90 lbs vs. 8 reps @ 80 lbs produces similar levels of muscle fatigue — as long as each set is taken to momentary muscular failure. <em>Intensity (effort) matters more than load alone.</em>
+      </div>
+
+      <div class="mtv-grid2">
+        <div class="mtv-card green">
+          <div class="mtv-tag">Periodization Key</div>
+          <h3>Progressive Overload</h3>
+          <p>Both <strong>volume and intensity are key components</strong> of progressive overload. Programs should progress from lower-volume/higher-intensity to moderate-volume/moderate-intensity, concluding with higher-volume/lower-intensity workouts.</p>
+        </div>
+        <div class="mtv-card green">
+          <div class="mtv-tag">New Client Strategy</div>
+          <h3>Preparation Phase</h3>
+          <p>For new-to-training clients, begin with <strong>low intensity</strong> to allow physical and psychological adaptation. Design programs to begin with limited or no significant DOMS — reduces dropout risk.</p>
+        </div>
+      </div>
+
+      <div class="mtv-card green">
+        <div class="mtv-tag">Behavioral Note</div>
+        <h3>Volume First, Then Intensity</h3>
+        <p>As a client begins a muscular-training program, keep training volume <em>relatively low</em> initially to allow adaptation. Total training volume can be gradually increased as the client develops adherence, becoming <strong>stronger as a result.</strong></p>
+      </div>
+      <div class="mtv-exam-tip">
+        <strong>🎯 Exam Tip</strong>
+        <p>Intensity and volume are <strong>inversely related</strong> within a periodization cycle. High intensity = lower volume; lower intensity = higher volume. New clients should START with lower intensity to avoid excessive DOMS and promote long-term adherence.</p>
+      </div>
+    </section>
+
+    <!-- 5. TRAINING TEMPO -->
+    <section class="mtv-section" id="tempo">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon mtv-ic-purple">⏱️</div>
+        <div class="mtv-sec-title-wrap">
+          <h2 style="color:var(--mtv-purple)">Training Tempo</h2>
+          <p>Movement speed — concentric &amp; eccentric phases</p>
+        </div>
+      </div>
+
+      <div class="mtv-stat-row">
+        <div class="mtv-stat-box"><div class="mtv-stat-num" style="color:var(--mtv-purple)">1–3</div><div class="mtv-stat-label">Seconds Concentric</div></div>
+        <div class="mtv-stat-box"><div class="mtv-stat-num" style="color:var(--mtv-gold)">2–4</div><div class="mtv-stat-label">Seconds Eccentric</div></div>
+        <div class="mtv-stat-box"><div class="mtv-stat-num" style="color:var(--mtv-orange)">6</div><div class="mtv-stat-label">Sec/Rep Standard</div></div>
+        <div class="mtv-stat-box"><div class="mtv-stat-num" style="color:var(--mtv-green)">4–8</div><div class="mtv-stat-label">Sec/Rep for Strength</div></div>
+      </div>
+
+      <div class="mtv-card purple">
+        <div class="mtv-tag">Standard Recommendation</div>
+        <h3>6-Second Repetition (Schoenfeld, 2010)</h3>
+        <p>The commonly recommended movement speed of <strong>6 seconds per repetition</strong> is consistent with the repetition speed long recommended for weightstack/selectorized machine training. Concentric → <strong>1–3 seconds</strong>; eccentric → <strong>2–4 seconds.</strong></p>
+      </div>
+      <div class="mtv-card purple">
+        <div class="mtv-tag">Practical Application</div>
+        <h3>Fast vs. Slow vs. Controlled</h3>
+        <p>
+          <strong>Olympic lifters:</strong> Fast movement speeds (high muscle force to initiate; momentum takes over)<br><br>
+          <strong>Bodybuilders:</strong> Moderate speeds (balanced muscle force throughout ROM)<br><br>
+          <strong>Powerlifters:</strong> Slow, controlled speeds (maximize force production, full ROM)<br><br>
+          <strong>Controlled (4–8 sec):</strong> Equally effective for strength development (Westcott, 2016)
+        </p>
+      </div>
+      <div class="mtv-highlight mtv-hl-gold">
+        ⚠️ <strong>DOMS Warning for New Exercisers:</strong> The <strong>eccentric phase</strong> is primarily responsible for triggering DOMS. Personal trainers should consider limiting the duration of the eccentric contraction with new clients to avoid a negative early experience.
+      </div>
+      <div class="mtv-card purple">
+        <div class="mtv-tag">Evidence</div>
+        <h3>Research has NOT identified one optimal tempo</h3>
+        <p>Controlled movement speeds require relatively <strong>even application of muscle force</strong> throughout the entire movement range. Fast movement speeds require high force to <em>initiate</em> the lift, with momentum becoming responsible for the remainder — reducing muscle stimulus in the latter portion of the ROM.</p>
+      </div>
+      <div class="mtv-exam-tip">
+        <strong>🎯 Exam Tip</strong>
+        <p>Standard tempo = <strong>6 seconds per rep</strong>. Concentric = <strong>1–3 sec</strong>. Eccentric = <strong>2–4 sec</strong>. Eccentric phase = DOMS trigger — caution with new clients. No single tempo proven optimal; six-second reps are an excellent <strong>introductory speed for new exercisers</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 6. REST INTERVALS -->
+    <section class="mtv-section" id="rest">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon mtv-ic-teal">💤</div>
+        <div class="mtv-sec-title-wrap">
+          <h2 style="color:var(--mtv-teal)">Rest Intervals</h2>
+          <p>Recovery between sets — energy system replenishment</p>
+        </div>
+      </div>
+
+      <div class="mtv-card teal">
+        <div class="mtv-tag">Definition</div>
+        <h3>What Are Rest Intervals?</h3>
+        <p>Recovery periods between successive exercises or between successive sets of the same exercise. Length depends on: <strong>training goal, conditioning status, load, and amount of work performed.</strong> The heavier the load → the longer the rest needed to replenish the muscle's energy pathways.</p>
+      </div>
+
+      <div class="mtv-subhead" style="color:var(--mtv-teal)">Phosphocreatine (PC) Replenishment Timeline</div>
+      <div class="mtv-stat-row">
+        <div class="mtv-stat-box"><div class="mtv-stat-num" style="color:var(--mtv-teal)">50%</div><div class="mtv-stat-label">Within 30 Seconds</div></div>
+        <div class="mtv-stat-box"><div class="mtv-stat-num" style="color:var(--mtv-gold)">75%</div><div class="mtv-stat-label">Within 1 Minute</div></div>
+        <div class="mtv-stat-box"><div class="mtv-stat-num" style="color:var(--mtv-orange)">95%</div><div class="mtv-stat-label">Within 2 Minutes</div></div>
+      </div>
+
+      <div class="mtv-card teal">
+        <div class="mtv-tag">General Conditioning</div>
+        <h3>1-Minute Rest — Most Practical</h3>
+        <p>For most practical purposes and general muscular conditioning, <strong>one-minute rest intervals between successive exercise sets are sufficient.</strong></p>
+      </div>
+
+      <div class="mtv-subhead" style="color:var(--mtv-teal)">Rest Intervals by Training Goal (Table 9-12)</div>
+      <div class="mtv-tbl-wrap">
+        <table>
+          <thead><tr><th>Population / Goal</th><th>Rest Interval</th><th>Rationale</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Muscular Endurance</strong></td><td class="td-green">≤30 seconds</td><td>Short rest keeps metabolic stress high, trains fatigue resistance</td></tr>
+            <tr><td><strong>Hypertrophy</strong></td><td class="td-gold">30–90 seconds</td><td>Moderate rest maintains metabolic stress + blood congestion in muscle</td></tr>
+            <tr><td><strong>Muscular Strength</strong></td><td class="td-orange">2–5 minutes</td><td>Allows near-complete PC replenishment for next heavy set</td></tr>
+            <tr><td><strong>Power</strong></td><td class="td-purple">2–5 minutes</td><td>Full energy recovery essential for max power expression</td></tr>
+            <tr><td><strong>General Fitness / Beginners</strong></td><td class="td-blue">2–3 minutes</td><td>Enough recovery to maintain technique, avoid excessive fatigue</td></tr>
+            <tr><td><strong>Bodybuilders</strong></td><td class="td-teal">30–90 sec</td><td>Short rest → blood congestion ("pump") in prime movers</td></tr>
+            <tr><td><strong>Powerlifters / Olympic Lifters</strong></td><td class="td-orange">Several minutes</td><td>Complete recovery needed for maximum force production throughout session</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mtv-card teal">
+        <div class="mtv-tag">Circuit Training</div>
+        <h3>Shorter Rest → Greater Cardiovascular Effect</h3>
+        <p>When performing a muscular-training circuit where each exercise addresses a <strong>different muscle group</strong>, shorter rest intervals increase cardiovascular and metabolic responses — increasingly popular for <strong>individuals seeking to lose or manage weight.</strong></p>
+      </div>
+      <div class="mtv-exam-tip">
+        <strong>🎯 Exam Tip</strong>
+        <p>PC replenishment: <strong>50% at 30 sec / 75% at 1 min / 95% at 2 min.</strong> For strength/power you need 2–5 min rest. For hypertrophy 30–90 sec. For endurance ≤30 sec. New clients: rest long enough to maintain comfort levels but not so long that heart rate returns to fully resting.</p>
+      </div>
+    </section>
+
+    <!-- 7. SESSION STRUCTURE -->
+    <section class="mtv-section" id="session">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon mtv-ic-red">🗂️</div>
+        <div class="mtv-sec-title-wrap">
+          <h2 style="color:var(--mtv-red)">Session Structure</h2>
+          <p>Warm-up → Conditioning → Cool-down</p>
+        </div>
+      </div>
+
+      <div class="mtv-card red">
+        <div class="mtv-tag">Golden Rule</div>
+        <h3>Every Session: 3-Part Structure</h3>
+        <p>Regardless of the client's goal, each exercise session should <strong>progress from a warm-up → conditioning portion → cool-down.</strong> This structure is non-negotiable for safe, effective training.</p>
+      </div>
+
+      <div class="mtv-subhead" style="color:var(--mtv-gold)">① Warm-Up</div>
+      <div class="mtv-card gold">
+        <h3>Purpose &amp; Duration</h3>
+        <p>A period of <strong>lighter exercise preceding the conditioning portion</strong>. Should last <strong>5–10 minutes</strong> for most healthy adults. Begin with light activity that <em>gradually increases in intensity</em> and takes into account all planes of motion and the exercises planned for the session.</p>
+      </div>
+      <div class="mtv-highlight mtv-hl-gold">
+        ✅ <strong>Benefits of a proper warm-up:</strong>
+        <ul style="margin-top:8px;padding-left:20px;color:var(--mtv-light)">
+          <li>Proprioceptors activated → improved balance and coordination</li>
+          <li>Muscles receive increased blood flow (O₂ + nutrients)</li>
+          <li>Connective tissues benefit from enhanced elasticity</li>
+          <li>Mental preparation and movement pattern rehearsal</li>
+        </ul>
+      </div>
+      <div class="mtv-card gold">
+        <h3>Stretching in the Warm-Up</h3>
+        <p>Dynamic and static flexibility exercises can be included. <strong>If the goal is to inhibit an overactive muscle or address postural issues → static stretching may be employed</strong> (after a brief bout of light activity).</p>
+      </div>
+
+      <div class="mtv-subhead" style="color:var(--mtv-orange)">② Conditioning</div>
+      <div class="mtv-card orange">
+        <h3>Planning the Conditioning Portion</h3>
+        <p>Must be appropriate for the client's <strong>current fitness level</strong> and consistent with training goals. <strong>High-intensity activities should be planned early</strong> in the conditioning portion when the client is least likely to be affected by fatigue.</p>
+      </div>
+      <div class="mtv-card orange">
+        <h3>Areas of Focus in Muscular Training</h3>
+        <p>A variety of focus areas can comprise training activities: <strong>endurance, strength, power, speed, agility, and/or quickness.</strong> Clients have unique goals — program design must reflect this individuality.</p>
+      </div>
+
+      <div class="mtv-subhead" style="color:var(--mtv-teal)">③ Cool-Down</div>
+      <div class="mtv-card teal">
+        <h3>Purpose &amp; Duration</h3>
+        <p>Focus on <strong>stress reduction, returning the heart rate to resting levels, and initiating relaxation and the recovery process.</strong> Should be approximately <strong>the same duration and intensity as the warm-up</strong> — approximately 5–10 minutes of light activity.</p>
+      </div>
+      <div class="mtv-highlight mtv-hl-green">
+        ✅ <strong>Including static stretching at the conclusion of a Muscular Training session (cool-down period) may inhibit overactive muscles and improve flexibility.</strong>
+      </div>
+      <div class="mtv-card teal">
+        <div class="mtv-tag">Critical Point</div>
+        <h3>Why Static Stretching Goes in the Cool-Down, NOT the Warm-Up</h3>
+        <p><strong>Prolonged static stretching</strong> is typically performed at the END of a workout because it may result in <em>neural inhibition and decreased strength</em> — which would be <strong>counterproductive if used earlier</strong> in a session where strength and power are the intended outcomes.</p>
+      </div>
+      <div class="mtv-exam-tip">
+        <strong>🎯 Exam Tip</strong>
+        <p>Warm-up = 5–10 min, light-to-moderate intensity. Static stretching in cool-down ✓; prolonged static stretching in warm-up ✗ (decreases strength/power). Cool-down = same duration/intensity as warm-up. High-intensity conditioning activities should come <strong>EARLY</strong> in the conditioning portion.</p>
+      </div>
+    </section>
+
+    <!-- QUICK REFERENCE SUMMARY -->
+    <section class="mtv-section" style="margin-bottom:20px">
+      <div class="mtv-section-header">
+        <div class="mtv-sec-icon" style="background:rgba(255,255,255,0.05)">📋</div>
+        <div class="mtv-sec-title-wrap">
+          <h2>Quick Reference Summary</h2>
+          <p>All 6 variables at a glance</p>
+        </div>
+      </div>
+      <div class="mtv-tbl-wrap">
+        <table>
+          <thead><tr><th>Variable</th><th>Key Rule</th><th>Exam Number</th></tr></thead>
+          <tbody>
+            <tr><td><strong style="color:var(--mtv-gold)">Frequency</strong></td><td>Beginners: 2–3x/week | Advanced: no same muscle &gt;every 3rd day</td><td class="td-gold">72 hrs, +3.1 lbs muscle in 10 wks</td></tr>
+            <tr><td><strong style="color:var(--mtv-orange)">Selection</strong></td><td>Primary (multijoint) first; Accessory (single-joint) after</td><td class="td-orange">Push before pull, large before small</td></tr>
+            <tr><td><strong style="color:var(--mtv-blue)">Volume</strong></td><td>Weight × Sets × Reps; periodize over time</td><td class="td-blue">Hypertrophy: 6–12 reps, 3–6 sets</td></tr>
+            <tr><td><strong style="color:var(--mtv-green)">Intensity</strong></td><td>% of 1-RM; inversely related to volume</td><td class="td-green">Strength ≥85% | Hypertrophy 67–85%</td></tr>
+            <tr><td><strong style="color:var(--mtv-purple)">Tempo</strong></td><td>6 sec/rep standard; concentric 1–3 sec, eccentric 2–4 sec</td><td class="td-purple">Eccentric = DOMS trigger</td></tr>
+            <tr><td><strong style="color:var(--mtv-teal)">Rest</strong></td><td>Longer rest for heavier loads; PC: 50/75/95% at 30s/1min/2min</td><td class="td-teal">Endurance ≤30s | Strength 2–5 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div><!-- /mtv-main -->
+
+  <div class="mtv-footer">
+    ACE CPT Study Guide · Chapter 9 · Muscular Training: Foundations and Benefits<br>
+    Sources: ACE Exercise Professional's Guide to Personal Training | ACSM Guidelines 2018
+  </div>
+
+</div><!-- /mtv-guide -->
+
+</Layout>
