@@ -3,9 +3,6 @@ title: "Types of Inflammation and What to Do About It"
 description: "Not all inflammation is the enemy. Here are the 8 types, how each one works, and exactly what to do about the ones that are silently damaging you."
 category: "Nutrition"
 pubDate: 2026-06-15
-image: "/blog/inflammation-types-cascade.png"
-imageAlt: "Diagram showing the 5-step inflammation cascade from tissue damage signal to resolution or chronic damage"
-heroImage: "/blog/inflammation-types-cascade.png"
 ---
 
 *By Manu Sehgal — Coach, Lifelong Athletics*
@@ -30,10 +27,6 @@ The five-step sequence looks like this: threat detected → cytokines released �
 
 The last step is the critical variable. In a healthy acute response, resolution happens. The cytokine signal winds down, the tissue clears, repair completes, and the immune system returns to baseline. In a chronic response, the signal never winds down. The immune system stays activated, cytokines keep flowing, and the tissue suffers continuous low-grade damage — sometimes for years — without the dramatic symptoms that would prompt most people to seek help.
 
-<img src="/blog/inflammation-types-cascade.png" alt="5-step inflammation cascade diagram showing threat → signal → immune response → peak → resolution or chronic loop" style="max-width:720px; width:100%; display:block; margin:24px auto; border-radius:8px;" />
-
-*The inflammation cascade — five steps that either resolve cleanly or lock into a chronic loop. The distinction between the two is not inevitable. It is determined by the type of trigger, the state of the gut barrier, diet, sleep, and stress load.*
-
 ## The Two Categories: Acute vs Chronic
 
 Every type of inflammation falls into one of two categories, and that categorisation determines almost everything about how you should respond to it.
@@ -45,10 +38,6 @@ Every type of inflammation falls into one of two categories, and that categorisa
 The fundamental question to ask about any inflammation you are experiencing is: *does it resolve?* Acute responses resolve within a predictable window. Chronic ones don't — or they recur so reliably that they are effectively continuous.
 
 ## The 8 Types
-
-<img src="/blog/inflammation-types-overview.png" alt="8 types of inflammation shown as colour-coded panels: trauma (green), metabolic (orange), leaky gut (red), autoimmune (purple), allergic (cyan), infectious (coral), neuroinflammation (amber), intestinal (teal)" style="max-width:760px; width:100%; display:block; margin:24px auto; border-radius:8px;" />
-
-*Eight distinct inflammation types, colour-coded by category. Green and cyan are acute and resolve on their own. The rest are chronic and require active intervention to address.*
 
 ### 1. Trauma Inflammation — Acute (Good)
 
@@ -83,10 +72,6 @@ The fundamental question to ask about any inflammation you are experiencing is: 
 Leaky gut is particularly significant because it is upstream of several other inflammation types. Neuroinflammation, autoimmune conditions, and intestinal inflammation can all be initiated or worsened by an impaired gut barrier.
 
 **Timeline to resolve:** 4–8 weeks with trigger removal and active repair.
-
-<img src="/blog/inflammation-types-leaky-gut.png" alt="Diagram of a cross-section of the gut wall showing tight junctions intact on the left versus open tight junctions and LPS crossing into the bloodstream on the right" style="max-width:680px; width:100%; display:block; margin:24px auto; border-radius:8px;" />
-
-*The leaky gut mechanism — the same molecule (LPS) that causes gut inflammation can cross into the bloodstream and trigger systemic inflammation, including neuroinflammation. Fixing the gut barrier is foundational to resolving multiple downstream conditions.*
 
 ### 4. Autoimmune Inflammation — Chronic (Severe)
 
@@ -148,10 +133,6 @@ The shared root causes of the chronic types are remarkably consistent:
 - **Lifestyle:** chronic sleep deprivation, psychological stress, and physical inactivity — each of which independently elevates systemic cytokine levels.
 - **Gut:** anything that compromises the gut barrier (NSAIDs, dysbiosis, gluten in sensitive individuals, stress-elevated cortisol).
 
-<img src="/blog/inflammation-types-foods.png" alt="Split illustration comparing pro-inflammatory foods (refined carbs, processed meats, seed oils) on the left versus anti-inflammatory foods (oily fish, berries, leafy greens, olive oil, turmeric) on the right" style="max-width:720px; width:100%; display:block; margin:24px auto; border-radius:8px;" />
-
-*Pro-inflammatory vs anti-inflammatory diet — the dietary shift needed to address chronic inflammation is not a list of superfoods. It is a wholesale replacement of refined, processed food with whole food sources that supply fibre, polyphenols, and omega-3 fatty acids.*
-
 ## The Universal Protocol
 
 Every type of chronic inflammation responds to the same foundational set of interventions, in this sequence:
@@ -165,10 +146,6 @@ Every type of chronic inflammation responds to the same foundational set of inte
 **4. Repair the gut barrier.** L-glutamine (5–10g daily), zinc (15–30mg), bone broth, fermented foods, and a quality probiotic. These provide the amino acid building blocks and micronutrients the intestinal lining needs to rebuild tight junction integrity.
 
 **5. Support resolution through lifestyle.** Sleep of 7–9 hours (8+ for neuroinflammation recovery) is non-negotiable — most cytokine clearance happens during deep sleep. Regular exercise (both aerobic and resistance) independently increases IL-10, the body's primary anti-inflammatory cytokine. Stress management — through whatever reliable practice works for you — prevents cortisol from continuously triggering zonulin release.
-
-<img src="/blog/inflammation-types-protocol.png" alt="5-step protocol diagram: Identify → Remove Trigger → Shift Diet → Repair Barrier → Lifestyle Support, shown as a clean flowchart with timeline indicators" style="max-width:680px; width:100%; display:block; margin:24px auto; border-radius:8px;" />
-
-*The 5-step resolution protocol. The sequence matters: removing the trigger before adding supplements gives the supplements something to work with. Repairing the gut before addressing neuroinflammation addresses the most common upstream source.*
 
 ## A Note on Supplements
 
