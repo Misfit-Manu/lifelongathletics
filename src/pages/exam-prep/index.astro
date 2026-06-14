@@ -5,6 +5,19 @@ import { getCollection } from 'astro:content';
 // Fetch all the raw markdown exams the user creates
 const allExams = await getCollection('exam');
 
+// Static cards for standalone visual guide pages (not in the exam collection)
+const staticCards: Record<string, { title: string; description: string; href: string; duration: string; exams: string }[]> = {
+  anatomy: [
+    {
+      title: 'Muscle Structure — Visual Guide',
+      description: 'From whole muscle to molecular motor. Sarcomere anatomy, cross-bridge cycle, fiber types, GTO & spindle — all animated.',
+      href: '/exam-prep/muscle-structure',
+      duration: '15 min study',
+      exams: 'ACE · NASM · CSCS',
+    },
+  ],
+};
+
 // Organize the categories
 const topics = [
   { id: 'anatomy', title: 'Anatomy <em>&</em> Physiology', desc: 'Foundation of everything' },
@@ -79,6 +92,24 @@ const topics = [
           </div>
           <div class="cards-grid">
             
+            {/* Static visual guide cards */}
+            {(staticCards[topicGroup.id] ?? []).map(card => (
+              <a href={card.href} class="article-card" data-topic={topicGroup.id}>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag tag-topic" style="text-transform: capitalize;">{topicGroup.id}</span>
+                    <span class="tag tag-exam">{card.exams}</span>
+                  </div>
+                  <h3 class="card-title">{card.title}</h3>
+                  <p class="card-desc">{card.description}</p>
+                  <div class="card-footer">
+                    <span class="card-read">{card.duration}</span>
+                    <span class="card-arrow">→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+
             {/* The Dynamically rendered content */}
             {activeExams.map(post => (
               <a href={`/exam-prep/${post.id}`} class="article-card" data-topic={topicGroup.id}>
