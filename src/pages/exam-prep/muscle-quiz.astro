@@ -1,0 +1,1369 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Muscle Physiology Quiz | Lifelong Athletics"
+  description="43-question muscle physiology quiz — 25 MCQ, 10 True/False, 8 open-ended. Covers sarcomere, actin/myosin, muscle spindle, GTO, fiber types, and contraction mechanics."
+>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+
+.mq-guide * { margin:0; padding:0; box-sizing:border-box; }
+
+.mq-guide {
+  --mq-bg: #F5F0E8;
+  --mq-ink: #1A1410;
+  --mq-accent: #C8391A;
+  --mq-accent2: #1A6BC8;
+  --mq-gold: #C8960A;
+  --mq-green: #1A8A4A;
+  --mq-card: #FDFAF4;
+  --mq-border: #D8D0C0;
+  --mq-muted: #8A8070;
+  --mq-correct: #1A8A4A;
+  --mq-wrong: #C8391A;
+}
+
+.mq-guide {
+  background: var(--mq-bg);
+  color: var(--mq-ink);
+  font-family: 'Lora', serif;
+  min-height: 100vh;
+  cursor: default;
+}
+
+/* NOISE TEXTURE OVERLAY */
+.mq-guide::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+  opacity:0.6;
+}
+
+.mq-page { position:relative; z-index:1; }
+
+/* ─── COVER ─── */
+#cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.mq-cover-rule {
+  width: 120px;
+  height: 3px;
+  background: var(--mq-accent);
+  margin: 0 auto 32px;
+}
+
+.mq-cover-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--mq-muted);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+#cover h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(52px, 12vw, 110px);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -3px;
+  margin-bottom: 24px;
+  color: var(--mq-ink);
+}
+
+#cover h1 span { color: var(--mq-accent); }
+
+.mq-cover-sub {
+  font-size: 18px;
+  color: var(--mq-muted);
+  font-style: italic;
+  margin-bottom: 48px;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.mq-cover-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.mq-cstat {
+  text-align: center;
+}
+
+.mq-cstat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--mq-accent);
+  line-height: 1;
+}
+
+.mq-cstat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--mq-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.mq-start-btn {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: var(--mq-accent);
+  color: white;
+  border: none;
+  padding: 18px 56px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  box-shadow: 4px 4px 0 rgba(200,57,26,0.3);
+}
+
+.mq-start-btn:hover {
+  transform: translate(-2px,-2px);
+  box-shadow: 6px 6px 0 rgba(200,57,26,0.3);
+}
+
+.mq-start-btn:active {
+  transform: translate(2px,2px);
+  box-shadow: 2px 2px 0 rgba(200,57,26,0.3);
+}
+
+.mq-cover-topics {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.mq-topic-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border: 1px solid var(--mq-border);
+  border-radius: 100px;
+  color: var(--mq-muted);
+}
+
+/* ─── QUIZ LAYOUT ─── */
+#quiz { display: none; padding: 0 0 80px; }
+
+.mq-quiz-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245,240,232,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--mq-border);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mq-qh-left {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--mq-muted);
+  letter-spacing: 1px;
+}
+
+.mq-qh-left span { color: var(--mq-accent); font-weight: 700; font-size: 14px; }
+
+.mq-progress-wrap {
+  flex: 1;
+  max-width: 300px;
+  height: 6px;
+  background: var(--mq-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mq-progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--mq-accent), var(--mq-gold));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.mq-score-display {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mq-accent);
+}
+
+/* ─── SECTION HEADERS ─── */
+.mq-section-header {
+  padding: 60px 24px 32px;
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.mq-sh-number {
+  font-family: 'Syne', sans-serif;
+  font-size: 120px;
+  font-weight: 800;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  letter-spacing: -6px;
+}
+
+.mq-sh-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--mq-accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.mq-sh-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.mq-sh-desc {
+  font-size: 14px;
+  color: var(--mq-muted);
+  font-style: italic;
+}
+
+/* ─── QUESTION CARDS ─── */
+.mq-q-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mq-q-card {
+  background: var(--mq-card);
+  border: 1px solid var(--mq-border);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 0 var(--mq-border);
+  transition: all 0.3s ease;
+  animation: mq-slideIn 0.4s ease both;
+}
+
+@keyframes mq-slideIn {
+  from { opacity:0; transform:translateY(16px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.mq-q-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--mq-muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mq-q-category {
+  background: var(--mq-border);
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.mq-q-text {
+  font-size: 17px;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+.mq-q-text strong { color: var(--mq-accent); font-style: italic; }
+
+/* MCQ OPTIONS */
+.mq-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mq-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--mq-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 15px;
+  line-height: 1.4;
+  background: white;
+}
+
+.mq-option:hover:not(.mq-locked) {
+  border-color: var(--mq-accent2);
+  background: rgba(26,107,200,0.04);
+  transform: translateX(4px);
+}
+
+.mq-option.mq-selected:not(.mq-locked) {
+  border-color: var(--mq-accent2);
+  background: rgba(26,107,200,0.08);
+}
+
+.mq-option.mq-correct {
+  border-color: var(--mq-correct);
+  background: rgba(26,138,74,0.08);
+  color: var(--mq-correct);
+  font-weight: 600;
+}
+
+.mq-option.mq-wrong {
+  border-color: var(--mq-wrong);
+  background: rgba(200,57,26,0.06);
+  color: var(--mq-wrong);
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.mq-option.mq-show-correct {
+  border-color: var(--mq-correct);
+  background: rgba(26,138,74,0.08);
+  color: var(--mq-correct);
+  font-weight: 600;
+}
+
+.mq-opt-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--mq-muted);
+  transition: all 0.2s;
+}
+
+.mq-option.mq-correct .mq-opt-letter { border-color: var(--mq-correct); color: var(--mq-correct); }
+.mq-option.mq-wrong .mq-opt-letter { border-color: var(--mq-wrong); color: var(--mq-wrong); }
+.mq-option.mq-show-correct .mq-opt-letter { border-color: var(--mq-correct); color: var(--mq-correct); }
+
+.mq-opt-icon {
+  margin-left: auto;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* FEEDBACK */
+.mq-feedback {
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  display: none;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.3px;
+}
+
+.mq-feedback.mq-correct-fb {
+  background: rgba(26,138,74,0.08);
+  border-left: 3px solid var(--mq-correct);
+  color: #0F5A30;
+  display: block;
+}
+
+.mq-feedback.mq-wrong-fb {
+  background: rgba(200,57,26,0.06);
+  border-left: 3px solid var(--mq-wrong);
+  color: #8A1A00;
+  display: block;
+}
+
+/* TRUE/FALSE */
+.mq-tf-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mq-tf-btn {
+  padding: 20px;
+  border: 1.5px solid var(--mq-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: white;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.mq-tf-btn:hover:not(.mq-locked) { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+.mq-tf-btn.mq-true-btn:hover:not(.mq-locked) { border-color: var(--mq-correct); color: var(--mq-correct); }
+.mq-tf-btn.mq-false-btn:hover:not(.mq-locked) { border-color: var(--mq-wrong); color: var(--mq-wrong); }
+.mq-tf-btn.mq-correct { border-color: var(--mq-correct); background: rgba(26,138,74,0.08); color: var(--mq-correct); }
+.mq-tf-btn.mq-wrong { border-color: var(--mq-wrong); background: rgba(200,57,26,0.06); color: var(--mq-wrong); }
+.mq-tf-btn.mq-show-correct { border-color: var(--mq-correct); background: rgba(26,138,74,0.08); color: var(--mq-correct); }
+
+/* OPEN ENDED */
+.mq-open-area {
+  width: 100%;
+  min-height: 120px;
+  border: 1.5px solid var(--mq-border);
+  border-radius: 6px;
+  padding: 16px;
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  line-height: 1.6;
+  background: white;
+  resize: vertical;
+  transition: all 0.2s;
+  color: var(--mq-ink);
+}
+
+.mq-open-area:focus {
+  outline: none;
+  border-color: var(--mq-accent2);
+  box-shadow: 0 0 0 3px rgba(26,107,200,0.1);
+}
+
+.mq-open-area.mq-submitted {
+  background: rgba(245,240,232,0.5);
+  border-color: var(--mq-border);
+}
+
+.mq-reveal-btn {
+  margin-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: none;
+  border: 1.5px solid var(--mq-ink);
+  color: var(--mq-ink);
+  padding: 10px 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mq-reveal-btn:hover { background: var(--mq-ink); color: var(--mq-bg); }
+.mq-reveal-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.mq-model-answer {
+  margin-top: 14px;
+  padding: 16px 20px;
+  background: rgba(200,150,10,0.06);
+  border-left: 3px solid var(--mq-gold);
+  border-radius: 0 6px 6px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #5A4A00;
+  display: none;
+}
+
+.mq-model-answer.mq-shown { display: block; }
+
+.mq-model-answer strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mq-gold);
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* SUBMIT SECTION */
+.mq-submit-section {
+  max-width: 760px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.mq-submit-btn {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: var(--mq-ink);
+  color: var(--mq-bg);
+  border: none;
+  padding: 20px 60px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+}
+
+.mq-submit-btn:hover {
+  transform: translate(-2px,-2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+}
+
+/* ─── RESULTS ─── */
+#results { display: none; padding: 60px 24px 80px; }
+
+.mq-results-inner { max-width: 760px; margin: 0 auto; }
+
+.mq-results-hero {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 60px 40px;
+  background: var(--mq-card);
+  border: 1px solid var(--mq-border);
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 var(--mq-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.mq-results-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--mq-accent), var(--mq-gold), var(--mq-green));
+}
+
+.mq-results-grade {
+  font-family: 'Syne', sans-serif;
+  font-size: 120px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.mq-results-score-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--mq-muted);
+  margin-bottom: 20px;
+}
+
+.mq-results-message {
+  font-size: 20px;
+  font-style: italic;
+  color: var(--mq-muted);
+  margin-bottom: 32px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mq-results-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.mq-rb-card {
+  padding: 24px;
+  border: 1px solid var(--mq-border);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.mq-rb-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.mq-rb-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--mq-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.mq-retry-btn {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: var(--mq-accent);
+  color: white;
+  border: none;
+  padding: 18px 48px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  box-shadow: 4px 4px 0 rgba(200,57,26,0.3);
+}
+
+.mq-retry-btn:hover {
+  transform: translate(-2px,-2px);
+  box-shadow: 6px 6px 0 rgba(200,57,26,0.3);
+}
+
+.mq-review-section { margin-top: 48px; }
+
+.mq-review-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--mq-border);
+}
+
+.mq-review-item {
+  padding: 20px 24px;
+  border: 1px solid var(--mq-border);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.mq-review-item.mq-r-correct { border-left: 3px solid var(--mq-correct); }
+.mq-review-item.mq-r-wrong { border-left: 3px solid var(--mq-wrong); }
+
+.mq-review-q {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--mq-ink);
+}
+
+.mq-review-your {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--mq-muted);
+}
+
+.mq-review-your.mq-rv-wrong { color: var(--mq-wrong); }
+.mq-review-your.mq-rv-correct { color: var(--mq-correct); }
+
+.mq-divider {
+  max-width: 760px;
+  margin: 8px auto 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--mq-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.mq-divider::before, .mq-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--mq-border);
+}
+
+@media(max-width:600px){
+  .mq-tf-options { grid-template-columns: 1fr; }
+  .mq-results-breakdown { grid-template-columns: 1fr; }
+  .mq-cover-stats { gap: 24px; }
+  #cover h1 { letter-spacing: -1px; }
+}
+
+  .mq-guide { min-height: 100vh; }
+</style>
+
+<div class="mq-guide">
+<div class="mq-page">
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div id="mq-cover">
+  <div class="mq-cover-rule"></div>
+  <div class="mq-cover-tag">Exercise Science · Muscle Physiology</div>
+  <h1>MUSCLE<br><span>QUIZ</span></h1>
+  <p class="mq-cover-sub">Test your knowledge of muscle cells, fibers, actin, myosin, and the body's proprioceptors.</p>
+
+  <div class="mq-cover-topics">
+    <span class="mq-topic-tag">💪 Muscle Cell</span>
+    <span class="mq-topic-tag">🧵 Muscle Fibre</span>
+    <span class="mq-topic-tag">🧬 Actin</span>
+    <span class="mq-topic-tag">⚙️ Myosin</span>
+    <span class="mq-topic-tag">🚨 Muscle Spindle</span>
+    <span class="mq-topic-tag">🛑 GTO</span>
+    <span class="mq-topic-tag">⚡ Sarcomere</span>
+  </div>
+
+  <div class="mq-cover-stats">
+    <div class="mq-cstat"><div class="mq-cstat-num">25</div><div class="mq-cstat-label">MCQ Questions</div></div>
+    <div class="mq-cstat"><div class="mq-cstat-num">10</div><div class="mq-cstat-label">True / False</div></div>
+    <div class="mq-cstat"><div class="mq-cstat-num">8</div><div class="mq-cstat-label">Open Ended</div></div>
+    <div class="mq-cstat"><div class="mq-cstat-num">43</div><div class="mq-cstat-label">Total Questions</div></div>
+  </div>
+
+  <button class="mq-start-btn" onclick="startQuiz()">BEGIN QUIZ →</button>
+</div>
+
+<!-- ═══════════════ QUIZ ═══════════════ -->
+<div id="mq-quiz">
+
+  <div class="mq-quiz-header">
+    <div class="mq-qh-left">Q <span id="mq-q-current">1</span> / 43</div>
+    <div class="mq-progress-wrap"><div class="mq-progress-bar" id="mq-progress-bar"></div></div>
+    <div class="mq-score-display">Score: <span id="mq-live-score">0</span></div>
+  </div>
+
+  <!-- SECTION 1: MCQ -->
+  <div class="mq-section-header">
+    <div class="mq-sh-number">01</div>
+    <div class="mq-sh-tag">Section One</div>
+    <div class="mq-sh-title">Multiple Choice</div>
+    <div class="mq-sh-desc">25 questions — select the single best answer</div>
+  </div>
+
+  <div class="mq-q-wrap" id="mq-mcq-section"></div>
+
+  <!-- SECTION 2: TRUE/FALSE -->
+  <div class="mq-divider">SECTION TWO</div>
+  <div class="mq-section-header">
+    <div class="mq-sh-number">02</div>
+    <div class="mq-sh-tag">Section Two</div>
+    <div class="mq-sh-title">True or False</div>
+    <div class="mq-sh-desc">10 statements — decide if each is true or false</div>
+  </div>
+
+  <div class="mq-q-wrap" id="mq-tf-section"></div>
+
+  <!-- SECTION 3: OPEN ENDED -->
+  <div class="mq-divider">SECTION THREE</div>
+  <div class="mq-section-header">
+    <div class="mq-sh-number">03</div>
+    <div class="mq-sh-tag">Section Three</div>
+    <div class="mq-sh-title">Open Ended</div>
+    <div class="mq-sh-desc">8 questions — write your answer, then reveal the model answer to self-assess</div>
+  </div>
+
+  <div class="mq-q-wrap" id="mq-open-section"></div>
+
+  <div class="mq-submit-section">
+    <button class="mq-submit-btn" onclick="submitQuiz()">SUBMIT & SEE RESULTS →</button>
+  </div>
+
+</div>
+
+<!-- ═══════════════ RESULTS ═══════════════ -->
+<div id="mq-results">
+  <div class="mq-results-inner">
+    <div class="mq-results-hero">
+      <div class="mq-results-grade" id="mq-grade-letter">A</div>
+      <div class="mq-results-score-text" id="mq-score-text">-- / -- CORRECT</div>
+      <p class="mq-results-message" id="mq-result-message">--</p>
+      <div class="mq-results-breakdown">
+        <div class="mq-rb-card">
+          <div class="mq-rb-num" id="mq-mcq-score" style="color:var(--mq-accent)">--</div>
+          <div class="mq-rb-label">MCQ Correct</div>
+        </div>
+        <div class="mq-rb-card">
+          <div class="mq-rb-num" id="mq-tf-score" style="color:var(--mq-gold)">--</div>
+          <div class="mq-rb-label">T/F Correct</div>
+        </div>
+        <div class="mq-rb-card">
+          <div class="mq-rb-num" style="color:var(--mq-green)">8</div>
+          <div class="mq-rb-label">Open Answered</div>
+        </div>
+      </div>
+      <button class="mq-retry-btn" onclick="retryQuiz()">RETRY QUIZ ↺</button>
+    </div>
+
+    <div class="mq-review-section">
+      <div class="mq-review-title">📋 Answer Review</div>
+      <div id="mq-review-list"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .mq-page -->
+</div>
+
+<script>
+
+// ═══════════════ DATA ═══════════════
+
+const mcqData = [
+  {
+    q: "What is the primary function of the <strong>sarcomere</strong>?",
+    opts: ["Store calcium ions","Generate contractile force","Produce ATP","Synthesize proteins"],
+    ans: 1, cat: "Sarcomere",
+    exp: "The sarcomere is the fundamental contractile unit — it physically shortens when actin slides over myosin, generating force."
+  },
+  {
+    q: "The <strong>muscle fiber</strong> is bounded at each end by Z-discs. What is the mq-correct term for the region between two Z-discs?",
+    opts: ["Fascicle","Myofibril","Sarcomere","Endomysium"],
+    ans: 2, cat: "Muscle Fiber",
+    exp: "The sarcomere is the segment of a myofibril between two Z-discs — it is the functional unit of contraction."
+  },
+  {
+    q: "Which protein is responsible for <strong>blocking the active sites</strong> on actin in a resting muscle?",
+    opts: ["Troponin","Titin","Tropomyosin","Myosin"],
+    ans: 2, cat: "Actin",
+    exp: "Tropomyosin physically covers the active sites on actin, preventing myosin cross-bridge attachment at rest."
+  },
+  {
+    q: "What happens when calcium ions bind to <strong>troponin</strong>?",
+    opts: ["ATP is immediately hydrolyzed","Tropomyosin shifts, exposing actin active sites","The muscle relaxes","Myosin detaches from actin"],
+    ans: 1, cat: "Actin",
+    exp: "Calcium binding causes a conformational change in troponin, which physically moves tropomyosin and exposes the actin active sites."
+  },
+  {
+    q: "Which energy molecule is required for <strong>myosin to detach</strong> from actin after the power stroke?",
+    opts: ["ADP","Creatine phosphate","ATP","Calcium"],
+    ans: 2, cat: "Myosin",
+    exp: "ATP must bind to the myosin head to cause detachment. Without ATP (as in death), myosin remains permanently attached — causing rigor mortis."
+  },
+  {
+    q: "The <strong>power stroke</strong> of myosin moves actin filaments by approximately:",
+    opts: ["1-2 nanometers","5-10 nanometers","50-100 nanometers","1 micrometer"],
+    ans: 1, cat: "Myosin",
+    exp: "Each myosin power stroke displaces actin by approximately 5-10nm. Though tiny, thousands of simultaneous strokes generate significant force."
+  },
+  {
+    q: "Where is the <strong>Golgi Tendon Organ (GTO)</strong> located?",
+    opts: ["Within the muscle belly","At the neuromuscular junction","At the muscle-tendon junction","Inside the spinal cord"],
+    ans: 2, cat: "GTO",
+    exp: "The GTO is located at the muscle-tendon junction where it can sense tension produced by the muscle."
+  },
+  {
+    q: "The GTO responds to excessive muscle tension by causing the muscle to:",
+    opts: ["Contract more forcefully","Relax and inhibit further contraction","Release more calcium","Recruit additional motor units"],
+    ans: 1, cat: "GTO",
+    exp: "The GTO triggers autogenic inhibition — it inhibits the muscle to prevent tendon or muscle damage from excessive force."
+  },
+  {
+    q: "Which receptor detects the <strong>rate and magnitude of muscle stretch</strong> and triggers a reflexive contraction?",
+    opts: ["Golgi Tendon Organ","Pacinian corpuscle","Muscle Spindle","Ruffini ending"],
+    ans: 2, cat: "Muscle Spindle",
+    exp: "Muscle spindles (intrafusal fibers) detect stretch and activate via Ia afferent neurons to reflexively contract the muscle — the stretch reflex."
+  },
+  {
+    q: "The classic <strong>knee-jerk reflex</strong> is mediated by which receptor?",
+    opts: ["GTO","Muscle Spindle","Free nerve endings","Meissner's corpuscle"],
+    ans: 1, cat: "Muscle Spindle",
+    exp: "Tapping the patellar tendon stretches the quadriceps, activating muscle spindles which reflexively trigger a quad contraction — the knee-jerk response."
+  },
+  {
+    q: "A muscle cell (fiber) is unusual compared to most body cells because it:",
+    opts: ["Has no mitochondria","Contains multiple nuclei","Cannot synthesize proteins","Has no cell membrane"],
+    ans: 1, cat: "Muscle Cell",
+    exp: "Muscle fibers are multinucleated — they formed by fusion of many myoblasts. More nuclei allow greater protein synthesis capacity, supporting hypertrophy."
+  },
+  {
+    q: "The <strong>sarcoplasmic reticulum</strong> in a muscle fiber primarily serves to:",
+    opts: ["Produce ATP","Store and release calcium ions","Conduct electrical signals","Synthesize actin and myosin"],
+    ans: 1, cat: "Muscle Cell",
+    exp: "The SR is the calcium reservoir. It releases Ca²⁺ on command to trigger contraction and pumps it back in to cause relaxation."
+  },
+  {
+    q: "What is the role of <strong>T-tubules</strong> in muscle contraction?",
+    opts: ["Store glycogen","Carry action potentials deep into the fiber","Produce calcium","Connect muscle to bone"],
+    ans: 1, cat: "Muscle Cell",
+    exp: "T-tubules extend the action potential from the sarcolemma deep into the fiber, ensuring simultaneous contraction throughout the entire cell."
+  },
+  {
+    q: "Which of the following best describes the <strong>Sliding Filament Theory</strong>?",
+    opts: ["Myosin filaments shorten during contraction","Actin and myosin both shorten","Actin slides over myosin, shortening the sarcomere","Sarcomeres duplicate during contraction"],
+    ans: 2, cat: "Sarcomere",
+    exp: "The filaments themselves don't shorten — actin (thin) slides inward over stationary myosin (thick), pulling Z-discs closer and shortening the sarcomere."
+  },
+  {
+    q: "Which muscle fiber type has the <strong>highest oxidative capacity</strong> and greatest fatigue resistance?",
+    opts: ["Type IIx","Type IIa","Type IIb","Type I"],
+    ans: 3, cat: "Muscle Fiber",
+    exp: "Type I (slow-twitch) fibers are densely packed with mitochondria and myoglobin, making them highly oxidative and extremely fatigue-resistant."
+  },
+  {
+    q: "Henneman's <strong>Size Principle</strong> states that motor units are recruited:",
+    opts: ["Largest first, smallest last","Randomly depending on task","Smallest first, then larger as demand increases","Only fast-twitch first"],
+    ans: 2, cat: "Muscle Fiber",
+    exp: "Motor units are recruited from smallest (Type I) to largest (Type IIx) as force demand increases — ensuring efficiency at low intensities."
+  },
+  {
+    q: "Actin is composed of globular subunits (G-actin) that polymerize into what structure?",
+    opts: ["A single helix called H-actin","A double helix called F-actin","A triple helix called T-actin","A straight strand called S-actin"],
+    ans: 1, cat: "Actin",
+    exp: "G-actin monomers link to form F-actin (filamentous actin) — two strands twisted around each other in a double helix forming the thin filament backbone."
+  },
+  {
+    q: "Myosin molecules are described as golf-club shaped. The 'head' of myosin is also called:",
+    opts: ["The Z-disc anchor","The power unit","The cross-bridge","The M-line connector"],
+    ans: 2, cat: "Myosin",
+    exp: "The myosin head that protrudes from the thick filament and binds to actin is called the cross-bridge — named for its bridging action between filaments."
+  },
+  {
+    q: "During <strong>static stretching</strong>, the muscle initially resists then suddenly releases into a deeper stretch. This 'release' is caused by:",
+    opts: ["Muscle spindle activation","ATP depletion","GTO activation causing autogenic inhibition","Motor neuron fatigue"],
+    ans: 2, cat: "GTO",
+    exp: "After ~30 seconds, sustained tension activates the GTO, which inhibits the stretched muscle — allowing you to move deeper into the stretch."
+  },
+  {
+    q: "Plyometric exercises such as box jumps exploit which mechanism for explosive power?",
+    opts: ["GTO inhibition","Stretch-shortening cycle via muscle spindles","Isotonic contraction of Type I fibers","Anaerobic ATP resynthesis"],
+    ans: 1, cat: "Muscle Spindle",
+    exp: "Rapid eccentric stretch activates spindles → reflexive concentric contraction. The faster the stretch, the more powerful the spindle-driven rebound."
+  },
+  {
+    q: "Rigor mortis (post-mortem muscle stiffness) occurs because:",
+    opts: ["Calcium is absent so tropomyosin blocks all sites","No ATP is available so myosin cannot detach from actin","Myosin heads denature and fuse","The sarcolemma depolarizes permanently"],
+    ans: 1, cat: "Myosin",
+    exp: "Without ATP, myosin heads cannot release from actin after the power stroke, causing permanent cross-bridge attachment and rigidity."
+  },
+  {
+    q: "Which zone in the sarcomere contains <strong>only myosin filaments</strong> with no actin overlap?",
+    opts: ["I-band","A-band","H-zone","M-line"],
+    ans: 2, cat: "Sarcomere",
+    exp: "The H-zone is the central portion of the A-band that contains only thick myosin filaments — no actin reaches into this zone at rest."
+  },
+  {
+    q: "The connective tissue wrapping that surrounds individual <strong>muscle fibers</strong> is called:",
+    opts: ["Epimysium","Perimysium","Endomysium","Fascia"],
+    ans: 2, cat: "Muscle Cell",
+    exp: "Endomysium wraps each individual muscle fiber. Perimysium wraps fascicles. Epimysium wraps the whole muscle."
+  },
+  {
+    q: "PNF (Proprioceptive Neuromuscular Facilitation) stretching achieves deeper flexibility by:",
+    opts: ["Activating the spindle to contract then releasing","Contracting the muscle to fatigue the spindle, then GTO takes over to allow deeper stretch","Applying rapid ballistic bounces","Cooling the muscle first"],
+    ans: 1, cat: "GTO",
+    exp: "Contract → spindle fatigued. Then relax → GTO inhibition kicks in → deeper stretch possible. This is why PNF gives the best flexibility results."
+  },
+  {
+    q: "Which neurotransmitter is released at the <strong>neuromuscular junction</strong> to initiate muscle contraction?",
+    opts: ["Dopamine","Serotonin","Acetylcholine","Noradrenaline"],
+    ans: 2, cat: "Muscle Cell",
+    exp: "Motor neurons release Acetylcholine (ACh) at the NMJ. ACh binds to receptors on the sarcolemma, triggering an action potential in the muscle fiber."
+  },
+  {
+    q: "The <strong>I-band</strong> in a sarcomere contains:",
+    opts: ["Only myosin filaments","Only actin filaments, no myosin","Both actin and myosin","Neither actin nor myosin"],
+    ans: 1, cat: "Sarcomere",
+    exp: "The I-band is the light zone on either side of the Z-disc containing only thin actin filaments — it gets narrower as the muscle contracts."
+  }
+];
+
+const tfData = [
+  {
+    q: "The Golgi Tendon Organ (GTO) responds to stretch by causing the muscle to <strong>contract more forcefully</strong>.",
+    ans: false, cat: "GTO",
+    exp: "FALSE — The GTO responds to excessive tension by inhibiting (relaxing) the muscle via autogenic inhibition. It is the muscle spindle that triggers contraction in response to stretch."
+  },
+  {
+    q: "A muscle fiber and a muscle cell are the <strong>same thing</strong>.",
+    ans: true, cat: "Muscle Cell",
+    exp: "TRUE — A muscle fiber IS a single muscle cell. It is unusually long and multinucleated, but it is indeed one cell."
+  },
+  {
+    q: "During the power stroke, the <strong>myosin filament physically shortens</strong> to pull actin inward.",
+    ans: false, cat: "Myosin",
+    exp: "FALSE — Neither actin nor myosin shorten. It is the myosin HEAD that pivots (like a lever), pulling the actin filament inward. The filaments remain the same length."
+  },
+  {
+    q: "Muscle spindles are located in <strong>parallel</strong> to the main muscle fibers.",
+    ans: true, cat: "Muscle Spindle",
+    exp: "TRUE — Muscle spindles (intrafusal fibers) run parallel to the extrafusal fibers so they stretch alongside the muscle and can detect changes in length."
+  },
+  {
+    q: "Calcium binds to <strong>tropomyosin</strong> to initiate the contraction cascade.",
+    ans: false, cat: "Actin",
+    exp: "FALSE — Calcium binds to TROPONIN (not tropomyosin). Troponin then shifts tropomyosin out of the way to expose actin active sites."
+  },
+  {
+    q: "Type IIx muscle fibers have more mitochondria than Type I fibers.",
+    ans: false, cat: "Muscle Fiber",
+    exp: "FALSE — Type I (slow-twitch) fibers have far more mitochondria. Type IIx fibers are glycolytic and have very few mitochondria, which is why they fatigue rapidly."
+  },
+  {
+    q: "The sarcoplasmic reticulum must actively <strong>pump calcium back</strong> in to cause muscle relaxation.",
+    ans: true, cat: "Muscle Cell",
+    exp: "TRUE — Relaxation requires active transport of Ca²⁺ back into the SR via Ca²⁺-ATPase pumps. This costs ATP, which is why sustained contraction is energetically expensive."
+  },
+  {
+    q: "Without ATP, a muscle cannot <strong>contract</strong> but can still <strong>relax</strong>.",
+    ans: false, cat: "Myosin",
+    exp: "FALSE — Both contraction AND relaxation require ATP. ATP is needed to energize the myosin head (contraction) AND to detach it from actin (relaxation). No ATP = rigor mortis."
+  },
+  {
+    q: "The H-zone disappears completely when a muscle is at <strong>maximum contraction</strong>.",
+    ans: true, cat: "Sarcomere",
+    exp: "TRUE — At full contraction, actin filaments slide all the way to the center, completely overlapping where the H-zone was. The H-zone (myosin only) disappears."
+  },
+  {
+    q: "Ballistic (bouncing) stretching is safer and more effective than static stretching because it uses the muscle spindle rebound.",
+    ans: false, cat: "Muscle Spindle",
+    exp: "FALSE — Ballistic stretching triggers spindle-driven contraction DURING the stretch, fighting the stretch and risking injury. Static/PNF stretching (using GTO) is safer and more effective."
+  }
+];
+
+const openData = [
+  {
+    q: "Explain the <strong>cross-bridge cycle</strong> in your own words. Include what triggers it, what ATP does, and what happens when no ATP is available.",
+    model: "The cross-bridge cycle begins when a nerve signal causes the sarcoplasmic reticulum to release calcium. Calcium binds troponin, moving tropomyosin off actin's active sites. The energized myosin head (charged by ATP hydrolysis into ADP+Pi) attaches to actin, performs the power stroke (pivoting ~10nm, pulling actin inward), then releases ADP+Pi. A new ATP binds the head — this causes detachment. ATP is then hydrolyzed to re-energize and re-cock the head, ready for the next cycle. Without ATP: heads cannot detach from actin → permanent cross-bridges → rigor mortis.",
+    cat: "Cross-Bridge Cycle"
+  },
+  {
+    q: "Compare and contrast the <strong>muscle spindle</strong> and <strong>GTO</strong> — their location, what they detect, and their reflex response.",
+    model: "Muscle Spindle: located within the muscle belly, parallel to fibers. Detects rate and magnitude of stretch. Response: triggers reflexive CONTRACTION of the stretched muscle (via Ia afferents) — protective against overstretching. GTO: located at the muscle-tendon junction. Detects excessive tension/force. Response: triggers autogenic INHIBITION — causes the muscle to RELAX — protective against tendon rupture. Essentially: Spindle = stretch → contract. GTO = force → relax. They work in opposition and are exploited differently in training.",
+    cat: "GTO & Spindle"
+  },
+  {
+    q: "Describe the role of <strong>actin's regulatory proteins</strong> (troponin and tropomyosin) in controlling muscle contraction.",
+    model: "Tropomyosin is a long rod-like protein that winds along the actin double helix, physically blocking the myosin-binding active sites. In a resting muscle, this keeps the muscle switched OFF by default — a critical safety mechanism. Troponin is a complex of three subunits attached at regular intervals on tropomyosin. Troponin acts as the calcium-sensitive switch: when Ca²⁺ concentration rises (SR releases it), calcium binds troponin, causing a conformational change. This drags tropomyosin away, exposing the active sites. Myosin can now bind → contraction occurs.",
+    cat: "Actin"
+  },
+  {
+    q: "Explain why a muscle fiber is considered an <strong>unusual cell</strong> compared to a typical body cell. Mention at least 3 unique features.",
+    model: "1. Multinucleated: Formed by fusion of many myoblasts, so one fiber contains hundreds of nuclei — allowing enormous protein synthesis capacity needed for growth and repair. 2. Extreme shape: Extremely elongated (up to 30cm long, only 0.1mm wide) — unlike any other cell type. 3. Specialized membranes: Has T-tubules (extensions of sarcolemma that carry electrical signals deep into the cell) and sarcoplasmic reticulum (specialized ER for calcium storage). 4. Full of contractile machinery: Most of the cell's volume is occupied by myofibrils rather than typical organelles.",
+    cat: "Muscle Cell"
+  },
+  {
+    q: "A boxer throws a rapid punch. Describe which <strong>muscle fiber types</strong> are recruited, in what order, and why.",
+    model: "Henneman's Size Principle governs recruitment: Type I fibers (slow-twitch, oxidative) are always recruited first — even in fast movements, the smallest motor units activate initially. As force demand increases rapidly (high-speed punch requires significant force), Type IIa fibers (fast oxidative-glycolytic) are recruited. For a maximal punch with explosive intent, Type IIx fibers (fast glycolytic) are recruited last. They generate the greatest power in seconds but fatigue rapidly. A trained boxer can recruit more IIx units faster and more coordinately — this is neural adaptation, not just hypertrophy.",
+    cat: "Muscle Fiber"
+  },
+  {
+    q: "Why does <strong>holding a static stretch for 30+ seconds</strong> allow you to go deeper into the range of motion? Name the specific mechanism.",
+    model: "Initially, stretching activates muscle spindles → reflexive contraction (stretch reflex) resists the stretch. However, after ~20-30 seconds of sustained tension, the Golgi Tendon Organ (GTO) activates. The GTO detects the continued high tension in the tendon and sends an inhibitory signal that overrides the spindle — this is called autogenic inhibition. The muscle suddenly 'melts' and relaxes, allowing you to move deeper. This is exactly why you should hold stretches for at least 30 seconds: to allow the GTO mechanism to dominate over the spindle reflex.",
+    cat: "GTO"
+  },
+  {
+    q: "Explain the <strong>structural hierarchy</strong> of skeletal muscle from whole muscle down to sarcomere level, naming each connective tissue layer.",
+    model: "Whole Muscle: wrapped in Epimysium (dense connective tissue sheath). → Fascicles: bundles within the muscle, each wrapped in Perimysium. → Muscle Fibers (cells): individual multinucleated cells, each wrapped in Endomysium. → Myofibrils: thread-like contractile strands running the length of each fiber — no connective tissue wrap. → Sarcomeres: the repeating contractile units within each myofibril, bounded by Z-discs. Each level is enclosed within the next, and all connective tissue layers converge at the ends to form tendons.",
+    cat: "Muscle Structure"
+  },
+  {
+    q: "What is the <strong>length-tension relationship</strong> of a sarcomere and why does it matter for training?",
+    model: "The length-tension relationship describes how force production varies with sarcomere length. At optimal length: maximum actin-myosin overlap → most cross-bridges can form → maximum force. Too stretched: actin pulled too far from myosin → fewer cross-bridges possible → reduced force. Too compressed: actin filaments overlap each other and hit the M-line → mechanical interference → reduced force. For training: this is why certain joint angles are stronger than others. Squats are weakest at the bottom (sarcomeres overstretched) and strongest near lockout (optimal overlap). Understanding this informs pause squats, partial reps, and accommodating resistance (bands/chains).",
+    cat: "Sarcomere"
+  }
+];
+
+// ═══════════════ STATE ═══════════════
+let mcqAnswers = new Array(25).fill(null);
+let tfAnswers  = new Array(10).fill(null);
+let openAnswers= new Array(8).fill('');
+let score = 0;
+let answered = 0;
+let mcqScore = 0;
+let tfScore  = 0;
+
+// ═══════════════ BUILD UI ═══════════════
+function buildMCQ() {
+  const container = document.getElementById('mq-mcq-section');
+  mcqData.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'mq-q-card';
+    card.style.animationDelay = (i * 0.03) + 's';
+    card.id = `mcq-${i}`;
+
+    const opts = q.opts.map((o, j) => `
+      <div class="mq-option" id="mcq-opt-${i}-${j}" onclick="selectMCQ(${i},${j})">
+        <div class="mq-opt-letter">${['A','B','C','D'][j]}</div>
+        <span>${o}</span>
+        <span class="mq-opt-icon" id="mcq-icon-${i}-${j}"></span>
+      </div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="mq-q-number">
+        Q${i+1} &nbsp; <span class="mq-q-category">${q.cat}</span>
+      </div>
+      <div class="mq-q-text">${q.q}</div>
+      <div class="mq-options" id="opts-${i}">${opts}</div>
+      <div class="mq-feedback" id="fb-${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function buildTF() {
+  const container = document.getElementById('mq-tf-section');
+  tfData.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'mq-q-card';
+    card.id = `tf-${i}`;
+    card.style.animationDelay = (i * 0.03) + 's';
+
+    card.innerHTML = `
+      <div class="mq-q-number">
+        Q${i+26} &nbsp; <span class="mq-q-category">${q.cat}</span>
+      </div>
+      <div class="mq-q-text">${q.q}</div>
+      <div class="mq-tf-options">
+        <button class="mq-tf-btn mq-true-btn" id="tf-T-${i}" onclick="selectTF(${i}, true)">✓ TRUE</button>
+        <button class="mq-tf-btn mq-false-btn" id="tf-F-${i}" onclick="selectTF(${i}, false)">✗ FALSE</button>
+      </div>
+      <div class="mq-feedback" id="tf-fb-${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function buildOpen() {
+  const container = document.getElementById('mq-open-section');
+  openData.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'mq-q-card';
+    card.id = `open-${i}`;
+    card.style.animationDelay = (i * 0.03) + 's';
+
+    card.innerHTML = `
+      <div class="mq-q-number">
+        Q${i+36} &nbsp; <span class="mq-q-category">${q.cat}</span>
+      </div>
+      <div class="mq-q-text">${q.q}</div>
+      <textarea class="mq-open-area" id="open-area-${i}" placeholder="Write your answer here..." oninput="saveOpen(${i})"></textarea>
+      <br>
+      <button class="mq-reveal-btn" id="reveal-${i}" onclick="revealModel(${i})">REVEAL MODEL ANSWER</button>
+      <div class="mq-model-answer" id="model-${i}">
+        <strong>📖 Model Answer</strong>
+        ${q.model}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// ═══════════════ INTERACTIONS ═══════════════
+function selectMCQ(qi, opt) {
+  if (mcqAnswers[qi] !== null) return; // already answered
+  mcqAnswers[qi] = opt;
+  answered++;
+
+  const correct = mcqData[qi].ans;
+  const opts = document.querySelectorAll(`[id^="mcq-opt-${qi}-"]`);
+  opts.forEach((el, j) => {
+    el.classList.add('mq-locked');
+    if (j === correct) {
+      el.classList.add('mq-correct');
+      document.getElementById(`mcq-icon-${qi}-${j}`).textContent = '✓';
+    } else if (j === opt && opt !== correct) {
+      el.classList.add('mq-wrong');
+      document.getElementById(`mcq-icon-${qi}-${j}`).textContent = '✗';
+    }
+  });
+
+  const fb = document.getElementById(`fb-${qi}`);
+  if (opt === correct) {
+    mcqScore++;
+    score++;
+    fb.className = 'feedback correct-fb';
+    fb.textContent = '✓ Correct! ' + mcqData[qi].exp;
+  } else {
+    fb.className = 'feedback wrong-fb';
+    fb.textContent = '✗ Incorrect. ' + mcqData[qi].exp;
+  }
+
+  updateProgress();
+}
+
+function selectTF(qi, val) {
+  if (tfAnswers[qi] !== null) return;
+  tfAnswers[qi] = val;
+  answered++;
+
+  const correct = tfData[qi].ans;
+  const tBtn = document.getElementById(`tf-T-${qi}`);
+  const fBtn = document.getElementById(`tf-F-${qi}`);
+  tBtn.classList.add('mq-locked');
+  fBtn.classList.add('mq-locked');
+
+  const isCorrect = val === correct;
+
+  if (isCorrect) {
+    tfScore++;
+    score++;
+    (val ? tBtn : fBtn).classList.add('mq-correct');
+  } else {
+    (val ? tBtn : fBtn).classList.add('mq-wrong');
+    (correct ? tBtn : fBtn).classList.add('mq-show-correct');
+  }
+
+  const fb = document.getElementById(`tf-fb-${qi}`);
+  fb.className = isCorrect ? 'feedback correct-fb' : 'feedback wrong-fb';
+  fb.textContent = (isCorrect ? '✓ ' : '✗ ') + tfData[qi].exp;
+
+  updateProgress();
+}
+
+function saveOpen(i) {
+  openAnswers[i] = document.getElementById(`open-area-${i}`).value;
+}
+
+function revealModel(i) {
+  const model = document.getElementById(`model-${i}`);
+  model.classList.add('mq-shown');
+  const btn = document.getElementById(`reveal-${i}`);
+  btn.textContent = '✓ MODEL ANSWER SHOWN';
+  btn.disabled = true;
+  document.getElementById(`open-area-${i}`).classList.add('mq-submitted');
+}
+
+function updateProgress() {
+  const pct = (answered / 35) * 100;
+  document.getElementById('mq-progress-bar').style.width = Math.min(pct,100) + '%';
+  document.getElementById('mq-live-score').textContent = score;
+  document.getElementById('mq-q-current').textContent = Math.min(answered + 1, 43);
+}
+
+// ═══════════════ SUBMIT ═══════════════
+function submitQuiz() {
+  // Auto-answer any unselected
+  mcqData.forEach((q, i) => {
+    if (mcqAnswers[i] === null) {
+      const opts = document.querySelectorAll(`[id^="mcq-opt-${i}-"]`);
+      opts.forEach(el => el.classList.add('mq-locked'));
+      document.getElementById(`mcq-opt-${i}-${q.ans}`).classList.add('mq-show-correct');
+    }
+  });
+  tfData.forEach((q, i) => {
+    if (tfAnswers[i] === null) {
+      document.getElementById(`tf-T-${i}`).classList.add('mq-locked');
+      document.getElementById(`tf-F-${i}`).classList.add('mq-locked');
+      (q.ans ? document.getElementById(`tf-T-${i}`) : document.getElementById(`tf-F-${i}`)).classList.add('mq-show-correct');
+    }
+  });
+
+  showResults();
+}
+
+// ═══════════════ RESULTS ═══════════════
+function showResults() {
+  document.getElementById('mq-quiz').style.display = 'none';
+  document.getElementById('mq-results').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  const total = 35; // MCQ + TF only (open ended not scored)
+  const pct = Math.round((score / total) * 100);
+
+  let grade, msg, color;
+  if (pct >= 90) { grade='A+'; msg='Outstanding! You clearly understand muscle physiology deeply.'; color='var(--mq-green)'; }
+  else if (pct >= 80) { grade='A'; msg='Excellent work. Strong grasp of the material.'; color='var(--mq-green)'; }
+  else if (pct >= 70) { grade='B'; msg='Good performance. Review the missed questions to solidify.'; color='var(--mq-accent2)'; }
+  else if (pct >= 60) { grade='C'; msg='Decent effort. Some key concepts need reinforcing.'; color='var(--mq-gold)'; }
+  else { grade='D'; msg='Keep studying — revisit the visual guide and retry.'; color='var(--mq-accent)'; }
+
+  document.getElementById('mq-grade-letter').textContent = grade;
+  document.getElementById('mq-grade-letter').style.color = color;
+  document.getElementById('mq-score-text').textContent = `${score} / ${total} CORRECT (${pct}%)`;
+  document.getElementById('mq-result-message').textContent = msg;
+  document.getElementById('mq-mcq-score').textContent = `${mcqScore}/25`;
+  document.getElementById('mq-tf-score').textContent = `${tfScore}/10`;
+
+  // Build review
+  const reviewList = document.getElementById('mq-review-list');
+  reviewList.innerHTML = '';
+
+  mcqData.forEach((q, i) => {
+    if (mcqAnswers[i] === null) return;
+    const isRight = mcqAnswers[i] === q.ans;
+    const div = document.createElement('div');
+    div.className = `review-item ${isRight ? 'mq-r-correct' : 'mq-r-wrong'}`;
+    div.innerHTML = `
+      <div class="mq-review-q">${isRight ? '✓' : '✗'} Q${i+1}: ${q.q.replace(/<[^>]+>/g,'')}</div>
+      <div class="mq-review-your ${isRight ? 'mq-rv-correct' : 'mq-rv-wrong'}">
+        Your answer: ${q.opts[mcqAnswers[i]]}
+        ${!isRight ? ` | Correct: ${q.opts[q.ans]}` : ''}
+      </div>
+    `;
+    reviewList.appendChild(div);
+  });
+
+  tfData.forEach((q, i) => {
+    if (tfAnswers[i] === null) return;
+    const isRight = tfAnswers[i] === q.ans;
+    const div = document.createElement('div');
+    div.className = `review-item ${isRight ? 'mq-r-correct' : 'mq-r-wrong'}`;
+    div.innerHTML = `
+      <div class="mq-review-q">${isRight ? '✓' : '✗'} Q${i+26}: ${q.q.replace(/<[^>]+>/g,'')}</div>
+      <div class="mq-review-your ${isRight ? 'mq-rv-correct' : 'mq-rv-wrong'}">
+        Your answer: ${tfAnswers[i] ? 'TRUE' : 'FALSE'}
+        ${!isRight ? ` | Correct: ${q.ans ? 'TRUE' : 'FALSE'}` : ''}
+      </div>
+    `;
+    reviewList.appendChild(div);
+  });
+}
+
+// ═══════════════ NAVIGATION ═══════════════
+function startQuiz() {
+  document.getElementById('mq-cover').style.display = 'none';
+  document.getElementById('mq-quiz').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function retryQuiz() {
+  mcqAnswers = new Array(25).fill(null);
+  tfAnswers  = new Array(10).fill(null);
+  openAnswers= new Array(8).fill('');
+  score = 0; answered = 0; mcqScore = 0; tfScore = 0;
+
+  document.getElementById('mq-mcq-section').innerHTML = '';
+  document.getElementById('mq-tf-section').innerHTML = '';
+  document.getElementById('mq-open-section').innerHTML = '';
+
+  buildMCQ(); buildTF(); buildOpen();
+  updateProgress();
+
+  document.getElementById('mq-results').style.display = 'none';
+  document.getElementById('mq-quiz').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ═══════════════ INIT ═══════════════
+buildMCQ();
+buildTF();
+buildOpen();
+
+</script>
+
+</Layout>
