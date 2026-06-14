@@ -3,7 +3,7 @@ title: "5 Gym Habits That Are Quietly Wrecking Your Joints (And the Fixes That A
 description: "Most joint pain isn't bad luck — it's predictable patterns repeated thousands of times. A kinesiologist's breakdown of five common training mistakes and how to fix each one."
 category: "Training"
 pubDate: 2026-06-14
-image: "/blog/gym-joints-squat-2.jpg"
+image: "/blog/gym-joints-squat-2.png"
 imageAlt: "Side-by-side squat comparison showing two different body types — one upright, one forward-leaning — both with correct form for their anatomy"
 ---
 
@@ -34,8 +34,8 @@ The same logic applies to foot placement. A narrow, toes-forward stance works we
 Deadlifts follow the same principle. Shorter arms make the conventional pull a back-rounding challenge. If you can't reach the floor without your lower back rounding, try elevating the bar on plates, or switch to sumo.
 
 <div style="display:flex; gap:10px; margin:24px 0;">
-  <img src="/blog/gym-joints-squat-1.jpg" alt="Squat with significant forward torso lean — red dashed line shows the angle caused by long femurs" style="width:40%; border-radius:8px; object-fit:cover;" />
-  <img src="/blog/gym-joints-squat-2.jpg" alt="Side-by-side squat comparison: upright squat vs forward-lean squat, both anatomically correct" style="width:60%; border-radius:8px; object-fit:cover;" />
+  <img src="/blog/gym-joints-squat-1.png" alt="Squat with significant forward torso lean — red dashed line shows the angle caused by long femurs" style="width:40%; border-radius:8px; object-fit:cover;" />
+  <img src="/blog/gym-joints-squat-2.png" alt="Side-by-side squat comparison: upright squat vs forward-lean squat, both anatomically correct" style="width:60%; border-radius:8px; object-fit:cover;" />
 </div>
 
 Machines aren't exempt either. On leg extensions and leg curls, the machine's pivot point needs to align with *your* knee — there's usually a sticker marking it. On chest press machines, the handles should sit at nipple height. Too high and your elbows flare, loading the shoulder joint at an angle it wasn't designed for. These are thirty-second adjustments that remove thousands of reps of unnecessary stress over the course of a year.
@@ -53,9 +53,9 @@ If those muscles are weak, your shoulder has no stable platform to press or pull
 Most people sit for hours a day with shoulders pitched forward, effectively locking the traps and rhomboids in a chronically lengthened, disengaged position. Then they walk into the gym and do rows — but because those muscles are so switched off, the arms do all the work. The forearms pump up. The shoulder keeps deteriorating.
 
 <div style="display:flex; gap:10px; margin:24px 0;">
-  <img src="/blog/gym-joints-row-1.jpg" alt="Cable row with arms-only pulling — red blur shows the forearms doing all the work, back disengaged" style="width:33%; border-radius:8px; object-fit:cover;" />
-  <img src="/blog/gym-joints-row-2.jpg" alt="Cable row with red skeletal overlay showing the arm and shoulder joint position" style="width:33%; border-radius:8px; object-fit:cover;" />
-  <img src="/blog/gym-joints-row-3.jpg" alt="Cable row correct form — green arrow shows elbow driving back, red highlight on mid-back shows muscle engagement" style="width:33%; border-radius:8px; object-fit:cover;" />
+  <img src="/blog/gym-joints-row-1.png" alt="Cable row with arms-only pulling — red blur shows the forearms doing all the work, back disengaged" style="width:33%; border-radius:8px; object-fit:cover;" />
+  <img src="/blog/gym-joints-row-2.png" alt="Cable row with red skeletal overlay showing the arm and shoulder joint position" style="width:33%; border-radius:8px; object-fit:cover;" />
+  <img src="/blog/gym-joints-row-3.png" alt="Cable row correct form — green arrow shows elbow driving back, red highlight on mid-back shows muscle engagement" style="width:33%; border-radius:8px; object-fit:cover;" />
 </div>
 
 The fix is about relearning how to *actually* use your back:
@@ -82,8 +82,8 @@ This matters for every exercise where both hands are locked onto a fixed straigh
 During a barbell curl, your joints want to follow that natural angle. The bar forces both hands into a perfectly straight, fixed line — loading tendons, ligaments, and wrists through a position they were never meant to hold for thousands of repetitions. The math adds up fast: two sets twice a week is nearly 4,000 reps over a year. The strain starts at the wrist, migrates to the elbow, eventually reaches the shoulder.
 
 <div style="display:flex; gap:10px; margin:24px 0;">
-  <img src="/blog/gym-joints-carry-1.jpg" alt="3D skeleton close-up showing the humerus highlighted in red connecting at the shoulder joint" style="width:45%; border-radius:8px; object-fit:cover;" />
-  <img src="/blog/gym-joints-carry-2.jpg" alt="Full upper-body skeleton front view showing the natural outward carrying angle — forearms angle away from the body at the elbow" style="width:55%; border-radius:8px; object-fit:cover;" />
+  <img src="/blog/gym-joints-carry-1.png" alt="3D skeleton close-up showing the humerus highlighted in red connecting at the shoulder joint" style="width:45%; border-radius:8px; object-fit:cover;" />
+  <img src="/blog/gym-joints-carry-2.png" alt="Full upper-body skeleton front view showing the natural outward carrying angle — forearms angle away from the body at the elbow" style="width:55%; border-radius:8px; object-fit:cover;" />
 </div>
 
 Straight bar tricep pushdowns have the same problem. Triceps prefer to extend through an angle, not straight back. The bar forces them through a path that feels manageable at light weights and increasingly rough at heavier ones.
