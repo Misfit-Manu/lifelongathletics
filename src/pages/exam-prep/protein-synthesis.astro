@@ -1,0 +1,303 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Protein Synthesis: How Muscle Grows | Lifelong Athletics"
+  description="A visual guide to understanding how your body builds muscle from protein — amino acids, mTOR, ribosomes, and the muscle growth equation explained."
+>
+
+<style is:global>
+  .ps-guide {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    padding: 40px 20px 80px;
+    background: #f9f9f9;
+    min-height: 60vh;
+  }
+
+  .ps-guide * { box-sizing: border-box; }
+
+  .ps-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .ps-container h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: #222;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .ps-container h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #222;
+    font-weight: 600;
+  }
+
+  .ps-subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  /* JOURNEY STEPS */
+  .ps-journey {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 640px) {
+    .ps-journey { grid-template-columns: repeat(2, 1fr); }
+    .ps-journey .ps-step:last-child { grid-column: span 2; }
+  }
+  .ps-step {
+    text-align: center;
+    padding: 16px;
+    background: #f0f4f8;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  .ps-step:nth-child(1) { background: #FFE5CC; }
+  .ps-step:nth-child(2) { background: #E8F4F8; }
+  .ps-step:nth-child(3) { background: #F0E8FF; }
+  .ps-step:nth-child(4) { background: #FFF4E8; }
+  .ps-step:nth-child(5) { background: #E8F8E8; }
+  .ps-step-emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+  .ps-step-label { font-weight: 600; color: #222; }
+  .ps-step-sub { font-size: 12px; color: #666; margin-top: 4px; }
+
+  /* KEY FACTS GRID */
+  .ps-key-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 640px) { .ps-key-facts { grid-template-columns: 1fr; } }
+  .ps-fact-card {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .ps-fact-term {
+    font-weight: 600;
+    color: #0066cc;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .ps-fact-def { color: #555; }
+
+  /* TWO-COL ROW */
+  .ps-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 640px) { .ps-row { grid-template-columns: 1fr; } }
+
+  /* BOX */
+  .ps-box {
+    background: #f9f9f9;
+    padding: 20px;
+    border-left: 4px solid #0066cc;
+    border-radius: 4px;
+  }
+  .ps-box h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #0066cc;
+    font-weight: 600;
+  }
+  .ps-box ul { padding-left: 20px; }
+  .ps-box li { margin-bottom: 8px; font-size: 13px; }
+  .ps-box p { font-size: 13px; color: #555; }
+  .ps-box strong { color: #333; }
+
+  .ps-box-red { border-left-color: #d9534f; }
+  .ps-box-red h3 { color: #d9534f; }
+
+  /* COACHING BOX */
+  .ps-coaching-box {
+    background: #fff9e6;
+    border: 1px solid #ffd700;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  .ps-coaching-box h3 {
+    color: #d4a500;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .ps-coaching-box p { font-size: 13px; margin-bottom: 8px; color: #444; }
+  .ps-coaching-box strong { color: #222; }
+
+  /* FOOTER */
+  .ps-footer {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+  }
+
+  /* INLINE HELPERS */
+  .ps-equation {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  .ps-constraint-warn {
+    font-size: 13px;
+    color: #d9534f;
+    margin-top: 12px;
+  }
+</style>
+
+<div class="ps-guide">
+  <div class="ps-container">
+
+    <h1>Protein Synthesis: How Your Muscle Grows</h1>
+    <p class="ps-subtitle">A simple visual guide to understanding how your body builds muscle from protein</p>
+
+    <!-- THE JOURNEY -->
+    <div class="ps-journey">
+      <div class="ps-step">
+        <span class="ps-step-emoji">🍗</span>
+        <div class="ps-step-label">Eat protein</div>
+        <div class="ps-step-sub">Broken into amino acids</div>
+      </div>
+      <div class="ps-step">
+        <span class="ps-step-emoji">🩸</span>
+        <div class="ps-step-label">Travel in blood</div>
+        <div class="ps-step-sub">Delivered to muscle</div>
+      </div>
+      <div class="ps-step">
+        <span class="ps-step-emoji">💪</span>
+        <div class="ps-step-label">Enter muscle cell</div>
+        <div class="ps-step-sub">Inside the cell</div>
+      </div>
+      <div class="ps-step">
+        <span class="ps-step-emoji">🏭</span>
+        <div class="ps-step-label">Ribosome builds</div>
+        <div class="ps-step-sub">Snaps amino acids</div>
+      </div>
+      <div class="ps-step">
+        <span class="ps-step-emoji">🦾</span>
+        <div class="ps-step-label">Muscle grows</div>
+        <div class="ps-step-sub">Bigger, stronger</div>
+      </div>
+    </div>
+
+    <!-- KEY TERMS -->
+    <h2>5 Key Terms You Need to Know</h2>
+    <div class="ps-key-facts">
+      <div class="ps-fact-card">
+        <span class="ps-fact-term">Amino acid 🔷</span>
+        <span class="ps-fact-def">Building blocks of protein. Your body has 20 types. They snap together to make all proteins.</span>
+      </div>
+      <div class="ps-fact-card">
+        <span class="ps-fact-term">mRNA 📋</span>
+        <span class="ps-fact-def">Instruction manual copied from DNA. Tells the ribosome what order to snap amino acids.</span>
+      </div>
+      <div class="ps-fact-card">
+        <span class="ps-fact-term">tRNA 🚚</span>
+        <span class="ps-fact-def">Delivery truck. Carries amino acids to the ribosome one at a time.</span>
+      </div>
+      <div class="ps-fact-card">
+        <span class="ps-fact-term">Ribosome 🏭</span>
+        <span class="ps-fact-def">Factory machine. Reads mRNA and snaps amino acids together at 5–20 per second.</span>
+      </div>
+      <div class="ps-fact-card">
+        <span class="ps-fact-term">Protein chain ⛓️</span>
+        <span class="ps-fact-def">The finished product. Becomes muscle tissue, enzymes, hormones, and everything else.</span>
+      </div>
+      <div class="ps-fact-card">
+        <span class="ps-fact-term">mTOR 🎯</span>
+        <span class="ps-fact-def">The "growth signal." Activated by training. Tells cells to build more protein.</span>
+      </div>
+    </div>
+
+    <!-- THE EQUATION -->
+    <div class="ps-row">
+      <div class="ps-box">
+        <h3>The Muscle Growth Equation</h3>
+        <p class="ps-equation">
+          <strong>Muscle growth = Protein synthesis − Protein breakdown</strong>
+        </p>
+        <p>
+          If synthesis &gt; breakdown → Net gain → Muscle grows<br/>
+          If synthesis = breakdown → No change<br/>
+          If synthesis &lt; breakdown → Net loss → Muscle shrinks
+        </p>
+      </div>
+      <div class="ps-box">
+        <h3>The 3 Constraints on Growth</h3>
+        <ul>
+          <li><strong>Signal:</strong> Heavy training activates mTOR</li>
+          <li><strong>Substrate:</strong> Enough amino acids in your blood</li>
+          <li><strong>Energy:</strong> Enough calories to power the factory</li>
+        </ul>
+        <p class="ps-constraint-warn"><strong>Missing ONE = no growth, even if the other two are high.</strong></p>
+      </div>
+    </div>
+
+    <!-- COACHING TALKING POINTS -->
+    <div class="ps-coaching-box">
+      <h3>Coaching Talking Points: What to Tell Your Clients</h3>
+      <p><strong>"Why do I need to eat protein?"</strong></p>
+      <p style="margin-bottom: 16px;">Your muscles are made of protein. When you lift, you damage the fibers. Your body rebuilds them stronger — but only if you give it the raw material (amino acids). Without enough protein, your body breaks down muscle instead of building it.</p>
+
+      <p><strong>"Does timing matter?"</strong></p>
+      <p style="margin-bottom: 16px;">Yes and no. You don't need a magical "anabolic window," but eating protein when your body is signaling to build (after training, when mTOR is on) is smart. Spreading protein throughout the day is more important than when you eat it.</p>
+
+      <p><strong>"I'm in a calorie deficit. Can I build muscle?"</strong></p>
+      <p>High protein preserves muscle in a deficit but doesn't drive growth. Your body needs energy (calories) to run the protein synthesis factory. To build muscle, aim for maintenance calories or a modest surplus.</p>
+    </div>
+
+    <!-- COMMON MISTAKES -->
+    <h2>Common Mistakes (and why they fail)</h2>
+    <div class="ps-row">
+      <div class="ps-box ps-box-red">
+        <h3>❌ High protein + big deficit</h3>
+        <p>Protein is high (✓) but energy is low (✗). mTOR needs ATP to run. Low energy shuts down the growth signal.</p>
+      </div>
+      <div class="ps-box ps-box-red">
+        <h3>❌ Extended fasting + high protein</h3>
+        <p>You spend 16+ hours in breakdown mode (high cortisol). One high-protein meal can't reverse the debt.</p>
+      </div>
+      <div class="ps-box ps-box-red">
+        <h3>❌ High protein, no training</h3>
+        <p>Without training, mTOR doesn't turn on. Extra amino acids just get oxidised for energy or stored as fat.</p>
+      </div>
+      <div class="ps-box ps-box-red">
+        <h3>❌ Training without protein</h3>
+        <p>mTOR is activated (signal is there) but no substrate. Breakdown exceeds synthesis = net muscle loss.</p>
+      </div>
+    </div>
+
+    <div class="ps-footer">
+      Lifelong Athletics · Protein Synthesis Learning System
+    </div>
+
+  </div>
+</div>
+
+</Layout>
