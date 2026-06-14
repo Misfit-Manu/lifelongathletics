@@ -7,6 +7,15 @@ const allExams = await getCollection('exam');
 
 // Static cards for standalone visual guide pages (not in the exam collection)
 const staticCards: Record<string, { title: string; description: string; href: string; duration: string; exams: string }[]> = {
+  assessment: [
+    {
+      title: 'PT Field Guide — Complete Reference',
+      description: 'PAR-Q to programming in one guide. Client assessment, 7 movement patterns, muscle groups, Table 9-12, 4 program templates, 80+ exercise library, session flow, coaching cues, and red flags.',
+      href: '/exam-prep/pt-field-guide',
+      duration: '45 min reference',
+      exams: 'ACE · NASM · NSCA',
+    },
+  ],
   anatomy: [
     {
       title: 'Muscle Structure — Visual Guide',

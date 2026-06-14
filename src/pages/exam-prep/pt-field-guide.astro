@@ -1,0 +1,2188 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Personal Trainer Field Guide | Lifelong Athletics"
+  description="Complete novice PT reference: client assessment, PAR-Q, movement patterns, muscle groups, Table 9-12 variables, program templates, 80+ exercise library, and session flow."
+>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+
+.pfg-guide {
+  --pfg-ink: #0d0f0e;
+  --pfg-paper: #f0ede6;
+  --pfg-paper2: #e8e4db;
+  --pfg-card: #ffffff;
+  --pfg-border: #d0c9bc;
+  --pfg-border2: #b8b0a0;
+  --pfg-muted: #8a8070;
+  --pfg-dark: #1c1f1e;
+  --pfg-accent: #d44f2e;
+  --pfg-accent2: #2d7d4f;
+  --pfg-accent3: #2a5f9e;
+  --pfg-accent4: #c4870a;
+  --pfg-accent5: #7a3080;
+  --pfg-accent6: #1a8c7a;
+  --pfg-accent-light: rgba(212,79,46,0.1);
+}
+.pfg-guide *, .pfg-guide *::before, .pfg-guide *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* html removed */
+
+.pfg-guide {
+  background: var(--pfg-paper);
+  color: var(--pfg-ink);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* ---- HEADER ---- */
+.pfg-masthead {
+  background: var(--pfg-ink);
+  color: var(--pfg-paper);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.pfg-masthead-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 20px;
+  padding: 40px 36px 32px;
+  position: relative;
+  z-index: 2;
+}
+.pfg-masthead::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 40%;
+  background: repeating-linear-gradient(
+    -60deg,
+    transparent,
+    transparent 12px,
+    rgba(212,79,46,0.06) 12px,
+    rgba(212,79,46,0.06) 13px
+  );
+}
+.pfg-masthead-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--pfg-accent);
+  margin-bottom: 10px;
+}
+.pfg-masthead h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(48px, 9vw, 84px);
+  line-height: 0.92;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+.pfg-masthead h1 em {
+  color: var(--pfg-accent);
+  font-style: normal;
+  display: block;
+}
+.pfg-masthead-sub {
+  margin-top: 14px;
+  font-size: 13px;
+  color: rgba(240,237,230,0.5);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+}
+.pfg-masthead-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  padding-bottom: 6px;
+}
+.pfg-version-pill {
+  background: var(--pfg-accent);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 5px 12px;
+  border-radius: 2px;
+}
+.pfg-stat-pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.pfg-stat-pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 3px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  color: rgba(240,237,230,0.6);
+}
+
+/* ---- TAB NAV ---- */
+.pfg-tab-nav {
+  background: var(--pfg-dark);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 3px solid var(--pfg-accent);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.pfg-tab-nav.pfg-guide ::-webkit-scrollbar { display: none; }
+.pfg-tab-btn {
+  background: none;
+  border: none;
+  color: rgba(240,237,230,0.45);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 14px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  transition: all 0.2s;
+}
+.pfg-tab-btn:hover { color: var(--pfg-paper); background: rgba(255,255,255,0.04); }
+.pfg-tab-btn.active { color: var(--pfg-accent); border-bottom-color: var(--pfg-accent); background: rgba(212,79,46,0.08); }
+
+/* ---- PAGES ---- */
+.pfg-page { display: none; }
+.pfg-page.active { display: block; }
+
+/* ---- LAYOUT ---- */
+.pfg-container { max-width: 1000px; margin: 0 auto; padding: 36px 20px 80px; }
+
+/* ---- SECTION HEADERS ---- */
+.pfg-section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--pfg-border);
+}
+.pfg-sl-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 42px;
+  color: var(--pfg-border2);
+  line-height: 1;
+}
+.pfg-sl-text h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.pfg-sl-text p {
+  font-size: 11px;
+  color: var(--pfg-muted);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ---- CARDS ---- */
+.pfg-card {
+  background: var(--pfg-card);
+  border: 1px solid var(--pfg-border);
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+.pfg-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.pfg-card-icon {
+  width: 36px; height: 36px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.pfg-card-head h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.pfg-card p, .pfg-card li { font-size: 14px; line-height: 1.7; color: #333; }
+.pfg-card ul, .pfg-card ol { padding-left: 18px; }
+.pfg-card li { margin-bottom: 4px; }
+
+/* ---- ACCENT STRIPS ---- */
+.pfg-strip-red { border-left: 4px solid var(--pfg-accent); }
+.pfg-strip-green { border-left: 4px solid var(--pfg-accent2); }
+.pfg-strip-blue { border-left: 4px solid var(--pfg-accent3); }
+.pfg-strip-gold { border-left: 4px solid var(--pfg-accent4); }
+.pfg-strip-purple { border-left: 4px solid var(--pfg-accent5); }
+.pfg-strip-teal { border-left: 4px solid var(--pfg-accent6); }
+
+/* ---- GRID ---- */
+.pfg-g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.pfg-g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+@media (max-width: 640px) { .pfg-g2, .pfg-g3 { grid-template-columns: 1fr; } }
+
+/* ---- TABLES ---- */
+.pfg-tbl-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--pfg-border); margin: 14px 0; }
+.pfg-guide table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pfg-guide thead { background: var(--pfg-ink); }
+.pfg-guide thead th {
+  padding: 12px 14px;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--pfg-paper);
+  font-weight: 500;
+}
+.pfg-guide tbody tr { border-top: 1px solid var(--pfg-border); }
+.pfg-guide tbody tr:nth-child(even) { background: var(--pfg-paper2); }
+.pfg-guide tbody tr:hover { background: rgba(212,79,46,0.05); }
+.pfg-guide tbody td { padding: 10px 14px; color: #333; vertical-align: top; line-height: 1.5; }
+.pfg-guide td strong { color: var(--pfg-ink); font-weight: 600; }
+.pfg-td-r { color: var(--pfg-accent) !important; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.pfg-td-g { color: var(--pfg-accent2) !important; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.pfg-td-b { color: var(--pfg-accent3) !important; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.pfg-td-gold { color: var(--pfg-accent4) !important; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.pfg-td-p { color: var(--pfg-accent5) !important; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+
+/* ---- ALERT BOXES ---- */
+.pfg-alert {
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.pfg-alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.pfg-alert-red { background: rgba(212,79,46,0.08); border: 1px solid rgba(212,79,46,0.25); }
+.pfg-alert-green { background: rgba(45,125,79,0.08); border: 1px solid rgba(45,125,79,0.25); }
+.pfg-alert-blue { background: rgba(42,95,158,0.08); border: 1px solid rgba(42,95,158,0.25); }
+.pfg-alert-gold { background: rgba(196,135,10,0.08); border: 1px solid rgba(196,135,10,0.25); }
+
+/* ---- MUSCLE TAG ---- */
+.pfg-muscle-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin: 2px;
+  font-weight: 500;
+}
+.pfg-mt-primary { background: rgba(212,79,46,0.12); color: var(--pfg-accent); border: 1px solid rgba(212,79,46,0.2); }
+.pfg-mt-secondary { background: rgba(42,95,158,0.1); color: var(--pfg-accent3); border: 1px solid rgba(42,95,158,0.2); }
+.pfg-mt-stabilizer { background: rgba(45,125,79,0.1); color: var(--pfg-accent2); border: 1px solid rgba(45,125,79,0.2); }
+
+/* ---- EXERCISE LIST ---- */
+.pfg-ex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin: 10px 0; }
+.pfg-ex-card {
+  background: var(--pfg-card);
+  border: 1px solid var(--pfg-border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.pfg-ex-card:hover { border-color: var(--pfg-border2); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.pfg-ex-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+.pfg-ex-meta { font-size: 11px; color: var(--pfg-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; }
+.pfg-ex-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+
+/* ---- MUSCLE BODY ---- */
+.pfg-muscle-body-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 14px 0;
+}
+.pfg-muscle-region {
+  background: var(--pfg-card);
+  border: 1px solid var(--pfg-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pfg-muscle-region-header {
+  padding: 10px 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+}
+.pfg-mr-chest { background: #c0392b; }
+.pfg-mr-back { background: #2980b9; }
+.pfg-mr-shoulders { background: #8e44ad; }
+.pfg-mr-arms { background: #d35400; }
+.pfg-mr-core { background: #27ae60; }
+.pfg-mr-legs { background: #1a8c7a; }
+.pfg-mr-glutes { background: #c4870a; }
+.pfg-mr-calves { background: #555; }
+.pfg-muscle-region-body { padding: 10px 14px; }
+.pfg-muscle-region-body p {
+  font-size: 12px;
+  color: var(--pfg-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.pfg-muscle-region-body ul { list-style: none; padding: 0; }
+.pfg-muscle-region-body li {
+  font-size: 13px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--pfg-paper2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+}
+.pfg-muscle-region-body li::before {
+  content: '→';
+  color: var(--pfg-border2);
+  font-size: 10px;
+}
+@media (max-width: 600px) { .pfg-muscle-body-wrap { grid-template-columns: 1fr; } }
+
+/* ---- FLOW STEPS ---- */
+.pfg-flow { display: flex; flex-direction: column; gap: 0; margin: 14px 0; }
+.pfg-flow-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px dashed var(--pfg-border);
+}
+.pfg-flow-step:last-child { border-bottom: none; }
+.pfg-flow-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--pfg-ink);
+  color: var(--pfg-paper);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pfg-flow-content h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.pfg-flow-content p { font-size: 13.5px; color: #444; line-height: 1.65; }
+
+/* ---- PROGRAM BLOCKS ---- */
+.pfg-program-week {
+  background: var(--pfg-card);
+  border: 1px solid var(--pfg-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.pfg-pw-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  background: var(--pfg-ink);
+  color: var(--pfg-paper);
+}
+.pfg-pw-week {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--pfg-accent);
+}
+.pfg-pw-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.pfg-pw-sub { font-size: 11px; color: rgba(240,237,230,0.5); font-family: 'JetBrains Mono', monospace; }
+.pfg-pw-badge {
+  background: var(--pfg-accent);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+.pfg-pw-body { padding: 16px 18px; }
+
+/* ---- STATS ROW ---- */
+.pfg-stats-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+.pfg-stat-box {
+  flex: 1;
+  min-width: 100px;
+  background: var(--pfg-ink);
+  border-radius: 6px;
+  padding: 14px 16px;
+  text-align: center;
+}
+.pfg-stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.pfg-stat-lbl {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.45);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ---- PROGRESS BAR ---- */
+.pfg-progress-item { margin-bottom: 14px; }
+.pfg-progress-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px; font-weight: 500; }
+.pfg-progress-bar { height: 8px; background: var(--pfg-paper2); border-radius: 4px; overflow: hidden; }
+.pfg-progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+/* ---- MOVEMENT PATTERN CARDS ---- */
+.pfg-mp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 14px 0; }
+.pfg-mp-card {
+  background: var(--pfg-card);
+  border: 1px solid var(--pfg-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pfg-mp-header {
+  padding: 12px 14px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pfg-mp-emoji { font-size: 22px; }
+.pfg-mp-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+.pfg-mp-body { padding: 12px 14px; }
+.pfg-mp-body ul { list-style: none; padding: 0; }
+.pfg-mp-body li { font-size: 12.5px; padding: 3px 0; border-bottom: 1px solid var(--pfg-paper2); color: #333; }
+.pfg-mp-body li:last-child { border-bottom: none; }
+.pfg-mp-why { font-size: 11px; color: var(--pfg-muted); font-family: 'JetBrains Mono', monospace; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--pfg-border); }
+
+/* ---- RPE SCALE ---- */
+.pfg-rpe-row {
+  display: flex;
+  gap: 0;
+  margin: 14px 0;
+  border: 1px solid var(--pfg-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pfg-rpe-cell {
+  flex: 1;
+  padding: 10px 4px;
+  text-align: center;
+  border-right: 1px solid var(--pfg-border);
+}
+.pfg-rpe-cell:last-child { border-right: none; }
+.pfg-rpe-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+}
+.pfg-rpe-desc { font-size: 9px; color: var(--pfg-muted); font-family: 'JetBrains Mono', monospace; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.3px; }
+@media (max-width: 600px) { .pfg-rpe-row { flex-wrap: wrap; } .pfg-rpe-cell { min-width: 20%; } }
+
+/* ---- PHASE TIMELINE ---- */
+.pfg-phase-timeline { display: flex; gap: 0; margin: 14px 0; overflow-x: auto; }
+.pfg-phase-block {
+  flex: 1;
+  min-width: 140px;
+  border: 1px solid var(--pfg-border);
+  border-right: none;
+  padding: 14px 12px;
+  position: relative;
+}
+.pfg-phase-block:last-child { border-right: 1px solid var(--pfg-border); }
+.pfg-phase-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--pfg-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.pfg-phase-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.pfg-phase-detail { font-size: 11.5px; color: #555; line-height: 1.5; }
+.pfg-phase-bar { height: 4px; border-radius: 2px; margin-top: 10px; }
+
+/* ---- CUES CHIPS ---- */
+.pfg-cues { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.pfg-cue-chip {
+  background: var(--pfg-paper2);
+  border: 1px solid var(--pfg-border);
+  border-radius: 3px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #444;
+}
+
+/* ---- DIVIDER ---- */
+.pfg-divider { border: none; border-top: 1px dashed var(--pfg-border); margin: 24px 0; }
+
+/* ---- ASSESSMENT CHECKLIST ---- */
+.pfg-checklist { list-style: none; padding: 0; }
+.pfg-checklist li {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--pfg-paper2);
+  font-size: 13.5px;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.pfg-checklist li:last-child { border-bottom: none; }
+.pfg-check-box {
+  width: 18px; height: 18px;
+  border: 2px solid var(--pfg-border2);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pfg-check-label { flex: 1; }
+.pfg-check-label strong { display: block; font-weight: 600; color: var(--pfg-ink); }
+.pfg-check-label span { font-size: 12px; color: var(--pfg-muted); }
+
+/* ---- SECTION BREAK ---- */
+.pfg-sec-break {
+  background: var(--pfg-ink);
+  color: var(--pfg-paper);
+  padding: 10px 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 20px 0 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pfg-sec-break span { color: var(--pfg-accent); }
+
+.pfg-guide strong { font-weight: 600; }
+.pfg-guide em { font-style: italic; color: var(--pfg-accent); }
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+.pfg-guide ::-webkit-scrollbar-track { background: var(--pfg-paper2); }
+.pfg-guide ::-webkit-scrollbar-thumb { background: var(--pfg-border2); border-radius: 3px; }
+
+/* ---- ANIMATIONS ---- */
+@keyframes pfg-fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.pfg-page.active { animation: pfg-fadeIn 0.3s ease; }
+
+  .pfg-guide {
+    padding-bottom: 80px;
+  }
+</style>
+
+<div class="pfg-guide">
+
+
+
+<!-- MASTHEAD -->
+<div class="pfg-masthead">
+  <div class="pfg-masthead-inner">
+    <div>
+      <div class="pfg-masthead-kicker">Novice PT Reference — Evidence-Based</div>
+      <h1>Personal<br>Trainer<br><em>Field Guide</em></h1>
+      <div class="pfg-masthead-sub">ACE · ACSM · NSCA | Program Design · Exercise Selection · Client Management</div>
+    </div>
+    <div class="pfg-masthead-badge">
+      <div class="pfg-version-pill">V1.0 · 2025</div>
+      <div class="pfg-stat-pills">
+        <div class="pfg-stat-pill">7 MOVEMENT PATTERNS</div>
+        <div class="pfg-stat-pill">80+ EXERCISES</div>
+        <div class="pfg-stat-pill">6 PROGRAM TEMPLATES</div>
+        <div class="pfg-stat-pill">ALL MUSCLE GROUPS</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<nav class="pfg-tab-nav">
+  <button class="pfg-tab-btn active" onclick="pfgShowTab('assess')">① Assess Client</button>
+  <button class="pfg-tab-btn" onclick="pfgShowTab('movement')">② Movement Patterns</button>
+  <button class="pfg-tab-btn" onclick="pfgShowTab('muscles')">③ Muscle Groups</button>
+  <button class="pfg-tab-btn" onclick="pfgShowTab('variables')">④ Program Variables</button>
+  <button class="pfg-tab-btn" onclick="pfgShowTab('programs')">⑤ Program Templates</button>
+  <button class="pfg-tab-btn" onclick="pfgShowTab('exercises')">⑥ Exercise Library</button>
+  <button class="pfg-tab-btn" onclick="pfgShowTab('session')">⑦ Session Flow</button>
+</nav>
+
+<!-- ======================================================= -->
+<!-- PAGE 1: ASSESS CLIENT -->
+<!-- ======================================================= -->
+<div id="pfg-page-assess" class="pfg-page active">
+<div class="pfg-container">
+
+  <div class="pfg-section-label">
+    <div class="pfg-sl-num">01</div>
+    <div class="pfg-sl-text"><h2>Client Assessment</h2><p>First thing you do — before ANY exercise</p></div>
+  </div>
+
+  <div class="pfg-alert pfg-alert-red">
+    <div class="pfg-alert-icon">🚨</div>
+    <div><strong>New PT Reality Check:</strong> You walk in Day 1. You have clients. Do NOT start programming without this info. Jumping into training without assessment is how people get hurt and you lose clients (and your certification).</div>
+  </div>
+
+  <!-- STEP BY STEP ASSESSMENT FLOW -->
+  <div class="pfg-sec-break"><span>STEP-BY-STEP</span> Assessment Flow</div>
+
+  <div class="pfg-flow">
+    <div class="pfg-flow-step">
+      <div class="pfg-flow-num">1</div>
+      <div class="pfg-flow-content">
+        <h4>PAR-Q+ (Physical Activity Readiness Questionnaire)</h4>
+        <p>Always first. 7 yes/no questions about cardiovascular, metabolic, and musculoskeletal health. If any answer is YES → require medical clearance before training. This is legally non-negotiable and protects both of you.</p>
+        <div class="pfg-cues"><span class="pfg-cue-chip">Heart disease?</span><span class="pfg-cue-chip">Chest pain?</span><span class="pfg-cue-chip">Dizziness/balance issues?</span><span class="pfg-cue-chip">Bone/joint problems?</span><span class="pfg-cue-chip">Currently on medication?</span><span class="pfg-cue-chip">Pregnant?</span><span class="pfg-cue-chip">Any other condition?</span></div>
+      </div>
+    </div>
+    <div class="pfg-flow-step">
+      <div class="pfg-flow-num">2</div>
+      <div class="pfg-flow-content">
+        <h4>Goal Setting Interview</h4>
+        <p>Ask SMART questions. "Lose weight" is not a goal. "Lose 10 lbs of body fat in 12 weeks while maintaining muscle" is. Understand their <strong>primary goal, timeline, lifestyle, schedule,</strong> and what has or hasn't worked before. Goals drive ALL programming decisions.</p>
+        <div class="pfg-cues"><span class="pfg-cue-chip">Fat loss</span><span class="pfg-cue-chip">Muscle gain</span><span class="pfg-cue-chip">Strength</span><span class="pfg-cue-chip">Athletic performance</span><span class="pfg-cue-chip">General health</span><span class="pfg-cue-chip">Injury rehab</span><span class="pfg-cue-chip">Posture</span></div>
+      </div>
+    </div>
+    <div class="pfg-flow-step">
+      <div class="pfg-flow-num">3</div>
+      <div class="pfg-flow-content">
+        <h4>Lifestyle & Readiness Assessment</h4>
+        <p>Sleep (hours/quality), nutrition habits (eating frequency, protein intake), stress levels, occupation (sedentary desk job vs. physically active), history of injuries or surgeries, and training history. All of these DIRECTLY affect program design.</p>
+      </div>
+    </div>
+    <div class="pfg-flow-step">
+      <div class="pfg-flow-num">4</div>
+      <div class="pfg-flow-content">
+        <h4>Fitness Testing (Baseline Measurements)</h4>
+        <p>Only after PAR-Q is cleared. Select tests relevant to the client's goal. These give you baseline data to track progress and validate your programming.</p>
+        <div style="margin-top:8px;">
+          <div class="pfg-tbl-wrap">
+            <table>
+              <thead><tr><th>Test</th><th>Measures</th><th>Tool Needed</th><th>Result Tracked</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Resting Heart Rate</strong></td><td>Cardiovascular fitness baseline</td><td>Watch / finger pulse</td><td class="pfg-td-b">Beats per minute</td></tr>
+                <tr><td><strong>Blood Pressure</strong></td><td>Cardiovascular risk</td><td>Sphygmomanometer</td><td class="pfg-td-b">mmHg systolic/diastolic</td></tr>
+                <tr><td><strong>Body Composition</strong></td><td>Fat % vs. lean mass</td><td>Calipers / scale</td><td class="pfg-td-gold">% body fat</td></tr>
+                <tr><td><strong>Girth Measurements</strong></td><td>Circumference changes</td><td>Tape measure</td><td class="pfg-td-g">Chest / waist / hip / thigh</td></tr>
+                <tr><td><strong>Overhead Squat Assessment</strong></td><td>Movement compensations</td><td>Eyes / video</td><td class="pfg-td-r">Postural deviations noted</td></tr>
+                <tr><td><strong>Push-Up Test</strong></td><td>Upper body muscular endurance</td><td>Mat</td><td class="pfg-td-g">Reps to failure / fatigue</td></tr>
+                <tr><td><strong>Sit-and-Reach</strong></td><td>Hamstring / low back flexibility</td><td>Sit-reach box</td><td class="pfg-td-b">cm reached</td></tr>
+                <tr><td><strong>3-Min Step Test</strong></td><td>Cardiorespiratory fitness</td><td>12" step / metronome</td><td class="pfg-td-b">Recovery HR after 1 min</td></tr>
+                <tr><td><strong>Estimated 1-RM</strong></td><td>Strength baseline (key lifts)</td><td>Weights</td><td class="pfg-td-r">Max load for goal reps</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pfg-flow-step">
+      <div class="pfg-flow-num">5</div>
+      <div class="pfg-flow-content">
+        <h4>Movement Screen (Overhead Squat Assessment)</h4>
+        <p>Have the client perform an overhead squat (arms overhead, feet shoulder-width). Watch from front and side. Common compensations to look for:</p>
+        <div class="pfg-g2" style="margin-top:10px;">
+          <div class="pfg-card pfg-strip-red" style="padding:12px 16px;">
+            <h3 style="font-size:13px;margin-bottom:8px;color:var(--pfg-accent);">🔴 Red Flags (Dysfunction)</h3>
+            <ul style="font-size:12.5px;padding-left:14px;color:#444;">
+              <li>Feet turn out excessively</li>
+              <li>Knees cave inward (valgus)</li>
+              <li>Excessive forward lean of torso</li>
+              <li>Heels rise off floor</li>
+              <li>Low back rounds / arches excessively</li>
+              <li>Arms fall forward</li>
+            </ul>
+          </div>
+          <div class="pfg-card pfg-strip-green" style="padding:12px 16px;">
+            <h3 style="font-size:13px;margin-bottom:8px;color:var(--pfg-accent2);">✅ What It Tells You</h3>
+            <ul style="font-size:12.5px;padding-left:14px;color:#444;">
+              <li>Knee cave → weak glutes/adductors tight</li>
+              <li>Feet out → tight calves/hip flexors</li>
+              <li>Forward lean → weak core / tight hip flexors</li>
+              <li>Heels rise → tight Achilles/calves</li>
+              <li>Arms forward → tight lats/thoracic spine</li>
+              <li>Low back arch → overactive hip flexors</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pfg-flow-step">
+      <div class="pfg-flow-num">6</div>
+      <div class="pfg-flow-content">
+        <h4>Program Design Decision</h4>
+        <p>Now you have what you need. Use goal + fitness level + movement screen findings to select the appropriate <strong>ACE IFT Model phase</strong> and design the program. Re-assess every 4–6 weeks to adjust.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pfg-sec-break"><span>ACE IFT MODEL</span> — Where Does My Client Start?</div>
+
+  <div class="pfg-phase-timeline">
+    <div class="pfg-phase-block">
+      <div class="pfg-phase-num">Phase 1</div>
+      <div class="pfg-phase-name" style="color:var(--pfg-accent2);">Functional Training</div>
+      <div class="pfg-phase-detail">New to exercise, post-injury, postural issues. Focus: stability, core, movement quality. Low load, high control.</div>
+      <div class="pfg-phase-bar" style="background:var(--pfg-accent2);width:25%;"></div>
+    </div>
+    <div class="pfg-phase-block">
+      <div class="pfg-phase-num">Phase 2</div>
+      <div class="pfg-phase-name" style="color:var(--pfg-accent3);">Movement Training</div>
+      <div class="pfg-phase-detail">Can move correctly, needs coordination and motor patterns. Focus: all 7 movement patterns with progressive loads.</div>
+      <div class="pfg-phase-bar" style="background:var(--pfg-accent3);width:50%;"></div>
+    </div>
+    <div class="pfg-phase-block">
+      <div class="pfg-phase-num">Phase 3</div>
+      <div class="pfg-phase-name" style="color:var(--pfg-accent4);">Load/Speed Training</div>
+      <div class="pfg-phase-detail">Competent mover. Goal: strength, hypertrophy, endurance. Apply Table 9-12 variables. Periodize.</div>
+      <div class="pfg-phase-bar" style="background:var(--pfg-accent4);width:75%;"></div>
+    </div>
+    <div class="pfg-phase-block">
+      <div class="pfg-phase-num">Phase 4</div>
+      <div class="pfg-phase-name" style="color:var(--pfg-accent);">Performance Training</div>
+      <div class="pfg-phase-detail">Advanced. Speed, power, sport-specific. Olympic lifts, plyometrics, complex periodization.</div>
+      <div class="pfg-phase-bar" style="background:var(--pfg-accent);width:100%;"></div>
+    </div>
+  </div>
+
+  <div class="pfg-alert pfg-alert-blue">
+    <div class="pfg-alert-icon">💡</div>
+    <div><strong>Novice PT Pro Tip:</strong> Most new gym clients are in Phase 1 or 2, regardless of age. Don't let a confident-looking client skip Phase 1 if their movement screen shows dysfunction. Ego programming = future injuries = client churn.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE 2: MOVEMENT PATTERNS -->
+<!-- ======================================================= -->
+<div id="pfg-page-movement" class="pfg-page">
+<div class="pfg-container">
+
+  <div class="pfg-section-label">
+    <div class="pfg-sl-num">02</div>
+    <div class="pfg-sl-text"><h2>The 7 Movement Patterns</h2><p>Every human exercise is a variation of these</p></div>
+  </div>
+
+  <div class="pfg-alert pfg-alert-green">
+    <div class="pfg-alert-icon">🧠</div>
+    <div><strong>Why This Matters:</strong> Program around movement patterns — not just muscles — and you'll build balanced, functional athletes. Every client's program should include all 7 patterns weekly. This prevents muscle imbalances, overuse injuries, and training plateaus.</div>
+  </div>
+
+  <div class="pfg-mp-grid">
+    <div class="pfg-mp-card">
+      <div class="pfg-mp-header" style="background:#c0392b;">
+        <div class="pfg-mp-emoji">🏋️</div>
+        <div>
+          <div class="pfg-mp-title">Squat</div>
+          <div style="font-size:10px;opacity:0.7;font-family:'JetBrains Mono',monospace;">Bilateral knee-dominant</div>
+        </div>
+      </div>
+      <div class="pfg-mp-body">
+        <p>PRIMARY MUSCLES</p>
+        <ul>
+          <li>Quadriceps (rectus femoris, vastus group)</li>
+          <li>Glutes (maximus, medius)</li>
+          <li>Hamstrings (eccentric)</li>
+          <li>Core / erector spinae</li>
+        </ul>
+        <ul style="margin-top:8px;">
+          <li>Back squat (barbell)</li>
+          <li>Front squat</li>
+          <li>Goblet squat (dumbbell)</li>
+          <li>Box squat</li>
+          <li>Bodyweight squat</li>
+          <li>Bulgarian split squat</li>
+        </ul>
+        <div class="pfg-mp-why">Key cue: "Chest up, knees track over toes, hips below parallel"</div>
+      </div>
+    </div>
+
+    <div class="pfg-mp-card">
+      <div class="pfg-mp-header" style="background:#2980b9;">
+        <div class="pfg-mp-emoji">📐</div>
+        <div>
+          <div class="pfg-mp-title">Hip Hinge</div>
+          <div style="font-size:10px;opacity:0.7;font-family:'JetBrains Mono',monospace;">Posterior chain dominant</div>
+        </div>
+      </div>
+      <div class="pfg-mp-body">
+        <p>PRIMARY MUSCLES</p>
+        <ul>
+          <li>Hamstrings</li>
+          <li>Glutes (maximus)</li>
+          <li>Erector spinae</li>
+          <li>Lats (stabilize)</li>
+        </ul>
+        <ul style="margin-top:8px;">
+          <li>Conventional deadlift</li>
+          <li>Romanian deadlift (RDL)</li>
+          <li>Sumo deadlift</li>
+          <li>Kettlebell swing</li>
+          <li>Hip thrust / glute bridge</li>
+          <li>Good morning</li>
+        </ul>
+        <div class="pfg-mp-why">Key cue: "Hip back, not down. Neutral spine. Bar stays close"</div>
+      </div>
+    </div>
+
+    <div class="pfg-mp-card">
+      <div class="pfg-mp-header" style="background:#27ae60;">
+        <div class="pfg-mp-emoji">🦵</div>
+        <div>
+          <div class="pfg-mp-title">Lunge / Step</div>
+          <div style="font-size:10px;opacity:0.7;font-family:'JetBrains Mono',monospace;">Unilateral leg</div>
+        </div>
+      </div>
+      <div class="pfg-mp-body">
+        <p>PRIMARY MUSCLES</p>
+        <ul>
+          <li>Quads, glutes, hamstrings</li>
+          <li>Hip stabilizers (glute med)</li>
+          <li>Core (anti-rotation)</li>
+        </ul>
+        <ul style="margin-top:8px;">
+          <li>Forward lunge</li>
+          <li>Reverse lunge</li>
+          <li>Walking lunge</li>
+          <li>Lateral lunge</li>
+          <li>Step-up (box)</li>
+          <li>Curtsy lunge</li>
+        </ul>
+        <div class="pfg-mp-why">Key cue: "Back knee toward floor, front shin vertical, torso tall"</div>
+      </div>
+    </div>
+
+    <div class="pfg-mp-card">
+      <div class="pfg-mp-header" style="background:#8e44ad;">
+        <div class="pfg-mp-emoji">💪</div>
+        <div>
+          <div class="pfg-mp-title">Push (Horizontal)</div>
+          <div style="font-size:10px;opacity:0.7;font-family:'JetBrains Mono',monospace;">Anterior upper body</div>
+        </div>
+      </div>
+      <div class="pfg-mp-body">
+        <p>PRIMARY MUSCLES</p>
+        <ul>
+          <li>Pectorals (major, minor)</li>
+          <li>Anterior deltoid</li>
+          <li>Triceps</li>
+          <li>Serratus anterior</li>
+        </ul>
+        <ul style="margin-top:8px;">
+          <li>Barbell bench press</li>
+          <li>Dumbbell bench press</li>
+          <li>Push-up (and variants)</li>
+          <li>Cable chest fly</li>
+          <li>Machine chest press</li>
+          <li>Floor press</li>
+        </ul>
+        <div class="pfg-mp-why">Pair always with a Pull exercise to avoid shoulder imbalance</div>
+      </div>
+    </div>
+
+    <div class="pfg-mp-card">
+      <div class="pfg-mp-header" style="background:#d35400;">
+        <div class="pfg-mp-emoji">🏔️</div>
+        <div>
+          <div class="pfg-mp-title">Push (Vertical)</div>
+          <div style="font-size:10px;opacity:0.7;font-family:'JetBrains Mono',monospace;">Overhead pressing</div>
+        </div>
+      </div>
+      <div class="pfg-mp-body">
+        <p>PRIMARY MUSCLES</p>
+        <ul>
+          <li>Deltoids (all heads)</li>
+          <li>Triceps</li>
+          <li>Traps (upper)</li>
+          <li>Serratus anterior</li>
+        </ul>
+        <ul style="margin-top:8px;">
+          <li>Barbell overhead press (OHP)</li>
+          <li>Dumbbell shoulder press</li>
+          <li>Arnold press</li>
+          <li>Landmine press</li>
+          <li>Cable lateral raise</li>
+          <li>Pike push-up</li>
+        </ul>
+        <div class="pfg-mp-why">Key cue: "Brace core, ribs down, press through the ceiling"</div>
+      </div>
+    </div>
+
+    <div class="pfg-mp-card">
+      <div class="pfg-mp-header" style="background:#1a8c7a;">
+        <div class="pfg-mp-emoji">🎯</div>
+        <div>
+          <div class="pfg-mp-title">Pull (Horizontal)</div>
+          <div style="font-size:10px;opacity:0.7;font-family:'JetBrains Mono',monospace;">Mid/upper back dominant</div>
+        </div>
+      </div>
+      <div class="pfg-mp-body">
+        <p>PRIMARY MUSCLES</p>
+        <ul>
+          <li>Latissimus dorsi</li>
+          <li>Rhomboids, mid/lower traps</li>
+          <li>Rear deltoid</li>
+          <li>Biceps (assist)</li>
+        </ul>
+        <ul style="margin-top:8px;">
+          <li>Barbell / DB bent-over row</li>
+          <li>Cable seated row</li>
+          <li>Machine row</li>
+          <li>Single-arm DB row</li>
+          <li>Chest-supported row</li>
+          <li>Face pull</li>
+        </ul>
+        <div class="pfg-mp-why">Key cue: "Retract scapulae first, elbows drive back, squeeze midback"</div>
+      </div>
+    </div>
+
+    <div class="pfg-mp-card">
+      <div class="pfg-mp-header" style="background:#2c3e50;">
+        <div class="pfg-mp-emoji">🧗</div>
+        <div>
+          <div class="pfg-mp-title">Pull (Vertical)</div>
+          <div style="font-size:10px;opacity:0.7;font-family:'JetBrains Mono',monospace;">Lats dominant</div>
+        </div>
+      </div>
+      <div class="pfg-mp-body">
+        <p>PRIMARY MUSCLES</p>
+        <ul>
+          <li>Latissimus dorsi</li>
+          <li>Teres major</li>
+          <li>Biceps brachii</li>
+          <li>Lower trapezius</li>
+        </ul>
+        <ul style="margin-top:8px;">
+          <li>Pull-up / chin-up</li>
+          <li>Lat pulldown (cable)</li>
+          <li>Assisted pull-up machine</li>
+          <li>Straight-arm pulldown</li>
+          <li>Single-arm lat pulldown</li>
+        </ul>
+        <div class="pfg-mp-why">Most clients can't do a pull-up Day 1. Start with lat pulldown.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pfg-sec-break"><span>PLUS</span> Core / Carry — Often Forgotten</div>
+
+  <div class="pfg-g2">
+    <div class="pfg-card pfg-strip-gold">
+      <div class="pfg-card-head">
+        <div class="pfg-card-icon" style="background:rgba(196,135,10,0.1);">🔄</div>
+        <h3>Core / Anti-Rotation</h3>
+      </div>
+      <p style="font-size:13.5px;margin-bottom:10px;">The core's primary job is <strong>resisting movement</strong>, not creating it. Train it in all 3 planes: anti-extension, anti-rotation, anti-lateral flexion.</p>
+      <ul style="font-size:13px;padding-left:16px;color:#444;">
+        <li>Plank (anti-extension)</li>
+        <li>Dead bug (anti-extension + coordination)</li>
+        <li>Pallof press (anti-rotation)</li>
+        <li>Side plank (anti-lateral flexion)</li>
+        <li>Ab wheel rollout</li>
+        <li>Bird dog</li>
+        <li>Cable chop / lift</li>
+        <li>Hanging leg raise</li>
+      </ul>
+    </div>
+    <div class="pfg-card pfg-strip-teal">
+      <div class="pfg-card-head">
+        <div class="pfg-card-icon" style="background:rgba(26,140,122,0.1);">🚶</div>
+        <h3>Loaded Carry</h3>
+      </div>
+      <p style="font-size:13.5px;margin-bottom:10px;">The most underused movement pattern. Trains total body stability, grip, gait, and metabolic conditioning simultaneously.</p>
+      <ul style="font-size:13px;padding-left:16px;color:#444;">
+        <li>Farmer's carry (bilateral)</li>
+        <li>Suitcase carry (unilateral)</li>
+        <li>Overhead carry</li>
+        <li>Zercher carry</li>
+        <li>Trap bar carry</li>
+        <li>Racked carry (KB)</li>
+        <li>Bear hug carry (sandbag)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pfg-alert pfg-alert-gold">
+    <div class="pfg-alert-icon">🔑</div>
+    <div><strong>The Golden Rule of Programming:</strong> For every PUSH exercise, include a PULL. For every knee-dominant (squat/lunge), include a hip-dominant (hinge). This maintains structural balance and prevents the #1 overuse injuries: shoulder impingement and lower back pain.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE 3: MUSCLE GROUPS -->
+<!-- ======================================================= -->
+<div id="pfg-page-muscles" class="pfg-page">
+<div class="pfg-container">
+
+  <div class="pfg-section-label">
+    <div class="pfg-sl-num">03</div>
+    <div class="pfg-sl-text"><h2>Muscle Group Reference</h2><p>Anatomy, exercises, training frequency by group</p></div>
+  </div>
+
+  <div class="pfg-muscle-body-wrap">
+
+    <!-- CHEST -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-chest">💪 CHEST — Pectoralis</div>
+      <div class="pfg-muscle-region-body">
+        <p>Muscles</p>
+        <ul>
+          <li>Pectoralis major (upper/mid/lower)</li>
+          <li>Pectoralis minor (beneath major)</li>
+          <li>Serratus anterior (assists)</li>
+        </ul>
+        <p style="margin-top:10px;">Exercises</p>
+        <ul>
+          <li>Barbell bench press (mid)</li>
+          <li>Incline DB press (upper)</li>
+          <li>Decline press (lower)</li>
+          <li>Cable chest fly (mid)</li>
+          <li>Push-up variations (all)</li>
+          <li>Dips (lower pec emphasis)</li>
+          <li>Machine pec-deck</li>
+        </ul>
+        <p style="margin-top:10px;">Frequency</p>
+        <ul><li>2–3× per week, ≥48–72 hr rest</li></ul>
+      </div>
+    </div>
+
+    <!-- BACK -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-back">🎯 BACK — Posterior Chain Upper</div>
+      <div class="pfg-muscle-region-body">
+        <p>Muscles</p>
+        <ul>
+          <li>Latissimus dorsi (largest back muscle)</li>
+          <li>Trapezius (upper/mid/lower)</li>
+          <li>Rhomboids (major, minor)</li>
+          <li>Erector spinae (column)</li>
+          <li>Teres major / Infraspinatus</li>
+        </ul>
+        <p style="margin-top:10px;">Exercises</p>
+        <ul>
+          <li>Pull-up / Chin-up</li>
+          <li>Lat pulldown (wide/close grip)</li>
+          <li>Bent-over barbell row</li>
+          <li>Single-arm DB row</li>
+          <li>Cable seated row</li>
+          <li>Face pull (rear delt/traps)</li>
+          <li>Rack pull / Deadlift</li>
+        </ul>
+        <p style="margin-top:10px;">Frequency</p>
+        <ul><li>2–3× per week. Back is large — more volume OK</li></ul>
+      </div>
+    </div>
+
+    <!-- SHOULDERS -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-shoulders">🔝 SHOULDERS — Deltoids</div>
+      <div class="pfg-muscle-region-body">
+        <p>Muscles</p>
+        <ul>
+          <li>Anterior deltoid (front)</li>
+          <li>Lateral deltoid (side — "width")</li>
+          <li>Posterior deltoid (rear)</li>
+          <li>Rotator cuff (infraspinatus, supraspinatus, subscapularis, teres minor)</li>
+        </ul>
+        <p style="margin-top:10px;">Exercises</p>
+        <ul>
+          <li>OHP barbell / dumbbell</li>
+          <li>Lateral raise (dumbbell/cable)</li>
+          <li>Rear delt fly / face pull</li>
+          <li>Arnold press</li>
+          <li>Upright row (caution)</li>
+          <li>Band pull-apart (rotator cuff)</li>
+        </ul>
+        <p style="margin-top:10px;">Note</p>
+        <ul><li>Most undertrained: posterior delt. Prioritize!</li></ul>
+      </div>
+    </div>
+
+    <!-- ARMS -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-arms">💥 ARMS — Biceps & Triceps</div>
+      <div class="pfg-muscle-region-body">
+        <p>Muscles</p>
+        <ul>
+          <li>Biceps brachii (long + short head)</li>
+          <li>Brachialis (under biceps)</li>
+          <li>Triceps brachii (long/lateral/medial head)</li>
+          <li>Brachioradialis (forearm)</li>
+        </ul>
+        <p style="margin-top:10px;">Bicep Exercises</p>
+        <ul>
+          <li>Barbell / EZ-bar curl</li>
+          <li>Dumbbell alternating curl</li>
+          <li>Hammer curl (brachialis)</li>
+          <li>Cable curl / preacher curl</li>
+          <li>Incline dumbbell curl</li>
+        </ul>
+        <p style="margin-top:10px;">Tricep Exercises</p>
+        <ul>
+          <li>Tricep pushdown (cable)</li>
+          <li>Skull crusher (EZ-bar)</li>
+          <li>Close-grip bench press</li>
+          <li>Overhead tricep extension</li>
+          <li>Dips (tricep-focused)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CORE -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-core">🔩 CORE — Trunk Stabilizers</div>
+      <div class="pfg-muscle-region-body">
+        <p>Muscles</p>
+        <ul>
+          <li>Rectus abdominis ("six pack")</li>
+          <li>Transverse abdominis (deep stabilizer)</li>
+          <li>Internal / External obliques</li>
+          <li>Multifidus (deep spinal)</li>
+          <li>Quadratus lumborum</li>
+          <li>Diaphragm (breathing pressure)</li>
+        </ul>
+        <p style="margin-top:10px;">Exercises</p>
+        <ul>
+          <li>Plank (front/side)</li>
+          <li>Dead bug (coordination)</li>
+          <li>Pallof press (anti-rotation)</li>
+          <li>Bird dog</li>
+          <li>Ab wheel rollout</li>
+          <li>Cable crunch</li>
+          <li>Hanging leg raise</li>
+          <li>McGill Big 3 (rehab base)</li>
+        </ul>
+        <p style="margin-top:10px;">Frequency</p>
+        <ul><li>Can train daily — recovers fast (mostly stabilizers)</li></ul>
+      </div>
+    </div>
+
+    <!-- LEGS -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-legs">🦵 QUADS — Anterior Thigh</div>
+      <div class="pfg-muscle-region-body">
+        <p>Muscles</p>
+        <ul>
+          <li>Rectus femoris</li>
+          <li>Vastus lateralis, medialis, intermedius</li>
+          <li>Sartorius (assist)</li>
+        </ul>
+        <p style="margin-top:10px;">Exercises</p>
+        <ul>
+          <li>Back squat / Front squat</li>
+          <li>Leg press (narrow stance)</li>
+          <li>Hack squat</li>
+          <li>Leg extension (isolation)</li>
+          <li>Bulgarian split squat</li>
+          <li>Step-up</li>
+          <li>Wall sit (isometric)</li>
+        </ul>
+        <p style="margin-top:10px;">Frequency</p>
+        <ul><li>2× per week. Legs are the biggest muscle group — require most recovery</li></ul>
+      </div>
+    </div>
+
+    <!-- GLUTES & HAMSTRINGS -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-glutes">🍑 GLUTES & HAMSTRINGS</div>
+      <div class="pfg-muscle-region-body">
+        <p>Glute Muscles</p>
+        <ul>
+          <li>Gluteus maximus (largest in body)</li>
+          <li>Gluteus medius (hip stabilizer)</li>
+          <li>Gluteus minimus</li>
+        </ul>
+        <p style="margin-top:8px;">Glute Exercises</p>
+        <ul>
+          <li>Hip thrust (barbell / banded)</li>
+          <li>Glute bridge</li>
+          <li>Romanian deadlift</li>
+          <li>Cable kickback</li>
+          <li>Clamshell (medius)</li>
+          <li>Sumo squat / deadlift</li>
+        </ul>
+        <p style="margin-top:8px;">Hamstring Muscles</p>
+        <ul>
+          <li>Biceps femoris (short/long)</li>
+          <li>Semitendinosus</li>
+          <li>Semimembranosus</li>
+        </ul>
+        <p style="margin-top:8px;">Hamstring Exercises</p>
+        <ul>
+          <li>Romanian deadlift (RDL)</li>
+          <li>Lying leg curl</li>
+          <li>Nordic hamstring curl</li>
+          <li>Glute-ham raise</li>
+          <li>Good morning</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CALVES -->
+    <div class="pfg-muscle-region">
+      <div class="pfg-muscle-region-header pfg-mr-calves">👟 CALVES & LOWER LEG</div>
+      <div class="pfg-muscle-region-body">
+        <p>Muscles</p>
+        <ul>
+          <li>Gastrocnemius (outer calf — crosses knee)</li>
+          <li>Soleus (inner, beneath gastroc)</li>
+          <li>Tibialis anterior (shin — often ignored)</li>
+          <li>Peroneals (ankle stabilizers)</li>
+        </ul>
+        <p style="margin-top:10px;">Exercises</p>
+        <ul>
+          <li>Standing calf raise</li>
+          <li>Seated calf raise (soleus focus)</li>
+          <li>Leg press calf raise</li>
+          <li>Single-leg calf raise</li>
+          <li>Tibialis raise (shin)</li>
+          <li>Ankle circles (mobility)</li>
+        </ul>
+        <p style="margin-top:10px;">Note</p>
+        <ul><li>Calves are slow-twitch dominant — respond to higher reps (15–25)</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUSCLE FREQUENCY GUIDE -->
+  <div class="pfg-sec-break"><span>FREQUENCY</span> Guide by Muscle Group</div>
+  <div class="pfg-tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Muscle Group</th>
+          <th>Minimum Sessions/Wk</th>
+          <th>Optimal (Hypertrophy)</th>
+          <th>Recovery Time</th>
+          <th>Beginner Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Chest</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">2–3×</td><td>48–72 hr</td><td>Push-up, DB bench press</td></tr>
+        <tr><td><strong>Back (Lats)</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">2–3×</td><td>48–72 hr</td><td>Lat pulldown, seated row</td></tr>
+        <tr><td><strong>Shoulders</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">2–3×</td><td>48 hr</td><td>DB press, lateral raise</td></tr>
+        <tr><td><strong>Biceps</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">2–4×</td><td>48 hr</td><td>DB curl, cable curl</td></tr>
+        <tr><td><strong>Triceps</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">2–4×</td><td>48 hr</td><td>Pushdown, close-grip</td></tr>
+        <tr><td><strong>Quadriceps</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">2×</td><td>72+ hr</td><td>Goblet squat, leg press</td></tr>
+        <tr><td><strong>Hamstrings</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">2–3×</td><td>72 hr</td><td>RDL, lying leg curl</td></tr>
+        <tr><td><strong>Glutes</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">3–4×</td><td>48–72 hr</td><td>Hip thrust, glute bridge</td></tr>
+        <tr><td><strong>Calves</strong></td><td class="pfg-td-b">2×</td><td class="pfg-td-g">3–5×</td><td>24–48 hr</td><td>Standing calf raise</td></tr>
+        <tr><td><strong>Core</strong></td><td class="pfg-td-b">3×</td><td class="pfg-td-g">Daily OK</td><td>24 hr (mostly)</td><td>Plank, dead bug, bird dog</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE 4: PROGRAM VARIABLES (FITT-VP) -->
+<!-- ======================================================= -->
+<div id="pfg-page-variables" class="pfg-page">
+<div class="pfg-container">
+
+  <div class="pfg-section-label">
+    <div class="pfg-sl-num">04</div>
+    <div class="pfg-sl-text"><h2>Program Variables</h2><p>FITT-VP + Table 9-12 deep dive</p></div>
+  </div>
+
+  <div class="pfg-card pfg-strip-red">
+    <div class="pfg-card-head">
+      <div class="pfg-card-icon" style="background:rgba(212,79,46,0.1);">📐</div>
+      <h3>FITT-VP Framework — Your Programming Blueprint</h3>
+    </div>
+    <div class="pfg-tbl-wrap" style="margin-top:0;">
+      <table>
+        <thead><tr><th>Letter</th><th>Stands For</th><th>What To Ask</th><th>Example Answer</th></tr></thead>
+        <tbody>
+          <tr><td><strong class="pfg-td-r">F</strong></td><td><strong>Frequency</strong></td><td>How many days/week?</td><td>3× per week total body</td></tr>
+          <tr><td><strong class="pfg-td-r">I</strong></td><td><strong>Intensity</strong></td><td>% 1-RM / RPE / load?</td><td>70–80% 1-RM (hypertrophy)</td></tr>
+          <tr><td><strong class="pfg-td-r">T</strong></td><td><strong>Type</strong></td><td>What exercises / modality?</td><td>Free weights, machines, bodyweight</td></tr>
+          <tr><td><strong class="pfg-td-r">T</strong></td><td><strong>Time</strong></td><td>Session duration?</td><td>45–60 min for most clients</td></tr>
+          <tr><td><strong class="pfg-td-r">V</strong></td><td><strong>Volume</strong></td><td>Total sets × reps × load?</td><td>3 × 10 @ 80 lbs = 2,400 lbs</td></tr>
+          <tr><td><strong class="pfg-td-r">P</strong></td><td><strong>Progression</strong></td><td>How does it get harder over time?</td><td>+5 lbs per week / +1 set per week</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TABLE 9-12 FULL -->
+  <div class="pfg-sec-break"><span>TABLE 9-12</span> Training Variables by Goal — Master This</div>
+
+  <div class="pfg-tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Training Goal</th>
+          <th>Sets</th>
+          <th>Reps</th>
+          <th>Intensity (%1-RM)</th>
+          <th>Rest Interval</th>
+          <th>Tempo</th>
+          <th>Frequency/Wk</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>General Fitness</strong><br><small style="color:var(--pfg-muted)">Complete beginners</small></td>
+          <td class="pfg-td-b">1–4</td><td class="pfg-td-b">8–15</td><td class="pfg-td-b">20–70%</td>
+          <td class="pfg-td-b">2–3 min</td><td>Moderate / controlled</td><td class="pfg-td-b">2–3×</td>
+        </tr>
+        <tr>
+          <td><strong>Muscular Endurance</strong><br><small style="color:var(--pfg-muted)">Tone, stamina, circuits</small></td>
+          <td class="pfg-td-g">2–3</td><td class="pfg-td-g">≥12</td><td class="pfg-td-g">≤67%</td>
+          <td class="pfg-td-g">≤30 sec</td><td>Moderate (2–4 sec/rep)</td><td class="pfg-td-g">2–3×</td>
+        </tr>
+        <tr>
+          <td><strong>Muscular Hypertrophy</strong><br><small style="color:var(--pfg-muted)">Muscle size / bodybuilding</small></td>
+          <td class="pfg-td-gold">3–6</td><td class="pfg-td-gold">6–12</td><td class="pfg-td-gold">67–85%</td>
+          <td class="pfg-td-gold">30–90 sec</td><td>Controlled (2-1-3 sec)</td><td class="pfg-td-gold">2–3×</td>
+        </tr>
+        <tr>
+          <td><strong>Muscular Strength</strong><br><small style="color:var(--pfg-muted)">Max force production</small></td>
+          <td class="pfg-td-r">2–6</td><td class="pfg-td-r">≤6</td><td class="pfg-td-r">≥85%</td>
+          <td class="pfg-td-r">2–5 min</td><td>Controlled / fast intent</td><td class="pfg-td-r">2–3×</td>
+        </tr>
+        <tr>
+          <td><strong>Power — Single Effort</strong><br><small style="color:var(--pfg-muted)">Maximal explosive effort</small></td>
+          <td class="pfg-td-p">3–5</td><td class="pfg-td-p">1–2</td><td class="pfg-td-p">80–90%</td>
+          <td class="pfg-td-p">2–5 min</td><td>Explosive / max speed</td><td class="pfg-td-p">1–2×</td>
+        </tr>
+        <tr>
+          <td><strong>Power — Multiple Effort</strong><br><small style="color:var(--pfg-muted)">Repeated explosiveness</small></td>
+          <td class="pfg-td-p">3–5</td><td class="pfg-td-p">3–5</td><td class="pfg-td-p">75–85%</td>
+          <td class="pfg-td-p">2–5 min</td><td>Explosive</td><td class="pfg-td-p">1–2×</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- INTENSITY TOOLS -->
+  <div class="pfg-sec-break"><span>MEASURING</span> Intensity — RPE Scale</div>
+
+  <div class="pfg-card pfg-strip-blue">
+    <div class="pfg-card-head"><div class="pfg-card-icon" style="background:rgba(42,95,158,0.1);">📊</div><h3>Rate of Perceived Exertion (RPE) — Modified Borg 1-10</h3></div>
+    <p style="font-size:13px;margin-bottom:12px;">Use RPE when you don't have a client's 1-RM yet, or to autoregulate intensity. More practical than % 1-RM for daily use.</p>
+    <div class="pfg-rpe-row">
+      <div class="pfg-rpe-cell" style="background:rgba(46,204,113,0.08);">
+        <div class="pfg-rpe-num" style="color:var(--pfg-accent2);">1–3</div>
+        <div class="pfg-rpe-desc">Very<br>Easy</div>
+      </div>
+      <div class="pfg-rpe-cell" style="background:rgba(46,204,113,0.12);">
+        <div class="pfg-rpe-num" style="color:var(--pfg-accent2);">4–5</div>
+        <div class="pfg-rpe-desc">Light/<br>Moderate</div>
+      </div>
+      <div class="pfg-rpe-cell" style="background:rgba(196,135,10,0.12);">
+        <div class="pfg-rpe-num" style="color:var(--pfg-accent4);">6</div>
+        <div class="pfg-rpe-desc">Some<br>Challenge</div>
+      </div>
+      <div class="pfg-rpe-cell" style="background:rgba(196,135,10,0.16);">
+        <div class="pfg-rpe-num" style="color:var(--pfg-accent4);">7</div>
+        <div class="pfg-rpe-desc">Hard<br>(2–3 in tank)</div>
+      </div>
+      <div class="pfg-rpe-cell" style="background:rgba(212,79,46,0.12);">
+        <div class="pfg-rpe-num" style="color:var(--pfg-accent);">8</div>
+        <div class="pfg-rpe-desc">Very Hard<br>(1–2 reps left)</div>
+      </div>
+      <div class="pfg-rpe-cell" style="background:rgba(212,79,46,0.2);">
+        <div class="pfg-rpe-num" style="color:var(--pfg-accent);">9</div>
+        <div class="pfg-rpe-desc">Near Max<br>(1 rep left)</div>
+      </div>
+      <div class="pfg-rpe-cell" style="background:rgba(192,57,43,0.25);">
+        <div class="pfg-rpe-num" style="color:#c0392b;">10</div>
+        <div class="pfg-rpe-desc">Absolute<br>Max</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <div class="pfg-tbl-wrap">
+        <table>
+          <thead><tr><th>Goal</th><th>Target RPE</th><th>% 1-RM Equivalent</th></tr></thead>
+          <tbody>
+            <tr><td>Muscular Endurance</td><td class="pfg-td-g">5–7</td><td class="pfg-td-g">&lt;67%</td></tr>
+            <tr><td>Hypertrophy</td><td class="pfg-td-gold">7–8</td><td class="pfg-td-gold">67–85%</td></tr>
+            <tr><td>Strength</td><td class="pfg-td-r">8–9</td><td class="pfg-td-r">≥85%</td></tr>
+            <tr><td>Power</td><td class="pfg-td-p">8–10 (intent)</td><td class="pfg-td-p">75–90%</td></tr>
+            <tr><td>Warm-up / Recovery</td><td class="pfg-td-b">3–5</td><td class="pfg-td-b">40–55%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTIMATING 1RM -->
+  <div class="pfg-card pfg-strip-gold">
+    <div class="pfg-card-head"><div class="pfg-card-icon" style="background:rgba(196,135,10,0.1);">🔢</div><h3>Estimating 1-RM Without Max Testing</h3></div>
+    <p style="font-size:13.5px;margin-bottom:10px;">Never test a true 1-RM with a new or deconditioned client. Use submaximal testing instead:</p>
+    <div class="pfg-tbl-wrap">
+      <table>
+        <thead><tr><th>Reps Completed</th><th>% of True 1-RM</th><th>How To Use It</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1 rep</strong></td><td class="pfg-td-r">100%</td><td>Only for advanced, trained athletes with spotters</td></tr>
+          <tr><td><strong>2 reps</strong></td><td class="pfg-td-r">~97%</td><td>Near-max testing</td></tr>
+          <tr><td><strong>5 reps</strong></td><td class="pfg-td-gold">~87%</td><td>Common strength test (5-rep max)</td></tr>
+          <tr><td><strong>8 reps</strong></td><td class="pfg-td-gold">~80%</td><td>Practical for hypertrophy zone testing</td></tr>
+          <tr><td><strong>10 reps</strong></td><td class="pfg-td-g">~75%</td><td>Safe and practical for most clients</td></tr>
+          <tr><td><strong>12 reps</strong></td><td class="pfg-td-g">~70%</td><td>Good endurance/hypertrophy baseline</td></tr>
+          <tr><td><strong>15 reps</strong></td><td class="pfg-td-b">~65%</td><td>Best for beginners and deconditioned clients</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--pfg-muted);margin-top:8px;font-family:'JetBrains Mono',monospace;">Formula: Test weight ÷ % = Estimated 1-RM. E.g., 100 lbs × 10 reps → 100 ÷ 0.75 = ~133 lbs 1-RM</p>
+  </div>
+
+  <!-- PROGRESSION PRINCIPLES -->
+  <div class="pfg-sec-break"><span>PROGRESSIVE OVERLOAD</span> — How to Make It Harder Over Time</div>
+  <div class="pfg-tbl-wrap">
+    <table>
+      <thead><tr><th>Method</th><th>How Applied</th><th>Best For</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Load Increase</strong></td><td>Add weight to the bar/machine</td><td>Strength, hypertrophy</td><td>+5 lbs to bench press each week</td></tr>
+        <tr><td><strong>Rep Increase</strong></td><td>Do more reps with same weight</td><td>Endurance, hypertrophy</td><td>Go from 3×8 to 3×12 before adding weight</td></tr>
+        <tr><td><strong>Set Increase</strong></td><td>Add an extra set per exercise</td><td>Volume accumulation</td><td>Go from 3 sets to 4 sets after 4 weeks</td></tr>
+        <tr><td><strong>Rest Reduction</strong></td><td>Decrease rest interval</td><td>Endurance, conditioning</td><td>3 min → 2 min rest between sets</td></tr>
+        <tr><td><strong>Tempo Change</strong></td><td>Slow eccentric / add pause</td><td>Hypertrophy, control</td><td>2-1-3 sec → 3-1-4 sec tempo</td></tr>
+        <tr><td><strong>Exercise Variation</strong></td><td>Harder version of same pattern</td><td>Skill, motor patterns</td><td>Goblet squat → Back squat</td></tr>
+        <tr><td><strong>Range of Motion</strong></td><td>Increase full ROM</td><td>Flexibility + strength</td><td>Box squat (partial) → full depth squat</td></tr>
+        <tr><td><strong>Stability Reduction</strong></td><td>Less stable surface/implement</td><td>Functional strength</td><td>Machine press → DB press → cable press</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pfg-alert pfg-alert-red">
+    <div class="pfg-alert-icon">⚠️</div>
+    <div><strong>2-for-2 Rule (NSCA):</strong> When a client can complete 2 or more reps beyond the prescribed number in the last set, for 2 consecutive sessions — increase the load by 5% for upper body, 10% for lower body. Simple, evidence-based auto-regulation.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE 5: PROGRAM TEMPLATES -->
+<!-- ======================================================= -->
+<div id="pfg-page-programs" class="pfg-page">
+<div class="pfg-container">
+
+  <div class="pfg-section-label">
+    <div class="pfg-sl-num">05</div>
+    <div class="pfg-sl-text"><h2>Program Templates</h2><p>Ready-to-use frameworks by client goal</p></div>
+  </div>
+
+  <div class="pfg-alert pfg-alert-green">
+    <div class="pfg-alert-icon">📋</div>
+    <div>These are <strong>starting frameworks</strong>, not rigid scripts. Modify based on your client's assessment, movement screen, available equipment, and session feedback. Always follow: Warm-up → Conditioning → Cool-down structure.</div>
+  </div>
+
+  <!-- BEGINNER TOTAL BODY -->
+  <div class="pfg-program-week">
+    <div class="pfg-pw-header">
+      <div class="pfg-pw-week">A</div>
+      <div>
+        <div class="pfg-pw-title">Beginner — 3-Day Total Body</div>
+        <div class="pfg-pw-sub">Weeks 1–8 · Phase 1–2 · No prior training experience</div>
+      </div>
+      <div class="pfg-pw-badge">BEGINNER</div>
+    </div>
+    <div class="pfg-pw-body">
+      <div class="pfg-stats-row">
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent2);">3</div><div class="pfg-stat-lbl">Days/Wk</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent2);">2–3</div><div class="pfg-stat-lbl">Sets</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent2);">10–15</div><div class="pfg-stat-lbl">Reps</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent2);">90s</div><div class="pfg-stat-lbl">Rest</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent2);">45</div><div class="pfg-stat-lbl">Min/Session</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent2);">60%</div><div class="pfg-stat-lbl">1-RM</div></div>
+      </div>
+      <div class="pfg-tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Exercise</th><th>Pattern</th><th>Sets × Reps</th><th>Rest</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><strong>Goblet Squat</strong></td><td>Squat</td><td class="pfg-td-g">2×12</td><td>90s</td><td>Dumbbell, heels level, depth to comfort</td></tr>
+            <tr><td>2</td><td><strong>Romanian Deadlift (DB)</strong></td><td>Hip Hinge</td><td class="pfg-td-g">2×12</td><td>90s</td><td>Hip back, neutral spine, feel hamstring stretch</td></tr>
+            <tr><td>3</td><td><strong>Dumbbell Bench Press</strong></td><td>Push H</td><td class="pfg-td-g">2×10</td><td>90s</td><td>Feet flat, control eccentric</td></tr>
+            <tr><td>4</td><td><strong>Lat Pulldown</strong></td><td>Pull V</td><td class="pfg-td-g">2×10</td><td>90s</td><td>Lean slightly back, drive elbows down</td></tr>
+            <tr><td>5</td><td><strong>Dumbbell Shoulder Press</strong></td><td>Push V</td><td class="pfg-td-g">2×10</td><td>90s</td><td>Core braced, don't arch back</td></tr>
+            <tr><td>6</td><td><strong>Seated Cable Row</strong></td><td>Pull H</td><td class="pfg-td-g">2×10</td><td>90s</td><td>Retract scapulae, squeeze midback</td></tr>
+            <tr><td>7</td><td><strong>Plank</strong></td><td>Core</td><td class="pfg-td-g">2×30s</td><td>60s</td><td>Straight line heel to head, breathe</td></tr>
+            <tr><td>8</td><td><strong>Bird Dog</strong></td><td>Core</td><td class="pfg-td-g">2×10e</td><td>60s</td><td>Slow and controlled, don't rotate</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pfg-alert pfg-alert-blue" style="margin-top:12px;">
+        <div class="pfg-alert-icon">📅</div>
+        <div><strong>Schedule:</strong> Mon / Wed / Fri or Tue / Thu / Sat. At least 48 hours between sessions. After 4–6 weeks, add 1 set per exercise and reduce rest to 60–75 seconds.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAT LOSS PROGRAM -->
+  <div class="pfg-program-week">
+    <div class="pfg-pw-header">
+      <div class="pfg-pw-week">B</div>
+      <div>
+        <div class="pfg-pw-title">Fat Loss / Body Recomposition — 4 Day Split</div>
+        <div class="pfg-pw-sub">Weeks 1–12 · Moderate-Intermediate · Cardio component included</div>
+      </div>
+      <div class="pfg-pw-badge" style="background:var(--pfg-accent3);">FAT LOSS</div>
+    </div>
+    <div class="pfg-pw-body">
+      <div class="pfg-stats-row">
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent3);">4</div><div class="pfg-stat-lbl">Days/Wk</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent3);">3–4</div><div class="pfg-stat-lbl">Sets</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent3);">12–15</div><div class="pfg-stat-lbl">Reps</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent3);">45s</div><div class="pfg-stat-lbl">Rest</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent3);">55</div><div class="pfg-stat-lbl">Min/Session</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent3);">65%</div><div class="pfg-stat-lbl">1-RM</div></div>
+      </div>
+      <div class="pfg-tbl-wrap">
+        <table>
+          <thead><tr><th>Day</th><th>Focus</th><th>Structure</th><th>Cardio Finisher</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Day 1</strong><br>Monday</td>
+              <td>Lower Body A</td>
+              <td>Goblet squat, RDL, reverse lunge, leg press, standing calf raise<br><small>3×12–15, 45s rest</small></td>
+              <td>10 min moderate treadmill incline walk</td>
+            </tr>
+            <tr>
+              <td><strong>Day 2</strong><br>Tuesday</td>
+              <td>Upper Body A (Push/Pull)</td>
+              <td>DB bench, lat pulldown, DB shoulder press, seated row, DB curl, tricep pushdown<br><small>3×12, 45s rest</small></td>
+              <td>10 min elliptical</td>
+            </tr>
+            <tr>
+              <td><strong>Day 3</strong><br>Thursday</td>
+              <td>Lower Body B + Core</td>
+              <td>Hip thrust, Bulgarian split squat, leg curl, step-up, plank, dead bug, side plank<br><small>3×12–15, 45s rest</small></td>
+              <td>15 min rowing machine</td>
+            </tr>
+            <tr>
+              <td><strong>Day 4</strong><br>Friday</td>
+              <td>Upper Body B (Circuit)</td>
+              <td>Push-up, cable row, arnold press, face pull, hammer curl, skull crusher<br><small>3 circuits, 30s rest between exercises</small></td>
+              <td>10 min HIIT bike (20s hard / 40s easy × 10)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pfg-alert pfg-alert-gold" style="margin-top:12px;">
+        <div class="pfg-alert-icon">🔥</div>
+        <div><strong>Key Principle:</strong> Fat loss happens in the kitchen. Training creates the stimulus to PRESERVE muscle during a caloric deficit. Aim for 0.5–1 lb/week loss, 0.7–1g protein per lb of bodyweight, and adequate sleep (7–9 hrs). Don't neglect these — they're as important as the program.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HYPERTROPHY PROGRAM -->
+  <div class="pfg-program-week">
+    <div class="pfg-pw-header">
+      <div class="pfg-pw-week">C</div>
+      <div>
+        <div class="pfg-pw-title">Hypertrophy — Push / Pull / Legs (PPL)</div>
+        <div class="pfg-pw-sub">Intermediate · 6-Day · Muscle gain focus · 67–85% 1-RM</div>
+      </div>
+      <div class="pfg-pw-badge" style="background:var(--pfg-accent4);">HYPERTROPHY</div>
+    </div>
+    <div class="pfg-pw-body">
+      <div class="pfg-stats-row">
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent4);">6</div><div class="pfg-stat-lbl">Days/Wk</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent4);">3–5</div><div class="pfg-stat-lbl">Sets</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent4);">8–12</div><div class="pfg-stat-lbl">Reps</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent4);">60s</div><div class="pfg-stat-lbl">Rest</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent4);">60–75</div><div class="pfg-stat-lbl">Min/Session</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent4);">75%</div><div class="pfg-stat-lbl">Avg 1-RM</div></div>
+      </div>
+      <div class="pfg-tbl-wrap">
+        <table>
+          <thead><tr><th>Day</th><th>Exercise</th><th>Sets × Reps</th><th>Rest</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="5"><strong>PUSH<br>(Mon/Thu)</strong></td><td>Barbell Bench Press</td><td class="pfg-td-gold">4×8–10</td><td>90s</td></tr>
+            <tr><td>Incline DB Press</td><td class="pfg-td-gold">3×10–12</td><td>60s</td></tr>
+            <tr><td>Cable Chest Fly</td><td class="pfg-td-gold">3×12–15</td><td>60s</td></tr>
+            <tr><td>OHP Barbell / DB</td><td class="pfg-td-gold">3×10</td><td>75s</td></tr>
+            <tr><td>Tricep Pushdown + Skull Crusher</td><td class="pfg-td-gold">3×12</td><td>60s</td></tr>
+            <tr><td rowspan="5"><strong>PULL<br>(Tue/Fri)</strong></td><td>Weighted Pull-up or Lat Pulldown</td><td class="pfg-td-gold">4×8</td><td>90s</td></tr>
+            <tr><td>Barbell Bent-Over Row</td><td class="pfg-td-gold">4×8–10</td><td>90s</td></tr>
+            <tr><td>Chest-Supported DB Row</td><td class="pfg-td-gold">3×12</td><td>60s</td></tr>
+            <tr><td>Face Pull (rear delt / traps)</td><td class="pfg-td-gold">3×15</td><td>45s</td></tr>
+            <tr><td>Barbell / DB Curl + Hammer Curl</td><td class="pfg-td-gold">3×12</td><td>60s</td></tr>
+            <tr><td rowspan="6"><strong>LEGS<br>(Wed/Sat)</strong></td><td>Back Squat</td><td class="pfg-td-gold">4×8</td><td>2 min</td></tr>
+            <tr><td>Romanian Deadlift</td><td class="pfg-td-gold">3×10</td><td>90s</td></tr>
+            <tr><td>Leg Press</td><td class="pfg-td-gold">3×12</td><td>75s</td></tr>
+            <tr><td>Leg Curl (lying/seated)</td><td class="pfg-td-gold">3×12</td><td>60s</td></tr>
+            <tr><td>Leg Extension</td><td class="pfg-td-gold">3×15</td><td>60s</td></tr>
+            <tr><td>Standing Calf Raise</td><td class="pfg-td-gold">4×15–20</td><td>45s</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRENGTH PROGRAM -->
+  <div class="pfg-program-week">
+    <div class="pfg-pw-header">
+      <div class="pfg-pw-week">D</div>
+      <div>
+        <div class="pfg-pw-title">Strength — 5×5 Linear Progression</div>
+        <div class="pfg-pw-sub">Beginner-Intermediate · 3 Day · ≥85% 1-RM · Based on StrongLifts / NSCA</div>
+      </div>
+      <div class="pfg-pw-badge" style="background:var(--pfg-accent);">STRENGTH</div>
+    </div>
+    <div class="pfg-pw-body">
+      <div class="pfg-stats-row">
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent);">3</div><div class="pfg-stat-lbl">Days/Wk</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent);">5</div><div class="pfg-stat-lbl">Sets</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent);">5</div><div class="pfg-stat-lbl">Reps</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent);">3–5m</div><div class="pfg-stat-lbl">Rest</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent);">45</div><div class="pfg-stat-lbl">Min/Session</div></div>
+        <div class="pfg-stat-box"><div class="pfg-stat-num" style="color:var(--pfg-accent);">85%+</div><div class="pfg-stat-lbl">1-RM</div></div>
+      </div>
+      <div class="pfg-tbl-wrap">
+        <table>
+          <thead><tr><th>Workout A (Mon)</th><th>Sets × Reps</th><th>Workout B (Wed)</th><th>Sets × Reps</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Back Squat</strong></td><td class="pfg-td-r">5×5</td><td><strong>Back Squat</strong></td><td class="pfg-td-r">5×5</td></tr>
+            <tr><td><strong>Barbell Bench Press</strong></td><td class="pfg-td-r">5×5</td><td><strong>Barbell OHP</strong></td><td class="pfg-td-r">5×5</td></tr>
+            <tr><td><strong>Barbell Row</strong></td><td class="pfg-td-r">5×5</td><td><strong>Deadlift</strong></td><td class="pfg-td-r">1×5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:#444;margin-top:12px;"><strong>Progression:</strong> Add 5 lbs to upper body and 10 lbs to lower body each session. When you fail to complete 5×5 three times in a row, deload by 10% and rebuild. This is the fastest strength method for beginners.</p>
+      <p style="font-size:12px;color:var(--pfg-muted);margin-top:8px;font-family:'JetBrains Mono',monospace;">Friday = Workout A or B (alternating). Squat every session — it's the most important lift. Deadlift is 1×5 because of high CNS demand.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE 6: EXERCISE LIBRARY -->
+<!-- ======================================================= -->
+<div id="pfg-page-exercises" class="pfg-page">
+<div class="pfg-container">
+
+  <div class="pfg-section-label">
+    <div class="pfg-sl-num">06</div>
+    <div class="pfg-sl-text"><h2>Exercise Library</h2><p>80+ exercises with muscles, cues, and progressions</p></div>
+  </div>
+
+  <div class="pfg-sec-break"><span>LOWER BODY</span> Compound Movements</div>
+  <div class="pfg-ex-grid">
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Back Squat (Barbell)</div>
+      <div class="pfg-ex-meta">Bilateral · Compound · Free Weight</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Quads</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Glutes</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Hamstrings</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Core</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Bar on traps (high bar) or rear delts (low bar). Knees track toes. Depth: break parallel. Brace core before descent.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Romanian Deadlift (RDL)</div>
+      <div class="pfg-ex-meta">Bilateral · Compound · Hip Hinge</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Hamstrings</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Glutes</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Erectors</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Hinge at hip (not squat down). Bar stays close to legs. Soft knee bend. Feel hamstring stretch at bottom. Most common beginner error: rounding lower back.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Hip Thrust (Barbell)</div>
+      <div class="pfg-ex-meta">Bilateral · Compound · Glute-Dominant</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Glute Max</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Hamstrings</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Core</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Back on bench edge, bar on hip crease (pad it). Drive through heels. Full hip extension at top. Don't hyperextend lumbar — squeeze glutes hard. Best glute exercise per EMG studies.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Bulgarian Split Squat</div>
+      <div class="pfg-ex-meta">Unilateral · Compound · Knee-Dominant</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Quads</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Glutes</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Hip Stabilizers</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Rear foot elevated on bench. Front foot far enough forward to allow shin vertical. Brutal quad/glute work. Exposes bilateral strength deficits. Client may hate you for it. Include it anyway.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Conventional Deadlift</div>
+      <div class="pfg-ex-meta">Bilateral · Total Body · King of Exercises</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Hamstrings</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Glutes</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Traps/Back</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Quads</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Hip-width stance. Bar over mid-foot. Grip just outside legs. Lat tension ("protect armpits"). Push floor away — don't pull bar up. Hips and shoulders rise simultaneously. Teaches entire posterior chain in one movement.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Leg Press (Machine)</div>
+      <div class="pfg-ex-meta">Bilateral · Compound · Machine</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Quads</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Glutes</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Hamstrings</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Feet shoulder-width, mid-platform. Don't lock knees at top. Control descent. High foot placement = more glutes. Low placement = more quads. Great for beginners and those with squat limitations.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Goblet Squat (DB/KB)</div>
+      <div class="pfg-ex-meta">Bilateral · Compound · Beginner-Friendly</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Quads</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Glutes</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Core</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Weight at chest, elbows push knees out at bottom. Counterbalance helps clients achieve depth. Perfect starting squat pattern for all beginners. Self-corrects forward lean tendency.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Nordic Hamstring Curl</div>
+      <div class="pfg-ex-meta">Unilateral · Eccentric-Focused</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Hamstrings</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Glutes (assist)</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Kneel, feet anchored. Lower body toward floor with control. Push up with hands. Extremely high hamstring activation per EMG. Shown to reduce hamstring injury risk by ~51% (Petersen et al., 2011).</p>
+    </div>
+  </div>
+
+  <div class="pfg-sec-break"><span>UPPER BODY</span> Push Movements</div>
+  <div class="pfg-ex-grid">
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Barbell Bench Press</div>
+      <div class="pfg-ex-meta">Horizontal Push · Free Weight · Compound</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Pec Major</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Anterior Delt</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Triceps</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Feet flat. Slight arch. Bar path slightly diagonal (not straight up). Elbows ~45–75° from torso. Touch chest with control. Grip slightly wider than shoulder-width. Don't bounce the bar.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Push-Up</div>
+      <div class="pfg-ex-meta">Horizontal Push · Bodyweight · Scalable</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Pectorals</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Triceps</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Serratus</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Core</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Perfect starting point. Progressions: wall → incline → knee → full → feet elevated → weighted. Scapulae protract at top (full push-up). Rigid body throughout. Can sub for bench when equipment unavailable.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Overhead Press (OHP)</div>
+      <div class="pfg-ex-meta">Vertical Push · Barbell/DB · Compound</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">All Deltoids</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Triceps</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Upper Traps</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Brace abs hard. Rib cage down. Bar starts at clavicle. Press straight up. Slight hip drive ok (push press). Lateral delt most activated on strict press. Most clients need shoulder mobility work first.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Incline DB Press</div>
+      <div class="pfg-ex-meta">Upper Pec Emphasis · 30–45° Incline</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Clavicular Pec</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Anterior Delt</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Triceps</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 45° bench angle hits upper pec most. Greater than 45° shifts to shoulders. DB allows natural shoulder path. Great complement to flat bench for complete chest development.</p>
+    </div>
+  </div>
+
+  <div class="pfg-sec-break"><span>UPPER BODY</span> Pull Movements</div>
+  <div class="pfg-ex-grid">
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Pull-Up / Chin-Up</div>
+      <div class="pfg-ex-meta">Vertical Pull · Bodyweight · King of Back</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Lats</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Biceps</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Lower Traps</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Core</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Pull-up (pronated grip) = more lats. Chin-up (supinated grip) = more biceps. Dead hang full ROM. Drive elbows down and back. Most beginners need lat pulldown first. Band-assisted or machine-assisted for regression.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Barbell Bent-Over Row</div>
+      <div class="pfg-ex-meta">Horizontal Pull · Compound · Free Weight</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Rhomboids</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Mid Traps</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Lats</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Erectors</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Hinge to ~45°. Bar to lower ribcage. Retract scapulae. Overhand grip = more upper back. Underhand grip = more lats/biceps. Erector isometric demand is high — build up slowly.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Face Pull (Cable)</div>
+      <div class="pfg-ex-meta">Rear Delt / Upper Back · High Rep</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Rear Delt</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Mid Traps</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">External Rotators</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Cable at eye height. Rope attachment. Pull to face, elbows high and wide. External rotate at end (thumbs back). The #1 underused corrective exercise for shoulder health. Include in EVERY client's program.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Single-Arm DB Row</div>
+      <div class="pfg-ex-meta">Unilateral · Horizontal Pull · Targets Imbalances</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Lats</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Rhomboids</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Rear Delt</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Core</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Brace on bench. Pull DB to hip (not shoulder). Elbow drives back. Identifies side-to-side strength differences. Allow the shoulder to protract fully at bottom for full lat stretch.</p>
+    </div>
+  </div>
+
+  <div class="pfg-sec-break"><span>CORE</span> Evidence-Based Essential Exercises</div>
+  <div class="pfg-ex-grid">
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">McGill Big 3</div>
+      <div class="pfg-ex-meta">Evidence-Based Core Foundation (McGill, 2002)</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">TVA</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">Multifidus</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">QL</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Modified curl-up + Side plank + Bird dog. The gold standard for low back health. Isometric, low-load, high safety. Start ALL clients with back history here first. Train for time (10s holds), not reps.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Dead Bug</div>
+      <div class="pfg-ex-meta">Anti-Extension · Coordination · Safe for All</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">TVA</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Rectus Abdominis</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Hip Flexors</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Lower back pressed INTO floor throughout. Opposite arm/leg extend simultaneously. Exhale during extension. Slow and controlled. If lower back lifts = too far. The best "crunch alternative" with zero spinal flexion under load.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Pallof Press</div>
+      <div class="pfg-ex-meta">Anti-Rotation · Cable · Functional</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Obliques</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">TVA</span>
+        <span class="pfg-muscle-tag pfg-mt-stabilizer">Glute Med</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 Stand side-on to cable. Hold at chest. Press out and hold. Resist rotation — that's the entire point. One of the best functional core exercises. Challenges entire kinetic chain in standing position. Start close to cable, progress farther away.</p>
+    </div>
+    <div class="pfg-ex-card">
+      <div class="pfg-ex-name">Ab Wheel Rollout</div>
+      <div class="pfg-ex-meta">Anti-Extension · Advanced</div>
+      <div class="pfg-ex-tags">
+        <span class="pfg-muscle-tag pfg-mt-primary">Rectus Abdominis</span>
+        <span class="pfg-muscle-tag pfg-mt-primary">TVA</span>
+        <span class="pfg-muscle-tag pfg-mt-secondary">Lats</span>
+      </div>
+      <p style="font-size:12px;color:#555;margin-top:8px;">📌 High lat activation + extreme anti-extension demand. Regression: knee rollout (short range). Progression: standing rollout. Don't allow lower back to sag — this is the failure point and injury risk. One of the most demanding core exercises.</p>
+    </div>
+  </div>
+
+  <!-- WARM-UP & MOBILITY -->
+  <div class="pfg-sec-break"><span>MOBILITY</span> Warm-Up & Corrective Movements</div>
+  <div class="pfg-tbl-wrap">
+    <table>
+      <thead><tr><th>Exercise</th><th>Target Area</th><th>Reps / Time</th><th>When To Use</th></tr></thead>
+      <tbody>
+        <tr><td><strong>90/90 Hip Stretch</strong></td><td>Hip internal + external rotation</td><td>60s each side</td><td>Before lower body training</td></tr>
+        <tr><td><strong>World's Greatest Stretch</strong></td><td>Hip flexor, thoracic, hamstring</td><td>5 reps/side</td><td>General warm-up for any session</td></tr>
+        <tr><td><strong>Leg Swing (Front/Lateral)</strong></td><td>Hip flexors, hamstrings, abductors</td><td>10 reps/side</td><td>Dynamic warm-up before legs</td></tr>
+        <tr><td><strong>Band Pull-Apart</strong></td><td>Posterior deltoid, mid traps</td><td>2×15</td><td>Before any upper body push session</td></tr>
+        <tr><td><strong>Cat-Cow</strong></td><td>Lumbar + thoracic spine</td><td>10 slow reps</td><td>Low back warm-up / cool-down</td></tr>
+        <tr><td><strong>Hip Circle</strong></td><td>Hip joint capsule</td><td>10 each direction</td><td>Pre-squat / deadlift warm-up</td></tr>
+        <tr><td><strong>Thoracic Extension (foam roller)</strong></td><td>Thoracic kyphosis / posture</td><td>60 sec</td><td>Desk workers, before overhead press</td></tr>
+        <tr><td><strong>Ankle Circle + Wall Ankle Mob</strong></td><td>Ankle dorsiflexion</td><td>10 reps / 30s hold</td><td>Before squatting if heels rise</td></tr>
+        <tr><td><strong>Calf Stretch (wall)</strong></td><td>Gastrocnemius + Soleus</td><td>30–60s each</td><td>Cool-down / tight calves in squat</td></tr>
+        <tr><td><strong>Pigeon Pose</strong></td><td>Hip external rotators, piriformis</td><td>60–90s/side</td><td>Cool-down after lower body session</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ======================================================= -->
+<!-- PAGE 7: SESSION FLOW -->
+<!-- ======================================================= -->
+<div id="pfg-page-session" class="pfg-page">
+<div class="pfg-container">
+
+  <div class="pfg-section-label">
+    <div class="pfg-sl-num">07</div>
+    <div class="pfg-sl-text"><h2>Session Flow & Coaching</h2><p>How to run every single training session</p></div>
+  </div>
+
+  <div class="pfg-sec-break"><span>THE</span> Perfect Training Session — Minute by Minute</div>
+
+  <div class="pfg-tbl-wrap">
+    <table>
+      <thead><tr><th>Time</th><th>Phase</th><th>What You're Doing</th><th>Coaching Focus</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="pfg-td-b"><strong>0–2 min</strong></td>
+          <td><strong>Check-In</strong></td>
+          <td>Ask: How's energy today? Any soreness? Sleep quality? Stress?</td>
+          <td>Adjust session intensity based on answers. Don't push a client who slept 4 hours and is stressed.</td>
+        </tr>
+        <tr>
+          <td class="pfg-td-g"><strong>2–10 min</strong></td>
+          <td><strong>General Warm-Up</strong></td>
+          <td>Light cardio (walk/bike/row). Get blood moving, elevate HR gently.</td>
+          <td>"Breathe through the nose, comfortable pace." Target: HR to ~100–110 BPM.</td>
+        </tr>
+        <tr>
+          <td class="pfg-td-g"><strong>10–17 min</strong></td>
+          <td><strong>Dynamic Warm-Up</strong></td>
+          <td>Movement-specific mobility. Leg swings, hip circles, band pull-aparts, activation work relevant to day's exercises.</td>
+          <td>Mirror the movement patterns of the session. No passive static stretching here unless corrective need.</td>
+        </tr>
+        <tr>
+          <td class="pfg-td-gold"><strong>17–20 min</strong></td>
+          <td><strong>Warm-Up Sets</strong></td>
+          <td>2–3 sets with light/moderate load for first main exercise. 50% → 70% → working weight.</td>
+          <td>Check form. Identify issues. Don't rush. Warmup sets are diagnostic sets.</td>
+        </tr>
+        <tr>
+          <td class="pfg-td-r"><strong>20–55 min</strong></td>
+          <td><strong>Main Conditioning</strong></td>
+          <td>Working sets. Primary exercises → accessory exercises. Follow plan but adapt.</td>
+          <td>Give 1–2 pfg-cues max per set. Watch for form breakdown = load too heavy or too fatigued. Track everything.</td>
+        </tr>
+        <tr>
+          <td class="pfg-td-p"><strong>55–62 min</strong></td>
+          <td><strong>Cool-Down</strong></td>
+          <td>Light activity to reduce HR. Static stretching (30–60 sec holds). Address tight areas.</td>
+          <td>"Let gravity do the work." Parasympathetic activation. This is recovery initiation.</td>
+        </tr>
+        <tr>
+          <td class="pfg-td-b"><strong>62–65 min</strong></td>
+          <td><strong>Debrief</strong></td>
+          <td>Review what went well. Discuss next session. Nutrition reminder. Note tracking progress.</td>
+          <td>Positive reinforcement. Set expectation. Build trust and motivation for next session.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COACHING CUES BANK -->
+  <div class="pfg-sec-break"><span>COACHING</span> Cues Bank — By Movement</div>
+
+  <div class="pfg-g2">
+    <div class="pfg-card pfg-strip-blue">
+      <h3 style="font-size:14px;margin-bottom:10px;color:var(--pfg-accent3);">🏋️ SQUAT Cues</h3>
+      <div class="pfg-cues">
+        <span class="pfg-cue-chip">"Chest tall"</span>
+        <span class="pfg-cue-chip">"Knees track toes"</span>
+        <span class="pfg-cue-chip">"Push the floor away"</span>
+        <span class="pfg-cue-chip">"Sit back and down"</span>
+        <span class="pfg-cue-chip">"Big breath before descent"</span>
+        <span class="pfg-cue-chip">"Screw your feet into the floor"</span>
+        <span class="pfg-cue-chip">"Break at hip and knee simultaneously"</span>
+        <span class="pfg-cue-chip">"Elbows down (front squat)"</span>
+      </div>
+    </div>
+    <div class="pfg-card pfg-strip-green">
+      <h3 style="font-size:14px;margin-bottom:10px;color:var(--pfg-accent2);">📐 DEADLIFT / RDL Cues</h3>
+      <div class="pfg-cues">
+        <span class="pfg-cue-chip">"Hip hinge — not squat"</span>
+        <span class="pfg-cue-chip">"Push hips back to wall"</span>
+        <span class="pfg-cue-chip">"Protect your armpits"</span>
+        <span class="pfg-cue-chip">"Bar stays close to body"</span>
+        <span class="pfg-cue-chip">"Proud chest throughout"</span>
+        <span class="pfg-cue-chip">"Squeeze glutes at top"</span>
+        <span class="pfg-cue-chip">"Feel hamstring stretch"</span>
+      </div>
+    </div>
+    <div class="pfg-card pfg-strip-red">
+      <h3 style="font-size:14px;margin-bottom:10px;color:var(--pfg-accent);">💪 PUSH Cues</h3>
+      <div class="pfg-cues">
+        <span class="pfg-cue-chip">"Retract scapulae first"</span>
+        <span class="pfg-cue-chip">"Elbows 45–75° angle"</span>
+        <span class="pfg-cue-chip">"Touch chest with control"</span>
+        <span class="pfg-cue-chip">"Drive heels into floor"</span>
+        <span class="pfg-cue-chip">"Brace and breathe"</span>
+        <span class="pfg-cue-chip">"Full lock-out at top"</span>
+        <span class="pfg-cue-chip">"Ribs down (OHP)"</span>
+      </div>
+    </div>
+    <div class="pfg-card pfg-strip-teal">
+      <h3 style="font-size:14px;margin-bottom:10px;color:var(--pfg-accent6);">🎯 PULL Cues</h3>
+      <div class="pfg-cues">
+        <span class="pfg-cue-chip">"Elbows to back pockets"</span>
+        <span class="pfg-cue-chip">"Squeeze oranges in armpits"</span>
+        <span class="pfg-cue-chip">"Lead with elbows not hands"</span>
+        <span class="pfg-cue-chip">"Full hang at bottom"</span>
+        <span class="pfg-cue-chip">"Pinch shoulder blades"</span>
+        <span class="pfg-cue-chip">"Chin over bar (pull-up)"</span>
+        <span class="pfg-cue-chip">"Bar to sternum (row)"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RED FLAGS -->
+  <div class="pfg-sec-break"><span>STOP THE SET</span> — Red Flag Form Breakers</div>
+  <div class="pfg-tbl-wrap">
+    <table>
+      <thead><tr><th>Exercise</th><th>Red Flag</th><th>Likely Cause</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Squat</strong></td><td>Knees cave inward</td><td>Weak glute med / tight adductors</td><td>Cue "knees out" + add banded squat / clamshell activation</td></tr>
+        <tr><td><strong>Squat</strong></td><td>Heels rise</td><td>Tight calves / limited dorsiflexion</td><td>Heel elevation (plate) / ankle mobility work</td></tr>
+        <tr><td><strong>Deadlift</strong></td><td>Lower back rounds</td><td>Weak erectors / too heavy</td><td>Reduce load, cue lat engagement, hip hinge drill first</td></tr>
+        <tr><td><strong>Bench Press</strong></td><td>Bar path toward neck</td><td>Shoulder impingement compensation</td><td>Check shoulder mobility, reduce load, tuck elbows</td></tr>
+        <tr><td><strong>OHP</strong></td><td>Excessive lumbar extension</td><td>Weak core / tight hip flexors</td><td>Brace harder, reduce load, cue "ribs down"</td></tr>
+        <tr><td><strong>Pull-Up</strong></td><td>Chin jutting forward</td><td>Lat weakness, using neck muscles</td><td>Regress to lat pulldown, increase volume there first</td></tr>
+        <tr><td><strong>Any Exercise</strong></td><td>Breath holding (Valsalva)</td><td>Load too heavy / not taught to breathe</td><td>Teach bracing: inhale down, exhale up on exertion</td></tr>
+        <tr><td><strong>Any Exercise</strong></td><td>Pain (not muscle burn)</td><td>Joint/tendon overload or injury</td><td>STOP immediately. Assess. Refer if necessary. Never train through pain.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NOTEBOOK WHAT TO TRACK -->
+  <div class="pfg-sec-break"><span>YOUR NOTEBOOK</span> — Track This Every Session</div>
+
+  <div class="pfg-g2">
+    <div class="pfg-card pfg-strip-blue">
+      <h3 style="font-size:14px;margin-bottom:10px;">📓 What To Log (Per Client)</h3>
+      <ul style="font-size:13px;color:#444;padding-left:16px;">
+        <li>Date + session number</li>
+        <li>How client feels (1–10 energy)</li>
+        <li>Exercise / Sets / Reps / Load used</li>
+        <li>RPE for each working set</li>
+        <li>Form notes (what broke down)</li>
+        <li>Any pain or discomfort mentioned</li>
+        <li>Cues that worked well</li>
+        <li>What to adjust next session</li>
+        <li>Client feedback / motivation level</li>
+      </ul>
+    </div>
+    <div class="pfg-card pfg-strip-red">
+      <h3 style="font-size:14px;margin-bottom:10px;">📊 Re-Assessment Every 4–6 Weeks</h3>
+      <ul style="font-size:13px;color:#444;padding-left:16px;">
+        <li>Body composition / girth measurements</li>
+        <li>Repeat baseline fitness tests</li>
+        <li>Movement screen (overhead squat)</li>
+        <li>Compare to initial values</li>
+        <li>Update goal if needed (SMART)</li>
+        <li>Progress program variables (overload)</li>
+        <li>Check adherence and lifestyle factors</li>
+        <li>Celebrate wins with the client 🏆</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pfg-alert pfg-alert-green">
+    <div class="pfg-alert-icon">🎯</div>
+    <div><strong>The PT's Real Job:</strong> Your client doesn't pay you just for exercises — they can Google those. They pay you for accountability, progressive overload that they'd never push alone, form safety, expert modification when life happens, and the confidence that someone qualified is guiding their health. Be present, be professional, be consistent. That's what builds a client base that stays for years.</div>
+  </div>
+
+  <!-- QUICK DECISION TREE -->
+  <div class="pfg-sec-break"><span>QUICK DECISION TREE</span> — What Program Does This Client Need?</div>
+  <div class="pfg-tbl-wrap">
+    <table>
+      <thead><tr><th>Client Profile</th><th>Goal</th><th>Phase</th><th>Frequency</th><th>Start With</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Never trained, 50+ yr old</strong></td><td>General health, move better</td><td class="pfg-td-g">Phase 1</td><td class="pfg-td-g">2–3×/wk</td><td>Bodyweight patterns, light resistance, McGill Big 3</td></tr>
+        <tr><td><strong>Been to gym but no structure</strong></td><td>Build muscle, look better</td><td class="pfg-td-b">Phase 2–3</td><td class="pfg-td-b">3–4×/wk</td><td>Template A or C, movement screen first</td></tr>
+        <tr><td><strong>Female, wants "tone"</strong></td><td>Body recomp (tone = muscle + less fat)</td><td class="pfg-td-b">Phase 2–3</td><td class="pfg-td-b">3–4×/wk</td><td>Template B, hip thrust, back work, moderate weights</td></tr>
+        <tr><td><strong>Young athletic male</strong></td><td>Strength + size</td><td class="pfg-td-r">Phase 3–4</td><td class="pfg-td-r">4–6×/wk</td><td>PPL or Upper/Lower, 5×5 for strength days</td></tr>
+        <tr><td><strong>Post-injury / desk worker</strong></td><td>Fix posture, reduce pain</td><td class="pfg-td-g">Phase 1</td><td class="pfg-td-g">3×/wk</td><td>Mobility first, corrective exercises, McGill Big 3, face pulls</td></tr>
+        <tr><td><strong>Weight loss focus</strong></td><td>Fat loss + retain muscle</td><td class="pfg-td-gold">Phase 2–3</td><td class="pfg-td-gold">4×/wk</td><td>Template B, caloric deficit coaching, 12–15 rep range</td></tr>
+        <tr><td><strong>Sport-specific athlete</strong></td><td>Performance, speed, power</td><td class="pfg-td-r">Phase 4</td><td class="pfg-td-r">4–6×/wk</td><td>Compound lifts heavy, plyometrics, Olympic lift variations</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<script>
+function pfgShowTab(id) {
+  document.querySelectorAll('.pfg-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pfg-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pfg-page-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+<script>
+
+function pfgShowTab(id) {
+  document.querySelectorAll('.pfg-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pfg-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pfg-page-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+</script>
+
+</div>
+
+</Layout>
