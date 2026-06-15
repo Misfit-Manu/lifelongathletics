@@ -137,6 +137,16 @@ const { Content } = await render(entry);
     border-radius: 8px; display: block;
   }
 
+  /* IN-ARTICLE IMAGES */
+  .article-body :global(img) {
+    width: 100%;
+    height: clamp(200px, 40vw, 460px);
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    margin: 8px 0 40px;
+  }
+
   /* TABLES (markdown-injected) */
   .article-body :global(table) {
     width: 100%; border-collapse: collapse; margin: 36px 0; font-size: 0.95rem;
