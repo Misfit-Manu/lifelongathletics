@@ -1,0 +1,575 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="How Your Gut Barrier Breaks Down — Interactive Guide | Lifelong Athletics" description="What tight junctions are, how leaky gut develops phase by phase, and how to reverse it. Interactive slider shows the full journey from healthy barrier to leaky gut and back to healing.">
+
+<div class="gbt-back-bar">
+  <a href="/blog" class="gbt-back-link">← Back to Education</a>
+</div>
+
+<style is:global>
+
+  .gbt-back-bar { max-width: 860px; margin: 0 auto; padding: 110px 40px 0; }
+  .gbt-back-link {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; display: inline-flex;
+    align-items: center; gap: 8px; transition: color 0.2s;
+  }
+  .gbt-back-link:hover { color: var(--gold); }
+
+  /* ARTICLE INTRO */
+  .gbt-article {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 40px 0;
+    font-family: var(--font-body, 'Georgia', serif);
+  }
+  .gbt-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold, #c9a84c);
+    margin-bottom: 20px;
+  }
+  .gbt-article h1 {
+    font-family: var(--font-display, Georgia);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--white, #f5f5f0);
+    margin-bottom: 20px;
+  }
+  .gbt-article h1 em { font-style: italic; color: var(--gold, #c9a84c); }
+  .gbt-intro-meta {
+    font-size: 0.75rem;
+    color: var(--muted, #888);
+    letter-spacing: 0.08em;
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .gbt-article h2 {
+    font-family: var(--font-display, Georgia);
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--white, #f5f5f0);
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .gbt-article p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(245,245,240,0.78);
+    margin-bottom: 22px;
+  }
+  .gbt-article strong { color: var(--white, #f5f5f0); font-weight: 600; }
+
+  .gbt-phases-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 28px;
+    border-left: 2px solid rgba(201,168,76,0.25);
+    padding-left: 24px;
+  }
+  .gbt-phases-list li {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(245,245,240,0.78);
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .gbt-phases-list li::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold, #c9a84c);
+    opacity: 0.6;
+  }
+  .gbt-phases-list li strong { color: var(--gold, #c9a84c); }
+
+  .gbt-callout {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 32px 0 48px;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: rgba(245,245,240,0.8);
+  }
+  .gbt-callout strong { color: var(--gold, #c9a84c); }
+
+  .gbt-divider {
+    text-align: center;
+    margin: 48px 0 40px;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted, #888);
+  }
+  .gbt-divider::before,
+  .gbt-divider::after {
+    content: '—————';
+    margin: 0 16px;
+    opacity: 0.3;
+  }
+
+  /* WIDGET WRAPPER */
+  .gbt-widget-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* SCOPED TIMELINE WIDGET */
+  .gbt-wrap * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .gbt-wrap .timeline-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    color: #e0e0e0;
+    padding: 2rem;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  .gbt-wrap .header { text-align: center; margin-bottom: 2rem; }
+  .gbt-wrap .header h1 { font-size: 24px; color: #ffd700; margin-bottom: 0.5rem; font-weight: 600; }
+  .gbt-wrap .header p  { font-size: 12px; color: #aaa; }
+
+  .gbt-wrap .visual-section {
+    background: rgba(255,255,255,0.02);
+    border: 0.5px solid rgba(255,215,0,0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gbt-wrap .barrier-visual { font-size: 48px; letter-spacing: 8px; transition: all 0.5s ease; }
+  .gbt-wrap .barrier-state  { font-size: 12px; color: #aaa; margin-top: 0.75rem; }
+
+  .gbt-wrap .timeline-slider { margin: 2rem 0; }
+  .gbt-wrap .current-state   { text-align: center; font-size: 16px; font-weight: 600; color: #ffd700; margin-bottom: 0.5rem; }
+  .gbt-wrap .slider-label    { display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 11px; color: #aaa; }
+
+  .gbt-wrap input[type="range"] {
+    width: 100%; height: 6px; border-radius: 3px;
+    background: rgba(255,215,0,0.1); outline: none;
+    -webkit-appearance: none; cursor: pointer;
+  }
+  .gbt-wrap input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #ffd700; cursor: pointer; transition: all 0.2s ease;
+  }
+  .gbt-wrap input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  .gbt-wrap input[type="range"]::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #ffd700; cursor: pointer; border: none;
+  }
+
+  .gbt-wrap .phase-markers {
+    display: grid; grid-template-columns: repeat(5,1fr);
+    gap: 10px; margin-bottom: 2rem;
+  }
+  .gbt-wrap .phase-marker {
+    text-align: center; padding: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 6px; font-size: 10px;
+    cursor: pointer; transition: all 0.3s ease;
+  }
+  .gbt-wrap .phase-marker:hover { background: rgba(255,215,0,0.1); border-color: rgba(255,215,0,0.4); }
+  .gbt-wrap .phase-marker.active { background: rgba(255,215,0,0.2); border-color: #ffd700; color: #ffd700; font-weight: 600; }
+  .gbt-wrap .phase-marker-label  { display: block; margin-bottom: 4px; font-weight: 600; }
+  .gbt-wrap .phase-marker-status { color: #aaa; font-size: 9px; }
+
+  .gbt-wrap .metrics-row {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 12px; margin-bottom: 2rem;
+  }
+  .gbt-wrap .metric-card {
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(255,215,0,0.2);
+    border-radius: 8px; padding: 1rem;
+    text-align: center; transition: all 0.5s ease;
+  }
+  .gbt-wrap .metric-label  { font-size: 10px; color: #aaa; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+  .gbt-wrap .metric-bar    { height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; }
+  .gbt-wrap .metric-fill   { height: 100%; width: 30%; border-radius: 10px; transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+  .gbt-wrap .metric-fill.good    { background: linear-gradient(90deg,#51cf66,#80ff88); }
+  .gbt-wrap .metric-fill.warning { background: linear-gradient(90deg,#ff922b,#ffb366); }
+  .gbt-wrap .metric-fill.danger  { background: linear-gradient(90deg,#ff6b6b,#ff9999); }
+  .gbt-wrap .metric-value  { font-size: 13px; font-weight: 600; color: #ffd700; }
+
+  .gbt-wrap .phase-info {
+    background: rgba(255,215,0,0.08);
+    border-left: 3px solid #ffd700;
+    padding: 1.25rem; border-radius: 6px;
+    margin-bottom: 1.5rem; transition: all 0.5s ease;
+  }
+  .gbt-wrap .phase-name        { font-size: 14px; font-weight: 600; color: #ffd700; margin-bottom: 0.5rem; }
+  .gbt-wrap .phase-description { font-size: 12px; line-height: 1.6; color: #ddd; margin-bottom: 0.75rem; }
+  .gbt-wrap .phase-details     { font-size: 11px; color: #aaa; line-height: 1.8; }
+  .gbt-wrap .detail-item       { margin-bottom: 0.5rem; padding-left: 1.25rem; position: relative; }
+  .gbt-wrap .detail-item:before { content: '→'; position: absolute; left: 0; color: #ffd700; font-weight: 600; }
+
+  .gbt-wrap .damage-factors {
+    background: rgba(255,107,107,0.08);
+    border: 0.5px solid rgba(255,107,107,0.3);
+    padding: 1rem; border-radius: 6px;
+    margin-bottom: 1.5rem; display: none;
+  }
+  .gbt-wrap .damage-factors.show { display: block; }
+  .gbt-wrap .damage-title  { font-size: 12px; font-weight: 600; color: #ff6b6b; margin-bottom: 0.5rem; text-transform: uppercase; }
+  .gbt-wrap .damage-list   { font-size: 10px; color: #ddd; line-height: 1.6; }
+  .gbt-wrap .damage-item   { margin-bottom: 0.4rem; padding-left: 1rem; position: relative; }
+  .gbt-wrap .damage-item:before { content: '✗'; position: absolute; left: 0; color: #ff6b6b; font-weight: 600; }
+
+  .gbt-wrap .controls { display: flex; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .gbt-wrap button {
+    flex: 1; min-width: 80px; padding: 0.75rem;
+    background: rgba(255,215,0,0.1);
+    border: 0.5px solid rgba(255,215,0,0.3);
+    color: #ffd700; border-radius: 6px; cursor: pointer;
+    font-size: 12px; font-weight: 600; transition: all 0.2s ease;
+  }
+  .gbt-wrap button:hover   { background: rgba(255,215,0,0.2); border-color: rgba(255,215,0,0.5); }
+  .gbt-wrap button:active  { transform: scale(0.98); }
+
+  .gbt-wrap .insight-box {
+    background: rgba(76,175,80,0.1);
+    border: 0.5px solid rgba(76,175,80,0.3);
+    padding: 1rem; border-radius: 6px;
+    font-size: 11px; line-height: 1.8; color: #ddd;
+  }
+  .gbt-wrap .insight-box strong { color: #80ff80; }
+
+  @media (max-width: 768px) {
+    .gbt-back-bar, .gbt-article, .gbt-widget-wrap { padding-left: 20px; padding-right: 20px; }
+    .gbt-wrap .metrics-row  { grid-template-columns: repeat(2,1fr); }
+    .gbt-wrap .phase-markers { grid-template-columns: repeat(3,1fr); }
+  }
+</style>
+
+<!-- ARTICLE INTRO -->
+<div class="gbt-article">
+  <p class="gbt-eyebrow">Nutrition · Gut Health</p>
+  <h1>How Your Gut Barrier<br/><em>Breaks Down</em></h1>
+  <p class="gbt-intro-meta">June 2026 &nbsp;·&nbsp; 8 min read &nbsp;·&nbsp; Interactive guide</p>
+
+  <p>Everything between the bacteria living in your intestines and your bloodstream is a single layer of cells — pressed together and sealed at their edges by molecular locks called <strong>tight junctions</strong>. When those locks hold, your body works exactly as it should: nutrients cross in, waste stays out, and your immune system stays quiet.</p>
+
+  <p>When those locks fail, a cascade begins. Food particles, bacterial fragments, and toxins that should never reach your bloodstream slip through the gaps. Your immune system notices, panics, and fires up an inflammatory response that doesn't stay in your gut — it spreads systemically. It shows up as fatigue you cannot explain, brain fog that doesn't lift after sleep, joints that ache without injury, and skin that flares for no obvious reason.</p>
+
+  <p>This is leaky gut syndrome. And despite what you might have heard, it is not a wellness myth — it is a real, measurable physiological event with a specific molecule at its centre.</p>
+
+  <h2>The Molecule That Opens the Locks</h2>
+
+  <p>In 2000, researcher Alessio Fasano discovered that intestinal cells release a signalling protein called <strong>zonulin</strong> in response to specific triggers — gluten (in sensitive individuals), bacterial imbalance in the gut, chronic psychological stress, and inflammatory foods. Zonulin's job is to open tight junctions. Under normal circumstances, this serves a physiological purpose. Under chronic stress, it becomes the mechanism of damage.</p>
+
+  <p>When zonulin stays elevated — because the triggers never stop — the gaps between intestinal cells remain open. Partially digested food proteins, bacterial lipopolysaccharides (LPS), and other molecules cross into the bloodstream continuously. LPS in particular is powerfully inflammatory; even trace concentrations in the blood trigger immune activation. This is called <strong>low-grade endotoxemia</strong>, and it is the hidden driver behind a wide range of modern chronic complaints.</p>
+
+  <h2>The Five Phases — What the Animation Shows</h2>
+
+  <p>The interactive tool below walks you through five stages of gut barrier health. Drag the slider, click the phase buttons, or press Play to watch the full journey. As you move through the phases, four metrics update in real time: Tight Junction Integrity, Zonulin level, Intestinal Permeability, and Inflammation via LPS. Here is what each phase means:</p>
+
+  <ul class="gbt-phases-list">
+    <li><strong>Phase 1 — Healthy:</strong> Tight junctions are sealed. Zonulin is low. Nothing crosses that shouldn't. Your immune system is quiet and your gut lining is doing exactly what it was designed to do.</li>
+    <li><strong>Phase 2 — Stress Begins:</strong> A trigger — sustained work stress, a course of antibiotics, regular NSAID use, a stretch of poor diet — raises zonulin. Gaps begin to appear. A small trickle of bacterial fragments enters the bloodstream. You may feel slightly off but nothing you can put your finger on.</li>
+    <li><strong>Phase 3 — Moderate Damage:</strong> Multiple ongoing triggers keep zonulin elevated. Larger food particles now cross the barrier. Your immune system starts producing IgG antibodies to foods it has never encountered in the bloodstream before. This is when food sensitivities begin to develop — reactions to foods you have eaten for years without issue.</li>
+    <li><strong>Phase 4 — Leaky Gut Syndrome:</strong> Severe permeability. LPS floods the bloodstream. The immune system is in permanent low-level activation. Symptoms become chronic and widespread — deep fatigue, persistent brain fog, joint pain, multiple food reactions, mood changes, skin conditions. The gut is no longer a barrier; it is a sieve.</li>
+    <li><strong>Phase 5 — Healing:</strong> Triggers removed. Zonulin drops. Intestinal cells begin regenerating — they turn over completely every 3 to 5 days. Tight junctions reseal. With the right nutrition protocol, most people see significant symptom improvement within 4 to 8 weeks.</li>
+  </ul>
+
+  <h2>How to Read the Metrics</h2>
+
+  <p>As you drag the slider, watch how the four bars move together. <strong>Tight Junction Integrity</strong> tells you how sealed the barrier is. <strong>Zonulin</strong> shows the signal driving the damage. <strong>Intestinal Permeability</strong> reflects what fraction of the barrier has broken down. <strong>Inflammation via LPS</strong> shows the downstream immune consequence.</p>
+
+  <p>Notice that once permeability rises above 60%, inflammation spikes disproportionately. This is the tipping point — at moderate damage, the immune system is managing. At leaky gut, it is overwhelmed. The damage is not linear, which is why symptoms often appear suddenly rather than gradually building.</p>
+
+  <div class="gbt-callout">
+    <strong>The most important thing to understand:</strong> this is reversible. A damaged gut barrier is not a permanent condition. Unlike a true food allergy — which is a lifelong immune memory — leaky gut is a structural problem. Fix the structure, remove the triggers, provide the building blocks, and the barrier repairs itself. Most people regain full tolerance for foods they thought they had permanently lost.
+  </div>
+</div>
+
+<div class="gbt-divider">Interactive Timeline</div>
+
+<!-- EMBEDDED WIDGET -->
+<div class="gbt-widget-wrap">
+<div class="gbt-wrap">
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; padding: 0;">
+
+<div class="timeline-container">
+  <div class="header">
+    <h1>🔐 Gut Barrier &amp; Leaky Gut</h1>
+    <p>Watch tight junctions open and close (and what causes damage)</p>
+  </div>
+
+  <div class="visual-section">
+    <div>
+      <div class="barrier-visual" id="barrierVisual">🔒🔒🔒</div>
+      <div class="barrier-state" id="barrierState">Tight junctions sealed</div>
+    </div>
+  </div>
+
+  <div class="timeline-slider">
+    <div class="current-state" id="timeDisplay">Healthy: Tight Junctions Sealed</div>
+    <div class="slider-label">
+      <span>Healthy</span>
+      <span>Beginning Stress</span>
+      <span>Moderate Damage</span>
+      <span>Leaky Gut</span>
+      <span>Healing</span>
+    </div>
+    <input type="range" id="timeSlider" min="0" max="100" value="0" oninput="gbtUpdateTimeline(this.value)">
+  </div>
+
+  <div class="phase-markers">
+    <div class="phase-marker active" onclick="gbtSetPhase(0)">
+      <span class="phase-marker-label">Healthy</span>
+      <span class="phase-marker-status">Sealed</span>
+    </div>
+    <div class="phase-marker" onclick="gbtSetPhase(25)">
+      <span class="phase-marker-label">Stress Begins</span>
+      <span class="phase-marker-status">Opening</span>
+    </div>
+    <div class="phase-marker" onclick="gbtSetPhase(50)">
+      <span class="phase-marker-label">Moderate Damage</span>
+      <span class="phase-marker-status">Permeable</span>
+    </div>
+    <div class="phase-marker" onclick="gbtSetPhase(75)">
+      <span class="phase-marker-label">Leaky Gut</span>
+      <span class="phase-marker-status">Very Permeable</span>
+    </div>
+    <div class="phase-marker" onclick="gbtSetPhase(100)">
+      <span class="phase-marker-label">Healing</span>
+      <span class="phase-marker-status">Resealing</span>
+    </div>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-label">Tight Junction Integrity</div>
+      <div class="metric-bar"><div class="metric-fill good" id="integrity"></div></div>
+      <div class="metric-value" id="integrityValue">100%</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Zonulin (Gap Opener)</div>
+      <div class="metric-bar"><div class="metric-fill danger" id="zonulin"></div></div>
+      <div class="metric-value" id="zonulinValue">Low</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Intestinal Permeability</div>
+      <div class="metric-bar"><div class="metric-fill danger" id="permeability"></div></div>
+      <div class="metric-value" id="permeabilityValue">0%</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Inflammation (LPS)</div>
+      <div class="metric-bar"><div class="metric-fill danger" id="inflammation"></div></div>
+      <div class="metric-value" id="inflammationValue">Low</div>
+    </div>
+  </div>
+
+  <div class="damage-factors" id="damageFactors">
+    <div class="damage-title">What's Damaging Your Barrier</div>
+    <div class="damage-list" id="damageList"></div>
+  </div>
+
+  <div class="phase-info" id="phaseInfo">
+    <div class="phase-name" id="phaseName">Healthy Gut Barrier</div>
+    <div class="phase-description" id="phaseDesc">
+      Tight junctions are sealed. Intestinal cells are connected by claudins, occludin, and other proteins. Only nutrients pass through. Bad stuff stays out.
+    </div>
+    <div class="phase-details">
+      <div class="detail-item" id="detail1">Tight junctions are CLOSED, only letting nutrients through</div>
+      <div class="detail-item" id="detail2">Zonulin levels are low (no gap-opening signal)</div>
+      <div class="detail-item" id="detail3">Intestinal lining is strong and intact</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button onclick="gbtPlay()">▶ Play</button>
+    <button onclick="gbtSetPhase(0)">⟲ Reset</button>
+    <button onclick="gbtSetPhase(0)">Healthy</button>
+    <button onclick="gbtSetPhase(50)">Damage</button>
+    <button onclick="gbtSetPhase(75)">Leaky</button>
+    <button onclick="gbtSetPhase(100)">Heal</button>
+  </div>
+
+  <div class="insight-box">
+    <strong>The Key Molecule: Zonulin</strong><br>
+    Zonulin is a protein released by intestinal cells in response to stress, poor diet, and inflammation. It literally opens the tight junctions like a doorway. When zonulin is high, gaps appear. When it's low, junctions are sealed. Control your zonulin, control your gut barrier.
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script is:inline>
+const gbtPhases = [
+  {
+    name: 'Healthy Gut Barrier',
+    desc: 'Tight junctions are sealed. Intestinal cells are connected by claudins, occludin, and other proteins. Only nutrients pass through. Bad stuff stays out.',
+    details: [
+      'Tight junctions are CLOSED, only letting nutrients through',
+      'Zonulin levels are low (no gap-opening signal)',
+      'Intestinal lining is strong and intact'
+    ],
+    damageFactors: [],
+    integrity: 100, zonulin: 5, permeability: 0, inflammation: 10,
+    visual: '🔒🔒🔒', color: 'good'
+  },
+  {
+    name: 'Beginning Stress: Junctions Start Opening',
+    desc: 'Stress, poor diet, or inflammatory foods trigger zonulin release. Gaps begin to appear between intestinal cells.',
+    details: [
+      'Zonulin rises in response to stress or gluten',
+      'Gaps begin opening between tight junctions',
+      'First bacterial endotoxins start leaking through'
+    ],
+    damageFactors: [
+      'Chronic stress (high cortisol)',
+      'Gluten (in sensitive individuals)',
+      'High-sugar diet',
+      'Lack of sleep',
+      'Excess exercise without recovery'
+    ],
+    integrity: 70, zonulin: 35, permeability: 20, inflammation: 30,
+    visual: '🔒🔓🔒', color: 'warning'
+  },
+  {
+    name: 'Moderate Damage: Barrier Compromised',
+    desc: 'Multiple holes now exist in the intestinal lining. Larger molecules, bacteria, and bacterial byproducts start crossing into bloodstream.',
+    details: [
+      'Zonulin stays elevated (ongoing trigger)',
+      'LPS (bacterial endotoxin) enters bloodstream',
+      'Immune system recognizes "invaders" and inflames'
+    ],
+    damageFactors: [
+      'Chronic gluten consumption',
+      'NSAIDs (ibuprofen, naproxen)',
+      'Excessive alcohol',
+      'Processed foods & additives',
+      'Dysbiosis (bad gut bacteria overgrowth)',
+      'Constant stress',
+      'Nutrient deficiencies (zinc, L-glutamine)'
+    ],
+    integrity: 40, zonulin: 65, permeability: 60, inflammation: 70,
+    visual: '🔓🔓🔓', color: 'danger'
+  },
+  {
+    name: 'Leaky Gut Syndrome',
+    desc: 'Severe intestinal permeability. Large gaps allow undigested food particles, bacterial lipopolysaccharides (LPS), and toxins to enter bloodstream freely.',
+    details: [
+      'Gut bacteria and LPS trigger systemic inflammation',
+      'Immune system attacks "invaders" 24/7',
+      'Can lead to food sensitivities, autoimmune, chronic fatigue'
+    ],
+    damageFactors: [
+      'All factors from moderate damage (continued)',
+      'Multiple food sensitivities developing',
+      'Autoimmune response (IgG antibodies to food)',
+      'Severe dysbiosis',
+      'Intestinal cell damage (enterocytes dying)',
+      'Nutritional malabsorption',
+      'Systemic inflammation (low-grade endotoxemia)'
+    ],
+    integrity: 15, zonulin: 90, permeability: 95, inflammation: 95,
+    visual: '💨💨💨', color: 'danger'
+  },
+  {
+    name: 'Healing Phase: Barrier Repair',
+    desc: 'Triggers removed. Zonulin drops. Tight junctions reseal. Intestinal cells regenerate. Healing takes 4-8 weeks with proper nutrition.',
+    details: [
+      'Remove triggers (gluten, NSAIDs, stress)',
+      'Restore with L-glutamine, zinc, bone broth',
+      'Rebuild microbiome with fermented foods & fiber',
+      'Tight junctions gradually reseal'
+    ],
+    damageFactors: [],
+    integrity: 70, zonulin: 15, permeability: 30, inflammation: 25,
+    visual: '🔒🔐🔒', color: 'good'
+  }
+];
+
+function gbtUpdateTimeline(value) {
+  const normalized = value / 100;
+  let idx = Math.min(Math.floor(normalized * gbtPhases.length), gbtPhases.length - 1);
+  const phase = gbtPhases[idx];
+
+  document.getElementById('timeDisplay').textContent = phase.name;
+  document.getElementById('barrierVisual').textContent = phase.visual;
+  gbtUpdateMetrics(phase);
+  gbtUpdatePhaseInfo(phase);
+
+  const damageBox = document.getElementById('damageFactors');
+  if (phase.damageFactors.length > 0) {
+    damageBox.classList.add('show');
+    document.getElementById('damageList').innerHTML = phase.damageFactors.map(f =>
+      `<div class="damage-item">${f}</div>`
+    ).join('');
+  } else {
+    damageBox.classList.remove('show');
+  }
+
+  document.querySelectorAll('.phase-marker').forEach((m, i) => {
+    m.classList.toggle('active', i === idx);
+  });
+}
+
+function gbtUpdateMetrics(phase) {
+  document.getElementById('integrity').style.width = phase.integrity + '%';
+  document.getElementById('integrityValue').textContent = phase.integrity + '%';
+  document.getElementById('integrity').className = 'metric-fill ' + (phase.integrity > 60 ? 'good' : phase.integrity > 30 ? 'warning' : 'danger');
+
+  document.getElementById('zonulin').style.width = phase.zonulin + '%';
+  document.getElementById('zonulinValue').textContent = phase.zonulin < 20 ? 'Low' : phase.zonulin < 50 ? 'Elevated' : 'Very High';
+  document.getElementById('zonulin').className = 'metric-fill ' + (phase.zonulin < 20 ? 'good' : phase.zonulin < 50 ? 'warning' : 'danger');
+
+  document.getElementById('permeability').style.width = phase.permeability + '%';
+  document.getElementById('permeabilityValue').textContent = phase.permeability + '%';
+  document.getElementById('permeability').className = 'metric-fill ' + (phase.permeability < 30 ? 'good' : phase.permeability < 60 ? 'warning' : 'danger');
+
+  document.getElementById('inflammation').style.width = phase.inflammation + '%';
+  document.getElementById('inflammationValue').textContent = phase.inflammation < 30 ? 'Low' : phase.inflammation < 60 ? 'Moderate' : 'High';
+  document.getElementById('inflammation').className = 'metric-fill ' + (phase.inflammation < 30 ? 'good' : phase.inflammation < 60 ? 'warning' : 'danger');
+}
+
+function gbtUpdatePhaseInfo(phase) {
+  document.getElementById('phaseName').textContent = phase.name;
+  document.getElementById('phaseDesc').textContent = phase.desc;
+  document.querySelector('.phase-details').innerHTML = phase.details.map((d, i) =>
+    `<div class="detail-item" id="detail${i}">${d}</div>`
+  ).join('');
+}
+
+function gbtSetPhase(value) {
+  document.getElementById('timeSlider').value = value;
+  gbtUpdateTimeline(value);
+}
+
+function gbtPlay() {
+  let value = parseInt(document.getElementById('timeSlider').value);
+  const interval = setInterval(() => {
+    value += 2;
+    if (value > 100) { clearInterval(interval); return; }
+    document.getElementById('timeSlider').value = value;
+    gbtUpdateTimeline(value);
+  }, 150);
+}
+
+gbtUpdateTimeline(0);
+</script>
+
+</Layout>
