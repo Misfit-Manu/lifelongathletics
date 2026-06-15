@@ -3,6 +3,8 @@ title: "Types of Inflammation and What to Do About It"
 description: "Not all inflammation is the enemy. Here are the 8 types, how each one works, and exactly what to do about the ones that are silently damaging you."
 category: "Nutrition"
 pubDate: 2026-06-15
+image: "/blog/inflammation-types-hero.png"
+imageAlt: "Macro split of cellular tissue — vivid orange-gold on the left representing acute healing inflammation, and cold grey-blue on the right representing silent chronic inflammation"
 ---
 
 *By Manu Sehgal — Coach, Lifelong Athletics*
@@ -36,6 +38,8 @@ Every type of inflammation falls into one of two categories, and that categorisa
 **Chronic inflammation** has no clean resolution. The immune system remains activated — sometimes at a low level that produces no obvious symptoms — for months or years. The damage accumulates slowly. By the time it becomes symptomatic (as joint pain, brain fog, digestive problems, or metabolic disease), the underlying process has often been running for a long time. Chronic inflammation requires active intervention to stop.
 
 The fundamental question to ask about any inflammation you are experiencing is: *does it resolve?* Acute responses resolve within a predictable window. Chronic ones don't — or they recur so reliably that they are effectively continuous.
+
+![Acute inflammation as a bright roaring campfire vs chronic inflammation as a dying grey ember on a dark surface — two fires, two completely different problems](/blog/inflammation-types-acute-chronic.png)
 
 ## The 8 Types
 
@@ -101,6 +105,8 @@ Leaky gut is particularly significant because it is upstream of several other in
 
 **What happens:** PAMPs trigger a large-scale cytokine response including TNF-α, IL-6, and IFN-γ. Fever is a feature of this response — it slows pathogen replication. Antibiotics or antivirals address the root cause; rest and sleep allow the immune response to complete.
 
+![Human body silhouette showing the gut-to-brain inflammation pathway — glowing amber gut connected by luminous lines to a blue-lit brain, illustrating how leaky gut drives neuroinflammation via LPS](/blog/inflammation-types-gut-brain.png)
+
 ### 7. Neuroinflammation — Chronic (Severe)
 
 **Trigger:** LPS crossing the blood-brain barrier (BBB), head trauma, chronic psychological stress, sleep deprivation.
@@ -134,6 +140,8 @@ The shared root causes of the chronic types are remarkably consistent:
 - **Gut:** anything that compromises the gut barrier (NSAIDs, dysbiosis, gluten in sensitive individuals, stress-elevated cortisol).
 
 ## The Universal Protocol
+
+![Anti-inflammatory foods arranged on a dark slate surface — wild salmon, turmeric, blueberries, walnuts, kale, olive oil, and omega-3 capsules. The dietary foundation for resolving chronic inflammation.](/blog/inflammation-types-protocol.png)
 
 Every type of chronic inflammation responds to the same foundational set of interventions, in this sequence:
 
