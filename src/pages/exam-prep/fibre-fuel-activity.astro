@@ -1,0 +1,1185 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Muscle Fibre → Fuel → Activity — Complete Reference" description="How your nervous system recruits muscle fibres, what each type burns, and how to fuel every activity. Type I, IIa, IIx energy systems and nutrition strategy. ACE · NASM · NSCA exam reference.">
+
+  <div class="ffb-back-bar">
+    <a href="/exam-prep" class="ffb-back-link">← Back to Exam Prep</a>
+  </div>
+
+  <style is:global>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
+    .ffb-back-bar {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 28px 0;
+    }
+    .ffb-back-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: #a0a0a0;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .ffb-back-link:hover { color: #e8e6df; }
+
+    /* ─── DARK THEME VARIABLES ─────────────────── */
+    .ffb-wrap {
+      --bg:        #0a0a0a;
+      --paper:     #111110;
+      --ink:       #e8e6df;
+      --muted:     #706e66;
+      --rule:      #28271f;
+      --t1:        #22c55e;
+      --t1-mid:    #4ade80;
+      --t1-light:  rgba(34, 197, 94, 0.18);
+      --t1-pale:   rgba(34, 197, 94, 0.07);
+      --t2a:       #f59e0b;
+      --t2a-mid:   #fbbf24;
+      --t2a-light: rgba(245, 158, 11, 0.18);
+      --t2a-pale:  rgba(245, 158, 11, 0.07);
+      --t2x:       #f87171;
+      --t2x-mid:   #ef4444;
+      --t2x-light: rgba(239, 68, 68, 0.18);
+      --t2x-pale:  rgba(239, 68, 68, 0.07);
+      --pcr:       #a855f7;
+      --pcr-light: rgba(168, 85, 247, 0.15);
+      background: var(--bg);
+      font-family: 'Crimson Pro', serif;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .ffb-wrap *, .ffb-wrap *::before, .ffb-wrap *::after { box-sizing: border-box; }
+
+    .ffb-wrap .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 28px 80px;
+    }
+
+    /* MASTHEAD */
+    .ffb-wrap .masthead {
+      text-align: center;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 20px;
+      margin-bottom: 10px;
+    }
+    .ffb-wrap .masthead-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .ffb-wrap .masthead h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .ffb-wrap .masthead h1 span.g { color: var(--t1); }
+    .ffb-wrap .masthead h1 span.a { color: var(--t2a-mid); }
+    .ffb-wrap .masthead h1 span.r { color: var(--t2x-mid); }
+    .ffb-wrap .masthead-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    /* FLOW LABEL */
+    .ffb-wrap .flow-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      padding: 8px 0 14px;
+    }
+
+    /* SIZE BANNER */
+    .ffb-wrap .size-banner {
+      background: rgba(255,255,255,0.04) !important;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .ffb-wrap .size-banner-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      white-space: nowrap;
+      flex-shrink: 0;
+      line-height: 1.4;
+      padding-top: 2px;
+    }
+    .ffb-wrap .size-banner-label span {
+      display: block;
+      font-size: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      margin-top: 2px;
+    }
+    .ffb-wrap .size-chain {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    .ffb-wrap .size-node {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid;
+      font-size: 0.82rem;
+    }
+    .ffb-wrap .size-node-title { font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+    .ffb-wrap .size-node-desc  { font-size: 0.72rem; color: var(--muted); font-style: italic; }
+    .ffb-wrap .size-arrow { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; }
+    .ffb-wrap .size-rule {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      flex-basis: 100%;
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      line-height: 1.5;
+    }
+
+    /* COLUMNS */
+    .ffb-wrap .columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .ffb-wrap .col { display: flex; flex-direction: column; gap: 0; }
+
+    /* FIBRE ROOT */
+    .ffb-wrap .fibre-root {
+      border-radius: 12px 12px 0 0;
+      padding: 18px 16px 16px;
+      text-align: center;
+      border: 2px solid;
+      position: relative;
+    }
+    .ffb-wrap .fibre-root-icon { font-size: 2.4rem; line-height: 1; margin-bottom: 6px; }
+    .ffb-wrap .fibre-root-type {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .ffb-wrap .fibre-root-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .ffb-wrap .fibre-root-nick { font-size: 0.85rem; font-style: italic; margin-top: 6px; opacity: 0.8; }
+    .ffb-wrap .fibre-root-analogy {
+      font-size: 0.78rem;
+      font-style: italic;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.05);
+      line-height: 1.5;
+    }
+
+    /* CONNECTOR */
+    .ffb-wrap .connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      position: relative;
+    }
+    .ffb-wrap .conn-line { width: 1.5px; height: 16px; }
+    .ffb-wrap .conn-arrow {
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+    }
+    .ffb-wrap .conn-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 2px 0;
+    }
+
+    /* SECTION CARD */
+    .ffb-wrap .section-card {
+      border-left: 2px solid;
+      border-right: 2px solid;
+      border-bottom: 2px solid;
+      padding: 14px 14px 16px;
+      background: var(--paper);
+    }
+    .ffb-wrap .section-card:last-child { border-radius: 0 0 10px 10px; }
+    .ffb-wrap .section-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding-bottom: 7px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ffb-wrap .section-header .sh-icon { font-size: 0.9rem; }
+
+    /* TRAITS TABLE */
+    .ffb-wrap .traits-table { width: 100%; font-size: 0.78rem; }
+    .ffb-wrap .trait-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--rule);
+      gap: 8px;
+    }
+    .ffb-wrap .trait-row:last-child { border-bottom: none; }
+    .ffb-wrap .trait-key { color: var(--muted); font-size: 0.74rem; flex-shrink: 0; }
+    .ffb-wrap .trait-val { font-weight: 600; text-align: right; font-size: 0.78rem; }
+
+    /* FUEL BLOCK */
+    .ffb-wrap .fuel-block {
+      padding: 10px 11px;
+      border-radius: 7px;
+      margin-bottom: 9px;
+      border: 1px solid;
+      background: rgba(255,255,255,0.03) !important;
+    }
+    .ffb-wrap .fuel-block:last-of-type { margin-bottom: 0; }
+    .ffb-wrap .fuel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 5px;
+      gap: 8px;
+    }
+    .ffb-wrap .fuel-name { font-weight: 700; font-size: 0.83rem; line-height: 1.3; }
+    .ffb-wrap .fuel-pct {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .ffb-wrap .fuel-bar-wrap {
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      height: 5px;
+      margin-bottom: 7px;
+      overflow: hidden;
+    }
+    .ffb-wrap .fuel-bar { height: 100%; border-radius: 3px; }
+    .ffb-wrap .fuel-desc { font-size: 0.76rem; color: #b8b5ae; line-height: 1.55; margin-bottom: 6px; }
+    .ffb-wrap .fuel-pathway {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      line-height: 1.7;
+      padding: 6px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--rule);
+      margin-bottom: 5px;
+    }
+    .ffb-wrap .fuel-condition { font-size: 0.72rem; font-style: italic; color: var(--muted); line-height: 1.5; }
+
+    /* ACTIVITY BLOCK */
+    .ffb-wrap .activity-block {
+      padding: 9px 11px;
+      border-radius: 7px;
+      margin-bottom: 8px;
+      border: 1px solid;
+      background: rgba(255,255,255,0.03) !important;
+    }
+    .ffb-wrap .activity-block:last-of-type { margin-bottom: 0; }
+    .ffb-wrap .activity-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .ffb-wrap .activity-icon { font-size: 1.2rem; }
+    .ffb-wrap .activity-name { font-weight: 700; font-size: 0.85rem; }
+    .ffb-wrap .activity-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px; }
+    .ffb-wrap .meta-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      border: 1px solid;
+    }
+    .ffb-wrap .activity-fuel { font-size: 0.74rem; color: #b8b5ae; margin-bottom: 4px; }
+    .ffb-wrap .activity-fuel b { font-weight: 700; }
+    .ffb-wrap .activity-tip {
+      font-size: 0.73rem;
+      font-style: italic;
+      color: var(--muted);
+      padding-left: 8px;
+      border-left: 2px solid var(--rule);
+      line-height: 1.5;
+    }
+
+    /* NUTRITION */
+    .ffb-wrap .nutrition-rule {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 7px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+    .ffb-wrap .nutrition-rule:last-child { margin-bottom: 0; }
+    .ffb-wrap .nutrition-rule .icon { font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ENERGY BLOCK */
+    .ffb-wrap .energy-block {
+      padding: 8px 11px;
+      border-radius: 7px;
+      margin-bottom: 7px;
+      border: 1px solid;
+      background: rgba(255,255,255,0.03) !important;
+    }
+    .ffb-wrap .energy-name { font-weight: 700; font-size: 0.82rem; margin-bottom: 3px; }
+    .ffb-wrap .energy-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--muted); margin-bottom: 4px; }
+    .ffb-wrap .energy-desc { font-size: 0.74rem; color: #b8b5ae; line-height: 1.5; }
+
+    /* DIVIDER */
+    .ffb-wrap .divider { height: 1px; background: var(--rule); margin: 10px 0; }
+
+    /* COLOUR HELPERS */
+    .ffb-wrap .t1  { color: var(--t1); }
+    .ffb-wrap .t2a { color: var(--t2a); }
+    .ffb-wrap .t2x { color: var(--t2x); }
+
+    /* BOTTOM STRIP */
+    .ffb-wrap .bottom-strip { margin-top: 36px; border-top: 2px solid var(--ink); padding-top: 20px; }
+    .ffb-wrap .bottom-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+      color: var(--ink);
+    }
+    .ffb-wrap .bottom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .ffb-wrap .bottom-card {
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--paper);
+    }
+    .ffb-wrap .bottom-card-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .ffb-wrap .bottom-card-body { font-size: 0.78rem; line-height: 1.6; color: #b8b5ae; }
+    .ffb-wrap .bottom-card-body b { font-weight: 700; color: var(--ink); }
+
+    /* CROSSOVER */
+    .ffb-wrap .crossover-strip {
+      margin-top: 24px;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 16px 18px;
+      background: var(--paper);
+    }
+    .ffb-wrap .crossover-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .ffb-wrap .crossover-sub { font-size: 0.76rem; font-style: italic; color: var(--muted); margin-bottom: 12px; }
+    .ffb-wrap .intensity-bar {
+      position: relative;
+      height: 32px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: linear-gradient(90deg, #16a34a 0%, #d97706 45%, #f97316 65%, #dc2626 100%);
+      margin-bottom: 6px;
+    }
+    .ffb-wrap .intensity-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .ffb-wrap .intensity-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      padding: 0 2px;
+      margin-bottom: 10px;
+    }
+    .ffb-wrap .fuel-shift-row { display: flex; align-items: center; gap: 10px; font-size: 0.76rem; margin-bottom: 4px; }
+    .ffb-wrap .fuel-shift-label { width: 80px; font-weight: 600; flex-shrink: 0; }
+    .ffb-wrap .fuel-shift-bar {
+      flex: 1;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+    }
+    .ffb-wrap .fuel-shift-note { font-size: 0.7rem; font-style: italic; color: var(--muted); width: 120px; text-align: right; flex-shrink: 0; }
+
+    /* Override hardcoded light gray in fuel shift bars */
+    .ffb-wrap [style*="background:#e2e8f0"] { background: rgba(255,255,255,0.06) !important; }
+
+    /* FOOTER */
+    .ffb-wrap .footer {
+      margin-top: 32px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ffb-wrap .footer-left { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+    .ffb-wrap .footer-right { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+  </style>
+
+  <div class="ffb-wrap">
+    <div class="page">
+
+      <div class="masthead">
+        <div class="masthead-eyebrow">Sports & Clinical Nutrition · Complete Reference Chart</div>
+        <h1>MUSCLE <span class="g">FIBRE</span> → <span class="a">FUEL</span> → <span class="r">ACTIVITY</span></h1>
+        <div class="masthead-sub">How your nervous system recruits fibres, what each fibre burns, and how to fuel each activity</div>
+        <div style="margin-top: 14px; display: inline-block; border: 1.5px solid var(--ink); border-radius: 6px; padding: 6px 20px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);">Personal Study Notes of &nbsp;</span><span style="font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.12em; color: var(--ink);">Manu Sehgal</span>
+        </div>
+      </div>
+
+      <div class="flow-label">↓ Read top to bottom within each column · Columns = fibre types ↓</div>
+
+      <div class="size-banner">
+        <div class="size-banner-label">Henneman's<br>Size Principle<span>RECRUITMENT ORDER</span></div>
+        <div class="size-chain">
+          <div class="size-node" style="border-color:#16a34a44; background:rgba(22,163,74,0.12);">
+            <div>
+              <div class="size-node-title" style="color:#16a34a;">① TYPE I</div>
+              <div class="size-node-desc">Always first. Any force level.</div>
+            </div>
+          </div>
+          <div class="size-arrow">→</div>
+          <div class="size-node" style="border-color:#d9770644; background:rgba(217,119,6,0.12);">
+            <div>
+              <div class="size-node-title" style="color:#d97706;">② + TYPE IIa</div>
+              <div class="size-node-desc">Joins as intensity rises.</div>
+            </div>
+          </div>
+          <div class="size-arrow">→</div>
+          <div class="size-node" style="border-color:#dc262644; background:rgba(220,38,38,0.12);">
+            <div>
+              <div class="size-node-title" style="color:#dc2626;">③ + TYPE IIx</div>
+              <div class="size-node-desc">Only at high/maximal force.</div>
+            </div>
+          </div>
+          <div class="size-rule">
+            ⚡ You cannot skip Type I and recruit Type II directly. The nervous system always escalates through the hierarchy.
+            To access IIx, you must first fatigue I and IIa — via very heavy loads, explosive speed, or high-rep fatigue.
+            This is why even light weights taken to failure build muscle: fatigue eventually forces IIx recruitment.
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+
+        <!-- COLUMN 1 — TYPE I -->
+        <div class="col">
+
+          <div class="fibre-root" style="background:var(--t1-light); border-color:var(--t1);">
+            <div class="fibre-root-icon">🟢</div>
+            <div class="fibre-root-type t1">TYPE I</div>
+            <div class="fibre-root-sub t1">Slow Twitch</div>
+            <div class="fibre-root-nick">The Endurance Engine</div>
+            <div class="fibre-root-analogy">🚛 Diesel truck — fuel-efficient, runs all day, low peak power output</div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">properties</div>
+            <div class="conn-line" style="background:var(--t1);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t1);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t1);">
+            <div class="section-header t1" style="border-color:var(--t1-light);">
+              <span class="sh-icon">🔬</span> Fibre Properties
+            </div>
+            <div class="traits-table">
+              <div class="trait-row"><span class="trait-key">Contraction speed</span><span class="trait-val t1">Slow</span></div>
+              <div class="trait-row"><span class="trait-key">Fatigue resistance</span><span class="trait-val t1">Very High</span></div>
+              <div class="trait-row"><span class="trait-key">Mitochondria density</span><span class="trait-val t1">Very Dense</span></div>
+              <div class="trait-row"><span class="trait-key">Myoglobin / O₂</span><span class="trait-val t1">High — Red colour</span></div>
+              <div class="trait-row"><span class="trait-key">Capillary supply</span><span class="trait-val t1">Very Dense</span></div>
+              <div class="trait-row"><span class="trait-key">Force output</span><span class="trait-val t1">Low</span></div>
+              <div class="trait-row"><span class="trait-key">Key enzymes</span><span class="trait-val t1">Citrate synthase, SDH</span></div>
+              <div class="trait-row"><span class="trait-key">Role</span><span class="trait-val t1">Endurance + posture</span></div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">burns these fuels</div>
+            <div class="conn-line" style="background:var(--t1);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t1);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t1);">
+            <div class="section-header t1" style="border-color:var(--t1-light);">
+              <span class="sh-icon">⛽</span> Fuel Sources
+            </div>
+
+            <div class="fuel-block" style="background:var(--t1-pale); border-color:#bbf7d0;">
+              <div class="fuel-head">
+                <div class="fuel-name t1">① Free Fatty Acids (Body Fat)</div>
+                <div class="fuel-pct t1">75%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:75%; background:var(--t1);"></div></div>
+              <div class="fuel-desc">Primary fuel. Type I is packed with mitochondria and fat-oxidising enzymes. Fat yields ~460 ATP per molecule — slow but enormous output over time. Stored body fat + dietary fat both contribute. This is why low-intensity exercise is ideal for fat loss.</div>
+              <div class="fuel-pathway">Triglycerides → Free Fatty Acids<br>→ β-oxidation (mitochondria)<br>→ Acetyl-CoA → Krebs Cycle<br>→ Electron Transport Chain<br>→ ~460 ATP per fat molecule</div>
+              <div class="fuel-condition">Condition: Low intensity, adequate O₂ present, low insulin levels, fat-adapted state</div>
+            </div>
+
+            <div class="fuel-block" style="background:#fefce8; border-color:#fef08a;">
+              <div class="fuel-head">
+                <div class="fuel-name" style="color:#854d0e;">② Blood Glucose + Glycogen</div>
+                <div class="fuel-pct" style="color:#854d0e;">20%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:20%; background:#ca8a04;"></div></div>
+              <div class="fuel-desc">Secondary fuel. Used alongside fat. As intensity rises, glucose contributes more. Goes fully aerobic in Type I — pyruvate enters Krebs cycle via Acetyl-CoA for full ATP yield (~32 ATP).</div>
+              <div class="fuel-pathway">Glycogen → Glucose-6-Phosphate<br>→ Glycolysis → Pyruvate<br>→ Acetyl-CoA → Krebs Cycle → ~32 ATP</div>
+              <div class="fuel-condition">Condition: Moderate intensity range for this fibre, glycogen stores available</div>
+            </div>
+
+            <div class="fuel-block" style="background:#eff6ff; border-color:#bfdbfe;">
+              <div class="fuel-head">
+                <div class="fuel-name" style="color:#1e40af;">③ Lactate (Shuttle Fuel)</div>
+                <div class="fuel-pct" style="color:#1e40af;">5%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:5%; background:#2563eb;"></div></div>
+              <div class="fuel-desc">Type I fibres are lactate CLEARERS — they absorb lactate produced by nearby Type II fibres and oxidise it aerobically. This is the Lactate Shuttle (Brooks). Type I is the clean-up crew for glycolytic activity.</div>
+              <div class="fuel-pathway">Lactate (from Type II fibres)<br>→ Pyruvate (via LDH enzyme)<br>→ Acetyl-CoA → Krebs → ATP</div>
+              <div class="fuel-condition">Condition: High-intensity intervals nearby; Type II fibres producing lactate actively</div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">energy system used</div>
+            <div class="conn-line" style="background:var(--t1);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t1);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t1);">
+            <div class="section-header t1" style="border-color:var(--t1-light);">
+              <span class="sh-icon">⚙️</span> Energy System
+            </div>
+            <div class="energy-block" style="background:var(--t1-pale); border-color:#bbf7d0;">
+              <div class="energy-name t1">🌿 Oxidative (Aerobic)</div>
+              <div class="energy-meta">Duration: 2 min → hours · O₂ required: Yes</div>
+              <div class="energy-desc">Completely oxygen-dependent. Fat and carbs fed into mitochondria via Krebs Cycle and Electron Transport Chain. Highest ATP yield of all three systems. Sustainable indefinitely if intensity is low enough. The engine that powers all endurance activities.</div>
+            </div>
+            <div class="divider"></div>
+            <div style="font-size:0.74rem; color:var(--muted); font-style:italic; line-height:1.6;">Fat: ~460 ATP/molecule &nbsp;·&nbsp; Glucose: ~32 ATP/molecule<br>Fat is more efficient — but requires oxygen and takes longer to mobilise. This is why low intensity = fat dominant.</div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">activities that use this fibre</div>
+            <div class="conn-line" style="background:var(--t1);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t1);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t1);">
+            <div class="section-header t1" style="border-color:var(--t1-light);">
+              <span class="sh-icon">🏃</span> Activities
+            </div>
+
+            <div class="activity-block" style="background:var(--t1-pale); border-color:#bbf7d0;">
+              <div class="activity-head"><span class="activity-icon">🚶</span><span class="activity-name t1">Walking</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">Unlimited duration</span>
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">Very low intensity</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~80% fat, ~20% carbs. Glycogen barely touched.</div>
+              <div class="activity-tip">Best done fasted — pure fat oxidation mode. The simplest way to burn body fat daily.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t1-pale); border-color:#bbf7d0;">
+              <div class="activity-head"><span class="activity-icon">🏃</span><span class="activity-name t1">Easy Jog / Zone 2 Run</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">1–3+ hrs</span>
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">Low intensity</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~65% fat, ~35% carbs. Zone 2 is the mitochondria-building zone.</div>
+              <div class="activity-tip">This training zone upregulates fat oxidation enzymes over time. Consistent Zone 2 = better fat burner at all intensities.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t1-pale); border-color:#bbf7d0;">
+              <div class="activity-head"><span class="activity-icon">🚴</span><span class="activity-name t1">Cycling Zone 2</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">45–90 min</span>
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">Low–Moderate</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~60% fat. Builds mitochondrial density and oxidative capacity.</div>
+              <div class="activity-tip">Gold standard for metabolic health. Improves lactate clearance, fat oxidation, and cardiovascular efficiency simultaneously.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t1-pale); border-color:#bbf7d0;">
+              <div class="activity-head"><span class="activity-icon">🧍</span><span class="activity-name t1">Posture & Stability</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">All day</span>
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">Minimal intensity</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~100% fat. Continuous low-level contraction all day long.</div>
+              <div class="activity-tip">Type I works even when you're standing still. These fibres never truly rest while you're upright.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t1-pale); border-color:#bbf7d0;">
+              <div class="activity-head"><span class="activity-icon">🏅</span><span class="activity-name t1">Long Distance Running / Endurance</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">&gt; 60 min</span>
+                <span class="meta-tag t1" style="border-color:#bbf7d0; background:var(--t1-light);">Moderate</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> Fat dominant early; shifts toward carbs near threshold. Glycogen depletion = "the wall".</div>
+              <div class="activity-tip">Building Zone 2 base delays the crossover point — you burn more fat for longer before glycogen becomes critical.</div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">nutrition strategy</div>
+            <div class="conn-line" style="background:var(--t1);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t1);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t1); border-radius:0 0 10px 10px;">
+            <div class="section-header t1" style="border-color:var(--t1-light);">
+              <span class="sh-icon">🥗</span> Nutrition Rules
+            </div>
+            <div class="nutrition-rule"><span class="icon">✅</span><span>Fasted training is fine — and beneficial. Fat oxidation is already dominant.</span></div>
+            <div class="nutrition-rule"><span class="icon">✅</span><span>Low-carb or ketogenic diet works well for activities in this column.</span></div>
+            <div class="nutrition-rule"><span class="icon">✅</span><span>Zone 2 training repeatedly upregulates PGC-1α → more mitochondria → better fat burner.</span></div>
+            <div class="nutrition-rule"><span class="icon">✅</span><span>Post-exercise: light protein sufficient. No urgent carb window needed.</span></div>
+            <div class="nutrition-rule"><span class="icon">💡</span><span>Consistent low-intensity training + low insulin environment = the formula to become fat-adapted over weeks.</span></div>
+            <div class="nutrition-rule"><span class="icon">⚠️</span><span>Eating refined carbs before this work is not harmful but unnecessary — it simply delays fat mobilisation.</span></div>
+          </div>
+
+        </div><!-- /col 1 -->
+
+
+        <!-- COLUMN 2 — TYPE IIa -->
+        <div class="col">
+
+          <div class="fibre-root" style="background:var(--t2a-light); border-color:var(--t2a);">
+            <div class="fibre-root-icon">🟡</div>
+            <div class="fibre-root-type t2a">TYPE IIa</div>
+            <div class="fibre-root-sub t2a">Fast Twitch — Oxidative Glycolytic</div>
+            <div class="fibre-root-nick">The Hybrid Engine</div>
+            <div class="fibre-root-analogy">🚗 Hybrid car — can run on either fuel, adapts toward Type I with endurance training or toward IIx with power training</div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">properties</div>
+            <div class="conn-line" style="background:var(--t2a-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2a-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2a);">
+            <div class="section-header t2a" style="border-color:var(--t2a-light);">
+              <span class="sh-icon">🔬</span> Fibre Properties
+            </div>
+            <div class="traits-table">
+              <div class="trait-row"><span class="trait-key">Contraction speed</span><span class="trait-val t2a">Fast</span></div>
+              <div class="trait-row"><span class="trait-key">Fatigue resistance</span><span class="trait-val t2a">Moderate</span></div>
+              <div class="trait-row"><span class="trait-key">Mitochondria density</span><span class="trait-val t2a">Moderate</span></div>
+              <div class="trait-row"><span class="trait-key">Myoglobin / O₂</span><span class="trait-val t2a">Moderate — Pinkish</span></div>
+              <div class="trait-row"><span class="trait-key">Capillary supply</span><span class="trait-val t2a">Moderate</span></div>
+              <div class="trait-row"><span class="trait-key">Force output</span><span class="trait-val t2a">Moderate to High</span></div>
+              <div class="trait-row"><span class="trait-key">Key enzymes</span><span class="trait-val t2a">PFK + citrate synthase</span></div>
+              <div class="trait-row"><span class="trait-key">Plasticity</span><span class="trait-val t2a">High — adapts both ways</span></div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">burns these fuels</div>
+            <div class="conn-line" style="background:var(--t2a-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2a-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2a);">
+            <div class="section-header t2a" style="border-color:var(--t2a-light);">
+              <span class="sh-icon">⛽</span> Fuel Sources
+            </div>
+
+            <div class="fuel-block" style="background:#fffbeb; border-color:#fde68a;">
+              <div class="fuel-head">
+                <div class="fuel-name t2a">① Muscle Glycogen</div>
+                <div class="fuel-pct t2a">65%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:65%; background:var(--t2a-mid);"></div></div>
+              <div class="fuel-desc">Primary fuel. Glycogen stored within the fibre itself is rapidly mobilised. At moderate intensity, pyruvate enters aerobic metabolism for full ~32 ATP yield. At high intensity, glycolysis outpaces the mitochondria and lactate is produced.</div>
+              <div class="fuel-pathway">Glycogen (stored in fibre)<br>→ Glucose-6-Phosphate → Pyruvate<br>→ [aerobic] Acetyl-CoA → Krebs → ~32 ATP<br>→ [anaerobic] Lactate + 2 ATP</div>
+              <div class="fuel-condition">Condition: Moderate–high intensity. Glycogen stores must be loaded. Depletion = immediate performance drop.</div>
+            </div>
+
+            <div class="fuel-block" style="background:#fefce8; border-color:#fef08a;">
+              <div class="fuel-head">
+                <div class="fuel-name" style="color:#854d0e;">② Blood Glucose</div>
+                <div class="fuel-pct" style="color:#854d0e;">20%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:20%; background:#ca8a04;"></div></div>
+              <div class="fuel-desc">Circulating glucose from liver glycogen and dietary carbs. Insulin-mediated GLUT4 transporter expression increases with training — trained muscle takes up glucose more efficiently. Important for sustained moderate efforts beyond 60 min.</div>
+              <div class="fuel-pathway">Blood glucose → GLUT4 transporter<br>→ enters cell → Glycolysis<br>→ Pyruvate → Krebs → ATP</div>
+              <div class="fuel-condition">Condition: Fed state, moderate sustained effort, insulin present to drive uptake</div>
+            </div>
+
+            <div class="fuel-block" style="background:#f0fdf4; border-color:#bbf7d0;">
+              <div class="fuel-head">
+                <div class="fuel-name t1">③ Fat (Partial)</div>
+                <div class="fuel-pct t1">15%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:15%; background:var(--t1-mid);"></div></div>
+              <div class="fuel-desc">IIa has SOME mitochondria — unlike IIx, it can burn a small amount of fat. At the lower end of its intensity range (e.g. moderate tempo work), fat contributes meaningfully. This is why endurance training (which targets IIa heavily) improves fat oxidation over time.</div>
+              <div class="fuel-pathway">Fatty acids → β-oxidation (partial)<br>→ Acetyl-CoA → Krebs (possible but slower<br>than in Type I)</div>
+              <div class="fuel-condition">Condition: Lower intensity end for this fibre, fat-adapted athlete, aerobic training background</div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">energy system used</div>
+            <div class="conn-line" style="background:var(--t2a-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2a-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2a);">
+            <div class="section-header t2a" style="border-color:var(--t2a-light);">
+              <span class="sh-icon">⚙️</span> Energy System
+            </div>
+            <div class="energy-block" style="background:#fffbeb; border-color:#fde68a;">
+              <div class="energy-name t2a">🔥 Glycolytic + Oxidative (Mixed)</div>
+              <div class="energy-meta">Duration: 30 sec – 60 min · O₂: Partially adequate</div>
+              <div class="energy-desc">Both systems running simultaneously. At moderate intensity: aerobic dominates, lactate produced but cleared. At higher intensity: glycolysis outpaces aerobic capacity — lactate accumulates above lactate threshold. This is the crossover zone where glycogen becomes the performance limiter.</div>
+            </div>
+            <div class="divider"></div>
+            <div style="font-size:0.74rem; color:var(--muted); font-style:italic; line-height:1.6;">The lactate threshold is the point where lactate production exceeds clearance. Training this fibre pushes the threshold higher — you can sustain higher intensities aerobically before lactate floods the system.</div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">activities that use this fibre</div>
+            <div class="conn-line" style="background:var(--t2a-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2a-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2a);">
+            <div class="section-header t2a" style="border-color:var(--t2a-light);">
+              <span class="sh-icon">🏃</span> Activities
+            </div>
+
+            <div class="activity-block" style="background:var(--t2a-pale); border-color:#fde68a;">
+              <div class="activity-head"><span class="activity-icon">🏃‍♂️</span><span class="activity-name t2a">Tempo Run</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">20–60 min</span>
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">Moderate–High</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~50% carbs / 50% fat. IIa fibre's classic training zone. Trains lactate threshold.</div>
+              <div class="activity-tip">This zone improves how fast you can run before lactate accumulates — the single most important predictor of race performance.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2a-pale); border-color:#fde68a;">
+              <div class="activity-head"><span class="activity-icon">💪</span><span class="activity-name t2a">Hypertrophy Training (8–12 rep)</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">30–60 sec/set</span>
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">High intensity</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~85% carbs — deeply glycolytic zone. This is where carb timing matters most.</div>
+              <div class="activity-tip">Training fasted or low-carb significantly impairs rep quality, hypertrophic stimulus, and performance. Always carb-fuel this work.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2a-pale); border-color:#fde68a;">
+              <div class="activity-head"><span class="activity-icon">⚡</span><span class="activity-name t2a">5K Race Pace</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">15–25 min</span>
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">High intensity</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~75% carbs. IIa + early IIx recruitment. Glycogen availability directly limits pace.</div>
+              <div class="activity-tip">Pre-race carbs are essential. Glycogen depletion mid-race causes an immediate, dramatic drop in speed.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2a-pale); border-color:#fde68a;">
+              <div class="activity-head"><span class="activity-icon">⚽</span><span class="activity-name t2a">Team Sports (sustained)</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">60–90 min</span>
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">Mixed</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> Mixed — repeated sprints drain glycogen cumulatively across the match.</div>
+              <div class="activity-tip">Half-time carbs help restore glycogen for 2nd half performance. Players with better glycogen loading last longer at full intensity.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2a-pale); border-color:#fde68a;">
+              <div class="activity-head"><span class="activity-icon">🚣</span><span class="activity-name t2a">Rowing / CrossFit WOD</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">5–30 min</span>
+                <span class="meta-tag t2a" style="border-color:#fde68a; background:var(--t2a-light);">High</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> Carbs dominant, small fat contribution. Full body IIa engagement throughout.</div>
+              <div class="activity-tip">Glycogen is the bottleneck. Post-workout carb + protein refeeding is essential for next-day performance.</div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">nutrition strategy</div>
+            <div class="conn-line" style="background:var(--t2a-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2a-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2a); border-radius:0 0 10px 10px;">
+            <div class="section-header t2a" style="border-color:var(--t2a-light);">
+              <span class="sh-icon">🍚</span> Nutrition Rules
+            </div>
+            <div class="nutrition-rule"><span class="icon">🍚</span><span>Carbs 1–2 hrs before training significantly improve output. Glycogen is the fuel — arrive with full stores.</span></div>
+            <div class="nutrition-rule"><span class="icon">🍗</span><span>Protein + carbs within 1–2 hrs post-workout. The anabolic window is real for this training type.</span></div>
+            <div class="nutrition-rule"><span class="icon">⚠️</span><span>Fasted training impairs strength, rep quality, and hypertrophic stimulus. Avoid for this column's activities.</span></div>
+            <div class="nutrition-rule"><span class="icon">💡</span><span>This fibre adapts — consistent endurance training pushes IIa toward Type I (more fat burning). Consistent strength/power work pushes it toward IIx.</span></div>
+            <div class="nutrition-rule"><span class="icon">💡</span><span>Carb periodisation strategy: high-carb on intense training days, lower-carb on rest/easy days. Matches fuel to demand.</span></div>
+            <div class="nutrition-rule"><span class="icon">✅</span><span>Intra-workout carbs (30–60g/hr) help for sessions over 60–75 min where glycogen begins to deplete.</span></div>
+          </div>
+
+        </div><!-- /col 2 -->
+
+
+        <!-- COLUMN 3 — TYPE IIx -->
+        <div class="col">
+
+          <div class="fibre-root" style="background:var(--t2x-light); border-color:var(--t2x);">
+            <div class="fibre-root-icon">🔴</div>
+            <div class="fibre-root-type t2x">TYPE IIx</div>
+            <div class="fibre-root-sub t2x">Fast Twitch — Glycolytic</div>
+            <div class="fibre-root-nick">The Explosive Sprinter</div>
+            <div class="fibre-root-analogy">🚀 Nitro drag engine — maximum explosive power, burns through fuel in seconds, overheats fast, needs full recovery between efforts</div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">properties</div>
+            <div class="conn-line" style="background:var(--t2x-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2x-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2x);">
+            <div class="section-header t2x" style="border-color:var(--t2x-light);">
+              <span class="sh-icon">🔬</span> Fibre Properties
+            </div>
+            <div class="traits-table">
+              <div class="trait-row"><span class="trait-key">Contraction speed</span><span class="trait-val t2x">Very Fast (fastest)</span></div>
+              <div class="trait-row"><span class="trait-key">Fatigue resistance</span><span class="trait-val t2x">Very Low</span></div>
+              <div class="trait-row"><span class="trait-key">Mitochondria density</span><span class="trait-val t2x">Very Few / Sparse</span></div>
+              <div class="trait-row"><span class="trait-key">Myoglobin / O₂</span><span class="trait-val t2x">Low — Pale/White</span></div>
+              <div class="trait-row"><span class="trait-key">Capillary supply</span><span class="trait-val t2x">Sparse</span></div>
+              <div class="trait-row"><span class="trait-key">Force output</span><span class="trait-val t2x">Maximum</span></div>
+              <div class="trait-row"><span class="trait-key">Key enzyme</span><span class="trait-val t2x">PFK — glycolytic rate limiter</span></div>
+              <div class="trait-row"><span class="trait-key">Fat burning</span><span class="trait-val t2x">Zero — no mitochondria</span></div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">burns these fuels</div>
+            <div class="conn-line" style="background:var(--t2x-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2x-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2x);">
+            <div class="section-header t2x" style="border-color:var(--t2x-light);">
+              <span class="sh-icon">⛽</span> Fuel Sources
+            </div>
+
+            <div class="fuel-block" style="background:var(--pcr-light); border-color:#d8b4fe;">
+              <div class="fuel-head">
+                <div class="fuel-name" style="color:var(--pcr);">① Phosphocreatine (PCr)</div>
+                <div class="fuel-pct" style="color:var(--pcr);">50%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:50%; background:var(--pcr);"></div></div>
+              <div class="fuel-desc">First fuel used at maximal intensity. Pre-loaded in muscle as creatine phosphate. Instantly regenerates ATP with zero metabolic steps, zero oxygen, zero digestion. The body's emergency power bank. Powers the first 0–10 seconds of any maximal effort. Creatine supplementation directly increases PCr store size by 10–20%.</div>
+              <div class="fuel-pathway">Creatine-Phosphate + ADP<br>→ Creatine + ATP (immediate)<br>No O₂ required · No metabolic steps<br>Depletes in ~8–10 sec of max effort<br>Replenishment: ~3–5 min full recovery</div>
+              <div class="fuel-condition">Condition: First 0–10 seconds of maximal effort only. Depletes completely. Must rest 3–5 min between max efforts.</div>
+            </div>
+
+            <div class="fuel-block" style="background:#fff7ed; border-color:#fed7aa;">
+              <div class="fuel-head">
+                <div class="fuel-name" style="color:#c2410c;">② Muscle Glycogen (Anaerobic)</div>
+                <div class="fuel-pct" style="color:#c2410c;">50%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:50%; background:#ea580c;"></div></div>
+              <div class="fuel-desc">After PCr depletes (~10 sec), glycolysis takes over explosively. Type IIx is packed with glycolytic enzymes — especially PFK (phosphofructokinase), the rate-limiting step. Pyruvate is produced faster than mitochondria can process it, so it converts to lactate. Only 2 ATP per glucose — wasteful but very fast. The burning sensation in your legs is this process.</div>
+              <div class="fuel-pathway">Glycogen → Glucose-6-Phosphate<br>→ Glycolysis (fast) → Pyruvate<br>→ Lactate + 2 ATP (anaerobic)<br>O₂ NOT required<br>Lactate ≠ waste — it's a shuttle fuel</div>
+              <div class="fuel-condition">Condition: 10 sec – 2 min maximal effort. Lactate accumulates rapidly. Burning sensation = NAD+ regeneration keeping glycolysis running.</div>
+            </div>
+
+            <div class="fuel-block" style="background:#f9fafb; border-color:#e5e7eb; opacity:0.7;">
+              <div class="fuel-head">
+                <div class="fuel-name" style="color:#9ca3af;">③ Fat</div>
+                <div class="fuel-pct" style="color:#9ca3af;">0%</div>
+              </div>
+              <div class="fuel-bar-wrap"><div class="fuel-bar" style="width:1%; background:#d1d5db;"></div></div>
+              <div class="fuel-desc" style="color:#9ca3af;">Cannot use fat. Type IIx has almost no mitochondria — fat oxidation (β-oxidation) is completely mitochondria-dependent. The contraction speed is simply too fast for the slow aerobic fat-burning pathway. This fibre is hardwired for explosive power, not metabolic efficiency. No exceptions.</div>
+              <div class="fuel-pathway" style="color:#9ca3af;">N/A — fat oxidation requires mitochondria<br>Type IIx has almost none<br>Fat burning = impossible for this fibre</div>
+              <div class="fuel-condition" style="color:#9ca3af;">Never. Even if the athlete is fat-adapted, IIx cannot oxidise fat. This is a structural limitation, not a dietary one.</div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">energy system used</div>
+            <div class="conn-line" style="background:var(--t2x-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2x-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2x);">
+            <div class="section-header t2x" style="border-color:var(--t2x-light);">
+              <span class="sh-icon">⚙️</span> Energy System
+            </div>
+            <div class="energy-block" style="background:var(--pcr-light); border-color:#d8b4fe; margin-bottom:7px;">
+              <div class="energy-name" style="color:var(--pcr);">⚡ Phosphocreatine System</div>
+              <div class="energy-meta">Duration: 0–10 seconds · O₂ required: No</div>
+              <div class="energy-desc">Instant ATP regeneration. No metabolic steps. The only system fast enough to match the contraction rate of IIx. Fully depleted in 8–10 sec. Recovery time 3–5 minutes for 100% replenishment. Creatine supplementation increases store by 10–20%.</div>
+            </div>
+            <div class="energy-block" style="background:#fff7ed; border-color:#fed7aa;">
+              <div class="energy-name t2x">🔥 Glycolytic (Anaerobic)</div>
+              <div class="energy-meta">Duration: 10 sec – 2 min · O₂ required: No</div>
+              <div class="energy-desc">Takes over when PCr is gone. Produces ATP via glycolysis without oxygen. Fast but low yield (2 ATP/glucose). Lactate is the byproduct — not waste, but a fuel shuttled to Type I fibres, liver, and heart. The "burn" is real: it signals pyruvate→lactate conversion keeping glycolysis running by regenerating NAD⁺.</div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">activities that use this fibre</div>
+            <div class="conn-line" style="background:var(--t2x-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2x-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2x);">
+            <div class="section-header t2x" style="border-color:var(--t2x-light);">
+              <span class="sh-icon">🏃</span> Activities
+            </div>
+
+            <div class="activity-block" style="background:var(--t2x-pale); border-color:#fecaca;">
+              <div class="activity-head"><span class="activity-icon">💥</span><span class="activity-name t2x">100m / 200m Sprint</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">&lt; 20 seconds</span>
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">Maximal</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> PCr for first 8–10 sec, then glycolysis. Fat contributes 0%.</div>
+              <div class="activity-tip">PCr depletes completely in ~10 sec — then glycolysis takes over. Rest 3–5 min between reps for full PCr replenishment and max quality output.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2x-pale); border-color:#fecaca;">
+              <div class="activity-head"><span class="activity-icon">🏋️</span><span class="activity-name t2x">1RM / Heavy Compound Lift</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">&lt; 10 sec/set</span>
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">Maximal</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~70% PCr, ~30% glycogen per set. Cumulative glycogen depletion across many sets.</div>
+              <div class="activity-tip">Creatine monohydrate is the most evidence-based supplement specifically for this work — directly increases PCr stores. Rest period = a training variable, not laziness.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2x-pale); border-color:#fecaca;">
+              <div class="activity-head"><span class="activity-icon">🤸</span><span class="activity-name t2x">Plyometrics / Vertical Jump</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">&lt; 3 sec</span>
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">Maximal</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> Almost pure PCr. Duration too short for glycolysis to meaningfully contribute.</div>
+              <div class="activity-tip">3 min between sets ensures full PCr recovery. Rushing rest = reduced power output = reduced neural adaptation to the movement.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2x-pale); border-color:#fecaca;">
+              <div class="activity-head"><span class="activity-icon">🔥</span><span class="activity-name t2x">400m Run</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">45–60 sec</span>
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">Very High</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> ~70% glycolytic, ~30% PCr. The most metabolically demanding event per unit time.</div>
+              <div class="activity-tip">Lactate floods the muscle. The burning sensation is a signal that pyruvate→lactate conversion is actively regenerating NAD⁺ to keep glycolysis alive. Not a sign to stop — it's the system working.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2x-pale); border-color:#fecaca;">
+              <div class="activity-head"><span class="activity-icon">🌀</span><span class="activity-name t2x">HIIT Work Intervals</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">10–30 sec bursts</span>
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">Maximal</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> PCr → glycolytic each interval. Shorter rest = less PCr replenished = declining quality.</div>
+              <div class="activity-tip">Never do HIIT fasted. Glycogen depletion is rapid. Fasted HIIT = elevated cortisol + muscle breakdown + dramatically reduced output.</div>
+            </div>
+
+            <div class="activity-block" style="background:var(--t2x-pale); border-color:#fecaca;">
+              <div class="activity-head"><span class="activity-icon">⚾</span><span class="activity-name t2x">Throwing / Striking / Jumping</span></div>
+              <div class="activity-meta">
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">&lt; 2 sec</span>
+                <span class="meta-tag t2x" style="border-color:#fecaca; background:var(--t2x-light);">Maximal</span>
+              </div>
+              <div class="activity-fuel"><b>Fuel:</b> Pure PCr. Explosive single-action movements entirely PCr-dependent.</div>
+              <div class="activity-tip">Power athletes — pitchers, throwers, jumpers — benefit most dramatically from creatine loading. Repeated power output across a game depends on PCr availability.</div>
+            </div>
+          </div>
+
+          <div class="connector">
+            <div class="conn-label">nutrition strategy</div>
+            <div class="conn-line" style="background:var(--t2x-mid);"></div>
+            <div class="conn-arrow" style="border-top:6px solid var(--t2x-mid);"></div>
+          </div>
+          <div class="section-card" style="border-color:var(--t2x); border-radius:0 0 10px 10px;">
+            <div class="section-header t2x" style="border-color:var(--t2x-light);">
+              <span class="sh-icon">🍖</span> Nutrition Rules
+            </div>
+            <div class="nutrition-rule"><span class="icon">💊</span><span><b>Creatine monohydrate</b> is the single most evidence-based supplement for this fibre. 3–5g/day directly increases PCr stores by 10–20%. More fuel in the tank = more reps at max output.</span></div>
+            <div class="nutrition-rule"><span class="icon">⏱️</span><span><b>3–5 min rest between sets</b> is non-negotiable for max effort work. PCr replenishment is ~70% at 2 min, 100% at 5 min. Rushing rest = less PCr = less power.</span></div>
+            <div class="nutrition-rule"><span class="icon">🍚</span><span>Carbs essential before and after. Glycogen is the only backup fuel once PCr depletes. Arrive with full stores.</span></div>
+            <div class="nutrition-rule"><span class="icon">⚠️</span><span>Never train this fibre fasted. Glycogen depletion causes immediate, dramatic performance drop after the first few reps.</span></div>
+            <div class="nutrition-rule"><span class="icon">🍗</span><span>Post-workout: aggressive protein + carb refeed. IIx fibres sustain the most mechanical damage — repair demand is highest here.</span></div>
+            <div class="nutrition-rule"><span class="icon">💡</span><span>The "burning sensation" in a 400m or heavy set is not a reason to stop — it is lactate production regenerating NAD⁺ to keep glycolysis running. Learn to interpret it correctly.</span></div>
+          </div>
+
+        </div><!-- /col 3 -->
+
+      </div><!-- /columns -->
+
+
+      <!-- CROSSOVER CHART -->
+      <div class="crossover-strip">
+        <div class="crossover-title">The Crossover Concept — How Fuel Shifts With Intensity</div>
+        <div class="crossover-sub">Where fat and carbohydrate swap dominance as your intensity climbs. The crossover point sits at roughly 65–70% VO₂ max in average individuals — fat-adapted athletes push this rightward.</div>
+
+        <div class="intensity-bar">
+          <span class="intensity-label" style="left:3%;">REST</span>
+          <span class="intensity-label" style="left:18%;">ZONE 2</span>
+          <span class="intensity-label" style="left:40%;">MODERATE</span>
+          <span class="intensity-label" style="left:60%;">THRESHOLD</span>
+          <span class="intensity-label" style="left:80%;">MAXIMAL</span>
+        </div>
+        <div class="intensity-ticks">
+          <span>0%</span><span>20%</span><span>40%</span><span>60%</span><span>80%</span><span>100% VO₂</span>
+        </div>
+
+        <div class="fuel-shift-row">
+          <div class="fuel-shift-label" style="color:var(--t1);">🟢 Fat</div>
+          <div class="fuel-shift-bar">
+            <div style="width:85%; background:var(--t1-mid); height:100%;"></div>
+            <div style="width:15%; background:#e2e8f0; height:100%;"></div>
+          </div>
+          <div class="fuel-shift-note">80–90% → drops to ~5% at max</div>
+        </div>
+        <div class="fuel-shift-row">
+          <div class="fuel-shift-label" style="color:var(--t2a);">🟡 Carbs</div>
+          <div class="fuel-shift-bar">
+            <div style="width:15%; background:#e2e8f0; height:100%;"></div>
+            <div style="width:85%; background:var(--t2a-mid); height:100%;"></div>
+          </div>
+          <div class="fuel-shift-note">10–20% → rises to ~95% at max</div>
+        </div>
+        <div class="fuel-shift-row">
+          <div class="fuel-shift-label" style="color:var(--pcr);">🟣 PCr</div>
+          <div class="fuel-shift-bar">
+            <div style="width:75%; background:#e2e8f0; height:100%;"></div>
+            <div style="width:25%; background:var(--pcr); height:100%;"></div>
+          </div>
+          <div class="fuel-shift-note">0% until maximal effort</div>
+        </div>
+      </div>
+
+
+      <!-- BOTTOM GRID -->
+      <div class="bottom-strip">
+        <div class="bottom-title">Key Concepts to Memorise</div>
+        <div class="bottom-grid">
+
+          <div class="bottom-card">
+            <div class="bottom-card-title t1">PCr System</div>
+            <div class="bottom-card-body">
+              <b>Duration:</b> 0–10 seconds<br>
+              <b>Fuel:</b> Creatine phosphate (pre-loaded)<br>
+              <b>O₂:</b> Not required<br>
+              <b>ATP yield:</b> Tiny but instant<br>
+              <b>Recovery:</b> 3–5 min full replenishment<br>
+              <b>Supplement:</b> Creatine monohydrate increases stores 10–20%<br>
+              <b>Examples:</b> 1RM lift, jump, 40m sprint start
+            </div>
+          </div>
+
+          <div class="bottom-card">
+            <div class="bottom-card-title t2a">Glycolytic System</div>
+            <div class="bottom-card-body">
+              <b>Duration:</b> 10 sec – 2 min<br>
+              <b>Fuel:</b> Glycogen → Glucose → Pyruvate → Lactate<br>
+              <b>O₂:</b> Not required<br>
+              <b>ATP yield:</b> 2 ATP/glucose (fast but wasteful)<br>
+              <b>Byproduct:</b> Lactate — <em>not waste, it's a fuel</em><br>
+              <b>Recovery:</b> 30–60 min lactate clearance<br>
+              <b>Examples:</b> 400m, HIIT, repeated sprints
+            </div>
+          </div>
+
+          <div class="bottom-card">
+            <div class="bottom-card-title t2x">Oxidative System</div>
+            <div class="bottom-card-body">
+              <b>Duration:</b> 2 min → hours<br>
+              <b>Fuel:</b> Fat + carbs (ratio = intensity)<br>
+              <b>O₂:</b> Completely required<br>
+              <b>ATP yield:</b> Fat ~460 ATP · Glucose ~32 ATP<br>
+              <b>Location:</b> Mitochondria<br>
+              <b>Limiter:</b> Mitochondria density + O₂ delivery<br>
+              <b>Examples:</b> All endurance activities, walking, Zone 2
+            </div>
+          </div>
+
+          <div class="bottom-card">
+            <div class="bottom-card-title" style="color:var(--pcr);">Lactate — Not the Enemy</div>
+            <div class="bottom-card-body">
+              Lactate is not "lactic acid" and is not the cause of muscle soreness (that's DOMS — delayed onset, different mechanism). Lactate is a <b>fuel molecule</b> produced when glycolysis outpaces aerobic capacity. It is shuttled via the <b>Lactate Shuttle</b> (Brooks) to the heart, liver, and Type I muscle fibres to be oxidised aerobically. The burning sensation during high intensity = NAD⁺ regeneration keeping glycolysis running.
+            </div>
+          </div>
+
+          <div class="bottom-card">
+            <div class="bottom-card-title" style="color:var(--t2a);">The Crossover Point</div>
+            <div class="bottom-card-body">
+              At low intensity (&lt;50% VO₂ max), fat is dominant (60–80%). As intensity climbs, Type IIa and IIx are recruited — these fibres have few mitochondria and cannot burn fat efficiently. Glycolysis takes over. The <b>crossover point</b> (~65–70% VO₂ max) is where carbs overtake fat. <b>Fat-adapted athletes</b> (consistent Zone 2 training) push this point rightward — burning more fat at higher intensities, sparing glycogen.
+            </div>
+          </div>
+
+          <div class="bottom-card">
+            <div class="bottom-card-title" style="color:var(--t1);">Practical Daily Decision</div>
+            <div class="bottom-card-body">
+              <b>Low intensity (walk, Zone 2):</b> Fasted is fine. Burns fat.<br><br>
+              <b>Moderate–high (tempo, hypertrophy):</b> Carbs 1–2 hrs before. Glycogen is the limiter.<br><br>
+              <b>Maximal (sprints, 1RM):</b> Carbs + creatine. 3–5 min rest between sets.<br><br>
+              <b>Post-workout:</b> Match carb intake to glycogen used — heavy work needs more carbs post.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-left">Sports & Clinical Nutrition · Muscle Fibre & Fuel Reference</div>
+        <div class="footer-right">Type I → Fat · Type IIa → Carbs (mixed) · Type IIx → PCr + Glycogen</div>
+      </div>
+
+    </div>
+  </div>
+
+</Layout>
