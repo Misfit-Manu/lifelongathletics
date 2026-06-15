@@ -4,6 +4,14 @@ import { getCollection } from 'astro:content';
 
 const allBlogs = await getCollection('blog');
 allBlogs.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Move inflammation-types to slot 8 ([3,2] in the 3-col grid) — real photo cards lead
+const inflIdx = allBlogs.findIndex(p => p.id === 'inflammation-types');
+if (inflIdx !== -1 && inflIdx !== 7) {
+  const [inflPost] = allBlogs.splice(inflIdx, 1);
+  allBlogs.splice(7, 0, inflPost);
+}
+const sorted = allBlogs;
 ---
 
 <Layout title="Education — Lifelong Athletics" description="Evidence-based articles on exercise science, behaviour change, mobility, and building a body that performs for decades.">
@@ -38,7 +46,7 @@ allBlogs.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
     <p class="posts-label">All Articles</p>
     <div class="posts-grid" id="postsGrid">
       
-      {allBlogs.map(post => (
+      {sorted.map(post => (
         <a href={`/blog/${post.id}`} class="post-card" data-category={post.data.category.toLowerCase().replace(' ', '-')}>
           <div class="card-img">
             {post.data.image
