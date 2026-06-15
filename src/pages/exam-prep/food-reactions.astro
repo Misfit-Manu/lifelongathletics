@@ -8,9 +8,15 @@ import Layout from '../../layouts/Layout.astro';
   <a href="/exam-prep" class="fr-back-link">← Back to Study Hub</a>
 </div>
 
+<div class="fr-hero-img">
+  <img src="/blog/food-reactions-hero.png" alt="Three-panel comparison of food allergy, sensitivity, and intolerance against dark backgrounds" loading="eager" />
+</div>
+
 <style is:global>
 
   .fr-back-bar { max-width: 1200px; margin: 0 auto; padding: 110px 60px 0; }
+  .fr-hero-img { max-width: 1200px; margin: 0 auto; padding: 24px 60px 0; }
+  .fr-hero-img img { width: 100%; height: clamp(220px, 36vw, 460px); object-fit: cover; border-radius: 8px; display: block; }
   .fr-back-link {
     font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--muted); text-decoration: none; display: inline-flex;

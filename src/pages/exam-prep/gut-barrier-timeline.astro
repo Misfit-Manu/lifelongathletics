@@ -8,9 +8,15 @@ import Layout from '../../layouts/Layout.astro';
   <a href="/blog" class="gbt-back-link">← Back to Education</a>
 </div>
 
+<div class="gbt-hero-img">
+  <img src="/blog/gut-barrier-hero.png" alt="Cross-section showing healthy glowing gut barrier cells on the left transitioning to grey damaged cells on the right" loading="eager" />
+</div>
+
 <style is:global>
 
-  .gbt-back-bar { max-width: 860px; margin: 0 auto; padding: 110px 40px 0; }
+  .gbt-back-bar { max-width: 900px; margin: 0 auto; padding: 110px 40px 0; }
+  .gbt-hero-img { max-width: 900px; margin: 0 auto; padding: 24px 40px 0; }
+  .gbt-hero-img img { width: 100%; height: clamp(220px, 36vw, 420px); object-fit: cover; border-radius: 8px; display: block; }
   .gbt-back-link {
     font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--muted); text-decoration: none; display: inline-flex;
