@@ -1,0 +1,813 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Food Allergies vs Sensitivities vs Intolerances | Lifelong Athletics" description="Three completely different problems. Most people call them all allergies. Here's the mechanism, timing, and what to actually do about each one. ACE · NASM · NSCA exam reference.">
+
+<div class="fr-back-bar">
+  <a href="/exam-prep" class="fr-back-link">← Back to Study Hub</a>
+</div>
+
+<style is:global>
+
+  .fr-back-bar { max-width: 1200px; margin: 0 auto; padding: 110px 60px 0; }
+  .fr-back-link {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; display: inline-flex;
+    align-items: center; gap: 8px; transition: color 0.2s;
+  }
+  .fr-back-link:hover { color: var(--gold); }
+
+  .fr-wrap {
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 3rem 2rem;
+  }
+
+  .fr-wrap * { margin: 0; padding: 0; box-sizing: border-box; }
+  .fr-wrap h1 { font-size: 36px; font-weight: 600; color: #ffd700; letter-spacing: -1px; }
+  .fr-wrap h2 { font-size: 22px; font-weight: 600; color: #ffd700; margin: 1.5rem 0 1rem; }
+  .fr-wrap h3 { font-size: 16px; font-weight: 600; color: #e0e0e0; }
+  .fr-wrap p  { font-size: 14px; line-height: 1.7; color: #bbb; }
+
+  .fr-container { max-width: 1200px; margin: 0 auto; }
+
+  /* HERO */
+  .fr-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fr-fadeInDown 0.8s ease-out;
+  }
+  .fr-hero h1 {
+    font-size: 42px;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .fr-hero p {
+    font-size: 16px;
+    color: #999;
+    max-width: 640px;
+    margin: 0 auto 2rem;
+  }
+
+  /* 3-WAY HERO CARDS */
+  .fr-trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+    animation: fr-slideUp 0.8s ease-out 0.2s both;
+  }
+  .fr-trio-card {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid;
+    transition: transform 0.3s ease;
+  }
+  .fr-trio-card:hover { transform: translateY(-4px); }
+  .fr-trio-card.allergy  { background: rgba(255, 107, 107, 0.08); border-color: rgba(255, 107, 107, 0.35); }
+  .fr-trio-card.sensitivity { background: rgba(255, 215, 0, 0.06); border-color: rgba(255, 215, 0, 0.3); }
+  .fr-trio-card.intolerance { background: rgba(81, 207, 102, 0.06); border-color: rgba(81, 207, 102, 0.25); }
+  .fr-trio-icon { font-size: 2.8rem; margin-bottom: 0.75rem; display: block; }
+  .fr-trio-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .fr-trio-card.allergy .fr-trio-name   { color: #ff6b6b; }
+  .fr-trio-card.sensitivity .fr-trio-name { color: #ffd700; }
+  .fr-trio-card.intolerance .fr-trio-name { color: #51cf66; }
+  .fr-trio-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+  .fr-trio-card.allergy .fr-trio-tag      { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+  .fr-trio-card.sensitivity .fr-trio-tag  { background: rgba(255,215,0,0.15);  color: #ffd700; }
+  .fr-trio-card.intolerance .fr-trio-tag  { background: rgba(81,207,102,0.15); color: #51cf66; }
+  .fr-trio-analogy {
+    font-size: 13px;
+    font-style: italic;
+    color: #999;
+    margin-top: 0.75rem;
+    line-height: 1.6;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* COMPARISON TABLE */
+  .fr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 1rem 0;
+  }
+  .fr-table th {
+    padding: 0.75rem 1rem;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  }
+  .fr-table th.col-allergy     { color: #ff6b6b; }
+  .fr-table th.col-sensitivity { color: #ffd700; }
+  .fr-table th.col-intolerance { color: #51cf66; }
+  .fr-table td {
+    padding: 0.75rem 1rem;
+    color: #bbb;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .fr-table td.row-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #666;
+    white-space: nowrap;
+  }
+  .fr-table tr:last-child td { border-bottom: none; }
+  .fr-badge-red   { color: #ff6b6b; font-weight: 600; }
+  .fr-badge-gold  { color: #ffd700; font-weight: 600; }
+  .fr-badge-green { color: #51cf66; font-weight: 600; }
+
+  /* SECTIONS */
+  .fr-section {
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fr-slideUp 0.8s ease-out both;
+  }
+  .fr-section:nth-child(1) { animation-delay: 0.1s; }
+  .fr-section:nth-child(2) { animation-delay: 0.2s; }
+  .fr-section:nth-child(3) { animation-delay: 0.3s; }
+  .fr-section:nth-child(4) { animation-delay: 0.4s; }
+  .fr-section:nth-child(5) { animation-delay: 0.5s; }
+  .fr-section:nth-child(6) { animation-delay: 0.6s; }
+  .fr-section:nth-child(7) { animation-delay: 0.7s; }
+  .fr-section-header {
+    padding: 1.5rem;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .fr-section-header:hover {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.1) 100%);
+  }
+  .fr-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffd700;
+  }
+  .fr-section-icon { font-size: 24px; }
+  .fr-toggle-icon { font-size: 20px; transition: transform 0.3s ease; color: #ffd700; }
+  .fr-section.expanded .fr-toggle-icon { transform: rotate(180deg); }
+  .fr-section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 1.5rem;
+  }
+  .fr-section.expanded .fr-section-content {
+    max-height: 3000px;
+    padding: 1.5rem;
+  }
+
+  /* GRIDS */
+  .fr-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin: 1rem 0; }
+  .fr-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin: 1rem 0; }
+
+  /* CARDS */
+  .fr-card {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 215, 0, 0.02) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+  }
+  .fr-card:hover {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: translateY(-3px);
+  }
+  .fr-card.red   { background: rgba(255,107,107,0.07); border-color: rgba(255,107,107,0.25); }
+  .fr-card.red:hover { background: rgba(255,107,107,0.12); border-color: rgba(255,107,107,0.4); }
+  .fr-card.green { background: rgba(81,207,102,0.07); border-color: rgba(81,207,102,0.25); }
+  .fr-card.green:hover { background: rgba(81,207,102,0.12); border-color: rgba(81,207,102,0.4); }
+  .fr-card-icon  { font-size: 28px; margin-bottom: 0.6rem; display: block; }
+  .fr-card-title { font-size: 14px; font-weight: 600; color: #ffd700; margin-bottom: 0.4rem; }
+  .fr-card.red   .fr-card-title { color: #ff6b6b; }
+  .fr-card.green .fr-card-title { color: #51cf66; }
+  .fr-card-text  { font-size: 12px; color: #aaa; line-height: 1.6; }
+
+  /* MECHANISM STEPS */
+  .fr-steps { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap; }
+  .fr-step {
+    flex: 1;
+    min-width: 130px;
+    padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,215,0,0.15);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .fr-step.danger  { border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.05); }
+  .fr-step.warning { border-color: rgba(255,146,43,0.3);  background: rgba(255,146,43,0.05); }
+  .fr-step.good    { border-color: rgba(81,207,102,0.3);  background: rgba(81,207,102,0.05); }
+  .fr-step-label   { font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #ffd700; margin-bottom: 0.4rem; }
+  .fr-step.danger  .fr-step-label { color: #ff6b6b; }
+  .fr-step.warning .fr-step-label { color: #ff922b; }
+  .fr-step.good    .fr-step-label { color: #51cf66; }
+  .fr-arrow { font-size: 22px; color: #ffd700; flex-shrink: 0; animation: fr-bounce 1.5s infinite; }
+
+  /* LISTS */
+  .fr-list { list-style: none; margin: 1rem 0; }
+  .fr-list li {
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    position: relative;
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .fr-list li:last-child { border-bottom: none; }
+  .fr-list li:before { content: '→'; position: absolute; left: 0; color: #ffd700; font-weight: 600; }
+  .fr-list.red   li:before { content: '✗'; color: #ff6b6b; }
+  .fr-list.green li:before { content: '✓'; color: #51cf66; }
+
+  /* PROTOCOL STEPS */
+  .fr-protocol {
+    background: rgba(81, 207, 102, 0.08);
+    border-left: 3px solid #51cf66;
+    padding: 1.25rem;
+    margin: 0.75rem 0;
+    border-radius: 4px;
+  }
+  .fr-protocol h4 {
+    color: #51cf66;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .fr-protocol p { font-size: 13px; color: #bbb; margin: 0; }
+  .fr-protocol.red   { background: rgba(255,107,107,0.06); border-color: #ff6b6b; }
+  .fr-protocol.red h4 { color: #ff6b6b; }
+  .fr-protocol.gold  { background: rgba(255,215,0,0.06); border-color: #ffd700; }
+  .fr-protocol.gold h4 { color: #ffd700; }
+
+  /* CALLOUT */
+  .fr-callout {
+    background: rgba(255, 215, 0, 0.06);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #ccc;
+  }
+  .fr-callout strong { color: #ffd700; }
+  .fr-callout.red    { background: rgba(255,107,107,0.06); border-color: rgba(255,107,107,0.25); }
+  .fr-callout.red strong { color: #ff6b6b; }
+  .fr-callout.green  { background: rgba(81,207,102,0.06); border-color: rgba(81,207,102,0.25); }
+  .fr-callout.green strong { color: #51cf66; }
+
+  /* STATS */
+  .fr-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .fr-stat {
+    background: rgba(255,215,0,0.06);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .fr-stat-num   { font-size: 26px; font-weight: 700; color: #ffd700; margin-bottom: 0.4rem; }
+  .fr-stat-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+
+  /* ANIMATIONS */
+  @keyframes fr-fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fr-slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fr-bounce {
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(5px); }
+  }
+
+  @media (max-width: 768px) {
+    .fr-trio { grid-template-columns: 1fr; }
+    .fr-steps { flex-direction: column; }
+    .fr-table { font-size: 12px; }
+    .fr-table td, .fr-table th { padding: 0.5rem 0.6rem; }
+  }
+</style>
+
+<div class="fr-wrap">
+  <div class="fr-container">
+
+    <!-- HERO -->
+    <div class="fr-hero">
+      <h1>Allergies vs Sensitivities vs Intolerances</h1>
+      <p>Three completely different problems. Most people call them all "allergies." Here's why that matters — and what to actually do about each one.</p>
+
+      <div class="fr-trio">
+        <div class="fr-trio-card allergy">
+          <span class="fr-trio-icon">🚨</span>
+          <div class="fr-trio-name">Food Allergy</div>
+          <span class="fr-trio-tag">IgE · Immune · Immediate</span>
+          <div style="font-size:13px; color:#ccc; line-height:1.6;">Fire alarm. Body calls the fire department. Even a tiny spark can trigger it. Life-threatening.</div>
+          <div class="fr-trio-analogy">"Your immune system thinks peanuts are a biological weapon."</div>
+        </div>
+        <div class="fr-trio-card sensitivity">
+          <span class="fr-trio-icon">⚡</span>
+          <div class="fr-trio-name">Food Sensitivity</div>
+          <span class="fr-trio-tag">IgG · Immune · Delayed</span>
+          <div style="font-size:13px; color:#ccc; line-height:1.6;">Slow leak in the roof. Takes days to notice. Not immediately dangerous but causes cumulative damage.</div>
+          <div class="fr-trio-analogy">"Your gut let something through that shouldn't be there. Your body got grumpy."</div>
+        </div>
+        <div class="fr-trio-card intolerance">
+          <span class="fr-trio-icon">🔧</span>
+          <div class="fr-trio-name">Food Intolerance</div>
+          <span class="fr-trio-tag">Enzyme · Non-immune · Variable</span>
+          <div style="font-size:13px; color:#ccc; line-height:1.6;">Missing the right tool for the job. You can't process this food efficiently. Usually just uncomfortable.</div>
+          <div class="fr-trio-analogy">"You don't have the key to unlock this molecule. It sits there and ferments."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: COMPARISON TABLE -->
+    <div class="fr-section expanded">
+      <div class="fr-section-header" onclick="frToggle(this)">
+        <div class="fr-section-title">
+          <span class="fr-section-icon">📊</span>
+          <span>Side-by-Side Comparison</span>
+        </div>
+        <span class="fr-toggle-icon">▼</span>
+      </div>
+      <div class="fr-section-content">
+        <table class="fr-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="col-allergy">🚨 Allergy (IgE)</th>
+              <th class="col-sensitivity">⚡ Sensitivity (IgG)</th>
+              <th class="col-intolerance">🔧 Intolerance (Enzyme)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Immune system?</td>
+              <td><span class="fr-badge-red">Yes — emergency (IgE)</span></td>
+              <td><span class="fr-badge-gold">Yes — slow burn (IgG)</span></td>
+              <td><span class="fr-badge-green">No immune involvement</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">How fast?</td>
+              <td><span class="fr-badge-red">Minutes (2–30 min)</span></td>
+              <td><span class="fr-badge-gold">Hours to 72 hours later</span></td>
+              <td>30 min – a few hours</td>
+            </tr>
+            <tr>
+              <td class="row-label">Severity</td>
+              <td><span class="fr-badge-red">Life-threatening possible</span></td>
+              <td>Chronic low-grade damage</td>
+              <td>Uncomfortable, not dangerous</td>
+            </tr>
+            <tr>
+              <td class="row-label">Symptoms</td>
+              <td>Hives, swelling, breathing difficulty, anaphylaxis</td>
+              <td>Fatigue, brain fog, bloating, joint pain, skin issues, headaches</td>
+              <td>Gas, bloating, cramping, diarrhoea</td>
+            </tr>
+            <tr>
+              <td class="row-label">Minimum dose?</td>
+              <td><span class="fr-badge-red">Trace amounts can trigger</span></td>
+              <td>Often dose-dependent</td>
+              <td><span class="fr-badge-green">Small amounts usually fine</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Permanent?</td>
+              <td>Usually (managed, not cured)</td>
+              <td><span class="fr-badge-green">No — fixable via gut repair</span></td>
+              <td>Often — but manageable</td>
+            </tr>
+            <tr>
+              <td class="row-label">Common examples</td>
+              <td>Peanuts, shellfish, tree nuts, milk (children), eggs</td>
+              <td>Gluten, dairy, eggs, soy, corn, nightshades</td>
+              <td>Lactose, fructose, histamine, FODMAPs</td>
+            </tr>
+            <tr>
+              <td class="row-label">How to test</td>
+              <td>Skin prick test, IgE blood panel</td>
+              <td>IgG panel, elimination diet</td>
+              <td>Hydrogen breath test, elimination + reintroduction</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="fr-callout" style="margin-top:1.5rem;">
+          <strong>The key insight for coaches:</strong> Most clients who say "I'm allergic to dairy" have an intolerance or sensitivity — not a true allergy. The distinction matters because the fix is completely different. A sensitivity may be reversible in 4–8 weeks. A true allergy is permanent and requires strict avoidance.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: ALLERGY -->
+    <div class="fr-section expanded">
+      <div class="fr-section-header" onclick="frToggle(this)">
+        <div class="fr-section-title">
+          <span class="fr-section-icon">🚨</span>
+          <span>Food Allergy — The Emergency Response (IgE)</span>
+        </div>
+        <span class="fr-toggle-icon">▼</span>
+      </div>
+      <div class="fr-section-content">
+        <p><strong>A true food allergy is an IgE-mediated immune response.</strong> The immune system misidentifies a harmless food protein as a deadly pathogen — and responds accordingly. The result is rapid, systemic, and potentially fatal.</p>
+
+        <h3 style="margin:1.5rem 0 1rem; color:#ff6b6b;">The Mechanism (How It Actually Works)</h3>
+        <div class="fr-steps">
+          <div class="fr-step">
+            <div class="fr-step-label">First Exposure</div>
+            Body produces IgE antibodies to food protein (sensitisation — no symptoms yet)
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step">
+            <div class="fr-step-label">IgE Binds</div>
+            IgE antibodies attach to mast cells throughout the body (waiting)
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step warning">
+            <div class="fr-step-label">Second Exposure</div>
+            Food protein enters, crosslinks IgE on mast cells — tripwire pulled
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step danger">
+            <div class="fr-step-label">Mast Cell Explosion</div>
+            Massive histamine release + tryptase + leukotrienes + prostaglandins
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step danger">
+            <div class="fr-step-label">Symptoms</div>
+            Hives, swelling, airway constriction, anaphylaxis — within minutes
+          </div>
+        </div>
+
+        <div class="fr-grid-2" style="margin-top:1.5rem;">
+          <div class="fr-card red">
+            <span class="fr-card-icon">🥜</span>
+            <div class="fr-card-title">The Big 8 Allergens</div>
+            <div class="fr-card-text">Peanuts · Tree nuts · Shellfish · Fish · Milk · Eggs · Wheat · Soy. These account for ~90% of all food allergies. Sesame was added as #9 in 2023 (US).</div>
+          </div>
+          <div class="fr-card red">
+            <span class="fr-card-icon">⚡</span>
+            <div class="fr-card-title">Anaphylaxis Warning Signs</div>
+            <div class="fr-card-text">Throat tightening, voice change, difficulty swallowing, drop in blood pressure, loss of consciousness. Epinephrine (EpiPen) is the only effective first-line treatment. Antihistamines alone are NOT sufficient.</div>
+          </div>
+        </div>
+
+        <div class="fr-callout red" style="margin-top:1.5rem;">
+          <strong>Scope of practice note:</strong> As a fitness coach you may have allergic clients. Know the signs of anaphylaxis. Never tell a client with a confirmed allergy to "just try a small amount." Even 1mg of peanut protein can trigger fatal anaphylaxis in highly sensitised individuals.
+        </div>
+
+        <div class="fr-protocol red" style="margin-top:1.5rem;">
+          <h4>What to Do</h4>
+          <p>Strict avoidance — no exceptions. Client carries epinephrine auto-injector. Medic-alert bracelet. Immunotherapy (OIT) exists for some allergens but is done under medical supervision only. This is NOT a dietary coaching issue.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: SENSITIVITY -->
+    <div class="fr-section expanded">
+      <div class="fr-section-header" onclick="frToggle(this)">
+        <div class="fr-section-title">
+          <span class="fr-section-icon">⚡</span>
+          <span>Food Sensitivity — The Slow Burn (IgG)</span>
+        </div>
+        <span class="fr-toggle-icon">▼</span>
+      </div>
+      <div class="fr-section-content">
+        <p><strong>Food sensitivity is a delayed immune reaction — usually IgG antibody-mediated — that develops hours to days after eating a trigger food.</strong> Because the gap between eating and symptoms is so wide, most people never connect the food to the reaction. This is the most underdiagnosed and most reversible of the three types.</p>
+
+        <h3 style="margin:1.5rem 0 1rem; color:#ffd700;">The Mechanism</h3>
+        <div class="fr-steps">
+          <div class="fr-step">
+            <div class="fr-step-label">Leaky Gut</div>
+            Gut barrier is compromised — large food particles cross into bloodstream
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step warning">
+            <div class="fr-step-label">Immune Recognition</div>
+            Immune system encounters food protein it shouldn't see — treats it as foreign
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step warning">
+            <div class="fr-step-label">IgG Production</div>
+            Body produces IgG antibodies to that food (sensitisation builds over weeks)
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step danger">
+            <div class="fr-step-label">Immune Complexes</div>
+            IgG + food antigen form immune complexes — trigger inflammation in tissues
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step danger">
+            <div class="fr-step-label">Delayed Symptoms</div>
+            Fatigue, brain fog, joint pain, bloating, skin — hours to 72 hrs later
+          </div>
+        </div>
+
+        <div class="fr-callout" style="margin-top:1.5rem;">
+          <strong>Why the delay makes it so hard to catch:</strong> You eat gluten on Monday. You feel terrible on Wednesday. You blame stress, sleep, the weather — not Monday's toast. This is why elimination diets are the only reliable diagnostic tool. You need to remove the food for 3–4 weeks before symptoms reliably clear.
+        </div>
+
+        <div class="fr-grid-3" style="margin-top:1rem;">
+          <div class="fr-card">
+            <span class="fr-card-icon">🧠</span>
+            <div class="fr-card-title">Brain & Nervous System</div>
+            <div class="fr-card-text">Brain fog, difficulty concentrating, headaches, anxiety, depression-like symptoms. LPS from leaky gut crosses blood-brain barrier.</div>
+          </div>
+          <div class="fr-card">
+            <span class="fr-card-icon">💪</span>
+            <div class="fr-card-title">Joints & Muscles</div>
+            <div class="fr-card-text">Unexplained joint pain, stiffness, slow recovery from training. Immune complexes deposit in joints.</div>
+          </div>
+          <div class="fr-card">
+            <span class="fr-card-icon">🔋</span>
+            <div class="fr-card-title">Energy & Metabolism</div>
+            <div class="fr-card-text">Persistent fatigue unrelated to sleep. Chronic low-grade inflammation impairs mitochondrial function.</div>
+          </div>
+          <div class="fr-card">
+            <span class="fr-card-icon">🫁</span>
+            <div class="fr-card-title">Gut & Digestion</div>
+            <div class="fr-card-text">Bloating, alternating bowel habits, IBS-like symptoms. Damaged villi impair nutrient absorption.</div>
+          </div>
+          <div class="fr-card">
+            <span class="fr-card-icon">🧴</span>
+            <div class="fr-card-title">Skin</div>
+            <div class="fr-card-text">Eczema, acne, rashes, psoriasis flares. Skin is often where systemic inflammation surfaces visibly.</div>
+          </div>
+          <div class="fr-card">
+            <span class="fr-card-icon">😴</span>
+            <div class="fr-card-title">Sleep & Recovery</div>
+            <div class="fr-card-text">Waking at night, non-restorative sleep. Inflammatory cytokines disrupt sleep architecture.</div>
+          </div>
+        </div>
+
+        <div class="fr-protocol gold" style="margin-top:1.5rem;">
+          <h4>What to Do — The Sensitivity Protocol</h4>
+          <p><strong>Remove:</strong> Eliminate the suspected food completely for 4–6 weeks (gluten is often the main trigger — remove 100%, not 90%). <strong>Repair:</strong> L-glutamine, zinc, omega-3s — heal the gut barrier. <strong>Reintroduce:</strong> One food at a time, monitor for 72 hours. <strong>Timeline:</strong> Most sensitivities resolve if the barrier is properly repaired. This is NOT a permanent condition.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: INTOLERANCE -->
+    <div class="fr-section expanded">
+      <div class="fr-section-header" onclick="frToggle(this)">
+        <div class="fr-section-title">
+          <span class="fr-section-icon">🔧</span>
+          <span>Food Intolerance — The Missing Tool (Enzyme)</span>
+        </div>
+        <span class="fr-toggle-icon">▼</span>
+      </div>
+      <div class="fr-section-content">
+        <p><strong>Food intolerance has nothing to do with the immune system.</strong> It happens when the body lacks the enzyme or transporter needed to break down a specific molecule. The undigested molecule reaches the colon, gets fermented by bacteria, and produces gas and irritation.</p>
+
+        <div class="fr-grid-2" style="margin-top:1rem;">
+          <div class="fr-card green">
+            <span class="fr-card-icon">🥛</span>
+            <div class="fr-card-title">Lactose Intolerance</div>
+            <div class="fr-card-text"><strong>Missing enzyme:</strong> Lactase.<br>Lactose (milk sugar) can't be broken into glucose + galactose. Passes to colon intact. Bacteria ferment it → hydrogen gas → bloating, cramping, diarrhoea. Affects ~68% of adults globally. <strong>Fix:</strong> lactase enzyme supplements, hard cheeses (low lactose), aged yogurt.</div>
+          </div>
+          <div class="fr-card green">
+            <span class="fr-card-icon">🍎</span>
+            <div class="fr-card-title">Fructose Malabsorption</div>
+            <div class="fr-card-text"><strong>Missing transporter:</strong> GLUT5 capacity exceeded.<br>Small intestine can only absorb a limited amount of fructose. Excess passes to colon → fermentation. Symptoms: bloating, gas, diarrhoea after fruit, honey, HFCS. <strong>Fix:</strong> Low-fructose diet, glucose co-ingestion improves absorption.</div>
+          </div>
+          <div class="fr-card green">
+            <span class="fr-card-icon">🍷</span>
+            <div class="fr-card-title">Histamine Intolerance</div>
+            <div class="fr-card-text"><strong>Missing enzyme:</strong> DAO (diamine oxidase).<br>DAO breaks down dietary histamine in the gut. Low DAO = histamine accumulates. Found in: wine, aged cheese, fermented foods, processed meats. Symptoms: headache, flushing, hives, congestion. <strong>Fix:</strong> Low-histamine diet, DAO supplements.</div>
+          </div>
+          <div class="fr-card green">
+            <span class="fr-card-icon">🧅</span>
+            <div class="fr-card-title">FODMAP Intolerance</div>
+            <div class="fr-card-text"><strong>Missing enzyme / fermentability.</strong> FODMAPs (fermentable carbs — onions, garlic, beans, certain fruits) are osmotic and fermentable. Common in IBS. Symptoms: gas, bloating, altered bowel habits. <strong>Fix:</strong> Low-FODMAP diet (elimination phase + reintroduction to find specific triggers).</div>
+          </div>
+        </div>
+
+        <div class="fr-callout green" style="margin-top:1.5rem;">
+          <strong>The dose-dependence rule:</strong> Unlike allergies (where trace amounts matter), intolerance is almost always dose-dependent. Most lactose-intolerant people can handle hard cheese, butter, or a small amount of milk without symptoms — they just can't handle a large glass of milk. Help clients find their threshold, not eliminate the food category entirely.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: LEAKY GUT CONNECTION -->
+    <div class="fr-section expanded">
+      <div class="fr-section-header" onclick="frToggle(this)">
+        <div class="fr-section-title">
+          <span class="fr-section-icon">🔗</span>
+          <span>How Sensitivities Develop — The Leaky Gut Link</span>
+        </div>
+        <span class="fr-toggle-icon">▼</span>
+      </div>
+      <div class="fr-section-content">
+        <p><strong>Most food sensitivities are not innate — they are acquired.</strong> The mechanism is almost always a compromised gut barrier. This is why a client can eat a food for 30 years without issue and then suddenly "react" to it.</p>
+
+        <div class="fr-steps" style="margin:1.5rem 0;">
+          <div class="fr-step">
+            <div class="fr-step-label">Healthy Gut</div>
+            Tight junctions sealed. Only small digested molecules cross into blood.
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step warning">
+            <div class="fr-step-label">Trigger Event</div>
+            Stress, antibiotics, NSAIDs, illness, dietary change opens tight junctions
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step warning">
+            <div class="fr-step-label">Large Particles Cross</div>
+            Partially digested food proteins now enter bloodstream through gaps
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step danger">
+            <div class="fr-step-label">IgG Antibodies Made</div>
+            Immune system flags these proteins as foreign → builds IgG memory
+          </div>
+          <div class="fr-arrow">→</div>
+          <div class="fr-step danger">
+            <div class="fr-step-label">Sensitivity Established</div>
+            Every time you eat that food now, immune reaction follows 4–72 hrs later
+          </div>
+        </div>
+
+        <div class="fr-grid-2">
+          <div class="fr-callout red">
+            <strong>The bad news:</strong> Once IgG antibodies are established, the sensitivity persists as long as the gut barrier is damaged. Avoiding the food alone doesn't fix it — it just reduces the immune load while the real problem (the leaky gut) continues.
+          </div>
+          <div class="fr-callout green">
+            <strong>The good news:</strong> Repair the gut barrier → food particles stop crossing → immune system stops seeing the antigen → IgG levels drop → sensitivity resolves. Most food sensitivities are gone within 4–8 weeks of proper gut repair. True allergies don't work this way.
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;">
+          <p style="font-size:14px; color:#ccc; margin-bottom:1rem;"><strong style="color:#ffd700;">The "I used to be fine with this food" story is almost always a leaky gut narrative.</strong> The food didn't change. The gut barrier did.</p>
+          <ul class="fr-list">
+            <li>Client was fine with gluten until a stressful period at work — now reacts to any bread</li>
+            <li>Client took a long course of antibiotics — now reacts to dairy, eggs, soy</li>
+            <li>Client had a GI illness — now has multiple food sensitivities that won't go away</li>
+            <li>All three: same mechanism — barrier broken → IgG antibodies formed → sensitivity acquired</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: TESTING -->
+    <div class="fr-section expanded">
+      <div class="fr-section-header" onclick="frToggle(this)">
+        <div class="fr-section-title">
+          <span class="fr-section-icon">🔬</span>
+          <span>How to Actually Identify Which One You Have</span>
+        </div>
+        <span class="fr-toggle-icon">▼</span>
+      </div>
+      <div class="fr-section-content">
+
+        <div class="fr-grid-3">
+          <div class="fr-card red">
+            <span class="fr-card-icon">🚨</span>
+            <div class="fr-card-title">Testing for Allergy</div>
+            <div class="fr-card-text">
+              <strong>Skin prick test</strong> — gold standard. Allergen placed on forearm, pricked through. Wheal/flare response = positive.<br><br>
+              <strong>Serum IgE panel</strong> — blood test for specific food IgE antibodies (RAST / ImmunoCAP).<br><br>
+              <strong>Oral food challenge</strong> — done in clinical setting. Confirms or rules out allergy under supervision.<br><br>
+              Needs: allergist/immunologist.
+            </div>
+          </div>
+          <div class="fr-card">
+            <span class="fr-card-icon">⚡</span>
+            <div class="fr-card-title">Testing for Sensitivity</div>
+            <div class="fr-card-text">
+              <strong>IgG food panel</strong> — blood test measuring IgG antibodies to 90–200+ foods. Clinically useful but controversial (not covered by most insurance).<br><br>
+              <strong>Elimination diet</strong> — the gold standard. Remove suspect foods completely for 4–6 weeks. Systematic reintroduction one at a time. Most reliable and cheapest method.<br><br>
+              No: skin prick test will be negative. IgE will be negative. Standard allergy testing misses this.
+            </div>
+          </div>
+          <div class="fr-card green">
+            <span class="fr-card-icon">🔧</span>
+            <div class="fr-card-title">Testing for Intolerance</div>
+            <div class="fr-card-text">
+              <strong>Hydrogen breath test</strong> — for lactose and fructose. Patient drinks a sugar solution, exhaled hydrogen measured. High hydrogen = fermentation = malabsorption.<br><br>
+              <strong>Elimination + reintroduction</strong> — practical and effective. Remove lactose for 2 weeks, reintroduce, monitor symptoms.<br><br>
+              <strong>DAO level</strong> — blood test for histamine intolerance (diamine oxidase enzyme level).
+            </div>
+          </div>
+        </div>
+
+        <div class="fr-callout" style="margin-top:1.5rem;">
+          <strong>The practical coaching approach:</strong> You cannot diagnose. But you can guide. The elimination diet — removing the top 6 suspects (gluten, dairy, eggs, soy, corn, processed foods) for 4 weeks — will resolve most food sensitivity symptoms if that's the cause. If symptoms don't improve, they likely have intolerance, allergy, or a non-food cause. Refer accordingly.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: ACTION SUMMARY -->
+    <div class="fr-section expanded">
+      <div class="fr-section-header" onclick="frToggle(this)">
+        <div class="fr-section-title">
+          <span class="fr-section-icon">💡</span>
+          <span>Coaching Summary — What to Do With Each Client</span>
+        </div>
+        <span class="fr-toggle-icon">▼</span>
+      </div>
+      <div class="fr-section-content">
+
+        <div class="fr-protocol red">
+          <h4>🚨 Client with Confirmed Food Allergy</h4>
+          <p>Strict avoidance — no "just a little bit." Confirm they carry epinephrine auto-injector. Know the signs of anaphylaxis. Do not attempt dietary modification. Outside scope of practice — this is medical management.</p>
+        </div>
+
+        <div class="fr-protocol gold">
+          <h4>⚡ Client Who "Reacts to" Foods — Fatigue, Brain Fog, Bloating</h4>
+          <p>Likely sensitivity. Guide them through a 4-week elimination of gluten, dairy, and processed foods. Simultaneously support gut barrier: L-glutamine, zinc, bone broth, fermented foods. Systematic reintroduction after 4 weeks. Most will be eating those foods again within 3 months with no reaction.</p>
+        </div>
+
+        <div class="fr-protocol" style="background:rgba(81,207,102,0.08); border-color:#51cf66;">
+          <h4>🔧 Client with GI Symptoms Only (Gas, Bloating, Diarrhoea)</h4>
+          <p>Likely intolerance. First question: dairy? Start with a 2-week lactose removal. If GI clears, lactose intolerance. If not, trial low-FODMAP. Refer for breath test if needed. Enzyme supplements (lactase) are available OTC and often allow full reintroduction.</p>
+        </div>
+
+        <div style="background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.25); border-radius: 8px; padding: 1.5rem; margin-top:1.5rem;">
+          <p style="margin-bottom:1rem;"><strong style="color:#ffd700; font-size:15px;">The One Thing to Teach Every Client:</strong></p>
+          <p>"You are probably not permanently allergic to these foods. Your gut barrier may be damaged and letting food particles through that trigger an immune response. Repair the barrier, and in most cases, the 'allergies' disappear. True allergies are rare — sensitivities are not."</p>
+        </div>
+
+        <div class="fr-stats" style="margin-top:1.5rem;">
+          <div class="fr-stat">
+            <div class="fr-stat-num">2–3%</div>
+            <div class="fr-stat-label">Adults with true IgE food allergy</div>
+          </div>
+          <div class="fr-stat">
+            <div class="fr-stat-num">~45%</div>
+            <div class="fr-stat-label">People who report food sensitivities</div>
+          </div>
+          <div class="fr-stat">
+            <div class="fr-stat-num">68%</div>
+            <div class="fr-stat-label">Global adults with lactose intolerance</div>
+          </div>
+          <div class="fr-stat">
+            <div class="fr-stat-num">4–6 wks</div>
+            <div class="fr-stat-label">Elimination diet to identify sensitivities</div>
+          </div>
+          <div class="fr-stat">
+            <div class="fr-stat-num">4–8 wks</div>
+            <div class="fr-stat-label">Gut repair timeline for sensitivity reversal</div>
+          </div>
+          <div class="fr-stat">
+            <div class="fr-stat-num">72 hrs</div>
+            <div class="fr-stat-label">Maximum delay for IgG sensitivity reaction</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script is:inline>
+function frToggle(header) {
+  const section = header.closest('.fr-section');
+  section.classList.toggle('expanded');
+}
+</script>
+
+</Layout>

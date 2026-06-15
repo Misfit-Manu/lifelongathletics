@@ -1,0 +1,626 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="The Gut Barrier — Tight Junctions, Zonulin & Leaky Gut | Lifelong Athletics" description="Understanding tight junctions, zonulin, and leaky gut syndrome. The damage cascade, the repair protocol, and what to tell clients with food sensitivities. ACE · NASM · NSCA exam reference.">
+
+<div class="gb-back-bar">
+  <a href="/exam-prep" class="gb-back-link">← Back to Study Hub</a>
+</div>
+
+<style is:global>
+
+  .gb-back-bar { max-width: 1200px; margin: 0 auto; padding: 110px 60px 0; }
+  .gb-back-link {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; display: inline-flex;
+    align-items: center; gap: 8px; transition: color 0.2s;
+  }
+  .gb-back-link:hover { color: var(--gold); }
+
+  .gb-wrap * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .gb-wrap h1 { font-size: 36px; font-weight: 600; color: #ffd700; letter-spacing: -1px; }
+  .gb-wrap h2 { font-size: 22px; font-weight: 600; color: #ffd700; margin: 1.5rem 0 1rem; }
+  .gb-wrap h3 { font-size: 16px; font-weight: 600; color: #e0e0e0; }
+  .gb-wrap p  { font-size: 14px; line-height: 1.7; color: #bbb; }
+
+  .gb-wrap .infographic {
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 3rem 2rem;
+  }
+
+  .gb-wrap .container { max-width: 1200px; margin: 0 auto; }
+
+  .gb-wrap .hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: gb-fadeInDown 0.8s ease-out;
+  }
+  .gb-wrap .hero h1 {
+    font-size: 42px;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .gb-wrap .hero p {
+    font-size: 16px;
+    color: #999;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .gb-wrap .junction-visual { margin: 2rem auto; text-align: center; }
+  .gb-wrap .tight-junctions {
+    display: inline-flex;
+    gap: 12px;
+    padding: 2rem;
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    animation: gb-slideUp 0.8s ease-out 0.2s both;
+  }
+  .gb-wrap .junction {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #ffd700;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .gb-wrap .junction:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    animation: gb-pulse 2s ease-in-out infinite;
+    opacity: 0;
+  }
+  .gb-wrap .junction.sealed { background: rgba(81, 207, 102, 0.2); border-color: #51cf66; }
+  .gb-wrap .junction.sealed:after { border-color: #51cf66; }
+  .gb-wrap .junction.open { background: rgba(255, 107, 107, 0.2); border-color: #ff6b6b; }
+  .gb-wrap .junction.open:after { border-color: #ff6b6b; }
+
+  .gb-wrap .section {
+    margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: gb-slideUp 0.8s ease-out both;
+  }
+  .gb-wrap .section:nth-child(1) { animation-delay: 0.2s; }
+  .gb-wrap .section:nth-child(2) { animation-delay: 0.3s; }
+  .gb-wrap .section:nth-child(3) { animation-delay: 0.4s; }
+  .gb-wrap .section:nth-child(4) { animation-delay: 0.5s; }
+  .gb-wrap .section:nth-child(5) { animation-delay: 0.6s; }
+
+  .gb-wrap .section-header {
+    padding: 1.5rem;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .gb-wrap .section-header:hover {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.1) 100%);
+  }
+  .gb-wrap .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffd700;
+  }
+  .gb-wrap .section-icon { font-size: 24px; }
+  .gb-wrap .toggle-icon { font-size: 20px; transition: transform 0.3s ease; color: #ffd700; }
+  .gb-wrap .section.expanded .toggle-icon { transform: rotate(180deg); }
+  .gb-wrap .section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 1.5rem;
+  }
+  .gb-wrap .section.expanded .section-content {
+    max-height: 2000px;
+    padding: 1.5rem;
+  }
+
+  .gb-wrap .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 1rem 0;
+  }
+  .gb-wrap .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .gb-wrap .card {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 215, 0, 0.02) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  .gb-wrap .card:hover {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: translateY(-4px);
+  }
+  .gb-wrap .card-icon { font-size: 32px; margin-bottom: 0.75rem; display: block; }
+  .gb-wrap .card-title { font-size: 15px; font-weight: 600; color: #ffd700; margin-bottom: 0.5rem; }
+  .gb-wrap .card-text  { font-size: 12px; color: #aaa; line-height: 1.6; }
+
+  .gb-wrap .cascade {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  .gb-wrap .cascade-box {
+    flex: 1;
+    min-width: 150px;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 0.5px solid rgba(255, 215, 0, 0.2);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .gb-wrap .cascade-box.danger  { border-color: rgba(255, 107, 107, 0.4); background: rgba(255, 107, 107, 0.05); }
+  .gb-wrap .cascade-box.warning { border-color: rgba(255, 146, 43, 0.4);  background: rgba(255, 146, 43, 0.05); }
+  .gb-wrap .cascade-label { font-weight: 600; color: #ffd700; margin-bottom: 0.5rem; font-size: 11px; text-transform: uppercase; }
+  .gb-wrap .cascade-arrow { font-size: 24px; color: #ffd700; animation: gb-bounce 1.5s infinite; }
+
+  .gb-wrap .feature-list { list-style: none; margin: 1rem 0; }
+  .gb-wrap .feature-list li {
+    padding: 0.75rem 0 0.75rem 1.5rem;
+    position: relative;
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.6;
+  }
+  .gb-wrap .feature-list li:before { content: '→'; position: absolute; left: 0; color: #ffd700; font-weight: 600; }
+  .gb-wrap .damage-list  li:before { content: '✗'; color: #ff6b6b; }
+  .gb-wrap .healing-list li:before { content: '✓'; color: #51cf66; }
+
+  .gb-wrap .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .gb-wrap .stat-box {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .gb-wrap .stat-number { font-size: 28px; font-weight: 700; color: #ffd700; margin-bottom: 0.5rem; }
+  .gb-wrap .stat-label  { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .gb-wrap .protocol-step {
+    background: rgba(81, 207, 102, 0.08);
+    border-left: 3px solid #51cf66;
+    padding: 1.25rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+  }
+  .gb-wrap .protocol-step h4 {
+    color: #51cf66;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .gb-wrap .protocol-step p { font-size: 13px; color: #bbb; margin: 0; }
+
+  .gb-wrap .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 215, 0, 0.1);
+    border: 0.5px solid rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+  }
+  .gb-wrap .btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.5);
+    transform: translateY(-2px);
+  }
+
+  @keyframes gb-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.1); opacity: 0; }
+  }
+  @keyframes gb-bounce {
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(6px); }
+  }
+  @keyframes gb-fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gb-slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .gb-wrap .tight-junctions { flex-wrap: wrap; }
+    .gb-wrap .grid-2, .gb-wrap .grid-3 { grid-template-columns: 1fr; }
+    .gb-wrap .cascade { flex-direction: column; }
+    .gb-wrap h1 { font-size: 28px; }
+  }
+</style>
+
+<div class="gb-wrap">
+<div class="infographic">
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>The Gut Barrier</h1>
+      <p>Understanding tight junctions, zonulin, and leaky gut syndrome</p>
+      <div class="junction-visual">
+        <div class="tight-junctions">
+          <div class="junction sealed">🔒</div>
+          <div class="junction sealed">🔒</div>
+          <div class="junction sealed">🔒</div>
+          <div class="junction sealed">🔒</div>
+          <div class="junction sealed">🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT IS A TIGHT JUNCTION? -->
+    <div class="section expanded">
+      <div class="section-header" onclick="gbToggleSection(this)">
+        <div class="section-title">
+          <span class="section-icon">🔐</span>
+          <span>What Is a Tight Junction?</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <p><strong>Tight junctions are protein complexes that seal the gaps between intestinal cells.</strong> They act like a security checkpoint, controlling what enters your bloodstream and what stays out.</p>
+        <div class="grid-2">
+          <div class="card">
+            <span class="card-icon">🧬</span>
+            <div class="card-title">Key Proteins</div>
+            <div class="card-text">Claudins, occludin, and JAM (junctional adhesion molecules) lock intestinal cells together.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">✅</span>
+            <div class="card-title">What Passes Through</div>
+            <div class="card-text">Amino acids, glucose, minerals, vitamins. Small, digested nutrients only.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">🚫</span>
+            <div class="card-title">What Stays Out</div>
+            <div class="card-text">Undigested food, bacteria, endotoxins (LPS), toxins, large molecules.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">🛡️</span>
+            <div class="card-title">Intestinal Epithelium</div>
+            <div class="card-text">Single layer of cells (enterocytes) with tight junctions as the gatekeepers.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE KEY MOLECULE: ZONULIN -->
+    <div class="section expanded">
+      <div class="section-header" onclick="gbToggleSection(this)">
+        <div class="section-title">
+          <span class="section-icon">🔑</span>
+          <span>The Key Molecule: Zonulin</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <p><strong>Zonulin is a protein that literally opens tight junctions, acting like a key that unlocks the gates.</strong> When zonulin levels rise, gaps appear between intestinal cells. When it's low, junctions stay sealed.</p>
+        <div class="cascade">
+          <div class="cascade-box">
+            <div class="cascade-label">Low Zonulin</div>
+            <div>Tight junctions SEALED. Strong barrier. Normal digestion.</div>
+          </div>
+          <div class="cascade-arrow">→</div>
+          <div class="cascade-box warning">
+            <div class="cascade-label">Rising Zonulin</div>
+            <div>Junctions START to open. Small gaps appear. Trouble begins.</div>
+          </div>
+          <div class="cascade-arrow">→</div>
+          <div class="cascade-box danger">
+            <div class="cascade-label">High Zonulin</div>
+            <div>Junctions WIDE OPEN. Large gaps. Leaky gut begins.</div>
+          </div>
+        </div>
+        <p style="margin-top: 1rem; font-style: italic; color: #999;">Zonulin is released by intestinal cells in response to stress, gluten (in sensitive individuals), inflammation, and dysbiosis.</p>
+      </div>
+    </div>
+
+    <!-- WHAT DAMAGES TIGHT JUNCTIONS -->
+    <div class="section expanded">
+      <div class="section-header" onclick="gbToggleSection(this)">
+        <div class="section-title">
+          <span class="section-icon">⚠️</span>
+          <span>What Damages Tight Junctions?</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <p>Multiple factors can trigger zonulin release and damage the intestinal barrier. The more factors present, the worse the damage.</p>
+        <div class="grid-3">
+          <div class="card">
+            <span class="card-icon">🌾</span>
+            <div class="card-title">Gluten</div>
+            <div class="card-text">Triggers zonulin in sensitive individuals. Creates strong inflammatory response.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">💊</span>
+            <div class="card-title">NSAIDs</div>
+            <div class="card-text">Ibuprofen, naproxen directly damage intestinal lining. Major trigger.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">🧂</span>
+            <div class="card-title">Processed Foods</div>
+            <div class="card-text">Emulsifiers, food dyes, additives trigger inflammation and zonulin.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">🍺</span>
+            <div class="card-title">Excessive Alcohol</div>
+            <div class="card-text">Damages intestinal cells directly. Disrupts microbiome.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">😰</span>
+            <div class="card-title">Chronic Stress</div>
+            <div class="card-text">High cortisol elevates zonulin. Impairs immune barrier.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">😴</span>
+            <div class="card-title">Poor Sleep</div>
+            <div class="card-text">Dysregulates tight junction proteins. Impairs repair.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">🦠</span>
+            <div class="card-title">Dysbiosis</div>
+            <div class="card-text">Bad bacteria overgrowth. Produces inflammatory compounds.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">📈</span>
+            <div class="card-title">High Sugar</div>
+            <div class="card-text">Feeds pathogenic bacteria. Causes inflammation.</div>
+          </div>
+          <div class="card">
+            <span class="card-icon">🏃</span>
+            <div class="card-title">Overtraining</div>
+            <div class="card-text">Excessive exercise without recovery. Chronic cortisol elevation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE CASCADE: FROM TIGHT TO LEAKY -->
+    <div class="section expanded">
+      <div class="section-header" onclick="gbToggleSection(this)">
+        <div class="section-title">
+          <span class="section-icon">🌊</span>
+          <span>The Cascade: From Healthy to Leaky</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <div style="margin-bottom: 2rem;">
+          <h3 style="margin-bottom: 1.5rem;">Stage 1: Junctions Begin to Open</h3>
+          <div class="cascade">
+            <div class="cascade-box">
+              <div class="cascade-label">Trigger</div>
+              <div>Stress, gluten, NSAIDs, etc.</div>
+            </div>
+            <div class="cascade-arrow">→</div>
+            <div class="cascade-box warning">
+              <div class="cascade-label">Response</div>
+              <div>Zonulin released by enterocytes</div>
+            </div>
+            <div class="cascade-arrow">→</div>
+            <div class="cascade-box warning">
+              <div class="cascade-label">Effect</div>
+              <div>Claudins/occludin contract. Small gaps appear.</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-bottom: 2rem;">
+          <h3 style="margin-bottom: 1.5rem;">Stage 2: Leaky Barrier (LPS Enters Bloodstream)</h3>
+          <div class="cascade">
+            <div class="cascade-box warning">
+              <div class="cascade-label">What Leaks</div>
+              <div>LPS (bacterial endotoxin), undigested food particles</div>
+            </div>
+            <div class="cascade-arrow">→</div>
+            <div class="cascade-box danger">
+              <div class="cascade-label">Immune Response</div>
+              <div>Immune cells recognize LPS as a threat</div>
+            </div>
+            <div class="cascade-arrow">→</div>
+            <div class="cascade-box danger">
+              <div class="cascade-label">Inflammation</div>
+              <div>Systemic inflammation, cytokine release, immune attack</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin-bottom: 1.5rem;">Stage 3: Symptoms & Complications</h3>
+          <ul class="feature-list" style="list-style: none; padding: 0;">
+            <li style="padding: 0.5rem 0;"><strong style="color: #ffd700;">Food sensitivities:</strong> IgG antibodies to foods you previously tolerated</li>
+            <li style="padding: 0.5rem 0;"><strong style="color: #ffd700;">Brain fog & fatigue:</strong> LPS crosses blood-brain barrier (via leaky BBB)</li>
+            <li style="padding: 0.5rem 0;"><strong style="color: #ffd700;">Autoimmune risk:</strong> Molecular mimicry — immune attacks self-tissues</li>
+            <li style="padding: 0.5rem 0;"><strong style="color: #ffd700;">Malabsorption:</strong> Damaged enterocytes can't absorb nutrients properly</li>
+            <li style="padding: 0.5rem 0;"><strong style="color: #ffd700;">Chronic inflammation:</strong> Low-grade endotoxemia (LPS in blood) 24/7</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALING: THE REPAIR PROTOCOL -->
+    <div class="section expanded">
+      <div class="section-header" onclick="gbToggleSection(this)">
+        <div class="section-title">
+          <span class="section-icon">🌱</span>
+          <span>Healing: The Repair Protocol</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <p><strong>Gut barrier repair takes 4-8 weeks with proper nutrition and trigger removal.</strong> The three pillars: Remove, Restore, Rebuild.</p>
+        <div style="margin: 2rem 0;">
+          <h3 style="color: #ff6b6b; margin-bottom: 1rem;">🚫 REMOVE (Eliminate Triggers)</h3>
+          <ul class="feature-list damage-list">
+            <li>Gluten (for at least 30 days)</li>
+            <li>NSAIDs (switch to acetaminophen temporarily)</li>
+            <li>Processed foods & additives</li>
+            <li>Excess alcohol</li>
+            <li>High-stress activities (intense cardio without recovery)</li>
+            <li>Sleep better (7-9 hours nightly)</li>
+          </ul>
+        </div>
+        <div style="margin: 2rem 0;">
+          <h3 style="color: #51cf66; margin-bottom: 1rem;">✓ RESTORE (Provide Building Blocks)</h3>
+          <ul class="feature-list healing-list">
+            <li><strong>L-Glutamine:</strong> Favourite fuel of enterocytes. 5-10g daily.</li>
+            <li><strong>Zinc:</strong> Essential for tight junction proteins. 15-30mg daily.</li>
+            <li><strong>Bone Broth:</strong> Collagen, gelatin, amino acids. 1-2 cups daily.</li>
+            <li><strong>Omega-3s:</strong> Anti-inflammatory. Supports barrier integrity.</li>
+            <li><strong>Vitamin D:</strong> Regulates zonulin. 2000-4000 IU daily.</li>
+            <li><strong>Aloe Vera:</strong> Soothes and heals intestinal lining.</li>
+          </ul>
+        </div>
+        <div style="margin: 2rem 0;">
+          <h3 style="color: #ffd700; margin-bottom: 1rem;">🔄 REBUILD (Restore Microbiome)</h3>
+          <ul class="feature-list healing-list">
+            <li><strong>Fermented foods:</strong> Sauerkraut, kimchi, kefir, tempeh (probiotics)</li>
+            <li><strong>Fibre:</strong> Feeds good bacteria (prebiotic). 25-35g daily.</li>
+            <li><strong>Resistant starch:</strong> Cooled cooked potatoes, green bananas.</li>
+            <li><strong>Polyphenols:</strong> Berries, green tea (feed good bugs)</li>
+            <li><strong>Avoid antibiotics:</strong> Unless absolutely necessary (kills good bacteria too)</li>
+          </ul>
+        </div>
+        <div style="margin: 2rem 0;">
+          <h3 style="color: #ffd700; margin-bottom: 1rem;">Timeline:</h3>
+          <div class="protocol-step">
+            <h4>Weeks 1-2: Remove Triggers</h4>
+            <p>Cut out gluten, NSAIDs, processed foods. Start L-glutamine, zinc, bone broth. Rest and sleep more.</p>
+          </div>
+          <div class="protocol-step">
+            <h4>Weeks 2-4: Restore & Reduce Inflammation</h4>
+            <p>Continue removal. Add fermented foods. Enterocytes begin regeneration. Zonulin starts dropping.</p>
+          </div>
+          <div class="protocol-step">
+            <h4>Weeks 4-8: Rebuild Microbiome</h4>
+            <p>Good bacteria repopulate. Tight junctions reseal. Inflammation drops. Symptoms improve.</p>
+          </div>
+          <div class="protocol-step">
+            <h4>Weeks 8+: Maintenance</h4>
+            <p>Reintroduce foods slowly. Monitor tolerance. Maintain healthy gut habits for life.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BY THE NUMBERS -->
+    <div class="section expanded">
+      <div class="section-header" onclick="gbToggleSection(this)">
+        <div class="section-title">
+          <span class="section-icon">📊</span>
+          <span>By the Numbers</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-number">60%</div>
+            <div class="stat-label">Population with leaky gut symptoms</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">4-8 hrs</div>
+            <div class="stat-label">Time for zonulin to drop after trigger removal</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">3-5 days</div>
+            <div class="stat-label">Intestinal cell turnover (regeneration rate)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">4-8 weeks</div>
+            <div class="stat-label">Full barrier repair with proper protocol</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">400x</div>
+            <div class="stat-label">Surface area of small intestine (villi)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">30 billion</div>
+            <div class="stat-label">Gut bacteria in healthy microbiome</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COACHING SUMMARY -->
+    <div class="section expanded">
+      <div class="section-header" onclick="gbToggleSection(this)">
+        <div class="section-title">
+          <span class="section-icon">💡</span>
+          <span>Coaching Summary</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <div style="background: rgba(81, 207, 102, 0.1); border: 1px solid rgba(81, 207, 102, 0.3); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+          <p style="margin-bottom: 1rem;"><strong style="color: #51cf66; font-size: 15px;">For Clients with Food Sensitivities or Digestive Issues:</strong></p>
+          <p style="margin-bottom: 1rem;">The gut barrier may be compromised. Food sensitivities aren't a permanent condition — they're a symptom of a leaky gut. Repair the barrier by removing triggers, providing amino acids and minerals, and rebuilding the microbiome. In 4-8 weeks, most sensitivities resolve.</p>
+          <p><strong style="color: #ffd700;">Key Insight:</strong> "You're not permanently allergic to these foods. Your gut barrier is damaged. Let's repair it, and you'll tolerate them again."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script is:inline>
+function gbToggleSection(header) {
+  const section = header.closest('.section');
+  section.classList.toggle('expanded');
+}
+</script>
+
+</Layout>
