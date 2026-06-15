@@ -7,7 +7,7 @@ interface Props {
   description?: string;
 }
 
-const { title = "Lifelong Athletics — Become a Lifelong Athlete", description = "Rebuild Habits for Life. Not for a season. Lifelong Athletics coaching by Manu." } = Astro.props;
+const { title = "Lifelong Athletics — Become a Lifelong Athlete", description = "Lifelong Athletics teaches you how to train for life — exercise science, behavior change, and sustainable programs. Not a gym. A system." } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,7 +16,9 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <script type="application/ld+json" is:inline>{"@context":"https://schema.org","@type":"Organization","name":"Lifelong Athletics","url":"https://www.lifelongathletics.com","logo":"https://www.lifelongathletics.com/favicon.png","description":"Lifelong Athletics teaches you how to train for life — exercise science, behavior change, and sustainable programs. Not a gym. A system.","founder":{"@type":"Person","name":"Manu Sehgal"}}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>

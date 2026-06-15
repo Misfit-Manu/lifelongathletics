@@ -5,6 +5,7 @@ category: "Training"
 pubDate: 2026-06-14
 image: "/blog/gym-joints-hero.png"
 imageAlt: "Side-by-side barbell squat comparison — one lifter upright, one leaning forward — both anatomically correct for their body type"
+author: "Manu Sehgal"
 ---
 
 The injury usually comes out of nowhere.

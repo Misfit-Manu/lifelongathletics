@@ -5,6 +5,7 @@ category: "Nutrition & Habits"
 pubDate: 2026-04-14
 image: "/blog/fat-myth.jpg"
 imageAlt: "Avocado halves, olive oil, seeds and salt on marble — the healthy fats we were told to fear"
+author: "Manu Sehgal"
 ---
 Think about the logic for a second: If you eat green vegetables, does your skin turn green? Obviously not. Your body breaks the food down and uses the vitamins.
 

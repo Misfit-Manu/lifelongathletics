@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<!--
+  Sinuous Currents — generative hero art for Lifelong Athletics
+  An algorithmic flow field expressing the kinetic chain in gold on void.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinuous Currents · Lifelong Athletics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --anthropic-dark: #141413;
+            --anthropic-light: #faf9f5;
+            --anthropic-mid-gray: #b0aea5;
+            --anthropic-light-gray: #e8e6dc;
+            --anthropic-orange: #d97757;
+            --anthropic-blue: #6a9bcc;
+            --anthropic-green: #788c5d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
+            min-height: 100vh;
+            color: var(--anthropic-dark);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(20, 20, 19, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar h1 {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .sidebar .subtitle {
+            color: var(--anthropic-mid-gray);
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        .control-section { margin-bottom: 32px; }
+
+        .control-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--anthropic-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-section h3::before {
+            content: '•';
+            color: var(--anthropic-orange);
+            font-weight: bold;
+        }
+
+        .seed-input {
+            width: 100%;
+            background: var(--anthropic-light);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--anthropic-light-gray);
+            text-align: center;
+        }
+
+        .seed-input:focus {
+            outline: none;
+            border-color: var(--anthropic-orange);
+            box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.1);
+            background: white;
+        }
+
+        .seed-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .regen-button { margin-bottom: 0; }
+
+        .control-group { margin-bottom: 20px; }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--anthropic-light-gray);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px; height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 16px; height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .value-display {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .button {
+            background: var(--anthropic-orange);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .button:hover { background: #c86641; transform: translateY(-1px); }
+        .button:active { transform: translateY(0); }
+        .button.secondary { background: var(--anthropic-blue); }
+        .button.secondary:hover { background: #5a8bb8; }
+        .button.tertiary { background: var(--anthropic-green); }
+        .button.tertiary:hover { background: #6b7b52; }
+
+        .button-row { display: flex; gap: 8px; }
+        .button-row .button { flex: 1; }
+
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        /* Canvas container — dark to match the art */
+        #canvas-container {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            background: #080808;
+        }
+
+        #canvas-container canvas {
+            display: block;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #c9a84c;
+            padding: 200px 0;
+            font-family: 'Lora', serif;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; }
+            .canvas-area { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>Sinuous Currents</h1>
+            <div class="subtitle">A generative kinetic chain rendered in gold. The body's grammar, written in motion.</div>
+
+            <div class="control-section">
+                <h3>Seed</h3>
+                <input type="number" id="seed-input" class="seed-input" value="12345" onchange="updateSeed()">
+                <div class="seed-controls">
+                    <button class="button secondary" onclick="previousSeed()">← Prev</button>
+                    <button class="button secondary" onclick="nextSeed()">Next →</button>
+                </div>
+                <button class="button tertiary regen-button" onclick="randomSeedAndUpdate()">↻ Random</button>
+            </div>
+
+            <div class="control-section">
+                <h3>Parameters</h3>
+
+                <div class="control-group">
+                    <label>Particle Count</label>
+                    <div class="slider-container">
+                        <input type="range" id="particleCount" min="300" max="3000" step="100" value="1400" oninput="updateParam('particleCount', this.value)">
+                        <span class="value-display" id="particleCount-value">1400</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Flow Speed</label>
+                    <div class="slider-container">
+                        <input type="range" id="flowSpeed" min="0.3" max="4.0" step="0.1" value="1.6" oninput="updateParam('flowSpeed', this.value)">
+                        <span class="value-display" id="flowSpeed-value">1.6</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Trail Persistence</label>
+                    <div class="slider-container">
+                        <input type="range" id="trailFade" min="2" max="30" step="1" value="6" oninput="updateParam('trailFade', this.value)">
+                        <span class="value-display" id="trailFade-value">6</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Noise Scale</label>
+                    <div class="slider-container">
+                        <input type="range" id="noiseScale" min="0.002" max="0.015" step="0.0005" value="0.0055" oninput="updateParam('noiseScale', this.value)">
+                        <span class="value-display" id="noiseScale-value">0.0055</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Vertical Drift</label>
+                    <div class="slider-container">
+                        <input type="range" id="verticalBias" min="-1.0" max="1.0" step="0.05" value="0.35" oninput="updateParam('verticalBias', this.value)">
+                        <span class="value-display" id="verticalBias-value">0.35</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Center Pull</label>
+                    <div class="slider-container">
+                        <input type="range" id="centerPull" min="0" max="2.0" step="0.05" value="0.55" oninput="updateParam('centerPull', this.value)">
+                        <span class="value-display" id="centerPull-value">0.55</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Brightness</label>
+                    <div class="slider-container">
+                        <input type="range" id="brightness" min="0.3" max="2.0" step="0.05" value="1.0" oninput="updateParam('brightness', this.value)">
+                        <span class="value-display" id="brightness-value">1.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Actions</h3>
+                <div class="button-row">
+                    <button class="button" onclick="resetParameters()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-area">
+            <div id="canvas-container">
+                <div class="loading">Initializing flow...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════
+        // SINUOUS CURRENTS — PARAMETERS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        let params = {
+            seed: 12345,
+            particleCount: 1400,
+            flowSpeed: 1.6,
+            trailFade: 6,        // alpha (0-255) of black rect drawn each frame; lower = longer trails
+            noiseScale: 0.0055,
+            verticalBias: 0.35,
+            centerPull: 0.55,
+            brightness: 1.0
+        };
+
+        let defaultParams = JSON.parse(JSON.stringify(params));
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // ALGORITHM — layered noise flow field with gold particle trails
+        // ═══════════════════════════════════════════════════════════════════════
+
+        let particles = [];
+        let t = 0;
+        const CANVAS_SIZE = 1000;
+
+        function setup() {
+            let canvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
+            canvas.parent('canvas-container');
+            document.querySelector('.loading').style.display = 'none';
+            initializeSystem();
+        }
+
+        function initializeSystem() {
+            randomSeed(params.seed);
+            noiseSeed(params.seed);
+            t = 0;
+
+            particles = [];
+            for (let i = 0; i < params.particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            // Hard reset background to pure void
+            background(8, 8, 8);
+        }
+
+        function draw() {
+            // Layered fade: redraw a translucent dark layer so trails decay slowly
+            noStroke();
+            fill(8, 8, 8, params.trailFade);
+            rect(0, 0, width, height);
+
+            // Adjust particle count if changed
+            while (particles.length < params.particleCount) particles.push(new Particle());
+            while (particles.length > params.particleCount) particles.pop();
+
+            // Step time slowly so the field evolves like breath
+            t += 0.0018;
+
+            for (let p of particles) {
+                p.update();
+                p.show();
+            }
+        }
+
+        // Layered Perlin noise — three octaves represent three nested control loops
+        // of the kinetic chain (trunk, limbs, fine stabilization)
+        function flowAt(x, y) {
+            const s = params.noiseScale;
+            // Trunk — slow, large
+            const n1 = noise(x * s, y * s, t) * 2 - 1;
+            // Limbs — medium, twisting
+            const n2 = noise(x * s * 2.4 + 1000, y * s * 2.4 + 1000, t * 1.6) * 2 - 1;
+            // Tremor — fine, high frequency
+            const n3 = noise(x * s * 5.5 + 2000, y * s * 5.5 + 2000, t * 2.5) * 2 - 1;
+
+            const combined = n1 * 1.0 + n2 * 0.5 + n3 * 0.22;
+            const angle = combined * TWO_PI * 1.4;
+
+            // Base flow direction from layered noise
+            let fx = cos(angle);
+            let fy = sin(angle);
+
+            // Vertical bias — gentle downward (or upward) drift
+            fy += params.verticalBias * 0.45;
+
+            // Center pull — attraction toward the vertical axis of the canvas (the spine)
+            const dx = (width / 2) - x;
+            // Falls off with horizontal distance from center
+            fx += (dx / width) * params.centerPull * 1.2;
+
+            return { x: fx, y: fy };
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PARTICLE
+        // ═══════════════════════════════════════════════════════════════════════
+
+        class Particle {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                // Spawn weighted toward the upper edges — particles "rain" through
+                // the body of the canvas
+                if (initial) {
+                    this.x = random(width);
+                    this.y = random(height);
+                } else {
+                    // Re-spawn from edges (mostly top), heavily biased toward the central column
+                    const r = random();
+                    if (r < 0.55) {
+                        // top spawn, with gaussian-like center bias
+                        this.x = width / 2 + (random() - random()) * width * 0.45;
+                        this.y = random(-20, 20);
+                    } else if (r < 0.75) {
+                        this.x = random(-20, 20);
+                        this.y = random(height * 0.2, height * 0.8);
+                    } else if (r < 0.95) {
+                        this.x = random(width - 20, width + 20);
+                        this.y = random(height * 0.2, height * 0.8);
+                    } else {
+                        this.x = random(width);
+                        this.y = random(height - 20, height + 20);
+                    }
+                }
+                this.vx = 0;
+                this.vy = 0;
+                this.px = this.x;
+                this.py = this.y;
+                this.life = 0;
+                this.maxLife = random(140, 320);
+            }
+
+            update() {
+                this.px = this.x;
+                this.py = this.y;
+
+                const f = flowAt(this.x, this.y);
+                // Acceleration with damping — keeps motion smooth
+                this.vx = this.vx * 0.85 + f.x * params.flowSpeed * 0.35;
+                this.vy = this.vy * 0.85 + f.y * params.flowSpeed * 0.35;
+
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life++;
+
+                // Respawn when out of bounds or too old
+                if (this.x < -10 || this.x > width + 10 ||
+                    this.y < -10 || this.y > height + 10 ||
+                    this.life > this.maxLife) {
+                    this.reset(false);
+                }
+            }
+
+            show() {
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                // Velocity → brightness mapping
+                // Slow → deep amber (109, 85, 36)
+                // Brand gold (201, 168, 76)
+                // Fast → bright gold (245, 214, 132)
+                const v = constrain(speed / 2.2, 0, 1);
+                let r, g, b;
+                if (v < 0.5) {
+                    const k = v / 0.5;
+                    r = lerp(109, 201, k);
+                    g = lerp(85,  168, k);
+                    b = lerp(36,  76,  k);
+                } else {
+                    const k = (v - 0.5) / 0.5;
+                    r = lerp(201, 245, k);
+                    g = lerp(168, 214, k);
+                    b = lerp(76,  132, k);
+                }
+
+                // Alpha — fade in/out over life so particles emerge and dissolve
+                let lifeFade;
+                const earlyFade = 18;
+                const lateFade = 40;
+                if (this.life < earlyFade) {
+                    lifeFade = this.life / earlyFade;
+                } else if (this.life > this.maxLife - lateFade) {
+                    lifeFade = (this.maxLife - this.life) / lateFade;
+                } else {
+                    lifeFade = 1;
+                }
+                lifeFade = constrain(lifeFade, 0, 1);
+
+                const speedAlpha = map(speed, 0, 2.4, 35, 200);
+                const alpha = speedAlpha * lifeFade * params.brightness;
+
+                stroke(r, g, b, alpha);
+                strokeWeight(map(speed, 0, 3, 0.6, 1.4));
+                line(this.px, this.py, this.x, this.y);
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // UI HANDLERS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateParam(name, value) {
+            const numeric = parseFloat(value);
+            params[name] = numeric;
+            const display = document.getElementById(name + '-value');
+            if (display) {
+                // Format nicely
+                if (Number.isInteger(numeric)) display.textContent = numeric;
+                else display.textContent = numeric.toFixed(2).replace(/\.?0+$/, m => m === '.00' ? '' : m);
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SEED CONTROLS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateSeedDisplay() {
+            document.getElementById('seed-input').value = params.seed;
+        }
+
+        function updateSeed() {
+            const input = document.getElementById('seed-input');
+            const newSeed = parseInt(input.value);
+            if (newSeed && newSeed > 0) {
+                params.seed = newSeed;
+                initializeSystem();
+            } else {
+                updateSeedDisplay();
+            }
+        }
+
+        function previousSeed() {
+            params.seed = Math.max(1, params.seed - 1);
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function nextSeed() {
+            params.seed = params.seed + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function randomSeedAndUpdate() {
+            params.seed = Math.floor(Math.random() * 999999) + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function resetParameters() {
+            params = JSON.parse(JSON.stringify(defaultParams));
+            const ids = ['particleCount','flowSpeed','trailFade','noiseScale','verticalBias','centerPull','brightness'];
+            for (const id of ids) {
+                document.getElementById(id).value = params[id];
+                const display = document.getElementById(id + '-value');
+                const v = params[id];
+                if (Number.isInteger(v)) display.textContent = v;
+                else display.textContent = v.toFixed(4).replace(/\.?0+$/, m => m === '.0000' ? '' : m);
+            }
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        window.addEventListener('load', function() {
+            updateSeedDisplay();
+        });
+    </script>
+</body>
+</html>

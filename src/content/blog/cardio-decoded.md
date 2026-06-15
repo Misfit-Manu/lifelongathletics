@@ -5,6 +5,7 @@ category: "Exercise Science"
 pubDate: 2026-05-21
 image: "/blog/cardio-decoded.jpg"
 imageAlt: "3D medical illustration of the human heart and blood vessels inside the chest"
+author: "Manu Sehgal"
 ---
 
 Most people think of cardio as a chore — a means to a leaner body or a slightly better treadmill time. Almost no one thinks of it as the single most powerful intervention they can make for how long they'll live and how well they'll move when they get there.

@@ -5,9 +5,8 @@ category: "Nutrition"
 pubDate: 2026-06-15
 image: "/blog/inflammation-types-hero.png"
 imageAlt: "Macro split of cellular tissue — vivid orange-gold on the left representing acute healing inflammation, and cold grey-blue on the right representing silent chronic inflammation"
+author: "Manu Sehgal"
 ---
-
-*By Manu Sehgal — Coach, Lifelong Athletics*
 
 Most people treat inflammation as a single problem with a single solution. Something hurts or feels inflamed, so you take an anti-inflammatory, rest, and wait. If the pain comes back, you manage it again. The underlying cause is rarely addressed, because most people — and much standard advice — treat all inflammation as the same thing.
 

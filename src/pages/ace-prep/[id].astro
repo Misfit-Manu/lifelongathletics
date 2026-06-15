@@ -20,6 +20,17 @@ const { Content } = await render(chapter);
 ---
 
 <Layout title={`Chapter ${chapter.data.chapter}: ${chapter.data.title} | Lifelong Athletics`} description={chapter.data.description}>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.lifelongathletics.com" },
+      { "@type": "ListItem", "position": 2, "name": "ACE-CPT Prep", "item": "https://www.lifelongathletics.com/ace-prep" },
+      { "@type": "ListItem", "position": 3, "name": `Chapter ${chapter.data.chapter}: ${chapter.data.title}`, "item": `https://www.lifelongathletics.com/ace-prep/${chapter.id}` }
+    ]
+  })} />
+
   <article class="chapter-dashboard">
     <div class="dashboard-header">
       <a href="/ace-prep" class="back-link">← Back to Chapters</a>

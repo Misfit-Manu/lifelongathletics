@@ -5,6 +5,7 @@ category: "Nutrition & Habits"
 pubDate: 2026-06-08
 image: "/blog/high-protein-indian-meal.jpg"
 imageAlt: "Paneer curry served over rice — a high-protein Indian vegetarian meal"
+author: "Manu Sehgal"
 ---
 Here's a question almost nobody can answer: *how much protein did you eat yesterday?*
 

@@ -5,6 +5,7 @@ category: "Exercise Science"
 pubDate: 2026-05-21
 image: "/blog/movement-assessment-explained.jpg"
 imageAlt: "Physiotherapist's hands assessing a woman's painful mid-back during a clinical movement assessment"
+author: "Manu Sehgal"
 ---
 
 Most fitness advice starts with the workout. The smart version starts with the assessment.

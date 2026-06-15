@@ -6,9 +6,8 @@ pubDate: 2026-06-14
 image: "/blog/tendon-strength-mri-damage.png"
 imageAlt: "MRI cross-section of a patellar tendon showing tendinopathy in an NBA athlete"
 heroImage: "/blog/tendon-strength-ultrasound.png"
+author: "Manu Sehgal"
 ---
-
-*By Manu Sehgal — Coach, Lifelong Athletics*
 
 For years, the standard clinical advice for a damaged tendon was effectively this: manage the pain, build strength in the surrounding muscle, and accept that the tissue itself probably wouldn't change.
 

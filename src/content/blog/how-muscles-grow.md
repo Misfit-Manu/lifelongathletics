@@ -5,6 +5,7 @@ category: "Exercise Science"
 pubDate: 2026-05-21
 image: "/blog/how-muscles-grow.jpg"
 imageAlt: "Labeled anatomical diagram of skeletal muscle structure — muscle, fascicle and muscle fiber levels"
+author: "Manu Sehgal"
 ---
 
 The biggest myth about muscle growth is that it's complicated. It isn't. There are about six principles that govern *all* of it, and they've been understood since the 1970s.

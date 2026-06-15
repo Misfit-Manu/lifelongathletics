@@ -5,6 +5,7 @@ category: "Longevity & Training"
 pubDate: 2026-06-11
 image: "/blog/strength-training-longevity.jpg"
 imageAlt: "Strong woman in her 40s performing a barbell deadlift in a dark gym — strength training for longevity"
+author: "Manu Sehgal"
 ---
 Everyone understands retirement savings. Start early, invest steadily, let compounding do the work — and never, ever try to scramble together a lifetime of savings at 55.
 

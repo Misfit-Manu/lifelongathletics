@@ -5,6 +5,7 @@ category: "Exercise Science"
 pubDate: 2026-05-21
 image: "/blog/smart-program-design.jpg"
 imageAlt: "Coach reviewing a training program on a clipboard with an athlete in the gym"
+author: "Manu Sehgal"
 ---
 
 The difference between a workout and a program is intent.

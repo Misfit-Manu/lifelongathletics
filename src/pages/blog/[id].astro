@@ -16,7 +16,37 @@ const { Content } = await render(entry);
 ---
 
 <Layout title={`${entry.data.title} — Lifelong Athletics`} description={entry.data.description}>
-  
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.lifelongathletics.com" },
+      { "@type": "ListItem", "position": 2, "name": "Education", "item": "https://www.lifelongathletics.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": entry.data.title, "item": `https://www.lifelongathletics.com/blog/${entry.id}` }
+    ]
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": entry.data.title,
+    "description": entry.data.description,
+    "datePublished": entry.data.pubDate,
+    "author": {
+      "@type": "Person",
+      "name": entry.data.author || "Manu Sehgal",
+      "url": "https://www.lifelongathletics.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Lifelong Athletics",
+      "logo": { "@type": "ImageObject", "url": "https://www.lifelongathletics.com/favicon.png" }
+    },
+    "image": entry.data.image ? `https://www.lifelongathletics.com${entry.data.image}` : undefined,
+    "url": `https://www.lifelongathletics.com/blog/${entry.id}`
+  })} />
+
   <div class="back-bar">
     <a href="/blog" class="back-link">← Back to Education</a>
   </div>
@@ -31,6 +61,12 @@ const { Content } = await render(entry);
     <p class="article-category">{entry.data.category}</p>
     <h1 class="article-title" set:html={entry.data.title}></h1>
     <p class="article-subtitle">{entry.data.description}</p>
+    {(entry.data.author || entry.data.pubDate) && (
+      <p class="article-byline">
+        {entry.data.author && <span>By {entry.data.author}</span>}
+        {entry.data.pubDate && <span class="article-date">{new Date(entry.data.pubDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>}
+      </p>
+    )}
   </header>
 
   <article class="article-body">
@@ -62,6 +98,19 @@ const { Content } = await render(entry);
   .article-subtitle {
     font-size: 1.1rem; color: var(--muted); line-height: 1.7;
     margin-bottom: 32px; font-style: italic; font-family: var(--font-display);
+  }
+
+  .article-byline {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .article-date {
+    border-left: 1px solid var(--border);
+    padding-left: 20px;
   }
 
   .article-body {
