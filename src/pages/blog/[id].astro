@@ -215,6 +215,13 @@ const { Content } = await render(entry);
     .article-header, .article-body { padding-left: 24px; padding-right: 24px; }
     .article-hero-img { padding-left: 24px; padding-right: 24px; }
     .article-body :global(th), .article-body :global(td) { padding: 10px 10px; font-size: 0.85rem; }
+    /* Wide markdown tables scroll within their box instead of breaking page layout */
+    .article-body :global(table) {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 </style>
 </Layout>
