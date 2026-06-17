@@ -1,0 +1,953 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chapter 17 — Anatomy & Human Movement | ACE Prep · Lifelong Athletics">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style is:global>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#181818;--border:#222;--border2:#2e2e2e;
+  --text:#ededec;--muted:#777;--accent:#c5f135;--accent-dim:#9bbf28;
+  --correct:#4ade80;--incorrect:#f87171;--warn:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;
+  --teal:#22d3ee;--orange:#fb923c;--red:#f87171;
+  --font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;
+  --r:10px;--r2:6px;--trans:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.hero{max-width:1100px;margin:0 auto;padding:56px 28px 36px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);text-decoration:none}.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{color:var(--border2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);margin-bottom:22px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-1px;max-width:740px;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--muted);max-width:580px;font-size:15px;margin-bottom:28px}
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 18px}
+.stat-chip strong{display:block;font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-head);letter-spacing:-.5px}
+.stat-chip span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+.tab-bar{max-width:1100px;margin:0 auto;padding:0 28px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:0}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:13px;font-weight:500;padding:14px 22px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+
+.content{max-width:1100px;margin:0 auto;padding:36px 28px 80px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* MINDMAP */
+.mm-title{font-family:var(--font-head);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:24px}
+.mm-center{width:fit-content;margin:0 auto 40px;text-align:center}
+.mm-center-node{background:var(--accent);color:#000;font-family:var(--font-head);font-size:16px;font-weight:700;padding:18px 36px;border-radius:50px;display:inline-block;letter-spacing:-.3px}
+.mm-center-sub{color:var(--muted);font-size:12px;margin-top:8px}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mm-branch{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--trans)}
+.mm-branch:hover{border-color:var(--border2)}
+.mm-branch-header{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.mm-branch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mm-branch-name{font-weight:600;font-size:14px;letter-spacing:-.2px;flex:1}
+.mm-branch-arrow{color:var(--muted);font-size:12px;transition:transform .25s ease;flex-shrink:0}
+.mm-branch.open .mm-branch-arrow{transform:rotate(90deg)}
+.mm-branch-body{display:none;padding:0 20px 16px;border-top:1px solid var(--border)}
+.mm-branch.open .mm-branch-body{display:block}
+.mm-subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px}
+.mm-sub{background:var(--bg3);border-radius:var(--r2);padding:12px}
+.mm-sub-name{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mm-sub-points{list-style:none;display:flex;flex-direction:column;gap:4px}
+.mm-sub-points li{font-size:12px;color:var(--muted);padding-left:12px;position:relative}
+.mm-sub-points li::before{content:'›';position:absolute;left:0;color:var(--border2)}
+
+/* QUIZ SHARED */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.quiz-header h2{font-family:var(--font-head);font-size:24px}
+.quiz-header h2 em{font-style:italic;color:var(--accent)}
+.progress-label{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.progress-bar-wrap{background:var(--bg3);border-radius:20px;height:4px;margin-bottom:28px;overflow:hidden}
+.progress-bar{background:var(--accent);height:100%;border-radius:20px;transition:width .5s ease;width:0%}
+.section-label{display:flex;align-items:center;gap:10px;margin:36px 0 18px}
+.section-label-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.section-label-line{flex:1;height:1px;background:var(--border)}
+.section-label-count{font-size:12px;color:var(--muted)}
+
+.case-block{margin-bottom:36px}
+.case-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.case-num-badge{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.case-topic-label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.scenario-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;padding:14px 18px;color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:18px;font-style:italic}
+
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px;transition:var(--trans)}
+.q-card:hover{border-color:var(--border2)}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.q-text{font-size:14px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;transition:var(--trans);font-size:13px;color:var(--muted)}
+.q-option:hover{border-color:var(--border2);color:var(--text)}
+.q-option.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.opt-letter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:var(--trans)}
+.q-option.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000}
+.q-option.correct-ans{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--text)!important}
+.q-option.wrong-ans{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important}
+.q-option.correct-ans .opt-letter{background:var(--correct);border-color:var(--correct);color:#000}
+.q-option.wrong-ans .opt-letter{background:var(--incorrect);border-color:var(--incorrect);color:#000}
+.q-option.reveal-correct{border-color:rgba(197,241,53,.4)!important;background:rgba(197,241,53,.04)!important}
+.q-option.reveal-correct .opt-letter{border-color:rgba(197,241,53,.5)}
+
+.q-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.q-exp.show{display:block}
+.q-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.fib-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.fib-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.65;margin-bottom:12px}
+.fib-input-wrap{display:flex;align-items:center;gap:10px}
+.q-input{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:var(--trans);width:100%;max-width:480px}
+.q-input:focus{border-color:var(--border2)}.q-input::placeholder{color:var(--muted)}
+.q-input.fib-correct{border-color:var(--correct);background:rgba(74,222,128,.07)}
+.q-input.fib-wrong{border-color:var(--incorrect);background:rgba(248,113,113,.06)}
+.fib-feedback{font-size:13px;font-weight:700}
+.fib-feedback.ok{color:var(--correct)}.fib-feedback.bad{color:var(--incorrect)}
+.fib-hint{display:none;font-size:12px;color:var(--muted);margin-top:8px;font-style:italic}
+.fib-hint.show{display:block}
+
+.tf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.tf-q{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:14px}
+.q-tf{display:flex;gap:10px}
+.q-tf-btn{flex:1;max-width:110px;padding:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg3);cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--muted);transition:var(--trans);text-align:center}
+.q-tf-btn:hover{border-color:var(--border2);color:var(--text)}
+.q-tf-btn.selected{border-color:var(--accent);background:rgba(197,241,53,.07);color:var(--text)}
+.q-tf-btn.tf-correct{border-color:var(--correct)!important;background:rgba(74,222,128,.08)!important;color:var(--correct)!important}
+.q-tf-btn.tf-wrong{border-color:var(--incorrect)!important;background:rgba(248,113,113,.07)!important;color:var(--incorrect)!important}
+.q-tf-btn.tf-reveal{border-color:rgba(197,241,53,.4)!important;color:var(--accent)!important;background:rgba(197,241,53,.04)!important}
+.tf-exp{display:none;background:rgba(197,241,53,.05);border:1px solid rgba(197,241,53,.15);border-radius:var(--r2);padding:10px 14px;margin-top:10px;font-size:12px;color:var(--accent);line-height:1.55}
+.tf-exp.show{display:block}
+.tf-exp strong{color:var(--accent-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px}
+
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:30px;padding:14px 36px;font-family:var(--font-body);font-size:14px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.submit-btn:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.submit-btn:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none}
+.reset-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:13px 24px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.reset-btn:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* INLINE THEORY RESULT */
+.result-hero{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:32px;text-align:center;margin-bottom:32px;display:none}
+.result-hero.show{display:block}
+.score-display{font-family:var(--font-head);margin-bottom:8px}
+.score-num{font-size:64px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:28px;color:var(--muted)}
+.rb-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.rb-mcq,.rb-fi,.rb-tf{background:var(--bg3);border-radius:var(--r2);padding:8px 14px;font-size:12px;text-align:center;min-width:80px}
+.rb-mcq strong,.rb-fi strong,.rb-tf strong{display:block;font-size:18px;font-weight:700;font-family:var(--font-head)}
+
+/* CASE STUDIES MODAL */
+#result-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center}
+#result-modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:40px 48px;max-width:480px;width:90%;text-align:center}
+.modal-grade-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;border:4px solid}
+.grade-A{border-color:var(--accent);color:var(--accent);background:rgba(197,241,53,.1)}
+.grade-B{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+.grade-C{border-color:var(--warn);color:var(--warn);background:rgba(251,191,36,.1)}
+.grade-D{border-color:var(--incorrect);color:var(--incorrect);background:rgba(248,113,113,.1)}
+.modal-title{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-subtitle{color:var(--muted);font-size:13px;margin-bottom:22px}
+.modal-stats{display:flex;justify-content:center;gap:20px;margin-bottom:24px}
+.modal-stat .val{font-family:var(--font-head);font-size:28px;font-weight:700}
+.modal-stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.modal-band{background:var(--bg3);border-radius:var(--r2);padding:12px 16px;font-size:13px;color:var(--text);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:12px;justify-content:center}
+.modal-btn-primary{background:var(--accent);color:#000;border:none;border-radius:30px;padding:12px 28px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer;transition:var(--trans)}
+.modal-btn-primary:hover{background:var(--accent-dim)}
+.modal-btn-secondary{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:30px;padding:11px 22px;font-family:var(--font-body);font-size:13px;cursor:pointer;transition:var(--trans)}
+.modal-btn-secondary:hover{border-color:var(--incorrect);color:var(--incorrect)}
+
+/* QUICK REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.ref-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.ref-card h3{font-family:var(--font-head);font-size:16px;font-weight:600;margin-bottom:14px}
+.ref-card h3 em{font-style:italic;color:var(--accent)}
+.ref-table{width:100%;border-collapse:collapse;font-size:12px}
+.ref-table th{text-align:left;padding:8px 10px;background:var(--bg3);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.ref-table td{padding:9px 10px;border-top:1px solid var(--border);color:var(--text);vertical-align:top;font-size:12px}
+.ref-table tr:hover td{background:rgba(255,255,255,.015)}
+.key-term{background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:8px}
+.key-term strong{font-size:13px;color:var(--accent);display:block;margin-bottom:3px}
+.key-term span{font-size:12px;color:var(--muted)}
+.tag-up{color:var(--incorrect);font-weight:700}
+.tag-dn{color:var(--correct);font-weight:700}
+.tag-flat{color:var(--muted)}
+.tag-var{color:var(--orange);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 36px;text-align:center;font-size:12px;color:var(--muted)}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);   box-shadow:0 4px 16px rgba(197,241,53,0.22)}
+  50%    {transform:scale(1.03);box-shadow:0 6px 32px rgba(197,241,53,0.52),0 0 48px rgba(197,241,53,0.12)}
+}
+@keyframes tab-pulse{
+  0%,100%{box-shadow:none}
+  50%    {box-shadow:inset 0 -2px 0 rgba(197,241,53,0.7),0 2px 10px rgba(197,241,53,0.18)}
+}
+a.mm-center-node{text-decoration:none;color:#000;cursor:pointer;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+a.mm-center-node:hover{animation-play-state:paused;transform:scale(1.05)}
+.tab-btn.glow:not(.active){animation:tab-pulse 2.6s ease-in-out 0.5s infinite}
+
+@media(max-width:640px){
+  .hero{padding:36px 20px 24px}.content{padding:24px 20px 60px}
+  .tab-bar{padding:0 20px}.tab-btn{padding:12px 14px;font-size:12px}
+  .mm-subs{grid-template-columns:1fr}
+  .modal-box{padding:28px 20px}.modal-stats{gap:12px}
+}
+</style>
+
+<!-- RESULT MODAL (Case Studies) -->
+<div id="result-modal">
+  <div class="modal-box">
+    <div id="modal-ring" class="modal-grade-ring grade-A">A</div>
+    <div class="modal-title" id="modal-title">Excellent Work!</div>
+    <div class="modal-subtitle">Chapter 17 — Case Studies (35 MCQ)</div>
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="val" id="modal-correct" style="color:var(--correct)">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-wrong" style="color:var(--incorrect)">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-skip" style="color:var(--muted)">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+      <div class="modal-stat">
+        <div class="val" id="modal-pct" style="color:var(--accent)">0%</div>
+        <div class="lbl">Score</div>
+      </div>
+    </div>
+    <div class="modal-band" id="modal-band"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-primary" onclick="closeModal()">Review Answers</button>
+      <button class="modal-btn-secondary" onclick="retakeCases()">↺ Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="/exam-prep">Exam Prep</a><span>›</span>
+    <a href="/ace-prep">ACE Hub</a><span>›</span>
+    <span>Chapter 17</span>
+  </div>
+  <div class="hero-badge"><span class="dot"></span>ACE-CPT · Chapter 17</div>
+  <h1>Anatomy &amp; <em>Human Movement</em></h1>
+  <p>How the human movement system produces motion — planes &amp; axes, joint actions, muscle actions and roles, length-tension, force-couples, levers, and the full muscle reference.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><strong>30</strong><span>Theory Quiz</span></div>
+    <div class="stat-chip"><strong>35</strong><span>Case Studies</span></div>
+    <div class="stat-chip"><strong>65</strong><span>Total Q's</span></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('mindmap',this)">📑 Contents</button>
+    <button class="tab-btn glow" onclick="switchTab('theory',this)">📝 Quiz (Theory)</button>
+    <button class="tab-btn" onclick="switchTab('cases',this)">🩺 Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('reference',this)">📋 Quick Reference</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- MIND MAP -->
+<div class="tab-panel active" id="tab-mindmap">
+  <p class="mm-title">Click any branch to expand. All Chapter 17 concepts mapped.</p>
+  <div class="mm-center">
+    <a href="/ace-prep/chapter-17-guide" class="mm-center-node">📖 Theory Guide →</a>
+    <div class="mm-center-sub">HMS · Planes &amp; Axes · Joint Actions · Muscle Actions · Roles · Length-Tension · Force-Couples · Levers · Muscle Reference</div>
+  </div>
+  <div class="mm-grid" id="mm-grid"></div>
+</div>
+
+<!-- THEORY QUIZ -->
+<div class="tab-panel" id="tab-theory">
+  <div class="quiz-header">
+    <h2>Chapter 17 <em>Theory Quiz</em></h2>
+    <button class="reset-btn" onclick="resetTheory()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="t-progress-text">0 of 30 answered</span>
+    <span id="t-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="t-prog-bar"></div></div>
+
+  <div class="result-hero" id="theory-result">
+    <div class="score-display">
+      <span class="score-num" id="t-score-num">0</span><span class="score-denom"> / 30</span>
+    </div>
+    <div class="rb-row">
+      <div class="rb-mcq"><strong id="t-rb-mcq">—</strong>MCQ (20)</div>
+      <div class="rb-fi"><strong id="t-rb-fi">—</strong>Fill-In (5)</div>
+      <div class="rb-tf"><strong id="t-rb-tf">—</strong>T/F (5)</div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part A — Multiple Choice</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">20 Questions · 1 pt each</div>
+  </div>
+  <div id="t-mcq-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part B — Fill in the Blank</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-fib-section"></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Part C — True / False</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">5 Questions · 1 pt each</div>
+  </div>
+  <div id="t-tf-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see your score + explanations.</div>
+    <button class="submit-btn" id="t-submit-btn" onclick="submitTheory()">Submit Quiz →</button>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="tab-panel" id="tab-cases">
+  <div class="quiz-header">
+    <h2>Chapter 17 <em>Case Studies</em></h2>
+    <button class="reset-btn" onclick="retakeCases()">↺ Reset</button>
+  </div>
+  <div class="progress-label">
+    <span id="c-progress-text">0 of 35 answered</span>
+    <span id="c-progress-pct">0%</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="c-prog-bar"></div></div>
+
+  <div class="section-label">
+    <div class="section-label-badge">Case Studies (Multiple Choice)</div>
+    <div class="section-label-line"></div>
+    <div class="section-label-count">7 Cases · 35 Questions · 1 pt each</div>
+  </div>
+  <div id="c-mcq-section"></div>
+
+  <div class="quiz-footer">
+    <div style="font-size:13px;color:var(--muted)">Submit to see score + explanations for every question.</div>
+    <button class="submit-btn" id="c-submit-btn" onclick="submitCases()">Submit Cases →</button>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="tab-panel" id="tab-reference">
+  <div class="ref-grid">
+
+    <div class="ref-card" style="grid-column:1/-1">
+      <h3>Planes of Motion, <em>Joint Actions &amp; Axes</em></h3>
+      <table class="ref-table">
+        <tr><th>Plane</th><th>Divides body</th><th>Joint motions</th><th>Axis of rotation</th><th>Examples</th></tr>
+        <tr><td><strong style="color:var(--blue)">Sagittal</strong></td><td>Right &amp; left halves</td><td>Flexion / extension (ankle: dorsiflexion / plantarflexion)</td><td>Frontal (coronal) axis</td><td>Biceps curls, squats, walking, stair climbing</td></tr>
+        <tr><td><strong style="color:var(--orange)">Frontal</strong></td><td>Front &amp; back halves</td><td>Abduction / adduction, lateral flexion, eversion / inversion</td><td>Anterior-posterior axis</td><td>Lateral raises, side lunges, side shuffles</td></tr>
+        <tr><td><strong style="color:var(--teal)">Transverse</strong></td><td>Upper &amp; lower halves</td><td>Internal / external rotation, L/R spinal rotation, pronation / supination</td><td>Longitudinal (vertical) axis</td><td>Cable rotations, throwing, swinging a bat</td></tr>
+      </table>
+    </div>
+
+    <div class="ref-card">
+      <h3>The Three <em>Muscle Actions</em></h3>
+      <div class="key-term"><strong>Concentric — isolated function</strong><span>Muscle <strong style="color:var(--text)">shortens</strong> and <strong style="color:var(--text)">accelerates</strong> a movement (e.g., lifting phase of a curl).</span></div>
+      <div class="key-term"><strong>Eccentric — integrated function</strong><span>Muscle <strong style="color:var(--text)">lengthens</strong> under load and <strong style="color:var(--text)">decelerates</strong> a movement; absorbs force (e.g., lowering phase).</span></div>
+      <div class="key-term"><strong>Isometric — integrated function</strong><span>Muscle produces force with <strong style="color:var(--text)">no change in length</strong> and <strong style="color:var(--text)">stabilizes</strong> a joint (e.g., plank).</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>The Four <em>Muscle Roles</em></h3>
+      <table class="ref-table">
+        <tr><th>Role</th><th>What it does</th></tr>
+        <tr><td><strong style="color:var(--accent)">Agonist</strong></td><td>Prime mover — drives the motion</td></tr>
+        <tr><td><strong style="color:var(--blue)">Antagonist</strong></td><td>Directly opposes the prime mover</td></tr>
+        <tr><td><strong style="color:var(--teal)">Synergist</strong></td><td>Assists the prime mover</td></tr>
+        <tr><td><strong style="color:var(--warn)">Stabilizer</strong></td><td>Supports/holds while movers work</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Hip extension example</strong><span>Agonist: gluteus maximus · Antagonist: psoas · Synergist: hamstrings · Stabilizer: deep core (TVA, multifidus)</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Pronation vs <em>Supination</em></h3>
+      <table class="ref-table">
+        <tr><th>Pronation (loading)</th><th>Supination (push-off)</th></tr>
+        <tr><td>Eccentric — decelerates</td><td>Concentric — produces force</td></tr>
+        <tr><td>Tibia/femur internal rotation</td><td>Tibia/femur external rotation</td></tr>
+        <tr><td>Foot/ankle: dorsiflex, evert, abduct</td><td>Foot/ankle: plantarflex, invert, adduct</td></tr>
+        <tr><td>Knee/hip: flex, adduct, IR</td><td>Knee/hip: extend, abduct, ER</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Tri-planar</strong><span>Both are multiplanar, synchronized motions occurring in all three planes at once.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Mechanics — <em>Length-Tension, Couples, Levers</em></h3>
+      <div class="key-term"><strong>Length-tension</strong><span>A muscle produces its greatest force at its <strong style="color:var(--text)">optimal (resting) length</strong>. Chronically lengthened or shortened muscles lose force.</span></div>
+      <div class="key-term"><strong>Force-couple</strong><span>Two+ muscles pulling in different directions to rotate a joint. Scapular upward rotation = upper trap + lower trap + serratus anterior.</span></div>
+      <div class="key-term"><strong>Levers</strong><span>Bones = levers · joints = fulcrums · muscles = force · body part/weight = resistance. <strong style="color:var(--text)">3 lever classes.</strong> Torque = force × distance from fulcrum.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <h3>Muscle Reference <em>— Quick Facts</em></h3>
+      <table class="ref-table">
+        <tr><th>Muscle</th><th>Concentric action</th></tr>
+        <tr><td>Gluteus maximus</td><td>Hip extension &amp; external rotation</td></tr>
+        <tr><td>Gastrocnemius / soleus</td><td>Ankle plantarflexion</td></tr>
+        <tr><td>Anterior tibialis</td><td>Dorsiflexion &amp; inversion</td></tr>
+        <tr><td>Rectus femoris</td><td>Knee extension &amp; hip flexion</td></tr>
+        <tr><td>Subscapularis</td><td>Shoulder internal rotation</td></tr>
+        <tr><td>Infraspinatus / teres minor</td><td>Shoulder external rotation</td></tr>
+      </table>
+      <div class="key-term" style="margin-top:10px"><strong>Full reference</strong><span>Every muscle's origin, insertion, function &amp; innervation lives in the <a href="/ace-prep/chapter-17-guide" style="color:var(--accent)">Theory Guide →</a></span></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <a href="/ace-prep" style="color:var(--muted);text-decoration:none">← Back to ACE Hub</a>
+  &nbsp;·&nbsp; Chapter 17: Anatomy &amp; Human Movement
+</footer>
+
+<script is:inline>
+// ── MINDMAP DATA ──────────────────────────────────────────────────────────────
+const MINDMAP = {branches:[
+  {id:1,name:"THE HUMAN MOVEMENT SYSTEM",color:"#22d3ee",subs:[
+    {name:"Three Systems",points:["Muscular system → functional anatomy (forces)","Skeletal system → functional biomechanics (levers/joints)","Nervous system → motor behavior (control & timing)","All three interdependent on every movement"]},
+    {name:"Kinematics vs Kinetics",points:["Kinematics — the motions produced","Kinetics — the forces acting on the body","Biomechanics applies physics to the body","Weak link → the whole chain compensates"]},
+    {name:"Why It Matters",points:["Foundation for all program design","Explains how/why movement happens","Links posture, force, and injury","Clean teamwork = optimum human movement"]},
+    {name:"Anatomic Terminology",points:["Planes & axes describe 3-D motion","Joint motions named per plane","Origin/insertion define muscle pull","Innervation = nerve supply"]}
+  ]},
+  {id:2,name:"PLANES OF MOTION & AXES",color:"#fb923c",subs:[
+    {name:"Three Planes",points:["Sagittal — right & left halves","Frontal — front & back halves","Transverse — upper & lower halves","Intersect at the center of mass"]},
+    {name:"Three Axes",points:["Sagittal plane → frontal (coronal) axis","Frontal plane → anterior-posterior axis","Transverse plane → longitudinal (vertical) axis","Motion rotates around a perpendicular axis"]},
+    {name:"Key Idea",points:["Movement is 3-dimensional","No motion is strictly one plane","Predominant plane = travels along/parallel to it","Axis is like the axle a wheel turns on"]},
+    {name:"Joint Motion",points:["Rotation around an axis = joint motion","Named for its action in each plane","Every freely-moveable joint moves in all 3","One plane usually predominates"]}
+  ]},
+  {id:3,name:"JOINT MOTIONS BY PLANE",color:"#3b82f6",subs:[
+    {name:"Sagittal Motions",points:["Flexion — decrease in joint angle","Extension — increase in joint angle","Ankle: dorsiflexion / plantarflexion","Squats, curls, walking, stairs"]},
+    {name:"Frontal Motions",points:["Abduction — away from midline","Adduction — toward midline","Lateral flexion of the spine","Eversion / inversion of the foot"]},
+    {name:"Transverse Motions",points:["Internal / external rotation","Left / right spinal rotation","Radioulnar pronation / supination","Foot abduction / adduction"]},
+    {name:"Examples",points:["Sagittal: biceps curl, calf raise","Frontal: lateral raise, side lunge","Transverse: cable rotation, bat swing","Real movement blends all three"]}
+  ]},
+  {id:4,name:"COMBINED MOTIONS: PRONATION & SUPINATION",color:"#a78bfa",subs:[
+    {name:"Tri-Planar Motion",points:["Both occur in all 3 planes at once","Synchronized, multiplanar joint motions","Center of gravity stays over base of support","One joint changes → others compensate"]},
+    {name:"Pronation (Loading)",points:["Subtalar pronation at initial contact","Obligatory tibial/femoral internal rotation","Occurs with eccentric muscle function","Decelerates & absorbs ground forces"]},
+    {name:"Supination (Push-off)",points:["Subtalar supination at mid-stance","Obligatory tibial/femoral external rotation","Occurs with concentric muscle function","Produces force for propulsion"]},
+    {name:"Clinical Note",points:["Poor pronation control → poor deceleration","Poor supination → weak push-off force","Linkage is bidirectional (pelvis ↔ foot)","Path to imbalance & injury if dysfunctional"]}
+  ]},
+  {id:5,name:"MUSCLE ACTIONS",color:"#10b981",subs:[
+    {name:"Isolated Function",points:["What a muscle does when it shortens","Concentric — accelerates a motion","The muscle's prime/named action","E.g., biceps accelerates elbow flexion"]},
+    {name:"Integrated Function",points:["What a muscle does in real movement","Eccentric — decelerates the opposite motion","Isometric — stabilizes a joint","Multi-joint, real-world role"]},
+    {name:"Concentric",points:["Muscle shortens","Accelerates / produces movement","'Up' phase of a curl","Force > resistance"]},
+    {name:"Eccentric & Isometric",points:["Eccentric: lengthens, decelerates, absorbs","Eccentric: 'down' phase of a curl","Isometric: no length change, stabilizes","Isometric: holding a plank"]}
+  ]},
+  {id:6,name:"MUSCLE ROLES",color:"#f87171",subs:[
+    {name:"Agonist",points:["Acts as the prime mover","Drives the primary motion","Hip extension → gluteus maximus","Largest contributor to the movement"]},
+    {name:"Antagonist",points:["Acts in direct opposition to the agonist","Lengthens as the agonist shortens","Hip extension → psoas (hip flexor)","Allows controlled motion"]},
+    {name:"Synergist",points:["Assists the prime mover","Adds force in the same pattern","Hip extension → hamstrings, erector spinae","Helps complete the movement"]},
+    {name:"Stabilizer",points:["Supports while movers work","Holds the LPHC / nearby joints steady","Transversus abdominis, internal oblique, multifidus","Anchors the pelvis & spine"]}
+  ]},
+  {id:7,name:"LENGTH-TENSION, FORCE-COUPLES & LEVERS",color:"#fbbf24",subs:[
+    {name:"Length-Tension",points:["Greatest force at optimal (resting) length","Most actin-myosin cross-bridges available","Too long or too short → force drops","Bad posture chronically alters length"]},
+    {name:"Force-Couples",points:["Two+ muscles, different directions → rotation","Like two hands turning a wheel","Scapula: upper trap + lower trap + serratus","Normal couples = optimal neuromuscular control"]},
+    {name:"Levers",points:["Bones = levers; joints = fulcrums","Muscles = force; body part = resistance","Torque = force × distance from fulcrum","3 classes of levers in the body"]},
+    {name:"Putting It Together",points:["Normal length-tension + proper couples","→ optimal joint motion (arthrokinematics)","Dysfunction → compensation & overload","Goal of corrective training"]}
+  ]},
+  {id:8,name:"MUSCLE REFERENCE HIGHLIGHTS",color:"#94a3b8",subs:[
+    {name:"Lower Body",points:["Gluteus maximus → hip extension & ER","Gastrocnemius/soleus → plantarflexion","Anterior tibialis → dorsiflexion & inversion","Quadriceps → knee extension"]},
+    {name:"Core & Spine",points:["Transversus abdominis → stabilizes (drawing-in)","Erector spinae → spinal extension","Multifidus → segmental stabilization","Quadratus lumborum → lateral flexion"]},
+    {name:"Shoulder & Scapula",points:["Latissimus dorsi → extension/adduction/IR","Serratus anterior → scapular protraction/upward rotation","Trapezius → scapular elevation/depression","Rotator cuff → glenohumeral stability"]},
+    {name:"Rotator Cuff (SITS)",points:["Supraspinatus → abduction (initiation)","Infraspinatus → external rotation","Teres minor → external rotation","Subscapularis → internal rotation"]}
+  ]}
+]};
+
+// ── THEORY MCQ DATA ───────────────────────────────────────────────────────────
+const THEORY_MCQ = [
+  { q:"The sagittal plane divides the body into right and left halves. Movement in this plane occurs around which axis?", opts:["Anterior-posterior axis","Frontal (coronal) axis","Longitudinal (vertical) axis","Oblique axis"], c:1, exp:"Sagittal-plane motion (flexion/extension) rotates around the frontal, or coronal, axis — perpendicular to the sagittal plane." },
+  { q:"Which of the following movements occurs predominantly in the frontal plane?", opts:["Biceps curl","Lateral shoulder raise (abduction)","Spinal rotation","Walking"], c:1, exp:"Abduction/adduction, lateral flexion, and eversion/inversion are frontal-plane motions. A lateral raise is abduction. Curls and walking are sagittal; spinal rotation is transverse." },
+  { q:"Internal and external rotation of the limbs occur predominantly in which plane?", opts:["Sagittal","Frontal","Transverse","Coronal"], c:2, exp:"Rotational movements — internal/external rotation, spinal rotation, and radioulnar pronation/supination — occur in the transverse plane around the longitudinal axis." },
+  { q:"In the sagittal plane, the ankle action commonly called 'flexion' is more accurately termed:", opts:["Plantarflexion","Eversion","Dorsiflexion","Inversion"], c:2, exp:"The ankle is the exception in the sagittal plane: 'flexion' is dorsiflexion and 'extension' is plantarflexion." },
+  { q:"Flexion is best defined as:", opts:["A decrease in the angle between two adjoining segments","An increase in the angle between two adjoining segments","Movement away from the midline","Rotation toward the midline"], c:0, exp:"Flexion decreases the relative angle between two adjacent segments; extension increases it. Both are sagittal-plane motions." },
+  { q:"Abduction is best described as movement:", opts:["Toward the body's midline","Away from the body's midline","Around the long axis of a bone","That decreases a joint angle in the sagittal plane"], c:1, exp:"Abduction moves a segment away from the midline (a frontal-plane motion); adduction moves it toward the midline." },
+  { q:"During a concentric muscle action, the muscle:", opts:["Lengthens while producing force","Shortens and accelerates a movement","Holds with no change in length","Relaxes completely"], c:1, exp:"A concentric action shortens the muscle to accelerate a movement — this is its isolated function." },
+  { q:"During the lowering (downward) phase of a dumbbell biceps curl, the biceps brachii is performing which action?", opts:["Concentric — shortening","Eccentric — lengthening under load","Isometric — no length change","No action at all"], c:1, exp:"Lowering the weight under control is an eccentric action: the biceps lengthens while still producing force to decelerate the movement." },
+  { q:"Holding a plank position is primarily an example of which muscle action?", opts:["Concentric","Eccentric","Isometric","Plyometric"], c:2, exp:"An isometric action produces force with no visible change in muscle length, stabilizing the joint(s) — exactly what a plank requires." },
+  { q:"In the isolated-vs-integrated framework, a muscle's 'isolated function' refers to its:", opts:["Eccentric (decelerating) action","Concentric (accelerating) action","Isometric (stabilizing) action","Reflexive action"], c:1, exp:"Isolated function is the concentric action (acceleration). Integrated function describes the eccentric (deceleration) and isometric (stabilization) roles in real movement." },
+  { q:"The muscle that acts as the prime mover for a given joint action is called the:", opts:["Antagonist","Synergist","Agonist","Stabilizer"], c:2, exp:"The agonist is the prime mover. The antagonist opposes it, synergists assist, and stabilizers support the body while the movers work." },
+  { q:"During hip extension driven by the gluteus maximus, the psoas (a hip flexor) acts as the:", opts:["Agonist","Synergist","Antagonist","Stabilizer"], c:2, exp:"The psoas opposes hip extension, so during glute-driven hip extension it is the antagonist, lengthening as the hip extends." },
+  { q:"A muscle that assists the prime mover during a movement pattern is best classified as a:", opts:["Synergist","Antagonist","Stabilizer","Fixator of last resort"], c:0, exp:"A synergist assists the agonist (e.g., the hamstrings and erector spinae assisting the gluteus maximus during hip extension)." },
+  { q:"The transversus abdominis, internal oblique, and multifidus holding the lumbo-pelvic-hip complex steady during a lift act as:", opts:["Agonists","Antagonists","Synergists","Stabilizers"], c:3, exp:"These deep muscles stabilize the LPHC while prime movers and synergists produce the movement — the stabilizer role." },
+  { q:"According to the length-tension relationship, a muscle produces its greatest force when it is at:", opts:["Its fully shortened length","Its fully lengthened length","Its optimal (resting) length","Any length — force is constant"], c:2, exp:"Maximal cross-bridge availability — and therefore peak force — occurs at the muscle's optimal (resting) length. Force falls off when it is over-lengthened or over-shortened." },
+  { q:"Upward rotation of the scapula during overhead reaching is produced by a force-couple of the:", opts:["Pectoralis major, biceps, and deltoid","Upper trapezius, lower trapezius, and serratus anterior","Rhomboids, levator scapulae, and latissimus","Supraspinatus, infraspinatus, and teres minor"], c:1, exp:"The classic scapular force-couple is the upper trapezius, lower trapezius, and serratus anterior pulling in different directions to upwardly rotate the scapula." },
+  { q:"In the human movement system's lever model, the joints act as the:", opts:["Levers","Fulcrums","Force","Resistance"], c:1, exp:"Bones act as levers, joints act as fulcrums, muscles supply the force, and the body part (plus any external weight) is the load/resistance." },
+  { q:"Subtalar pronation, with its obligatory tibial and femoral internal rotation, occurs with which muscle function?", opts:["Concentric — producing force","Eccentric — loading and decelerating","Isometric — stabilizing only","No muscle function is involved"], c:1, exp:"Pronation is the loading/deceleration phase and occurs with eccentric muscle function; supination (push-off) occurs with concentric function." },
+  { q:"During push-off (supination of the foot), the tibia and femur:", opts:["Internally rotate","Externally rotate","Do not rotate","Abduct only"], c:1, exp:"Supination is accompanied by obligatory external rotation of the tibia and femur as the body produces force for propulsion." },
+  { q:"Which rotator cuff muscle produces internal rotation of the shoulder?", opts:["Supraspinatus","Infraspinatus","Teres minor","Subscapularis"], c:3, exp:"The subscapularis internally rotates the glenohumeral joint. The infraspinatus and teres minor externally rotate it, and the supraspinatus initiates abduction." },
+];
+
+// ── FILLIN DATA ───────────────────────────────────────────────────────────────
+const FILLIN = [
+  { q:"The transverse plane divides the body into upper and lower halves, and its motion occurs around the ________ (vertical) axis.", a:"longitudinal", hint:"Also called the vertical axis." },
+  { q:"Pointing the toes downward at the ankle is called ________ (the sagittal-plane term for 'extension').", a:"plantarflexion", hint:"One word; the opposite of dorsiflexion." },
+  { q:"There are ________ classes of levers in the human body.", a:"3", hint:"A single digit." },
+  { q:"The muscle that acts in direct opposition to the prime mover is called the ________.", a:"antagonist", hint:"It opposes the agonist." },
+  { q:"Eversion and inversion of the foot occur in the ________ plane.", a:"frontal", hint:"The same plane as abduction and adduction." },
+];
+
+// ── TRUEF DATA ────────────────────────────────────────────────────────────────
+const TRUEF = [
+  { q:"In real human movement, almost no motion occurs in only one plane — most movements are multiplanar.", a:true, exp:"True. Although one plane usually predominates, every freely-moveable joint shows some motion in all three planes; real movement is multiplanar." },
+  { q:"During a concentric muscle action, the muscle lengthens while producing force.", a:false, exp:"False. A concentric action shortens the muscle to accelerate movement. A muscle that lengthens under load is performing an eccentric action." },
+  { q:"Eccentric muscle actions decelerate movement and absorb force.", a:true, exp:"True. Eccentric actions occur as a muscle lengthens under load, decelerating motion and absorbing force — the integrated 'deceleration' function." },
+  { q:"The scapula attaches to the rib cage through a true ball-and-socket joint.", a:false, exp:"False. The scapula has no direct physical joint with the rib cage — it is suspended and controlled by muscles pulling from multiple directions." },
+  { q:"A muscle held chronically lengthened or chronically shortened produces less force than at its optimal length.", a:true, exp:"True. Per the length-tension relationship, force is greatest at the optimal (resting) length and drops when the muscle is chronically over-lengthened or over-shortened." },
+];
+
+// ── CASES DATA ────────────────────────────────────────────────────────────────
+const CASES = [
+  {
+    num: 1,
+    topic: "Movement Analysis — The Squat",
+    scenario: "A trainer is teaching a client the bodyweight back squat and breaks the movement down to explain the mechanics. The client descends under control to depth, then stands back up, repeating for several reps.",
+    qs: [
+      { q:"The squat occurs predominantly in which plane of motion?", opts:["Frontal","Sagittal","Transverse","Oblique"], ans:1, exp:"The squat is a flexion/extension movement of the hips, knees, and ankles — predominantly sagittal-plane motion." },
+      { q:"At the bottom of the squat, the hips and knees are in:", opts:["Extension","Flexion","Abduction","External rotation"], ans:1, exp:"Descending into the squat flexes the hips and knees (a decrease in joint angle). Standing up extends them." },
+      { q:"As the client stands up out of the squat, the gluteus maximus and quadriceps are performing which action?", opts:["Eccentric","Isometric","Concentric","No action"], ans:2, exp:"Standing up shortens these muscles to accelerate hip and knee extension — a concentric action (their isolated function)." },
+      { q:"During the controlled descent, the quadriceps are working:", opts:["Concentrically to accelerate knee flexion","Eccentrically to decelerate knee flexion","Isometrically only","Not at all — gravity does the work"], ans:1, exp:"Lowering under control, the quadriceps lengthen under load to decelerate knee flexion — an eccentric action." },
+      { q:"The axis of rotation for the sagittal-plane squat is the:", opts:["Longitudinal (vertical) axis","Anterior-posterior axis","Frontal (coronal) axis","Transverse axis"], ans:2, exp:"Sagittal-plane motion rotates around the frontal (coronal) axis." }
+    ]
+  },
+  {
+    num: 2,
+    topic: "Muscle Actions & Roles — Biceps Curl",
+    scenario: "A client performs a standing dumbbell biceps curl. The trainer uses it to explain how the same muscle takes on different actions and how surrounding muscles contribute.",
+    qs: [
+      { q:"During the lifting phase (elbow flexion), the biceps brachii acts as the:", opts:["Antagonist","Agonist (prime mover)","Stabilizer","Synergist"], ans:1, exp:"The biceps is the prime mover (agonist) for elbow flexion during the lifting phase." },
+      { q:"During that lifting phase, the biceps is performing a:", opts:["Concentric action","Eccentric action","Isometric action","Plyometric action"], ans:0, exp:"Raising the dumbbell shortens the biceps to accelerate elbow flexion — a concentric action." },
+      { q:"The triceps brachii during the curl acts as the:", opts:["Agonist","Synergist","Antagonist","Stabilizer"], ans:2, exp:"The triceps opposes elbow flexion, so it is the antagonist during a curl, lengthening as the elbow flexes." },
+      { q:"Lowering the dumbbell under control, the biceps performs a:", opts:["Concentric action","Eccentric action","Isometric action","No action"], ans:1, exp:"Lowering the weight, the biceps lengthens under load to decelerate elbow extension — an eccentric action." },
+      { q:"A standing biceps curl occurs primarily in which plane?", opts:["Transverse","Frontal","Sagittal","Coronal"], ans:2, exp:"Elbow flexion and extension are sagittal-plane movements." }
+    ]
+  },
+  {
+    num: 3,
+    topic: "Gait & the Pronation–Supination Chain",
+    scenario: "A trainer assesses a client's running gait, paying attention to the foot and ankle and how motion travels up the kinetic chain from initial contact through push-off.",
+    qs: [
+      { q:"At initial contact, the subtalar joint:", opts:["Supinates","Pronates","Stays rigid","Plantarflexes only"], ans:1, exp:"At initial contact the subtalar joint pronates, beginning the loading phase that absorbs ground forces." },
+      { q:"Subtalar pronation creates obligatory ________ of the tibia and femur.", opts:["External rotation","Internal rotation","Abduction","Extension"], ans:1, exp:"Pronation is accompanied by obligatory internal rotation of the tibia and femur (and pelvis)." },
+      { q:"Pronation (the loading phase) occurs with which muscle function?", opts:["Concentric — producing force","Eccentric — decelerating and absorbing force","Isometric — pure stabilization","Reflexive only"], ans:1, exp:"Pronation occurs with eccentric muscle function as the body loads and decelerates multi-segmental motion." },
+      { q:"At mid-stance moving into push-off, the subtalar joint:", opts:["Pronates with internal rotation","Supinates with external rotation","Remains pronated","Everts further"], ans:1, exp:"At mid-stance the subtalar joint supinates, with obligatory external rotation of the tibia and femur, to produce push-off force." },
+      { q:"Pronation and supination are best described as:", opts:["Single-plane (sagittal) motions","Tri-planar (multiplanar) motions","Frontal-plane-only motions","Non-functional motions"], ans:1, exp:"Both are tri-planar (multiplanar), synchronized joint motions occurring in all three planes simultaneously." }
+    ]
+  },
+  {
+    num: 4,
+    topic: "Scapular Force-Couple — Overhead Press",
+    scenario: "A client is learning the overhead dumbbell press. The trainer cues proper shoulder-blade movement and explains why several muscles must coordinate for the arms to travel safely overhead.",
+    qs: [
+      { q:"Raising the arms overhead requires upward rotation of the:", opts:["Clavicle only","Scapula","Humerus only","Sternum"], ans:1, exp:"Reaching overhead requires the scapula to upwardly rotate so the glenoid can track the moving humerus." },
+      { q:"Which force-couple produces scapular upward rotation?", opts:["Pectoralis major, deltoid, biceps","Upper trapezius, lower trapezius, serratus anterior","Rhomboids, levator scapulae, latissimus","Supraspinatus, infraspinatus, subscapularis"], ans:1, exp:"The upper trapezius, lower trapezius, and serratus anterior form the force-couple that upwardly rotates the scapula." },
+      { q:"A force-couple is best defined as:", opts:["A single muscle producing all the force","Two or more muscles pulling in different directions to produce rotation","Two muscles that always oppose each other","A muscle and its tendon working together"], ans:1, exp:"A force-couple is two or more muscles pulling in different directions to rotate a joint — like two hands turning a steering wheel." },
+      { q:"Weakness of the serratus anterior would most directly impair:", opts:["Elbow flexion","Upward rotation of the scapula during overhead reaching","Hip extension","Ankle dorsiflexion"], ans:1, exp:"The serratus anterior is part of the scapular upward-rotation couple; weakness disrupts overhead reaching and scapular control." },
+      { q:"Pressing the dumbbells straight overhead is predominantly motion in which plane?", opts:["Transverse","Sagittal","Frontal","Horizontal"], ans:1, exp:"Pressing straight overhead is shoulder flexion, a predominantly sagittal-plane motion." }
+    ]
+  },
+  {
+    num: 5,
+    topic: "Muscle Roles — Hip Extension",
+    scenario: "A trainer uses a glute bridge / hip-hinge pattern to teach a client which muscles drive, oppose, assist, and stabilize hip extension.",
+    qs: [
+      { q:"The prime mover (agonist) for hip extension is the:", opts:["Psoas","Gluteus maximus","Rectus femoris","Adductor longus"], ans:1, exp:"The gluteus maximus is the prime mover for hip extension (and external rotation)." },
+      { q:"The hip flexors (e.g., psoas) act as the ________ during hip extension.", opts:["Agonist","Synergist","Antagonist","Stabilizer"], ans:2, exp:"The hip flexors oppose hip extension, making them the antagonists in this pattern." },
+      { q:"The hamstrings assisting the gluteus maximus during hip extension act as:", opts:["Antagonists","Synergists","Stabilizers","Prime movers"], ans:1, exp:"The hamstrings assist hip extension, so they act as synergists to the gluteus maximus." },
+      { q:"The transversus abdominis and multifidus holding the lumbo-pelvic-hip complex steady act as:", opts:["Agonists","Antagonists","Synergists","Stabilizers"], ans:3, exp:"These deep muscles stabilize the LPHC while the movers and synergists produce hip extension." },
+      { q:"The concentric (isolated) action of the gluteus maximus is:", opts:["Hip flexion and internal rotation","Hip extension and external rotation","Knee extension","Ankle plantarflexion"], ans:1, exp:"Concentrically the gluteus maximus accelerates hip extension and external rotation; eccentrically it decelerates hip flexion and internal rotation." }
+    ]
+  },
+  {
+    num: 6,
+    topic: "Length-Tension & Posture",
+    scenario: "A desk-bound client presents with rounded shoulders — chronically shortened chest muscles and a chronically lengthened, weak mid-back. The trainer explains how this affects force production and joint control.",
+    qs: [
+      { q:"A muscle held chronically lengthened or shortened will:", opts:["Produce more force than normal","Produce less force due to an altered length-tension relationship","Be unaffected","Permanently lose all function"], ans:1, exp:"The length-tension relationship means force drops when a muscle sits chronically away from its optimal length." },
+      { q:"The principle relating a muscle's force output to its length is the:", opts:["Force-couple relationship","Length-tension relationship","All-or-none principle","Size principle"], ans:1, exp:"The length-tension relationship describes how a muscle's force depends on its length, peaking at the optimal (resting) length." },
+      { q:"A muscle produces its greatest force at:", opts:["Its shortest length","Its longest length","Its optimal (resting) length","Any length equally"], ans:2, exp:"Peak cross-bridge availability — and therefore peak force — occurs at the optimal (resting) length." },
+      { q:"Chronically shortened pectorals and a lengthened mid-back can disrupt the normal ________ that rotates the scapula.", opts:["lever system","force-couple","reflex arc","tendon sheath"], ans:1, exp:"Altered length-tension disrupts the scapular force-couple, impairing normal scapular motion and shoulder mechanics." },
+      { q:"Restoring normal length-tension relationships and force-couples gives a joint:", opts:["Reduced range of motion","Optimal neuromuscular control","Permanent hypermobility","No measurable change"], ans:1, exp:"Normal length-tension and proper force-couples are what provide a joint with optimal neuromuscular control." }
+    ]
+  },
+  {
+    num: 7,
+    topic: "Levers & Leverage",
+    scenario: "A trainer explains how the body uses leverage to move loads, using a standing calf raise and other examples to illustrate the lever system.",
+    qs: [
+      { q:"In the human movement system, the bones act as:", opts:["Fulcrums","Levers","The force","The resistance"], ans:1, exp:"Bones act as levers, joints as fulcrums, muscles supply the force, and the body part/weight is the resistance." },
+      { q:"The joints act as the:", opts:["Lever","Fulcrum","Force","Load"], ans:1, exp:"Joints serve as the fulcrums (pivot points) around which the bony levers rotate." },
+      { q:"Torque — the rotational force around a joint — is equal to:", opts:["Force ÷ distance from the fulcrum","Force × distance from the fulcrum","Mass × acceleration","Force × velocity"], ans:1, exp:"Torque = force × the distance from the fulcrum (the moment arm)." },
+      { q:"A standing calf raise — where the ball of the foot is the fulcrum and body weight sits between the fulcrum and the muscle's effort — is an example of a:", opts:["First-class lever","Second-class lever","Third-class lever","Non-lever"], ans:1, exp:"A calf raise is a classic second-class lever: the resistance (body weight) lies between the fulcrum (ball of the foot) and the effort (calf muscles via the Achilles)." },
+      { q:"How many classes of levers exist in the human body?", opts:["Two","Three","Four","Five"], ans:1, exp:"There are three classes of levers, defined by the arrangement of fulcrum, effort/force, and load/resistance." }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let theoryMCQ   = {};
+let fibAnswers  = {};
+let tfAnswers   = {};
+let theoryGraded = false;
+
+let caseAnswers = {};
+let caseGraded  = false;
+
+// ── THEORY FUNCTIONS ──────────────────────────────────────────────────────────
+function buildTheoryQuiz() {
+  const sec = document.getElementById('t-mcq-section');
+  sec.innerHTML = '';
+  THEORY_MCQ.forEach((q, qi) => {
+    const opts = q.opts.map((o, oi) =>
+      `<div class="q-option" data-key="tq-${qi}" data-idx="${oi}" onclick="pickTheory(${qi},${oi})">
+        <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+      </div>`
+    ).join('');
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="q-card" id="tcard-${qi}">
+        <div class="q-num">Q${qi + 1}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">${opts}</div>
+        <div class="q-exp" id="texp-${qi}"><strong>Explanation</strong>${q.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function buildFIB() {
+  const sec = document.getElementById('t-fib-section');
+  sec.innerHTML = '';
+  FILLIN.forEach((f, fi) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="fib-card" id="tfib-card-${fi}">
+        <div class="q-num">Q${21 + fi}</div>
+        <div class="fib-q">${f.q}</div>
+        <div class="fib-input-wrap">
+          <input class="q-input" id="tfib-${fi}" type="text" placeholder="Type your answer…"
+            oninput="fibAnswers[${fi}]=this.value;updateTheoryProgress()" autocomplete="off"/>
+          <span class="fib-feedback" id="tfib-fb-${fi}"></span>
+        </div>
+        <div class="fib-hint" id="tfib-hint-${fi}"><em>Hint:</em> ${f.hint}</div>
+      </div>
+    `);
+  });
+}
+
+function buildTF() {
+  const sec = document.getElementById('t-tf-section');
+  sec.innerHTML = '';
+  TRUEF.forEach((t, ti) => {
+    sec.insertAdjacentHTML('beforeend', `
+      <div class="tf-card" id="ttf-card-${ti}">
+        <div class="q-num">Q${26 + ti}</div>
+        <div class="tf-q">${t.q}</div>
+        <div class="q-tf">
+          <button class="q-tf-btn" id="ttf-${ti}-T" onclick="pickTF(${ti},true)">True</button>
+          <button class="q-tf-btn" id="ttf-${ti}-F" onclick="pickTF(${ti},false)">False</button>
+        </div>
+        <div class="tf-exp" id="ttf-exp-${ti}"><strong>Explanation</strong>${t.exp}</div>
+      </div>
+    `);
+  });
+}
+
+function pickTheory(qi, oi) {
+  if (theoryGraded) return;
+  theoryMCQ[qi] = oi;
+  document.querySelectorAll(`[data-key="tq-${qi}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateTheoryProgress();
+}
+
+function pickTF(ti, val) {
+  if (theoryGraded) return;
+  tfAnswers[ti] = val;
+  document.getElementById(`ttf-${ti}-T`).classList.toggle('selected', val === true);
+  document.getElementById(`ttf-${ti}-F`).classList.toggle('selected', val === false);
+  updateTheoryProgress();
+}
+
+function updateTheoryProgress() {
+  let n = Object.keys(theoryMCQ).length;
+  FILLIN.forEach((_, fi) => { if (fibAnswers[fi] && fibAnswers[fi].trim()) n++; });
+  TRUEF.forEach((_, ti)  => { if (tfAnswers[ti] !== undefined) n++; });
+  document.getElementById('t-progress-text').textContent = `${n} of 30 answered`;
+  document.getElementById('t-progress-pct').textContent  = `${Math.round(n/30*100)}%`;
+  document.getElementById('t-prog-bar').style.width      = `${n/30*100}%`;
+}
+
+function submitTheory() {
+  if (theoryGraded) return;
+  theoryGraded = true;
+  document.getElementById('t-submit-btn').disabled = true;
+
+  let mcqC = 0, fibC = 0, tfC = 0;
+
+  THEORY_MCQ.forEach((q, qi) => {
+    const sel  = theoryMCQ[qi];
+    const opts = document.querySelectorAll(`[data-key="tq-${qi}"]`);
+    opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+    if (sel === undefined) {
+      opts[q.c].classList.add('reveal-correct');
+    } else if (sel === q.c) {
+      mcqC++;
+      opts[sel].classList.add('correct-ans');
+    } else {
+      opts[sel].classList.add('wrong-ans');
+      opts[q.c].classList.add('reveal-correct');
+    }
+    document.getElementById(`texp-${qi}`).classList.add('show');
+  });
+
+  FILLIN.forEach((f, fi) => {
+    const inp = document.getElementById(`tfib-${fi}`);
+    inp.disabled = true;
+    const val = (fibAnswers[fi] || '').trim().toLowerCase();
+    const ans = f.a.toLowerCase();
+    const fb  = document.getElementById(`tfib-fb-${fi}`);
+    if (!val) {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    } else if (val === ans || ans.includes(val) || val.includes(ans.split(' ')[0])) {
+      fibC++;
+      inp.classList.add('fib-correct');
+      fb.textContent = '✓';
+      fb.className = 'fib-feedback ok';
+    } else {
+      inp.classList.add('fib-wrong');
+      fb.textContent = `Answer: ${f.a.toUpperCase()}`;
+      fb.className = 'fib-feedback bad';
+    }
+    document.getElementById(`tfib-hint-${fi}`).classList.add('show');
+  });
+
+  TRUEF.forEach((t, ti) => {
+    const tBtn = document.getElementById(`ttf-${ti}-T`);
+    const fBtn = document.getElementById(`ttf-${ti}-F`);
+    [tBtn, fBtn].forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    const sel = tfAnswers[ti];
+    if (sel === undefined) {
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    } else if (sel === t.a) {
+      tfC++;
+      (sel ? tBtn : fBtn).classList.add('tf-correct');
+    } else {
+      (sel ? tBtn : fBtn).classList.add('tf-wrong');
+      (t.a ? tBtn : fBtn).classList.add('tf-reveal');
+    }
+    document.getElementById(`ttf-exp-${ti}`).classList.add('show');
+  });
+
+  const total = mcqC + fibC + tfC;
+  document.getElementById('t-score-num').textContent = total;
+  document.getElementById('t-rb-mcq').textContent    = `${mcqC}/20`;
+  document.getElementById('t-rb-fi').textContent     = `${fibC}/5`;
+  document.getElementById('t-rb-tf').textContent     = `${tfC}/5`;
+  const result = document.getElementById('theory-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTheory() {
+  theoryMCQ = {}; fibAnswers = {}; tfAnswers = {}; theoryGraded = false;
+  document.getElementById('t-submit-btn').disabled = false;
+  document.getElementById('theory-result').classList.remove('show');
+  buildTheoryQuiz();
+  buildFIB();
+  buildTF();
+  updateTheoryProgress();
+}
+
+// ── CASE FUNCTIONS ────────────────────────────────────────────────────────────
+function buildCases() {
+  const sec = document.getElementById('c-mcq-section');
+  sec.innerHTML = '';
+  CASES.forEach((cs, ci) => {
+    const block = document.createElement('div');
+    block.className = 'case-block';
+    block.innerHTML = `
+      <div class="case-header">
+        <div class="case-num-badge">${cs.num}</div>
+        <div class="case-topic-label">${cs.topic}</div>
+      </div>
+      <div class="scenario-box">${cs.scenario}</div>
+    `;
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const opts = q.opts.map((o, oi) =>
+        `<div class="q-option" data-key="cq-${key}" data-idx="${oi}" onclick="pickCase('${key}',${oi})">
+          <div class="opt-letter">${['A','B','C','D'][oi]}</div>${o}
+        </div>`
+      ).join('');
+      block.insertAdjacentHTML('beforeend', `
+        <div class="q-card" id="ccard-${key}">
+          <div class="q-num">Q${ci * 5 + qi + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">${opts}</div>
+          <div class="q-exp" id="cexp-${key}"><strong>Explanation</strong>${q.exp}</div>
+        </div>
+      `);
+    });
+    sec.appendChild(block);
+  });
+}
+
+function pickCase(key, oi) {
+  if (caseGraded) return;
+  caseAnswers[key] = oi;
+  document.querySelectorAll(`[data-key="cq-${key}"]`).forEach((el, i) => {
+    el.classList.toggle('selected', i === oi);
+    el.querySelector('.opt-letter').style.background  = (i === oi) ? 'var(--accent)' : '';
+    el.querySelector('.opt-letter').style.color       = (i === oi) ? '#000' : '';
+    el.querySelector('.opt-letter').style.borderColor = (i === oi) ? 'var(--accent)' : '';
+  });
+  updateCaseProgress();
+}
+
+function updateCaseProgress() {
+  const n = Object.keys(caseAnswers).length;
+  document.getElementById('c-progress-text').textContent = `${n} of 35 answered`;
+  document.getElementById('c-progress-pct').textContent  = `${Math.round(n/35*100)}%`;
+  document.getElementById('c-prog-bar').style.width      = `${n/35*100}%`;
+}
+
+function submitCases() {
+  if (caseGraded) return;
+  caseGraded = true;
+  document.getElementById('c-submit-btn').disabled = true;
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  CASES.forEach((cs, ci) => {
+    cs.qs.forEach((q, qi) => {
+      const key  = `${ci}-${qi}`;
+      const sel  = caseAnswers[key];
+      const opts = document.querySelectorAll(`[data-key="cq-${key}"]`);
+      opts.forEach(el => { el.style.pointerEvents = 'none'; el.classList.remove('selected'); });
+      if (sel === undefined) {
+        skip++;
+        opts[q.ans].classList.add('reveal-correct');
+      } else if (sel === q.ans) {
+        correct++;
+        opts[sel].classList.add('correct-ans');
+      } else {
+        wrong++;
+        opts[sel].classList.add('wrong-ans');
+        opts[q.ans].classList.add('reveal-correct');
+      }
+      document.getElementById(`cexp-${key}`).classList.add('show');
+    });
+  });
+
+  setTimeout(() => showModal(correct, wrong, skip), 350);
+}
+
+function retakeCases() {
+  caseAnswers = {};
+  caseGraded  = false;
+  document.getElementById('result-modal').classList.remove('open');
+  document.getElementById('c-submit-btn').disabled = false;
+  buildCases();
+  updateCaseProgress();
+}
+
+function showModal(correct, wrong, skip) {
+  const pct   = Math.round(correct / 35 * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  const bands = {
+    A: 'Outstanding! Strong command of planes, joint actions, muscle actions, roles, and leverage.',
+    B: 'Great work. Review any wrong answers — revisit muscle actions (concentric/eccentric) and the pronation/supination chain.',
+    C: 'Passing, but worth another review — especially planes & axes, muscle roles, and force-couples.',
+    D: 'Needs more study. Re-read the chapter and use the Theory Guide before retaking.'
+  };
+  const titles = { A:'Excellent Work!', B:'Good Effort!', C:'Keep Going!', D:'Keep Studying!' };
+
+  const ring = document.getElementById('modal-ring');
+  ring.textContent = grade;
+  ring.className   = `modal-grade-ring grade-${grade}`;
+  document.getElementById('modal-title').textContent   = titles[grade];
+  document.getElementById('modal-correct').textContent = correct;
+  document.getElementById('modal-wrong').textContent   = wrong;
+  document.getElementById('modal-skip').textContent    = skip;
+  document.getElementById('modal-pct').textContent     = `${pct}%`;
+  document.getElementById('modal-band').textContent    = bands[grade];
+  document.getElementById('result-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('result-modal').classList.remove('open'); }
+
+// ── SHARED ────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildMindmap() {
+  const grid = document.getElementById('mm-grid');
+  MINDMAP.branches.forEach(branch => {
+    const el = document.createElement('div');
+    el.className = 'mm-branch';
+    el.innerHTML = `
+      <div class="mm-branch-header" onclick="toggleBranch(this.parentElement)">
+        <div class="mm-branch-dot" style="background:${branch.color}"></div>
+        <div class="mm-branch-name">${branch.name}</div>
+        <div class="mm-branch-arrow">▶</div>
+      </div>
+      <div class="mm-branch-body">
+        <div class="mm-subs">
+          ${branch.subs.map(s => `
+            <div class="mm-sub">
+              <div class="mm-sub-name">${s.name}</div>
+              <ul class="mm-sub-points">
+                ${s.points.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+function toggleBranch(branch) { branch.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildMindmap();
+buildTheoryQuiz();
+buildFIB();
+buildTF();
+buildCases();
+</script>
+
+</Layout>
