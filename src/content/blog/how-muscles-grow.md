@@ -173,6 +173,11 @@ This is how Milo of Croton allegedly built his strength — carrying the same ca
 
 ---
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/blog/strength-training-longevity" class="read-next-btn">Strength Is Your Retirement Account →</a>
+</div>
+
 <div class="article-cta">
   <p>Want the technical, exam-prep version of this?</p>
   <a href="/ace-prep/chapter-9-guide" class="btn-gold">Read the ACE Chapter 9 Deep Dive →</a>

@@ -152,6 +152,11 @@ Tendon damage was treated as a permanent condition for too long. The research ov
 
 If you've been managing tendon pain rather than addressing it, this is where to start.
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/blog/gym-mistakes-wrecking-joints" class="read-next-btn">5 Gym Habits Quietly Wrecking Your Joints →</a>
+</div>
+
 <div class="article-cta">
   <p>Want help building a training system that accounts for tendons, joints, and long-term capacity — not just muscle?</p>
   <a href="/#apply" class="btn-gold">Work With Us →</a>

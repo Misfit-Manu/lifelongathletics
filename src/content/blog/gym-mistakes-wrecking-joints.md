@@ -144,6 +144,11 @@ Joint health isn't a separate goal from building strength and size. It's the sam
 
 ---
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/blog/tendon-strength-science" class="read-next-btn">Why Your Tendons Are Weak — and the Science That Fixes It →</a>
+</div>
+
 <div class="article-cta">
   <p>Want to understand how your muscles and joints actually work together?</p>
   <a href="/exam-prep/muscle-structure" class="btn-gold">Explore the Muscle Structure Visual Guide →</a>

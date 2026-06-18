@@ -185,6 +185,11 @@ Chronic inflammation is not an inevitable consequence of ageing or genetics. It 
 
 *This is not medical advice. If you are managing a confirmed autoimmune condition or chronic inflammatory disease, work with a qualified healthcare professional before making dietary or supplement changes.*
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/exam-prep/gut-barrier-timeline" class="read-next-btn">How Your Gut Barrier Breaks Down →</a>
+</div>
+
 <div class="article-cta">
   <p>Want a nutrition and training plan built around reducing inflammation for the long term?</p>
   <a href="/#apply" class="btn-gold">Work With Us →</a>

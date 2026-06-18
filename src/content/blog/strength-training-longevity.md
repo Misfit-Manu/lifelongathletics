@@ -150,6 +150,11 @@ Walking is wonderful and preserves your slow-twitch fibers and your heart. But i
 <p>Muscle, strength, power, and bone are a <strong>retirement account for your body</strong> — and the decline starts in your thirties, with strength and power falling 2–3× faster than size. You cannot cram these gains at 70; half of frail seniors who train late gain nothing at all. Start depositing now: <strong>grip work, controlled lowering, pulling, and hip-hinging</strong>, twice or more a week, plus loaded walking. You're not training for today's mirror — you're training for who carries your bags at 85. Make sure it's you.</p>
 </div>
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/blog/cardio-decoded" class="read-next-btn">Cardio Decoded: How Your Heart Builds Endurance →</a>
+</div>
+
 <div class="article-cta">
 <p>Want a strength plan built for your body, your age, and the next 40 years?</p>
 <span style="color: rgba(245,240,232,0.7);">Lifelong Athletics is an online coaching practice that teaches you how to train for life — not a 30-day crash plan. We'll assess where you are, build your program around the four foundations, and design the habits that keep you investing for decades.</span>

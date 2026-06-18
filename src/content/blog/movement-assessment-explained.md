@@ -195,6 +195,11 @@ Skip ahead and you're building strength on top of dysfunction. Get the order rig
 
 ---
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/blog/smart-program-design" class="read-next-btn">How to Build a Real Training Program →</a>
+</div>
+
 <div class="article-cta">
   <p>Want the technical, exam-prep version of this?</p>
   <a href="/ace-prep/chapter-10-guide" class="btn-gold">Read the ACE Chapter 10 Deep Dive →</a>

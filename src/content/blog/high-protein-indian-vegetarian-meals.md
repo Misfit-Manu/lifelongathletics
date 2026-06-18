@@ -118,6 +118,11 @@ One egg-based breakfast and one chicken-based meal can cover half your day's pro
 <p>Stop building meals around rice and roti. Build them around a <strong>protein anchor</strong> — paneer, soya, dal-plus-rajma, curd, milk, or eggs — at every meal and snack. Aim for <strong>~80g a day</strong> to start. You don't need supplements or a complicated diet; you need to learn to *see* the protein in your food and put it first.</p>
 </div>
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/blog/strength-training-longevity" class="read-next-btn">Strength Is Your Retirement Account →</a>
+</div>
+
 <div class="article-cta">
 <p>Want this built around your body, your kitchen, and your schedule?</p>
 <span style="color: rgba(245,240,232,0.7);">Lifelong Athletics is an online coaching practice that teaches you how to eat and train for life — not a 30-day crash plan. We'll set your real protein and calorie targets, design meals around the food you actually like, and build the habits that make it stick.</span>

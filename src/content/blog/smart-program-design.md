@@ -200,6 +200,11 @@ This is *integrated* training — every component supports the next. Skip the wa
 
 ---
 
+<div class="read-next">
+  <span class="read-next-label">Keep Reading</span>
+  <a href="/blog/movement-assessment-explained" class="read-next-btn">Why Your Posture Predicts Your Pain →</a>
+</div>
+
 <div class="article-cta">
   <p>Want the technical, exam-prep version of this?</p>
   <a href="/ace-prep/chapter-11-guide" class="btn-gold">Read the ACE Chapter 11 Deep Dive →</a>
