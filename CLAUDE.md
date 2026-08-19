@@ -1,8 +1,10 @@
 # Lifelong Athletics
 
-**Start here:** read [`PROJECT_BRIEF.md`](./PROJECT_BRIEF.md) for full project context — what this
-site is, the brand positioning, the ACE-CPT chapter build system, conventions, gotchas, and what's
-done vs. remaining. For adding a new chapter, also see [`ACE_EXTRACTION_PROMPT.md`](./ACE_EXTRACTION_PROMPT.md).
+**Start here:** read [`AGENT_HANDOVER.md`](./AGENT_HANDOVER.md) — the current architecture, design
+system, data structures, and step-by-step playbooks (blog posts, embedding standalone HTML pages,
+exam-prep cards, ACE chapters, SEO). Then [`PROJECT_BRIEF.md`](./PROJECT_BRIEF.md) for brand
+positioning/voice and the ACE-CPT chapter build system in depth. For adding a new chapter, also see
+[`ACE_EXTRACTION_PROMPT.md`](./ACE_EXTRACTION_PROMPT.md).
 
 ## TL;DR
 - Astro static site for **Lifelong Athletics** — a not-for-profit-style initiative that teaches
