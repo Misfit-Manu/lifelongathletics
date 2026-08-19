@@ -119,12 +119,10 @@ exam:  { title, description, topic, exams, duration }                       // s
 ace:   { title, chapter:number, description }                              // src/content/ace/chapter-N.md
 ```
 > ⚠ **Zod strips unknown keys.** If you add a frontmatter field that isn't in the schema, it is
-> silently dropped from `entry.data`. The blog schema now includes `author` (article bylines render).
-> One sibling field is still missing: **`heroImage`** — `blog/[id].astro` reads
-> `entry.data.heroImage || entry.data.image`, and `tendon-strength-science.md` sets `heroImage`, but
-> it's not in the schema so it's dropped (that post falls back to `image`). Add
-> `heroImage: z.string().optional()` to fix. **Rule: if the code reads a frontmatter field, the schema
-> must declare it**, or it silently vanishes.
+> silently dropped from `entry.data`. The blog schema now declares every field the code reads —
+> including `author` (article bylines) and `heroImage` (`blog/[id].astro` prefers
+> `entry.data.heroImage || entry.data.image`). **Rule: if the code reads a frontmatter field, the
+> schema must declare it**, or it silently vanishes.
 
 Fetch with `getCollection('blog' | 'exam' | 'ace')`; render markdown body with `render(entry)`.
 
@@ -378,8 +376,7 @@ which is set). Keep titles/descriptions keyword-rich; internal-link posts with `
 - **ACE Prep (`/ace-prep`):** chapters **1–15 and 17** are full static hub+guide; **chapter 16** still
   renders from markdown. All quiz answer positions rebalanced to ~25% each; chapter-1's rote-number
   questions were rewritten as conceptual ones.
-- **Open items:** build chapter-16 as a static hub+guide (then add to STATIC_OVERRIDES); add
-  `heroImage` to the blog schema (so `tendon-strength-science` uses its intended hero); deepen the
+- **Open items:** build chapter-16 as a static hub+guide (then add to STATIC_OVERRIDES); deepen the
   older/thin ACE guides (`PROJECT_BRIEF.md §5–9`).
 
 ---
