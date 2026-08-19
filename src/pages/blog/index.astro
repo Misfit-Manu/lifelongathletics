@@ -135,8 +135,71 @@ const sorted = allBlogs;
     </div>
   </div>
 
+  <!-- USEFUL TOOLS -->
+  <div class="tools-section">
+    <p class="posts-label">Useful Tools</p>
+    <div class="posts-grid">
+
+      <a href="/blog/beginner-exercise-toolkit" class="post-card" data-category="training">
+        <div class="card-img">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <rect x="12" y="34" width="8" height="12" rx="2" fill="rgba(201,168,76,0.35)"/>
+            <rect x="20" y="30" width="6" height="20" rx="2" fill="rgba(201,168,76,0.25)"/>
+            <rect x="26" y="37" width="28" height="6" rx="3" fill="rgba(201,168,76,0.5)"/>
+            <rect x="54" y="30" width="6" height="20" rx="2" fill="rgba(201,168,76,0.25)"/>
+            <rect x="60" y="34" width="8" height="12" rx="2" fill="rgba(201,168,76,0.35)"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Beginner Guide</p>
+          <h3 class="card-title">Beginner's Exercise Toolkit</h3>
+          <p class="card-excerpt">The plain-English answers to every question a new lifter is too embarrassed to ask — where to start, how hard, sets, reps and rest, how to progress, and when results actually show. Four calculators, zero jargon. The thing to hand a beginner so they start right instead of quitting confused.</p>
+          <div class="card-footer">
+            <span class="card-date">Explained simply · 4 calculators</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="/blog/beginner-nutrition-toolkit" class="post-card" data-category="nutrition">
+        <div class="card-img">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="22" stroke="rgba(201,168,76,0.35)" stroke-width="2"/>
+            <circle cx="40" cy="40" r="13" stroke="rgba(201,168,76,0.22)" stroke-width="1.5"/>
+            <path d="M40 27 L40 53 M27 40 L53 40" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Beginner Guide</p>
+          <h3 class="card-title">Beginner's Nutrition Toolkit</h3>
+          <p class="card-excerpt">Everyday eating made simple — calorie and protein targets, hand-portion sizes with no scale, 100+ Indian foods in katoris and rotis, the vegetarian-protein fix, and how to handle weddings and family. Measured in bowls, not grams — a food guide a beginner will actually stick to.</p>
+          <div class="card-footer">
+            <span class="card-date">Explained simply · 100+ foods</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="coming-soon" data-category="placeholder">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="13" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <line x1="16" y1="10" x2="16" y2="16" stroke="rgba(201,168,76,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="16" cy="20" r="1.5" fill="rgba(201,168,76,0.4)"/>
+        </svg>
+        <span>More tools coming</span>
+      </div>
+
+    </div>
+  </div>
+
 <style>
   /* Local specific styles for the blog engine, omitting globals */
+  .tools-section {
+    max-width: 1100px;
+    margin: -48px auto 0;
+    padding: 56px 60px 120px;
+    border-top: 1px solid var(--border);
+  }
   .blog-hero {
     padding: 160px 60px 80px;
     border-bottom: 1px solid var(--border);
@@ -303,6 +366,7 @@ const sorted = allBlogs;
   @media (max-width: 768px) {
     .blog-hero { padding: 120px 24px 60px; }
     .posts-section { padding: 40px 24px 80px; }
+    .tools-section { padding: 44px 24px 80px; margin-top: 0; }
     .posts-grid { grid-template-columns: 1fr; }
   }
 </style>
