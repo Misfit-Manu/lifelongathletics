@@ -1,0 +1,224 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import body from '../../toolkit-content/toolkit-3-body.html?raw';
+---
+
+<Layout title="Trainer Toolkit III — Measurement, Screening & Programming | Lifelong Athletics" description="Five live calculators, caliper protocol and equations, ACSM screening with red flags, and 1RM plus load management.">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css" />
+
+<div class="tk-backbar"><a href="/exam-prep" class="tk-back">← Back to Study Hub</a></div>
+
+<div class="tk-wrap" set:html={body}></div>
+
+<style is:global>
+.tk-wrap *{margin:0;padding:0;box-sizing:border-box}.tk-wrap{background:#111110;color:#e0dbd3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}.tk-wrap .page{max-width:1180px;margin:0 auto;padding-bottom:80px}.tk-wrap .masthead{padding:40px 36px 28px;border-bottom:1px solid #1e1c1a;background:linear-gradient(180deg,#16150f 0%,#111110 100%)}.tk-wrap .masthead h1{font-size:30px;font-weight:700;letter-spacing:-.6px;color:#f5f1e8}.tk-wrap .masthead .sub{font-size:13px;color:#a8a29a;margin-top:7px}.tk-wrap .masthead .meta{font-size:11px;color:#8a867e;margin-top:14px;letter-spacing:.03em}.tk-wrap .nav{display:flex;flex-wrap:wrap;gap:7px;padding:16px 36px;background:#0d0c0b;border-bottom:1px solid #1e1c1a;position:sticky;top:0;z-index:50}.tk-wrap .nav a{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;padding:6px 13px;border-radius:5px;text-decoration:none;background:#1a1816;color:#a8a29a;border:1px solid #262422;transition:.15s}.tk-wrap .nav a:hover{background:#242220;color:#e0dbd3}.tk-wrap .section-banner{display:flex;align-items:center;gap:12px;padding:17px 36px;font-size:17px;font-weight:600;letter-spacing:-.2px;color:#fff;margin-top:40px}.tk-wrap .section-banner .n{font-size:11px;font-weight:700;opacity:.55;letter-spacing:.14em}.tk-wrap .section-banner i{font-size:19px;opacity:.9}.tk-wrap .bn-cardio{background:linear-gradient(90deg,#0C4A52 0%,#12717D 100%)}.tk-wrap .bn-strength{background:linear-gradient(90deg,#7A4408 0%,#B8700F 100%)}.tk-wrap .bn-nutri{background:linear-gradient(90deg,#14501E 0%,#1F7A2E 100%)}.tk-wrap .bn-rate{background:linear-gradient(90deg,#43146B 0%,#6B2199 100%)}.tk-wrap .intro{padding:15px 36px 6px;font-size:13px;color:#a8a29a;line-height:1.7;max-width:900px}.tk-wrap .intro b{color:#c8c2b8;font-weight:600}.tk-wrap .subhead{padding:26px 36px 9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:#a8a29a;display:flex;align-items:center;gap:11px}.tk-wrap .subhead::after{content:'';flex:1;height:1px;background:#242220}.tk-wrap .twrap{padding:4px 36px 14px;overflow-x:auto;overflow-y:hidden}.tk-wrap table{border-radius:6px;overflow:hidden}.tk-wrap table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:640px}.tk-wrap thead th{background:#1f1d1a;color:#b4aea6;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;padding:11px 9px 10px;text-align:left;border-bottom:2px solid #3a3733;white-space:nowrap;vertical-align:bottom}.tk-wrap tbody tr:first-child td{padding-top:12px}.tk-wrap tbody td{padding:10px 9px;border-bottom:1px solid #1c1a18;vertical-align:top;color:#cdc8bf}.tk-wrap tbody tr:hover{background:#171512}.tk-wrap tbody td.k{font-weight:600;color:#f0ece4;white-space:nowrap}.tk-wrap tbody td.num{font-variant-numeric:tabular-nums;white-space:nowrap}.tk-wrap tbody td.dim{color:#a19b92;font-size:12px}.tk-wrap tbody td.say{color:#9fd09f;font-size:12px;font-style:italic}.tk-wrap .grp-row td{background:#1b1917;color:#c2bdb4;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:8px 9px;border-bottom:1px solid #262422}.tk-wrap .b1{border-left:3px solid #3E7CB1}.tk-wrap .b2{border-left:3px solid #4A9E5C}.tk-wrap .b3{border-left:3px solid #C9A227}.tk-wrap .b4{border-left:3px solid #D2691E}.tk-wrap .b5{border-left:3px solid #C0392B}.tk-wrap .pill{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:2px 7px;border-radius:3px;white-space:nowrap}.tk-wrap .p1{background:#0E2436;color:#6BA8D8}.tk-wrap .p2{background:#0E2A14;color:#6ECF80}.tk-wrap .p3{background:#2E2607;color:#E0C040}.tk-wrap .p4{background:#331A08;color:#F09048}.tk-wrap .p5{background:#330E0A;color:#F07060}.tk-wrap .callout{margin:14px 36px;padding:15px 18px;border-radius:7px;background:#141311;border:1px solid #2a2724;border-left:3px solid #C9A227;font-size:13px;color:#b0aaa1;line-height:1.7}.tk-wrap .callout b{color:#e8e2d8;font-weight:600}.tk-wrap .callout.warn{border-left-color:#C0392B}.tk-wrap .callout.good{border-left-color:#4A9E5C}.tk-wrap .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:11px;padding:10px 36px 4px}.tk-wrap .fcard{background:#161412;border:1px solid #242220;border-radius:7px;padding:14px 16px}.tk-wrap .fcard h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b4aea6;margin-bottom:8px}.tk-wrap .fcard code{display:block;font-family:'SF Mono',Consolas,monospace;font-size:12.5px;color:#7FD8C4;background:#0e0d0c;padding:9px 11px;border-radius:5px;margin-bottom:7px;line-height:1.6}.tk-wrap .fcard p{font-size:12px;color:#a19b92;line-height:1.6}.tk-wrap .footer{padding:40px 36px 0;font-size:11.5px;color:#9a958c;line-height:1.95;border-top:1px solid #2a2724;margin-top:50px}.tk-wrap .footer b{color:#c2bdb4}@media print{.tk-wrap .nav{position:static}}.tk-wrap .bn-anthro{background:linear-gradient(90deg,#0D4A38 0%,#14785A 100%)}.tk-wrap .bn-screen{background:linear-gradient(90deg,#7A1418 0%,#B02830 100%)}.tk-wrap .bn-prog{background:linear-gradient(90deg,#2E2470 0%,#4838B0 100%)}.tk-wrap .calc{margin:14px 36px;background:#141311;border:1px solid #2a2724;border-radius:9px;overflow:hidden}.tk-wrap .calc-head{background:#1c1a17;padding:12px 18px;border-bottom:1px solid #2a2724;display:flex;align-items:center;gap:10px}.tk-wrap .calc-head h4{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#d8d2c8}.tk-wrap .calc-head .tagx{font-size:10.5px;color:#959088;margin-left:auto}.tk-wrap .calc-body{padding:16px 18px}.tk-wrap .crow{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}.tk-wrap .cfield{flex:1;min-width:112px}.tk-wrap .cfield label{display:block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#a8a29a;margin-bottom:4px}.tk-wrap .cfield input,.tk-wrap .cfield select{width:100%;background:#0d0c0b;border:1px solid #2e2b28;border-radius:5px;color:#f0ece4;
+  padding:8px 10px;font-size:13.5px;font-family:inherit;outline:none;transition:.15s}.tk-wrap .cfield input:focus,.tk-wrap .cfield select:focus{border-color:#5a9e7a;background:#0f0e0d}.tk-wrap .cfield input::placeholder{color:#6a655e}.tk-wrap .cfield .hint{font-size:10px;color:#8f8a82;margin-top:3px;line-height:1.35}.tk-wrap .cout{margin-top:6px;background:#0d0c0b;border:1px solid #262320;border-radius:7px;padding:14px 16px;min-height:56px}.tk-wrap .cout .placeholder{font-size:12.5px;color:#8f8a82;font-style:italic}.tk-wrap .cres{display:flex;flex-wrap:wrap;gap:20px 30px}.tk-wrap .cres .item{min-width:96px}.tk-wrap .cres .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:#a8a29a;margin-bottom:3px}.tk-wrap .cres .val{font-size:21px;font-weight:700;color:#7FD8C4;font-variant-numeric:tabular-nums;line-height:1.15}.tk-wrap .cres .val.sm{font-size:15px}.tk-wrap .cres .sub{font-size:11px;color:#9a958c;margin-top:2px}.tk-wrap .cnote{margin-top:11px;padding-top:10px;border-top:1px solid #2a2724;font-size:12px;color:#a8a29a;line-height:1.6}.tk-wrap .cerr{color:#E07868;font-size:12px}.tk-wrap .badge{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:2px 8px;border-radius:3px;margin-left:6px}.tk-wrap .bg-ok{background:#0E2A14;color:#6ECF80}.tk-wrap .bg-mid{background:#2E2607;color:#E0C040}.tk-wrap .bg-hi{background:#331A08;color:#F09048}.tk-wrap .bg-vhi{background:#330E0A;color:#F07060}.tk-wrap .bg-lo{background:#0E2436;color:#6BA8D8}.tk-wrap td.good{color:#7EDD90;font-size:12px}.tk-wrap td.bad{color:#F08878;font-size:12px}.tk-wrap td.warn2{color:#EBCE55;font-size:12px}.tk-wrap td.dim{color:#a19b92;font-size:12px}
+.tk-wrap .nav{position:static}
+.tk-backbar{max-width:1180px;margin:0 auto;padding:92px 36px 0;background:#111110}
+.tk-back{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#a8a29a;text-decoration:none}
+.tk-back:hover{color:#e0dbd3}
+</style>
+
+<script is:inline>
+function $(id){return document.getElementById(id);}
+function num(id){var e=$(id); if(!e) return NaN; var v=parseFloat(e.value); return isNaN(v)?NaN:v;}
+function val(id){var e=$(id); return e?e.value:'';}
+function esc(s){return String(s);}
+function fmt(x,d){ if(!isFinite(x)) return '—'; return x.toFixed(d===undefined?1:d); }
+function siri(D){ return 495/D - 450; }
+function brozek(D){ return 457/D - 414.2; }
+
+/* body-fat category badge */
+function bfBadge(bf, sex){
+  var b;
+  if(sex==='m'){ b = bf<6?['Essential','bg-vhi']:bf<14?['Athlete','bg-lo']:bf<18?['Fitness','bg-ok']:bf<25?['Average','bg-mid']:['Obese','bg-vhi']; }
+  else         { b = bf<14?['Essential','bg-vhi']:bf<21?['Athlete','bg-lo']:bf<25?['Fitness','bg-ok']:bf<32?['Average','bg-mid']:['Obese','bg-vhi']; }
+  return '<span class="badge '+b[1]+'">'+b[0]+'</span>';
+}
+function render(id, items, note){
+  var h='<div class="cres">';
+  for(var i=0;i<items.length;i++){
+    h+='<div class="item"><div class="lbl">'+items[i][0]+'</div><div class="val'+(items[i][3]?' sm':'')+'">'+items[i][1]+'</div>';
+    if(items[i][2]) h+='<div class="sub">'+items[i][2]+'</div>';
+    h+='</div>';
+  }
+  h+='</div>';
+  if(note) h+='<div class="cnote">'+note+'</div>';
+  $(id).innerHTML=h;
+}
+function err(id,msg){ $(id).innerHTML='<div class="cerr">'+msg+'</div>'; }
+function wait(id){ $(id).innerHTML='<div class="placeholder">Fill in the fields above to see results.</div>'; }
+
+/* ── SKINFOLD ────────────────────────────────────────────────── */
+var DW = { /* Durnin-Womersley: [const, slope] by age band */
+ m:[[17,1.1533,0.0643],[19,1.1620,0.0630],[29,1.1631,0.0632],[39,1.1422,0.0544],[49,1.1620,0.0700],[999,1.1715,0.0779]],
+ f:[[17,1.1369,0.0598],[19,1.1549,0.0678],[29,1.1599,0.0717],[39,1.1423,0.0632],[49,1.1333,0.0612],[999,1.1339,0.0645]]
+};
+function dwCoef(sex,age){ var t=DW[sex]; for(var i=0;i<t.length;i++){ if(age<=t[i][0]) return [t[i][1],t[i][2]]; } return [t[5][1],t[5][2]]; }
+
+function sfFields(){
+  var m = val('sf_method'), sex = val('sf_sex');
+  var sets = {
+    jp3: sex==='m' ? ['Chest','Abdomen','Thigh'] : ['Triceps','Suprailiac','Thigh'],
+    jp7: ['Chest','Midaxillary','Triceps','Subscapular','Abdomen','Suprailiac','Thigh'],
+    dw4: ['Biceps','Triceps','Subscapular','Suprailiac']
+  };
+  var names = sets[m], h='';
+  for(var i=0;i<names.length;i++){
+    h += '<div class="cfield"><label>'+names[i]+'</label>'
+      +  '<input type="number" step="0.5" min="1" max="80" id="sf'+i+'" placeholder="mm" oninput="calcSF()"></div>';
+  }
+  $('sf_sites').innerHTML = h;
+  calcSF();
+}
+function calcSF(){
+  var m=val('sf_method'), sex=val('sf_sex'), age=num('sf_age'), wt=num('sf_wt');
+  var n = m==='jp3'?3 : m==='jp7'?7 : 4;
+  var S=0, missing=false;
+  for(var i=0;i<n;i++){ var v=num('sf'+i); if(isNaN(v)||v<=0){missing=true;} else S+=v; }
+  if(missing||isNaN(age)){ wait('sf_out'); return; }
+  var D;
+  if(m==='jp3'){
+    D = sex==='m' ? 1.10938 - 0.0008267*S + 0.0000016*S*S - 0.0002574*age
+                  : 1.0994921 - 0.0009929*S + 0.0000023*S*S - 0.0001392*age;
+  } else if(m==='jp7'){
+    D = sex==='m' ? 1.112 - 0.00043499*S + 0.00000055*S*S - 0.00028826*age
+                  : 1.097 - 0.00046971*S + 0.00000056*S*S - 0.00012828*age;
+  } else {
+    var c=dwCoef(sex,age); D = c[0] - c[1]*Math.log(S)/Math.LN10;
+  }
+  var bfS=siri(D), bfB=brozek(D);
+  if(!isFinite(bfS)||bfS<0||bfS>70){ err('sf_out','Those numbers give an impossible result — check the readings.'); return; }
+  /* Guard the quadratic. Past its vertex each JP equation inverts: more fat starts
+     reading as LESS fat. Validated ceilings are well below that point. */
+  var VERTEX = {jp3:{m:258,f:216}, jp7:{m:395,f:419}};
+  var LIMIT  = {jp3:{m:150,f:170}, jp7:{m:300,f:330}, dw4:{m:150,f:170}};
+  if(m!=='dw4' && S >= VERTEX[m][sex]){
+    err('sf_out','Sum of '+fmt(S,0)+' mm is past the point where this equation reverses — it would report a falsely low body fat. Use the tape method instead; calipers are the wrong tool at this body composition.');
+    return;
+  }
+  var overRange = S > LIMIT[m][sex];
+  var items=[['Body density', fmt(D,4), 'g/cm³', true],
+             ['Body fat (Siri)', fmt(bfS,1)+'%', bfBadge(bfS,sex)],
+             ['Body fat (Brozek)', fmt(bfB,1)+'%', 'alternative conversion', true],
+             ['Sum of folds', fmt(S,1)+' mm', n+' sites', true]];
+  var note='Method: <b>'+(m==='jp3'?'Jackson-Pollock 3-site':m==='jp7'?'Jackson-Pollock 7-site':'Durnin-Womersley 4-site')
+    +'</b>. Standard error ±3.5%. ';
+  if(overRange){
+    note = '<span style="color:#E0C040">⚠ Sum of '+fmt(S,0)+' mm is beyond the range this equation was validated on — treat the result as indicative only, and prefer the tape method for this client.</span><br>' + note;
+  }
+  if(!isNaN(wt)&&wt>0){
+    var fat=wt*bfS/100, lean=wt-fat;
+    items.push(['Fat mass', fmt(fat,1)+' kg','',true]);
+    items.push(['Lean mass', fmt(lean,1)+' kg','',true]);
+    note += 'At '+fmt(wt,1)+' kg: <b>'+fmt(fat,1)+' kg fat, '+fmt(lean,1)+' kg lean</b>.';
+  }
+  render('sf_out', items, note);
+}
+
+/* ── NAVY TAPE ───────────────────────────────────────────────── */
+function calcNavy(){
+  var sex=val('nv_sex'), h=num('nv_ht'), w=num('nv_waist'), nk=num('nv_neck'), hp=num('nv_hip'), wt=num('nv_wt');
+  if(isNaN(h)||isNaN(w)||isNaN(nk)||(sex==='f'&&isNaN(hp))){ wait('nv_out'); return; }
+  var L=function(x){return Math.log(x)/Math.LN10;}, IN=2.54;
+  var hi=h/IN, wi=w/IN, ni=nk/IN, hpi=hp/IN, bf;
+  if(sex==='m'){
+    if(wi-ni<=0){ err('nv_out','Waist must be larger than neck.'); return; }
+    bf = 86.010*L(wi-ni) - 70.041*L(hi) + 36.76;
+  } else {
+    if(wi+hpi-ni<=0){ err('nv_out','Check the measurements — the combination is impossible.'); return; }
+    bf = 163.205*L(wi+hpi-ni) - 97.684*L(hi) - 78.387;
+  }
+  if(!isFinite(bf)||bf<0||bf>70){ err('nv_out','That gives an out-of-range result — re-check the tape readings.'); return; }
+  var items=[['Body fat', fmt(bf,1)+'%', bfBadge(bf,sex)]];
+  var note='US Navy circumference method (Hodgdon &amp; Beckett 1984). Standard error ±3–4%, larger at the extremes. Measure at end of a normal exhale, tape snug but not compressing.';
+  if(!isNaN(wt)&&wt>0){
+    var fat=wt*bf/100;
+    items.push(['Fat mass', fmt(fat,1)+' kg','',true]);
+    items.push(['Lean mass', fmt(wt-fat,1)+' kg','',true]);
+  }
+  if(!isNaN(h)&&!isNaN(w)){
+    var whtr=w/h;
+    items.push(['Waist ÷ height', fmt(whtr,2), whtr<0.5?'<span class="badge bg-ok">Healthy</span>':whtr<0.6?'<span class="badge bg-mid">Raised</span>':'<span class="badge bg-vhi">High</span>', true]);
+  }
+  render('nv_out', items, note);
+}
+
+/* ── BMI / WAIST / RATIOS ────────────────────────────────────── */
+function calcBMI(){
+  var wt=num('bm_wt'), h=num('bm_ht'), wa=num('bm_waist'), hp=num('bm_hip'), sex=val('bm_sex');
+  if(isNaN(wt)||isNaN(h)||h<=0){ wait('bm_out'); return; }
+  var m=h/100, bmi=wt/(m*m);
+  var who = bmi<18.5?['Underweight','bg-lo']:bmi<25?['Normal','bg-ok']:bmi<30?['Overweight','bg-mid']:bmi<35?['Obese I','bg-hi']:['Obese II+','bg-vhi'];
+  var asia= bmi<18.5?['Underweight','bg-lo']:bmi<23?['Normal','bg-ok']:bmi<25?['Overweight','bg-mid']:bmi<30?['Obese I','bg-hi']:['Obese II+','bg-vhi'];
+  var items=[['BMI', fmt(bmi,1), 'kg/m²'],
+             ['WHO standard', '<span class="badge '+who[1]+'">'+who[0]+'</span>','',true],
+             ['Asian / Indian cutoff', '<span class="badge '+asia[1]+'">'+asia[0]+'</span>','',true]];
+  var note='';
+  if(!isNaN(wa)){
+    var whtr=wa/h;
+    var wRisk = sex==='m' ? (wa<90?['Low','bg-ok']:wa<102?['Raised (Asian cutoff)','bg-mid']:['High','bg-vhi'])
+                          : (wa<80?['Low','bg-ok']:wa<88?['Raised (Asian cutoff)','bg-mid']:['High','bg-vhi']);
+    items.push(['Waist', fmt(wa,0)+' cm', '<span class="badge '+wRisk[1]+'">'+wRisk[0]+'</span>', true]);
+    items.push(['Waist ÷ height', fmt(whtr,2), whtr<0.5?'<span class="badge bg-ok">Healthy</span>':whtr<0.6?'<span class="badge bg-mid">Raised</span>':'<span class="badge bg-vhi">High</span>', true]);
+  }
+  if(!isNaN(wa)&&!isNaN(hp)&&hp>0){
+    var whr=wa/hp;
+    var r = sex==='m' ? (whr<0.90?['Low','bg-ok']:whr<1.0?['Moderate','bg-mid']:['High','bg-vhi'])
+                      : (whr<0.80?['Low','bg-ok']:whr<0.85?['Moderate','bg-mid']:['High','bg-vhi']);
+    items.push(['Waist ÷ hip', fmt(whr,2), '<span class="badge '+r[1]+'">'+r[0]+'</span>', true]);
+  }
+  note='For Indian and other South Asian clients use the <b>Asian cutoff row</b> — cardiometabolic risk rises at a lower BMI. '
+     + 'Waist-to-height below 0.5 is the simplest single screen you have: <i>keep your waist under half your height</i>.';
+  render('bm_out', items, note);
+}
+
+/* ── FFMI ────────────────────────────────────────────────────── */
+function calcFFMI(){
+  var wt=num('ff_wt'), h=num('ff_ht'), bf=num('ff_bf'), sex=val('ff_sex');
+  if(isNaN(wt)||isNaN(h)||isNaN(bf)||h<=0){ wait('ff_out'); return; }
+  var m=h/100, lean=wt*(1-bf/100), ffmi=lean/(m*m), norm=ffmi+6.1*(1.8-m);
+  var b;
+  if(sex==='m') b = norm<18?['Below average','bg-lo']:norm<20?['Average','bg-ok']:norm<22?['Above average','bg-ok']:norm<23?['Well trained','bg-mid']:norm<25?['Very advanced','bg-hi']:['Above the natural ceiling','bg-vhi'];
+  else          b = norm<14?['Below average','bg-lo']:norm<16?['Average','bg-ok']:norm<18?['Above average','bg-ok']:norm<19?['Well trained','bg-mid']:norm<21?['Very advanced','bg-hi']:['Above the natural ceiling','bg-vhi'];
+  render('ff_out',
+    [['Lean body mass', fmt(lean,1)+' kg','',true],
+     ['FFMI', fmt(ffmi,1), 'kg/m²'],
+     ['Height-normalised', fmt(norm,1), '<span class="badge '+b[1]+'">'+b[0]+'</span>']],
+    'FFMI expresses lean mass relative to height, so it does not punish shorter clients the way raw lean mass does. '
+    +'The often-quoted natural ceiling is around <b>25 for men and 21 for women</b> — reachable, but only by a small minority after many years. '
+    +'It is a guide, not a drug test: genuine outliers exist.');
+}
+
+/* ── 1RM ─────────────────────────────────────────────────────── */
+function calc1RM(){
+  var w=num('rm_w'), r=num('rm_r');
+  if(isNaN(w)||isNaN(r)||w<=0||r<1){ wait('rm_out'); return; }
+  if(r>12){ err('rm_out','Above 12 reps every formula becomes unreliable. Retest with a heavier load and fewer reps.'); return; }
+  if(r===1){ render('rm_out',[['1RM', fmt(w,1)+' kg','that IS the 1RM']],'A single rep to failure is the 1RM by definition — no estimation needed.'); return; }
+  var e=w*(1+r/30), b=w*36/(37-r), l=w*Math.pow(r,0.10), o=w*(1+0.025*r),
+      wa=100*w/(48.8+53.8*Math.exp(-0.075*r)), ma=100*w/(52.2+41.9*Math.exp(-0.055*r));
+  var all=[e,b,l,o,wa,ma], avg=all.reduce(function(a,c){return a+c;},0)/all.length;
+  var lo=Math.min.apply(null,all), hi=Math.max.apply(null,all);
+  var pct=[95,90,85,80,75,70,65,60], ph='';
+  for(var i=0;i<pct.length;i++){ ph+='<b>'+pct[i]+'%</b> '+fmt(avg*pct[i]/100,1)+' kg &nbsp; '; }
+  render('rm_out',
+    [['Estimated 1RM', fmt(avg,1)+' kg', 'average of 6 formulas'],
+     ['Range', fmt(lo,1)+'–'+fmt(hi,1), 'across formulas', true],
+     ['Epley', fmt(e,1),'',true],['Brzycki', fmt(b,1),'',true],
+     ['Wathen', fmt(wa,1),'',true],['Lombardi', fmt(l,1),'',true],
+     ["O'Conner", fmt(o,1),'',true],['Mayhew', fmt(ma,1),'',true]],
+    '<b>Training loads from this estimate:</b><br>'+ph
+    +'<br><br>Reps of 2–5 give the most reliable estimate. Brzycki reads low and Epley reads high as reps climb; '
+    +'averaging smooths out that bias. Treat the number as a starting load, then adjust by RIR on the day.');
+}
+
+/* ── init ────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function(){
+  sfFields();
+  ['nv_out','bm_out','ff_out','rm_out'].forEach(function(id){ if($(id)) wait(id); });
+});
+</script>
+
+</Layout>
