@@ -382,8 +382,9 @@ which is set). Keep titles/descriptions keyword-rich; internal-link posts with `
   topic sections with visual guides + `pt-field-guide`; the **"Trainer Toolkits & Tables"** section
   holds Trainer Toolkit **I–IV** then the Flexibility table.
 - **ACE Prep (`/ace-prep`):** chapters **1–15 and 17** are full static hub+guide; **chapter 16** still
-  renders from markdown. All quiz answer positions rebalanced to ~25% each; chapter-1's rote-number
-  questions were rewritten as conceptual ones.
+  renders from markdown. A lime **capstone bar** below the chapter grid links to the full practice
+  exam. All quiz answer positions rebalanced to ~25% each; chapter-1's rote-number questions were
+  rewritten as conceptual ones.
 - **Open items:** build chapter-16 as a static hub+guide (then add to STATIC_OVERRIDES); deepen the
   older/thin ACE guides (`PROJECT_BRIEF.md §5–9`).
 
