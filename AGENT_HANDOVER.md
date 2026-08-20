@@ -188,6 +188,11 @@ embed + scope. (Design-preservation rule confirmed repeatedly by the owner.)
 2. **Wrap the body** content in `<div class="WRAP">…</div>`.
 3. **Scope the CSS** into a single `<style is:global>` block, prefixing **every** selector:
    - `body { … }` → `.WRAP { … }` (this is where the page's background/base font goes)
+   - `:root { … }` (theme-var definitions) → `.WRAP { … }`; keep `[data-theme]` /
+     `prefers-color-scheme` dark variants scoped to the wrapper (e.g.
+     `:root[data-theme="dark"]` → `.WRAP[data-theme="dark"]`). For a theme-aware page you can set
+     `data-theme="dark"` on the wrapper `<div>` to force its dark palette so it matches the site
+     (that's how `/exam-prep/cpt-practice-exam` is embedded).
    - `* { … }` → `.WRAP * { … }`
    - `html { … }` → **drop it** (don't touch global html)
    - `.foo`, `table`, `h2`, `.foo .bar` → `.WRAP .foo`, `.WRAP table`, `.WRAP h2`, `.WRAP .foo .bar`
@@ -371,8 +376,11 @@ which is set). Keep titles/descriptions keyword-rich; internal-link posts with `
 - **Education (`/blog`):** 10 articles + 3 interactive cards (gut-barrier-timeline, food-reactions,
   hormones-obesity) in the "All Articles" grid (newest first, with `inflammation-types` pinned to grid
   slot [3,2]); plus a **"Useful Tools"** section with the 2 beginner toolkits.
-- **Exam Prep (`/exam-prep`):** topic sections with visual guides + `pt-field-guide`; the
-  **"Trainer Toolkits & Tables"** section holds Trainer Toolkit **I–IV** then the Flexibility table.
+- **Exam Prep (`/exam-prep`):** a **"Full Practice Exam"** section at the top (a timed 100-question,
+  90-minute, domain-based mock at `/exam-prep/cpt-practice-exam` with flag/review, resume, and a
+  per-domain score breakdown — embedded from a self-contained HTML file, forced to its dark theme);
+  topic sections with visual guides + `pt-field-guide`; the **"Trainer Toolkits & Tables"** section
+  holds Trainer Toolkit **I–IV** then the Flexibility table.
 - **ACE Prep (`/ace-prep`):** chapters **1–15 and 17** are full static hub+guide; **chapter 16** still
   renders from markdown. All quiz answer positions rebalanced to ~25% each; chapter-1's rote-number
   questions were rewritten as conceptual ones.

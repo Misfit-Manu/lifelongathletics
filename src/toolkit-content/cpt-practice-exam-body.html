@@ -1,0 +1,126 @@
+
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <span class="mark">LA</span>
+      <span>Lifelong Athletics<small>CPT Practice Exam</small></span>
+    </div>
+    <div class="spacer"></div>
+    <div class="timer hide" id="timer">90:00</div>
+    <button class="btn sm ghost" id="themeBtn" title="Toggle light/dark">◐</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ============ START ============ -->
+<section id="startScreen">
+  <div class="card">
+    <h1>Certified Personal Trainer — Practice Exam</h1>
+    <p class="muted">A 100-question practice run built to the same four-domain structure and weighting as the CPT certification exam. Work through it at whatever pace suits you — every answer is explained and sourced, so a question you get wrong is worth more than one you get right.</p>
+    <div class="facts">
+      <div class="fact"><b>100</b><span>Questions</span></div>
+      <div class="fact"><b>90:00</b><span>Suggested time</span></div>
+      <div class="fact"><b>62</b><span>Satisfactory score</span></div>
+      <div class="fact"><b>4</b><span>Domains</span></div>
+    </div>
+    <table>
+      <thead><tr><th>Domain</th><th class="num">Questions</th><th class="num">Weight</th></tr></thead>
+      <tbody id="domTable"></tbody>
+    </table>
+    <div class="note" style="border-left-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)">
+      <b>Your progress is saved automatically</b>
+      Every answer and flag is written to this browser as you go. Close the tab, lose power, or refresh — reopen this file and you will pick up exactly where you left off, with the clock still correct.
+    </div>
+    <div class="navrow">
+      <button class="btn primary" id="startBtn">Start exam</button>
+      <button class="btn hide" id="resumeBtn">Resume in progress</button>
+      <button class="btn ghost hide" id="discardBtn">Discard saved attempt</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>How this exam works</h2>
+    <div class="grid2">
+      <div>
+        <p class="small"><b>Answer in any order.</b> Use the navigator grid to jump to any question. You can change any answer as often as you like until you submit.</p>
+        <p class="small"><b>Flag for review.</b> Mark anything you want to revisit. Flagged questions show a dot in the navigator, and you can sweep them at the end.</p>
+      </div>
+      <div>
+        <p class="small"><b>The clock is a guide, not a limit.</b> It counts down from 90:00 so you can see your pace. If it reaches zero nothing happens to your work — carry on and submit when you are ready.</p>
+        <p class="small"><b>There is no pass or fail here.</b> You get a score, a per-domain breakdown showing where to put your study time, and a full review with explanations and sources. Retake it as often as you like.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ============ -->
+<section id="examScreen" class="hide">
+  <div class="exam">
+    <div>
+      <div class="card" id="qCard"></div>
+    </div>
+    <div class="side">
+      <div class="card" style="padding:16px">
+        <div class="small" style="font-weight:700;margin-bottom:2px">Question navigator</div>
+        <div class="tiny muted" id="progText">0 of 100 answered</div>
+        <div class="navgrid" id="navGrid"></div>
+        <div class="legend">
+          <div><span class="sw" style="background:var(--accent);border-color:var(--accent)"></span> Answered</div>
+          <div><span class="sw" style="background:var(--panel-2)"></span> Not answered</div>
+          <div><span class="sw" style="background:var(--flag)"></span> Flagged for review</div>
+        </div>
+        <button class="btn primary sm" id="submitBtn" style="width:100%;margin-top:14px">Submit exam</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section id="resultScreen" class="hide">
+  <div class="card">
+    <h1>Your result</h1>
+    <div class="score">
+      <div class="ring" id="ring"><i id="ringPct">0%</i></div>
+      <div>
+        <div class="verdict" id="verdict">—</div>
+        <p class="muted small" id="scoreLine" style="margin:4px 0 0"></p>
+        <p class="muted small" id="timeLine" style="margin:2px 0 0"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Performance by domain</h2>
+    <table>
+      <thead><tr><th>Domain</th><th class="num">Correct</th><th class="num">Score</th><th style="width:34%"></th></tr></thead>
+      <tbody id="domResult"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Full review</h2>
+    <div class="filters">
+      <button class="btn sm primary" data-f="all">All 100</button>
+      <button class="btn sm" data-f="wrong">Incorrect</button>
+      <button class="btn sm" data-f="skipped">Unanswered</button>
+      <button class="btn sm" data-f="flagged">Flagged</button>
+      <button class="btn sm" data-f="noted">Has a note</button>
+    </div>
+    <div id="reviewList"></div>
+  </div>
+
+  <div class="navrow">
+    <button class="btn primary" id="retakeBtn">Retake exam</button>
+  </div>
+</section>
+
+<footer>
+  <p><b>Lifelong Athletics CPT Practice Exam.</b> Original questions and explanations written for Lifelong Athletics. Answers are checked against the source documents cited beneath each explanation, including ACE, ACSM, NSCA, AHA/ACC, ISSN and the US Physical Activity Guidelines.</p>
+  <p>This is an independent study aid. It is not affiliated with, endorsed by, or a reproduction of any certifying organisation's examination.</p>
+</footer>
+
+</div>
+
+

@@ -7,6 +7,15 @@ const allExams = await getCollection('exam');
 
 // Static cards for standalone visual guide pages (not in the exam collection)
 const staticCards: Record<string, { title: string; description: string; href: string; duration: string; exams: string }[]> = {
+  practice: [
+    {
+      title: 'CPT Practice Exam — Full Syllabus',
+      description: 'A timed, exam-style mock of the full CPT syllabus — 100 questions across every domain, with a 90-minute timer, flag-and-review, resume-where-you-left-off, and a per-domain score breakdown that shows exactly where you are weak. The closest thing to sitting the real exam.',
+      href: '/exam-prep/cpt-practice-exam',
+      duration: '100 Q · 90 min',
+      exams: 'ACE-CPT',
+    },
+  ],
   assessment: [
     {
       title: 'PT Field Guide — Complete Reference',
@@ -119,6 +128,7 @@ const staticCards: Record<string, { title: string; description: string; href: st
 
 // Organize the categories
 const topics = [
+  { id: 'practice', title: 'Full Practice <em>Exam</em>', desc: 'Timed, exam-style — all domains' },
   { id: 'anatomy', title: 'Anatomy <em>&</em> Physiology', desc: 'Foundation of everything' },
   { id: 'biomechanics', title: 'Biomechanics <em>&</em> Movement', desc: 'How forces act on the body' },
   { id: 'programming', title: 'Program <em>Design</em>', desc: 'Turning science into results' },
