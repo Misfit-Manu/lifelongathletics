@@ -5,13 +5,33 @@ import { getCollection } from 'astro:content';
 const allBlogs = await getCollection('blog');
 allBlogs.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+// The muscle-group series lives in its own section at the foot of the page,
+// so it does not displace the main articles in the grid above.
+const SERIES_ORDER = [
+  'shoulder-muscles-exercises-warmup',
+  'chest-muscles-exercises-warmup',
+  'back-muscles-exercises-warmup',
+  'biceps-muscles-exercises-warmup',
+  'triceps-muscles-exercises-warmup',
+  'forearm-muscles-exercises-warmup',
+  'quad-muscles-exercises-warmup',
+  'hamstring-glute-muscles-exercises-warmup',
+  'calf-muscles-exercises-warmup',
+  'core-muscles-exercises-warmup',
+  'hip-muscles-exercises-warmup',
+];
+const isSeries = (p) => SERIES_ORDER.includes(p.id);
+const seriesPosts = SERIES_ORDER
+  .map(id => allBlogs.find(p => p.id === id))
+  .filter(Boolean);
+
 // Move inflammation-types to slot 8 ([3,2] in the 3-col grid) — real photo cards lead
 const inflIdx = allBlogs.findIndex(p => p.id === 'inflammation-types');
 if (inflIdx !== -1 && inflIdx !== 7) {
   const [inflPost] = allBlogs.splice(inflIdx, 1);
   allBlogs.splice(7, 0, inflPost);
 }
-const sorted = allBlogs;
+const sorted = allBlogs.filter(p => !isSeries(p));
 ---
 
 <Layout title="Education — Lifelong Athletics" description="Evidence-based articles on exercise science, behaviour change, mobility, and building a body that performs for decades.">
@@ -192,8 +212,71 @@ const sorted = allBlogs;
     </div>
   </div>
 
+  <!-- MUSCLE-SPECIFIC EXERCISES SERIES -->
+  <div class="series-section">
+    <p class="posts-label">Muscle-Specific Exercises</p>
+    <h2 class="series-heading">Anatomy and Form Explained</h2>
+    <p class="series-intro">
+      One guide per muscle group. What each muscle actually does, the exercises that load it
+      and why, a warm-up built on the RAMP structure, and a short cool-down that is honest
+      about what it can and cannot do.
+    </p>
+
+    <div class="posts-grid">
+      {seriesPosts.map(post => (
+        <a href={`/blog/${post.id}`} class="post-card" data-category="training">
+          <div class="card-img">
+            {post.data.image
+              ? <img src={post.data.image} alt={post.data.imageAlt || post.data.title} loading="lazy" />
+              : null}
+          </div>
+          <div class="card-body">
+            <p class="card-category">{post.data.category}</p>
+            <h3 class="card-title">{post.data.title.replace(': Anatomy, Best Exercises, Warm-Up and Cool-Down', '')}</h3>
+            <p class="card-excerpt">{post.data.description}</p>
+            <div class="card-footer">
+              <span class="card-date">Anatomy · Exercises · Warm-Up</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
 <style>
   /* Local specific styles for the blog engine, omitting globals */
+  .series-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8px 60px 120px;
+  }
+  .series-heading {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--cream, #f5f0e8);
+    margin: 4px 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .series-intro {
+    max-width: 640px;
+    color: rgba(245, 240, 232, 0.6);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0 0 40px;
+  }
+  .series-section .card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .series-section .card-img img {
+    object-fit: contain;
+    padding: 12px;
+  }
+
   .tools-section {
     max-width: 1100px;
     margin: -48px auto 0;
@@ -367,6 +450,8 @@ const sorted = allBlogs;
     .blog-hero { padding: 120px 24px 60px; }
     .posts-section { padding: 40px 24px 80px; }
     .tools-section { padding: 44px 24px 80px; margin-top: 0; }
+    .series-section { padding: 8px 24px 80px; }
+    .series-heading { font-size: 1.6rem; }
     .posts-grid { grid-template-columns: 1fr; }
   }
 </style>
