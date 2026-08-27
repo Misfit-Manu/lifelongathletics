@@ -25,13 +25,17 @@ const seriesPosts = SERIES_ORDER
   .map(id => allBlogs.find(p => p.id === id))
   .filter(Boolean);
 
+// Main grid = everything except the series. Filter FIRST, then position,
+// otherwise the slot-8 placement below counts series cards and lands wrong.
+const mainPosts = allBlogs.filter(p => !isSeries(p));
+
 // Move inflammation-types to slot 8 ([3,2] in the 3-col grid) — real photo cards lead
-const inflIdx = allBlogs.findIndex(p => p.id === 'inflammation-types');
+const inflIdx = mainPosts.findIndex(p => p.id === 'inflammation-types');
 if (inflIdx !== -1 && inflIdx !== 7) {
-  const [inflPost] = allBlogs.splice(inflIdx, 1);
-  allBlogs.splice(7, 0, inflPost);
+  const [inflPost] = mainPosts.splice(inflIdx, 1);
+  mainPosts.splice(7, 0, inflPost);
 }
-const sorted = allBlogs.filter(p => !isSeries(p));
+const sorted = mainPosts;
 ---
 
 <Layout title="Education — Lifelong Athletics" description="Evidence-based articles on exercise science, behaviour change, mobility, and building a body that performs for decades.">
