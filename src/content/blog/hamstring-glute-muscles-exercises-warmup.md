@@ -3,7 +3,7 @@ title: "Hamstrings and Glutes: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "The four hamstring heads and three glute muscles do different jobs at different joint angles. Here is what each one does, which exercises actually load it, and how to warm up before you pull."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/hamstrings-glutes-anatomy-biceps-femoris-long.png"
+image: "/blog/hamstring-glute-muscles-hero.png"
 imageAlt: "Long head of biceps femoris highlighted on the posterior thigh"
 author: "Manu Sehgal"
 ---

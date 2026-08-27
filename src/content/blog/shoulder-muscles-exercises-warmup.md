@@ -3,7 +3,7 @@ title: "Shoulder Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "How the three deltoid heads and four rotator cuff muscles actually work, which exercises train each one, and the warm-up that keeps your shoulders healthy under load."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/shoulder-anatomy-deltoid-lateral.png"
+image: "/blog/shoulder-muscles-hero.png"
 imageAlt: "Lateral deltoid highlighted on shoulder and arm musculature"
 author: "Manu Sehgal"
 ---

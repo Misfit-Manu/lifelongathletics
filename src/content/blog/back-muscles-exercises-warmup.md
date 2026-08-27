@@ -3,7 +3,7 @@ title: "Back Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "What the lats, the three parts of the trapezius, the rhomboids and the spinal muscles actually do, which exercises load each one, and an honest look at what a back warm-up and cool-down can and cannot achieve."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/back-anatomy-latissimus-dorsi.png"
+image: "/blog/back-muscles-hero.png"
 imageAlt: "Latissimus dorsi highlighted on the posterior trunk musculature"
 author: "Manu Sehgal"
 ---

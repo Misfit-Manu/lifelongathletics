@@ -3,7 +3,7 @@ title: "Forearm Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "Over twenty muscles run from elbow to fingertips. Here is what each compartment actually does, which exercises train it, and why wrist curls can never build the muscle that makes a forearm look thick."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/forearms-anatomy-brachioradialis.png"
+image: "/blog/forearm-muscles-hero.png"
 imageAlt: "Brachioradialis highlighted on the forearm musculature"
 author: "Manu Sehgal"
 ---

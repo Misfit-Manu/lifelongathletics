@@ -3,7 +3,7 @@ title: "Hip Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "The hip has more muscles crossing it than any other joint, and most training programmes touch about six of them. What the flexors, adductors and deep rotators actually do, and how to train them."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/hips-anatomy-psoas.png"
+image: "/blog/hip-muscles-hero.png"
 imageAlt: "Psoas major highlighted on the lumbar spine and pelvis"
 author: "Manu Sehgal"
 ---

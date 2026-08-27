@@ -3,7 +3,7 @@ title: "Triceps Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "Why the long head of the triceps needs its own exercise, which movements actually train each head, and how to warm the elbow up properly before you load it."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/triceps-anatomy-triceps-brachii.png"
+image: "/blog/triceps-muscles-hero.png"
 imageAlt: "Triceps brachii highlighted on the posterior upper arm"
 author: "Manu Sehgal"
 ---

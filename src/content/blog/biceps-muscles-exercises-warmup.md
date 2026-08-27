@@ -3,7 +3,7 @@ title: "Biceps Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "Why the biceps is a better supinator than it is an elbow flexor, which curls actually load which head, and how to warm the elbow up before you load it."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/biceps-anatomy-biceps-brachii.png"
+image: "/blog/biceps-muscles-hero.png"
 imageAlt: "Biceps brachii highlighted on the upper arm, showing both heads"
 author: "Manu Sehgal"
 ---

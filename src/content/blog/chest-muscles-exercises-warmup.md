@@ -3,7 +3,7 @@ title: "Chest Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "What the three parts of the pectoralis major actually do, why the pec minor gets blamed for problems it doesn't cause, and the exercises and warm-up that follow from the anatomy."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/chest-anatomy-pectoralis-major.png"
+image: "/blog/chest-muscles-hero.png"
 imageAlt: "Pectoralis major highlighted on the anterior chest wall"
 author: "Manu Sehgal"
 ---

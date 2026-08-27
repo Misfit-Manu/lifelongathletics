@@ -3,7 +3,7 @@ title: "Calf Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "Why the gastrocnemius and soleus need different training, which exercises actually build each one, and the warm-up that prepares the Achilles for load."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/calves-anatomy-gastrocnemius.png"
+image: "/blog/calf-muscles-hero.png"
 imageAlt: "Gastrocnemius highlighted on the posterior lower leg musculature"
 author: "Manu Sehgal"
 ---

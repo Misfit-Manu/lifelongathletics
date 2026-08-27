@@ -3,7 +3,7 @@ title: "Core Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "The core is a pressurised cylinder, not a six-pack. What each layer actually does, the exercises that map onto the anatomy, and an honest look at what warming up and cooling down can and cannot do."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/core-anatomy-transversus-abdominis.png"
+image: "/blog/core-muscles-hero.png"
 imageAlt: "Transversus abdominis highlighted on the deep abdominal wall"
 author: "Manu Sehgal"
 ---

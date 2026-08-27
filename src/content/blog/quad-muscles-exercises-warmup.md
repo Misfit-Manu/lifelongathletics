@@ -3,7 +3,7 @@ title: "Quad Muscles: Anatomy, Best Exercises, Warm-Up and Cool-Down"
 description: "Why one of the four quadriceps heads behaves nothing like the other three, which exercises actually train each of them, and the warm-up and cool-down that make a quad session productive."
 category: "Training"
 pubDate: 2026-08-19
-image: "/blog/quads-anatomy-rectus-femoris.png"
+image: "/blog/quad-muscles-hero.png"
 imageAlt: "Rectus femoris highlighted on the anterior thigh musculature"
 author: "Manu Sehgal"
 ---
