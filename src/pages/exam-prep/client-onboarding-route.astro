@@ -1,0 +1,286 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import body from '../../toolkit-content/client-route-body.html?raw';
+---
+
+<Layout
+  title="C.L.I.E.N.T. — The 6-Step System to Turn First Sessions Into Long-Term Clients | Lifelong Athletics"
+  description="Check, Look, Inquire, Ease In, Navigate, Track — the six steps to run before you program a single set. Grounded in ACSM screening, the ACE IFT model, and the six training variables."
+>
+
+<div class="clr-page">
+
+  <div class="clr-backbar">
+    <a href="/exam-prep" class="clr-back">← Back to Study Hub</a>
+  </div>
+
+  <div class="clr-body" set:html={body}></div>
+
+  <div class="clr-backbar clr-backbar-end">
+    <a href="/exam-prep" class="clr-back clr-back-btn">← Back to Study Hub</a>
+  </div>
+
+</div>
+
+<style is:global>
+  /* Everything is scoped under .clr-page so the source page's bare
+     body / * / h1 rules cannot leak into the rest of the site. */
+  .clr-page{
+    --clr-bg:#0B1220;
+    --clr-bg2:#121B2E;
+    --clr-card:#16213A;
+    --clr-border:#233151;
+    --clr-line:#F0A93B;
+    --clr-sky:#38BDF8;
+    --clr-mint:#34D399;
+    --clr-text:#E7ECF3;
+    --clr-muted:#8592A6;
+
+    background:var(--clr-bg);
+    color:var(--clr-text);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    line-height:1.55;
+    padding-bottom:24px;
+  }
+  .clr-page *{ box-sizing:border-box; margin:0; padding:0; }
+
+  .clr-page .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+
+  /* BACK LINKS */
+  .clr-backbar{ max-width:920px; margin:0 auto; padding:92px 24px 0; }
+  .clr-backbar-end{ padding:8px 24px 72px; }
+  .clr-back{
+    display:inline-block;
+    font-size:0.72rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--clr-muted);
+    text-decoration:none;
+    transition:color .15s ease;
+  }
+  .clr-back:hover{ color:var(--clr-text); }
+  .clr-back-btn{
+    border:1px solid var(--clr-border);
+    border-radius:8px;
+    padding:12px 20px;
+    background:var(--clr-bg2);
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  .clr-back-btn:hover{ border-color:var(--clr-line); color:var(--clr-line); }
+
+  /* HEADER */
+  .clr-page header{
+    padding:34px 0;
+    text-align:center;
+    border-bottom:1px solid var(--clr-border);
+    margin-bottom:32px;
+  }
+  .clr-page .eyebrow{
+    font-size:0.72rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--clr-sky);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .clr-page h1{
+    font-size:clamp(1.35rem, 4.4vw, 2.05rem);
+    font-weight:800;
+    letter-spacing:-0.02em;
+    margin-bottom:14px;
+    line-height:1.25;
+    text-wrap:balance;
+  }
+  .clr-page h1 span{
+    color:var(--clr-line);
+    font-size:clamp(1.9rem, 7vw, 2.9rem);
+    display:inline-block;
+    margin-bottom:6px;
+    letter-spacing:0.02em;
+  }
+  .clr-page .tag{
+    color:var(--clr-muted);
+    font-size:0.98rem;
+    max-width:520px;
+    margin:0 auto;
+  }
+  .clr-page .lede{
+    font-size:1.02rem;
+    color:#C7D0DE;
+    max-width:660px;
+    margin:0 auto 44px;
+    line-height:1.75;
+  }
+
+  /* THE ROUTE MAP */
+  .clr-page .map-section{ margin-bottom:56px; }
+  .clr-page .map-title{
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--clr-muted);
+    text-align:center;
+    margin-bottom:26px;
+  }
+  .clr-page .route{
+    position:relative;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:0 4px;
+  }
+  .clr-page .route::before{
+    content:'';
+    position:absolute;
+    top:26px;
+    left:26px;
+    right:26px;
+    height:3px;
+    background:linear-gradient(90deg, var(--clr-sky), var(--clr-line), var(--clr-mint));
+    z-index:0;
+    border-radius:2px;
+  }
+  .clr-page .stop{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    flex:1;
+    text-align:center;
+    padding:0 4px;
+  }
+  .clr-page .stop .dot{
+    width:54px; height:54px;
+    border-radius:50%;
+    background:var(--clr-bg2);
+    border:3px solid var(--clr-line);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800;
+    font-size:1.15rem;
+    color:var(--clr-text);
+    margin-bottom:12px;
+    flex-shrink:0;
+  }
+  .clr-page .stop:nth-child(1) .dot{ border-color:var(--clr-sky); }
+  .clr-page .stop:nth-child(2) .dot{ border-color:var(--clr-sky); }
+  .clr-page .stop:nth-child(5) .dot{ border-color:var(--clr-mint); }
+  .clr-page .stop:nth-child(6) .dot{ border-color:var(--clr-mint); }
+  .clr-page .stop .word{
+    font-weight:800;
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+    margin-bottom:4px;
+  }
+  .clr-page .stop .micro{
+    font-size:0.72rem;
+    color:var(--clr-muted);
+    max-width:100px;
+  }
+
+  /* STOP CARDS */
+  .clr-page .stop-card{
+    background:var(--clr-card);
+    border:1px solid var(--clr-border);
+    border-radius:10px;
+    padding:22px 24px;
+    margin-bottom:16px;
+    position:relative;
+    overflow:hidden;
+  }
+  .clr-page .stop-card::before{
+    content:'';
+    position:absolute; left:0; top:0; bottom:0; width:4px;
+    background:var(--stripe, var(--clr-line));
+  }
+  .clr-page .stop-card.c1::before, .clr-page .stop-card.c2::before{ --stripe: var(--clr-sky); }
+  .clr-page .stop-card.c5::before, .clr-page .stop-card.c6::before{ --stripe: var(--clr-mint); }
+  .clr-page .sc-head{
+    display:flex; align-items:center; gap:12px; margin-bottom:10px;
+  }
+  .clr-page .sc-num{
+    font-family:'Courier New',monospace;
+    font-size:0.75rem;
+    font-weight:700;
+    color:var(--clr-bg);
+    background:var(--clr-line);
+    width:26px; height:26px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .clr-page .c1 .sc-num, .clr-page .c2 .sc-num{ background:var(--clr-sky); }
+  .clr-page .c5 .sc-num, .clr-page .c6 .sc-num{ background:var(--clr-mint); }
+  .clr-page .sc-head h3{ font-size:1.15rem; font-weight:800; }
+  .clr-page .sc-head .sub{ font-size:0.78rem; color:var(--clr-muted); margin-left:auto; text-align:right; }
+  .clr-page .stop-card p{ font-size:0.93rem; color:#C7D0DE; margin-bottom:8px; }
+  .clr-page .stop-card p:last-child{ margin-bottom:0; }
+  .clr-page .senior-says{
+    background:rgba(240,169,59,0.08);
+    border:1px solid rgba(240,169,59,0.3);
+    border-radius:6px;
+    padding:10px 14px;
+    margin-top:10px;
+    font-size:0.87rem;
+    color:#F3D9A8;
+  }
+  .clr-page .senior-says b{
+    color:var(--clr-line);
+    font-family:'Courier New',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:4px;
+  }
+
+  .clr-page hr.div{ border:none; border-top:1px solid var(--clr-border); margin:44px 0 30px; }
+  .clr-page .grounding{
+    background:var(--clr-bg2);
+    border:1px solid var(--clr-border);
+    border-radius:10px;
+    padding:20px 24px;
+    font-size:0.85rem;
+    color:var(--clr-muted);
+  }
+  .clr-page .grounding b{ color:var(--clr-text); }
+
+  .clr-page footer{
+    text-align:center;
+    font-size:0.72rem;
+    color:var(--clr-muted);
+    padding-top:30px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+
+  /* MOBILE — route flips to a vertical timeline */
+  @media (max-width:720px){
+    .clr-page .route{ flex-direction:column; align-items:stretch; gap:22px; }
+    .clr-page .route::before{
+      top:0; bottom:0; left:26px; right:auto;
+      width:3px; height:auto;
+      background:linear-gradient(180deg, var(--clr-sky), var(--clr-line), var(--clr-mint));
+    }
+    .clr-page .stop{ flex-direction:row; text-align:left; gap:14px; align-items:center; }
+    .clr-page .stop .dot{ margin-bottom:0; }
+    .clr-page .stop .micro{ max-width:none; }
+  }
+
+  @media (max-width:560px){
+    .clr-page .wrap{ padding:0 16px; }
+    .clr-backbar{ padding:84px 16px 0; }
+    .clr-backbar-end{ padding:8px 16px 64px; }
+    .clr-page .stop-card{ padding:18px 16px; }
+    /* stop the "sub" caption being crushed against the heading */
+    .clr-page .sc-head{ flex-wrap:wrap; gap:8px 10px; }
+    .clr-page .sc-head .sub{ margin-left:0; text-align:left; width:100%; }
+    .clr-page .grounding{ padding:16px 16px; }
+    .clr-page .lede{ font-size:0.97rem; }
+  }
+</style>
+
+</Layout>
