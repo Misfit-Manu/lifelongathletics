@@ -47,7 +47,7 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     --gold: #c9a84c;
     --gold-dim: rgba(201,168,76,0.15);
     --white: #f5f0e8;
-    --muted: rgba(245,240,232,0.45);
+    --muted: rgba(245,240,232,0.55);
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body: 'DM Sans', sans-serif;
   }
@@ -723,6 +723,19 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* Accessibility + robustness: never leave content hidden for reduced-motion users */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    h1, .hero-sub, .hero-actions, .persona-card, .service-card, .diff-item, .stat-item, .pillar {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
   /* ─── TABLET ─── */
   @media (max-width: 1024px) {
     section { padding: 100px 40px; }
@@ -732,7 +745,6 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     .persona-grid { grid-template-columns: repeat(2, 1fr); }
     .who-header { gap: 48px; }
     .method-cards { grid-template-columns: 1fr; }
-    .testimonials-grid { grid-template-columns: 1fr 1fr; }
     .about-layout { gap: 60px; }
   }
 
@@ -742,9 +754,9 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     nav.scrolled { padding: 14px 24px; }
     .nav-links { display: none; }
     section { padding: 80px 24px; }
-    #hero { padding: 90px 24px 60px; }
+    #hero { min-height: auto; padding: 104px 24px 64px; }
     #problem { padding: 60px 24px; }
-    .hero-sub { padding-left: 0; }
+    .hero-sub { padding-left: 0; margin-bottom: 32px; }
     .stats-row { grid-template-columns: 1fr; }
     .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 36px 24px; }
     .stat-item:last-child { border-bottom: none; }
@@ -767,6 +779,7 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
   /* ─── SMALL PHONE ─── */
   @media (max-width: 600px) {
     .trust-strip { grid-template-columns: 1fr; }
+    .service-grid { grid-template-columns: 1fr; }
   }
 
   /* ─── WHATSAPP WIDGET ─── */
@@ -795,8 +808,13 @@ const { title = "Lifelong Athletics — Become a Lifelong Athlete", description 
     height: 34px;
     margin-top: -1px;
   }
-  @media (max-width: 768px) {
-    .floating-wa { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+  @media (max-width: 980px) {
+    /* Lift above the mobile bottom tab bar (~60px + safe area) so they don't overlap */
+    .floating-wa {
+      bottom: calc(84px + env(safe-area-inset-bottom));
+      right: 16px;
+      width: 52px; height: 52px;
+    }
     .floating-wa svg { width: 28px; height: 28px; }
   }
 </style>
